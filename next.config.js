@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['placeholder.pics'],
+    domains: ['placeholder.pics', 'images.unsplash.com'],
   },
   // experimental: {
   //   fontLoaders: [

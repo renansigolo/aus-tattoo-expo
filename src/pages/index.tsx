@@ -1,3 +1,4 @@
+import Boxes from '@/components/boxes/Boxes'
 import Cities from '@/components/cities/Cities'
 import FeaturedArtists from '@/components/featured-artists/FeaturedArtists'
 import Navbar from '@/components/Navbar'
@@ -18,6 +19,7 @@ export default function Home() {
 
       <Cities />
       <FeaturedArtists />
+      <Boxes />
 
       <Footer />
     </>
