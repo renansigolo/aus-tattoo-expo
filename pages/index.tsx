@@ -1,8 +1,8 @@
-import { Open_Sans } from "@next/font/google";
-import Head from "next/head";
-import styles from "../styles/Home.module.css";
+import { Open_Sans } from '@next/font/google'
+import Head from 'next/head'
+import styles from '../styles/Home.module.css'
 
-const openSans = Open_Sans({ subsets: ["latin"] });
+const openSans = Open_Sans({ subsets: ['latin'] })
 
 export default function Home() {
   return (
@@ -29,5 +29,5 @@ export default function Home() {
         </p>
       </main>
     </>
-  );
+  )
 }
