@@ -5,11 +5,13 @@
   "homepage": "https://tattooexpo.com.au",
   "author": "Renan Sigolo <renan.sigolo@gmail.com>",
   "scripts": {
-    "clean": "rm -rf .next node_modules env.local next-env.d.ts",
-    "dev": "next dev",
+    "clean": "rm -rf .next node_modules next-env.d.ts",
+    "format": "prettier '**/*' -w -u",
+    "postinstall": "scripts/setup-git-hooks.sh",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "next dev",
+    "lint": "next lint",
+    "start": "next start"
   },
   "dependencies": {
     "@next/font": "13.1.1",
@@ -21,11 +23,15 @@
     "sanitize.css": "^13.0.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "17.4.0",
+    "@commitlint/config-conventional": "17.4.0",
     "@types/node": "18.11.18",
     "@types/react": "18.0.26",
     "@types/react-dom": "18.0.10",
     "eslint": "8.31.0",
     "eslint-config-next": "13.1.1",
+    "eslint-config-prettier": "8.6.0",
+    "prettier": "2.8.1",
     "typescript": "4.9.4"
   },
   "engines": {

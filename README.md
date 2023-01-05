@@ -4,17 +4,15 @@ This is the front-end for the Australian Tattoo Expo website. Created with [Next
 
 ## Getting Started
 
-1. Install Globally
+Install Globally
 
-   - [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-   - [Vercel CLI](https://vercel.com/cli)
-   - [Semantic Release](https://github.com/semantic-release/semantic-release)
+- [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
-1. Grab the environment variables from the vercel server by running
+Grab the environment variables from the vercel server by running
 
-   ```bash
-   vercel env pull
-   ```
+```bash
+npx vercel env pull
+```
 
 ## 🔨 Development
 
@@ -47,18 +45,6 @@ Run `npm run build` to build the project.
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command         | Action                                       |
-| :-------------- | :------------------------------------------- |
-| `npm run clean` | Remove all temporary files                   |
-| `npm run dev`   | Starts local dev server at `localhost:3000`  |
-| `npm run build` | Build your production site to `.next/`       |
-| `npm run start` | Preview your build locally, before deploying |
-| `npm run lint`  | Check your code for any erros                |
 
 ## 📚 Learn More
 
