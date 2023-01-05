@@ -1,4 +1,4 @@
-import style from '@/styles/Cities.module.css'
+import style from '@/styles/Cities.module.scss'
 
 const cities = [
   {
@@ -29,17 +29,16 @@ const cities = [
 
 export default function Cities() {
   return (
-    <section className={`${style.section} section-container`}>
-      <div>
-        <ul role="list" className={style.list}>
+    <section className={style.section}>
+      <div className={style.cities}>
+        <ul role="list">
           {cities.map(({ title, date, venue }) => (
             <li key={title}>
-              <a className={style.item}>
-                <span className={style.title}>{title}</span>
-                <span>{date}</span>
-                <span>
-                  {venue},&nbsp;{title}
-                </span>
+              <a>
+                <span>{title}</span>
+                {date}
+                <br />
+                {venue},&nbsp;{title}
               </a>
             </li>
           ))}

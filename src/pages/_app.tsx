@@ -1,4 +1,4 @@
-import '@/styles/globals.css'
+import '@/styles/globals.scss'
 import { Open_Sans } from '@next/font/google'
 import type { AppProps } from 'next/app'
 
