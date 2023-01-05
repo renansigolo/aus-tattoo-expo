@@ -1,27 +1,25 @@
 .section {
-  @apply overflow-visible bg-stone-800 py-12 text-center uppercase text-white lg:px-8;
+  @apply flex flex-col bg-stone-800 py-12 text-center uppercase text-white;
 
   h2 {
     @apply mb-8 text-4xl font-bold;
   }
 
   ul {
-    @apply flex gap-4;
+    @apply mx-auto flex gap-6 overflow-x-scroll;
   }
 
   .card {
-    @apply flex flex-col gap-4;
-
     header {
-      @apply aspect-square;
+      @apply mb-4 aspect-square;
 
       img {
-        @apply rounded-sm object-cover shadow-lg;
+        @apply rounded-sm object-cover;
       }
     }
 
     footer {
-      @apply space-y-1 text-lg font-medium leading-6;
+      @apply space-y-1 text-base font-medium leading-6;
 
       h3 {
         @apply text-2xl font-bold;

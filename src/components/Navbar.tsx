@@ -80,10 +80,6 @@ const socialIcons = () => {
   )
 }
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
-}
-
 const Hero = () => {
   return (
     <main>
@@ -101,7 +97,7 @@ const Hero = () => {
   )
 }
 
-export function Navbar() {
+export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (

@@ -1,6 +1,7 @@
 import Cities from '@/components/cities/Cities'
 import FeaturedArtists from '@/components/featured-artists/FeaturedArtists'
-import { Navbar } from '@/components/Navbar'
+import Navbar from '@/components/Navbar'
+import Footer from '@/layouts/footer/Footer'
 import Head from 'next/head'
 
 export default function Home() {
@@ -17,6 +18,8 @@ export default function Home() {
 
       <Cities />
       <FeaturedArtists />
+
+      <Footer />
     </>
   )
 }
