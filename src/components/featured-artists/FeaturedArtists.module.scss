@@ -1,0 +1,33 @@
+.section {
+  @apply flex flex-col bg-primary-900 py-12 text-center uppercase text-white;
+
+  h2 {
+    @apply mb-8 text-2xl font-bold lg:text-4xl;
+  }
+
+  ul {
+    @apply mx-auto flex gap-6 overflow-x-scroll;
+  }
+
+  .card {
+    header {
+      @apply mb-4 aspect-square;
+
+      img {
+        @apply min-h-[120px] min-w-[120px] rounded-sm object-cover;
+      }
+    }
+
+    footer {
+      @apply space-y-1 text-base font-medium leading-6;
+
+      h3 {
+        @apply text-lg font-bold lg:text-2xl;
+      }
+
+      p {
+        @apply text-sm font-normal lg:text-base;
+      }
+    }
+  }
+}

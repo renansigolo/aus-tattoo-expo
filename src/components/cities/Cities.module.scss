@@ -1,0 +1,31 @@
+@use 'src/styles/buttons';
+
+.section {
+  @apply bg-black py-5 text-gray-400;
+}
+
+.cities {
+  ul {
+    @apply grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4;
+  }
+
+  li:hover {
+    @apply text-white hover:cursor-pointer;
+  }
+
+  a {
+    @apply flex flex-col items-center text-center uppercase;
+
+    > span {
+      @apply text-3xl font-bold;
+    }
+  }
+}
+
+.tickets {
+  @apply mt-6 flex justify-center;
+
+  > button {
+    @extend %btn-primary;
+  }
+}
