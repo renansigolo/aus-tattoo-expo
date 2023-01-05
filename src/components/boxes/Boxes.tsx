@@ -4,20 +4,17 @@ const boxContent = [
   {
     title: 'Retailers',
     pageUrl: '#',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    imageUrl: 'https://placeholder.pics/svg/1240',
   },
   {
     title: 'Entertainment',
     pageUrl: '#',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    imageUrl: 'https://placeholder.pics/svg/1240',
   },
   {
     title: 'Shop',
     pageUrl: '#',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    imageUrl: 'https://placeholder.pics/svg/1240',
   },
 ]
 

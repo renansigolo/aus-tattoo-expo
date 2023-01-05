@@ -7,9 +7,27 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
+    container: {
+      center: true,
+    },
     extend: {
       fontFamily: {
         sans: ['var(--font-open-sans)', ...defaultTheme.fontFamily.sans],
+      },
+      colors: {
+        primary: {
+          DEFAULT: '#554D35',
+          50: '#B7AC8B',
+          100: '#AFA37E',
+          200: '#9F9165',
+          300: '#877B54',
+          400: '#6E6445',
+          500: '#554D35',
+          600: '#4C442F',
+          700: '#423C29',
+          800: '#393323',
+          900: '#2F2B1D',
+        },
       },
     },
   },

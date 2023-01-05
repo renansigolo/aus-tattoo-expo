@@ -10,38 +10,32 @@ const featuredArtists: FeaturedArtist[] = [
   {
     name: 'Eric Gordon',
     studio: 'The Black Mark',
-    imageUrl:
-      'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
+    imageUrl: 'https://placeholder.pics/svg/1024',
   },
   {
     name: 'Carly Kawaii',
     studio: 'Justat tattoo supplies',
-    imageUrl:
-      'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
+    imageUrl: 'https://placeholder.pics/svg/1024',
   },
   {
     name: 'Matt Curzon',
     studio: 'Empire',
-    imageUrl:
-      'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
+    imageUrl: 'https://placeholder.pics/svg/1024',
   },
   {
     name: 'Lindsay Walton',
     studio: 'Front-end Developer',
-    imageUrl:
-      'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
+    imageUrl: 'https://placeholder.pics/svg/1024',
   },
   {
-    name: 'Lindsay Walton',
+    name: 'Lindsay Walton 2',
     studio: 'Front-end Developer',
-    imageUrl:
-      'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
+    imageUrl: 'https://placeholder.pics/svg/1024',
   },
   {
-    name: 'Lindsay Walton',
+    name: 'Lindsay Walton 3',
     studio: 'Front-end Developer',
-    imageUrl:
-      'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
+    imageUrl: 'https://placeholder.pics/svg/1024',
   },
 ]
 

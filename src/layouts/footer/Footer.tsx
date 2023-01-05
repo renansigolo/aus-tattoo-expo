@@ -5,27 +5,27 @@ const year = new Date().getFullYear()
 const footerContent = {
   sponsors: [
     {
-      title: 'Sponsor Title',
+      title: 'Sponsor Title 1',
       imageUrl: 'https://placeholder.pics/svg/256x256',
     },
     {
-      title: 'Sponsor Title',
+      title: 'Sponsor Title 2',
       imageUrl: 'https://placeholder.pics/svg/256x256',
     },
     {
-      title: 'Sponsor Title',
+      title: 'Sponsor Title 3',
       imageUrl: 'https://placeholder.pics/svg/256x256',
     },
     {
-      title: 'Sponsor Title',
+      title: 'Sponsor Title 4',
       imageUrl: 'https://placeholder.pics/svg/256x256',
     },
     {
-      title: 'Sponsor Title',
+      title: 'Sponsor Title 5',
       imageUrl: 'https://placeholder.pics/svg/256x256',
     },
     {
-      title: 'Sponsor Title',
+      title: 'Sponsor Title 6',
       imageUrl: 'https://placeholder.pics/svg/256x256',
     },
   ],
