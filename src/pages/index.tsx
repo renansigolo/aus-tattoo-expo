@@ -1,4 +1,5 @@
-import Cities from '@/components/Cities'
+import Cities from '@/components/cities/Cities'
+import FeaturedArtists from '@/components/featured-artists/FeaturedArtists'
 import { Navbar } from '@/components/Navbar'
 import Head from 'next/head'
 
@@ -15,6 +16,7 @@ export default function Home() {
       <Navbar />
 
       <Cities />
+      <FeaturedArtists />
     </>
   )
 }

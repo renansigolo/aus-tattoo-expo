@@ -1,6 +1,13 @@
-import style from '@/styles/Cities.module.scss'
+import style from './Cities.module.scss'
 
-const cities = [
+type City = {
+  title: string
+  date: string
+  venue: string
+  href: string
+}
+
+const cities: City[] = [
   {
     title: 'Sydney',
     date: 'April 1-3',
