@@ -1,4 +1,4 @@
-export const classNames = (...classes: string[]) =>
+export const classNames = (...classes: string[] | any[]) =>
   classes.filter(Boolean).join(' ')
 
 type SanitizeHtmlProps = {
