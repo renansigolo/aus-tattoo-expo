@@ -1,4 +1,4 @@
-import style from './boxes.module.scss'
+import style from './style.module.scss'
 
 const boxContent = [
   {
