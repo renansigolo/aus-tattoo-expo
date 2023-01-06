@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: [
+      '*', // lightsail server
       'aus-tattoo-expo.local',
       'placeholder.pics',
       'images.unsplash.com',

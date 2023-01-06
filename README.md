@@ -7,11 +7,12 @@ This is the front-end for the Australian Tattoo Expo website. Created with [Next
 Install Globally
 
 - [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+- [Vercel CLI](https://vercel.com/cli)
 
 Grab the environment variables from the vercel server by running
 
 ```bash
-npx vercel env pull
+vercel env pull .env.local
 ```
 
 ## 🔨 Development
