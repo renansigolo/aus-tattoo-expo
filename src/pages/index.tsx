@@ -17,7 +17,6 @@ export default function Index({
   homePageContent,
   preview,
 }: any) {
-  console.log('🚀 ~ homePageContent', homePageContent)
   const heroPost = edges[0]?.node
   const morePosts = edges.slice(1)
 
