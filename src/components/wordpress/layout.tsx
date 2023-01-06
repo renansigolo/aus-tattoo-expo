@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
 import Alert from './alert'
-import Footer from './footer'
 import Meta from './meta'
 
 type LayoutProps = {
@@ -16,7 +15,7 @@ export default function Layout({ preview, children }: LayoutProps) {
         <Alert preview={preview} />
         <main>{children}</main>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }

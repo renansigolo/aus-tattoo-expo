@@ -1,3 +1,4 @@
+import Container from '@/components/wordpress/container'
 import { SanitizeHtml } from 'src/lib/helpers'
 import style from './Footer.module.scss'
 
@@ -39,25 +40,27 @@ export default function Footer() {
   return (
     <footer className={style.footer}>
       <section>
-        <div className={style.sponsors}>
-          {sponsors.map(({ title, imageUrl }) => (
-            <img
-              key={title}
-              src={imageUrl}
-              alt={title}
-              width={256}
-              height={256}
-            />
-          ))}
-        </div>
+        <Container>
+          <div className={style.sponsors}>
+            {sponsors.map(({ title, imageUrl }) => (
+              <img
+                key={title}
+                src={imageUrl}
+                alt={title}
+                width={256}
+                height={256}
+              />
+            ))}
+          </div>
 
-        <div className={style.disclaimer}>
-          <SanitizeHtml htmlString={disclaimer} element="p" />
-        </div>
+          <div className={style.disclaimer}>
+            <SanitizeHtml htmlString={disclaimer} element="p" />
+          </div>
 
-        <div className={style.copyright}>
-          <p>{copyright}</p>
-        </div>
+          <div className={style.copyright}>
+            <p>{copyright}</p>
+          </div>
+        </Container>
       </section>
     </footer>
   )
