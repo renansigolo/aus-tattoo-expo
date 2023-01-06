@@ -57,6 +57,32 @@ export async function getAllPostsWithSlug() {
   return data?.posts
 }
 
+export async function getHomePageContent(preview: boolean) {
+  const data = await fetchAPI(
+    `
+    query HomePage {
+      page(id: "/", idType: URI) {
+        id
+        content
+        featuredImage {
+          node {
+            sourceUrl
+          }
+        }
+      }
+    }
+  `,
+    {
+      variables: {
+        onlyEnabled: !preview,
+        preview,
+      },
+    }
+  )
+
+  return data?.page
+}
+
 export async function getAllPostsForHome(preview: boolean) {
   const data = await fetchAPI(
     `

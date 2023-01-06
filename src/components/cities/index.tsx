@@ -1,4 +1,4 @@
-import style from './style.module.scss'
+import style from './cities.module.scss'
 
 type City = {
   title: string

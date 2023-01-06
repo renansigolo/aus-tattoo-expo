@@ -1,6 +1,6 @@
 import Container from '@/components/wordpress/container'
 import { SanitizeHtml } from 'src/lib/helpers'
-import style from './style.module.scss'
+import style from './footer.module.scss'
 
 const year = new Date().getFullYear()
 const footerContent = {

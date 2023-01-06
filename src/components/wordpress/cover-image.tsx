@@ -19,7 +19,7 @@ export default function CoverImage({ title, coverImage, slug }: Props) {
       height={1000}
       alt={`Cover Image for ${title}`}
       src={coverImage?.node.sourceUrl}
-      className={classNames('shadow-small', {
+      className={classNames('shadow-small max-w-[100%] lg:max-w-screen-sm', {
         'hover:shadow-medium transition-shadow duration-200': slug,
       })}
     />
