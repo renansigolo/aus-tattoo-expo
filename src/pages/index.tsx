@@ -6,8 +6,10 @@ import Container from '@/components/wordpress/container'
 import HeroPost from '@/components/wordpress/hero-post'
 import MoreStories from '@/components/wordpress/more-stories'
 import Footer from '@/layouts/footer'
+import { SanitizeHtml } from '@/lib/helpers'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
+import Image from 'next/image'
 import { getAllPostsForHome, getHomePageContent } from 'src/lib/api'
 
 export default function Index({
@@ -34,12 +36,26 @@ export default function Index({
         <h2>NAVBAR</h2>
       </section>
 
-      <section className="flex h-96 place-content-center">
-        <img
-          src={homePageContent?.featuredImage?.node?.sourceUrl}
-          alt="Hero Banner"
-          className="w-full object-cover"
-        />
+      <section>
+        <div className="flex h-96 place-content-center">
+          <Image
+            width={1920}
+            height={1080}
+            alt={homePageContent?.featuredImage?.node?.altText}
+            src={homePageContent?.featuredImage?.node?.sourceUrl}
+            className="object-cover"
+          />
+          {/* <img
+            src={homePageContent?.featuredImage?.node?.sourceUrl}
+            alt={homePageContent?.featuredImage?.node?.altText}
+            className="w-full object-cover"
+          /> */}
+        </div>
+        <div className=" grid min-h-[20vh] place-content-center">
+          <Container>
+            <SanitizeHtml htmlString={homePageContent?.content} />
+          </Container>
+        </div>
       </section>
 
       <div className="relative py-6">

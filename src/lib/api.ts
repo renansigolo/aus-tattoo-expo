@@ -67,6 +67,7 @@ export async function getHomePageContent(preview: boolean) {
         featuredImage {
           node {
             sourceUrl
+            altText
           }
         }
       }
