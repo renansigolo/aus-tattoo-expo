@@ -1,4 +1,4 @@
-import style from './FeaturedArtists.module.scss'
+import style from './featured-artists.module.scss'
 
 type FeaturedArtist = {
   name: string
