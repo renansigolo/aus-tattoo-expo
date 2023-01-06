@@ -1,11 +1,20 @@
-import Boxes from '@/components/boxes/Boxes'
-import Cities from '@/components/cities/Cities'
-import FeaturedArtists from '@/components/featured-artists/FeaturedArtists'
-import Instagram from '@/components/instagram/Instagram'
-import Footer from '@/layouts/footer/Footer'
+import Boxes from '@/components/boxes'
+import Cities from '@/components/cities'
+import FeaturedArtists from '@/components/featured-artists'
+import Instagram from '@/components/instagram'
+import Container from '@/components/wordpress/container'
+import HeroPost from '@/components/wordpress/hero-post'
+import Intro from '@/components/wordpress/intro'
+import MoreStories from '@/components/wordpress/more-stories'
+import Footer from '@/layouts/footer'
+import { GetStaticProps } from 'next'
 import Head from 'next/head'
+import { getAllPostsForHome } from 'src/lib/api'
 
-export default function Home() {
+export default function Index({ allPosts: { edges }, preview }: any) {
+  const heroPost = edges[0]?.node
+  const morePosts = edges.slice(1)
+
   return (
     <>
       <Head>
@@ -30,6 +39,21 @@ export default function Home() {
         <h1>HERO BANNER</h1>
       </section>
 
+      <Container>
+        <Intro />
+        {heroPost && (
+          <HeroPost
+            title={heroPost.title}
+            coverImage={heroPost.featuredImage}
+            date={heroPost.date}
+            author={heroPost.author}
+            slug={heroPost.slug}
+            excerpt={heroPost.excerpt}
+          />
+        )}
+        {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+      </Container>
+
       <Cities />
       <FeaturedArtists />
       <Boxes />
@@ -38,4 +62,13 @@ export default function Home() {
       <Footer />
     </>
   )
+}
+
+export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
+  const allPosts = await getAllPostsForHome(preview)
+
+  return {
+    props: { allPosts, preview },
+    revalidate: 10,
+  }
 }
