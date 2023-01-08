@@ -1,4 +1,6 @@
 import Container from '@/components/wordpress/container'
+import Footer from '@/layouts/footer'
+import Image from 'next/image'
 import style from './book.module.scss'
 
 const highlights = [
@@ -61,6 +63,44 @@ const cities = [
     title: 'Melbourne',
     date: 'Dec 2-4',
     venue: 'MCEC',
+  },
+]
+
+const tiers = [
+  {
+    name: 'Single Booth',
+    href: '#',
+    price: 1300,
+    description: '2.5m x 2.0m',
+    imgUrl: 'https://placeholder.pics/svg/300x500',
+  },
+  {
+    name: 'Double Booth',
+    href: '#',
+    price: 2500,
+    description: '4.5m x 2.0m',
+    imgUrl: 'https://placeholder.pics/svg/300x500',
+  },
+  {
+    name: 'Triple Booth',
+    href: '#',
+    price: 3600,
+    description: '6.5m x 2.0m',
+    imgUrl: 'https://placeholder.pics/svg/300x500',
+  },
+  {
+    name: 'Quad. Booth',
+    href: '#',
+    price: 4600,
+    description: '8.5m x 2.0m',
+    imgUrl: 'https://placeholder.pics/svg/300x500',
+  },
+  {
+    name: '5 or more artist booth',
+    href: '#',
+    price: 1100,
+    description: '0.5m + 2.0m PER ARTISTS',
+    imgUrl: 'https://placeholder.pics/svg/300x500',
   },
 ]
 
@@ -156,8 +196,40 @@ export default function Book() {
 
         <section id="section-2" className={style.sectionSpacing}>
           <Heading title="Step 2" description="Choose a Booth Size" />
-          <div className="grid min-h-[30vh] place-content-center text-white">
-            <h2>SECTION 2 CONTENT</h2>
+
+          <div className="mx-auto max-w-7xl py-24 px-6 text-white lg:px-8">
+            <div className="space-y-4 sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0 lg:mx-auto lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-3">
+              {tiers.map((tier, index) => (
+                <div key={tier.name}>
+                  <div className="bg-primary p-6">
+                    <h2 className="text-lg font-medium uppercase leading-6">
+                      {tier.name}
+                    </h2>
+                    <p className="mt-4 text-sm">{tier.description}</p>
+                    <p className="mt-8">
+                      <span className="text-4xl font-bold tracking-tight">
+                        ${tier.price}
+                      </span>{' '}
+                      {index > 3 && (
+                        <span className="text-base font-medium text-white">
+                          PER ARTIST
+                        </span>
+                      )}
+                    </p>
+                    <a
+                      href={tier.href}
+                      className="mt-8 block w-full rounded-sm border py-2 text-center text-base font-semibold text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                    >
+                      Choose {tier.name}
+                    </a>
+                  </div>
+
+                  <div className="flex justify-center px-6 pt-6 pb-8">
+                    <img src={tier.imgUrl} alt={tier.name} />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -172,8 +244,13 @@ export default function Book() {
       <section className={`${style.sectionSpacing} max-w-full bg-black`}>
         <Container>
           <Heading title="Step 4" description="Sign" />
-          <div className="grid min-h-[30vh] place-content-center text-white">
-            <h2>SECTION 4 CONTENT</h2>
+          <div className="grid min-h-[50vh] place-content-center text-white">
+            <Image
+              src={'/images/placeholder-docusign.jpg'}
+              alt="Docu Sign"
+              width={720}
+              height={900}
+            />
           </div>
         </Container>
       </section>
@@ -181,7 +258,7 @@ export default function Book() {
       <section className={style.sectionSpacing}>
         <Container>
           <Heading title="Step 5" description="Payment" />
-          <div className="grid min-h-[30vh] place-content-center text-white">
+          <div className="grid min-h-[50vh] place-content-center text-white">
             <h2>SECTION 5 CONTENT</h2>
           </div>
         </Container>
@@ -232,6 +309,8 @@ export default function Book() {
           </div>
         </Container>
       </section>
+
+      <Footer />
     </div>
   )
 }

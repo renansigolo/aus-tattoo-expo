@@ -1,8 +1,8 @@
 import Image from 'next/image'
 
 type HeroProps = {
-  sourceUrl: string
-  altText: string
+  sourceUrl?: string
+  altText?: string
 }
 
 export default function Hero({

@@ -3,6 +3,7 @@ import Cities from '@/components/cities'
 import FeaturedArtists from '@/components/featured-artists'
 import Hero from '@/components/hero/hero'
 import Instagram from '@/components/instagram'
+import Sponsors from '@/components/sponsors/sponsors'
 import Container from '@/components/wordpress/container'
 import HeroPost from '@/components/wordpress/hero-post'
 import MoreStories from '@/components/wordpress/more-stories'
@@ -67,6 +68,8 @@ export default function Index({
       <Boxes />
       <Instagram />
       {/* <Slider /> */}
+
+      <Sponsors />
 
       <Footer
         disclaimer={homePageContent?.footer?.disclaimer}
