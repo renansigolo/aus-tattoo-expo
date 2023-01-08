@@ -1,15 +1,26 @@
-export default function Hero() {
+import Image from 'next/image'
+
+type HeroProps = {
+  sourceUrl: string
+  altText: string
+}
+
+export default function Hero({
+  sourceUrl = 'https://placeholder.pics/svg/1920x1080',
+  altText = 'Hero Banner',
+}: HeroProps) {
   return (
     <main>
       <div>
         <section>
-          <div className="flex h-96 place-content-center">
-            <img
+          <div className="flex min-h-[50vh]">
+            <Image
+              priority
               width={1920}
               height={1080}
-              alt="Hero Banner"
-              src="https://placeholder.pics/svg/1920x1080"
-              className="object-cover"
+              alt={altText}
+              src={sourceUrl}
+              className="h-auto w-screen object-cover"
             />
           </div>
         </section>

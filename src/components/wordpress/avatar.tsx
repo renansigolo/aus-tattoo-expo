@@ -15,9 +15,10 @@ export default function Avatar({ author }: AvatarProps) {
       <div className="relative mr-4 h-12 w-12">
         <Image
           src={author.node.avatar.url}
-          layout="fill"
           className="rounded-full"
           alt={name}
+          width={48}
+          height={48}
         />
       </div>
       <div className="text-xl font-bold">{name}</div>

@@ -7,12 +7,9 @@ import Container from '@/components/wordpress/container'
 import HeroPost from '@/components/wordpress/hero-post'
 import MoreStories from '@/components/wordpress/more-stories'
 import Footer from '@/layouts/footer'
-import Navbar from '@/layouts/navbar/navbar'
-import { SanitizeHtml } from '@/lib/helpers'
+import { getAllPostsForHome, getHomePageContent } from '@/lib/api'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import { getAllPostsForHome, getHomePageContent } from 'src/lib/api'
 
 export default function Index({
   allPosts: { edges },
@@ -31,31 +28,15 @@ export default function Index({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Navbar />
-
-      <Hero />
-
-      <section>
-        <div className="flex h-96 place-content-center">
-          <Image
-            width={1920}
-            height={1080}
-            alt={homePageContent?.featuredImage?.node?.altText}
-            src={homePageContent?.featuredImage?.node?.sourceUrl}
-            className="object-cover"
-          />
-          {/* <img
-            src={homePageContent?.featuredImage?.node?.sourceUrl}
-            alt={homePageContent?.featuredImage?.node?.altText}
-            className="w-full object-cover"
-          /> */}
-        </div>
-        <div className=" grid min-h-[20vh] place-content-center">
-          <Container>
-            <SanitizeHtml htmlString={homePageContent?.content} />
-          </Container>
-        </div>
+      {/* <Navbar /> */}
+      <section className="grid h-9 place-content-center bg-red-300">
+        <h2>NAVBAR</h2>
       </section>
+
+      <Hero
+        sourceUrl={homePageContent?.featuredImage?.node?.sourceUrl}
+        altText={homePageContent?.featuredImage?.node?.altText}
+      />
 
       <div className="relative py-6">
         <div className="absolute inset-0 flex items-center" aria-hidden="true">
@@ -94,6 +75,11 @@ export default function Index({
 export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
   const allPosts = await getAllPostsForHome(preview)
   const homePageContent = await getHomePageContent(preview)
+  // const artistsContent = await getAllArtists()
+  // console.log(
+  //   '🚀 ~ constgetStaticProps:GetStaticProps= ~ artistsContent',
+  //   artistsContent.edges
+  // )
 
   return {
     props: { allPosts, homePageContent, preview },
