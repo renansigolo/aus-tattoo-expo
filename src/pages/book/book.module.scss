@@ -1,3 +1,5 @@
+@use 'src/styles/buttons';
+
 // Heading Component
 .heading {
   @apply mb-12;
@@ -27,6 +29,10 @@
       @apply mb-2 lg:text-xl;
     }
   }
+}
+
+.customise {
+  @apply grid grid-cols-1 gap-4 py-10 sm:grid-cols-2;
 }
 
 .highlights {
@@ -64,4 +70,9 @@
 // Helper
 .sectionSpacing {
   @apply mx-auto py-16 px-6 text-center sm:py-24 lg:px-8;
+}
+
+.addCart {
+  @extend %btn-primary;
+  @apply my-8;
 }

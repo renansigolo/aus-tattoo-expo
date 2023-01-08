@@ -104,6 +104,21 @@ const tiers = [
   },
 ]
 
+const prints = [
+  'https://placeholder.pics/svg/300x500',
+  'https://placeholder.pics/svg/300x500',
+  'https://placeholder.pics/svg/300x500',
+  'https://placeholder.pics/svg/300x500',
+  'https://placeholder.pics/svg/300x500',
+  'https://placeholder.pics/svg/300x500',
+  'https://placeholder.pics/svg/300x500',
+  'https://placeholder.pics/svg/300x500',
+  'https://placeholder.pics/svg/300x500',
+  'https://placeholder.pics/svg/300x500',
+  'https://placeholder.pics/svg/300x500',
+  'https://placeholder.pics/svg/300x500',
+]
+
 type HeadingProps = {
   title: string
   description: string
@@ -235,8 +250,48 @@ export default function Book() {
 
         <section id="section-3" className={style.sectionSpacing}>
           <Heading title="Step 3" description="Customise Your Booth" />
-          <div className="grid min-h-[30vh] place-content-center text-white">
-            <h2>SECTION 3 CONTENT</h2>
+          <div className={style.customise}>
+            <div className="grid place-content-center">
+              <img
+                src="https://placeholder.pics/svg/300x500"
+                alt="Docu Sign"
+                width={300}
+                height={500}
+              />
+            </div>
+            <div className="bg-black p-8 text-white">
+              <h3 className="mb-8 text-3xl font-semibold">$ PER</h3>
+              <p className="mb-8 text-justify">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                Aliquam nostrum ea veniam maxime soluta necessitatibus dolorem
+                beatae iure optio hic adipisci natus, architecto suscipit.
+              </p>
+
+              <h4 className="text-justify text-lg font-semibold uppercase">
+                Select Print:
+              </h4>
+              <div className="mb-2 grid grid-cols-6 gap-1">
+                {prints.map((url, index) => (
+                  <img
+                    key={index}
+                    src={url}
+                    alt="Docu Sign"
+                    width={300}
+                    height={500}
+                    className=" hover:cursor-pointer hover:ring-2 hover:ring-primary-200"
+                  />
+                ))}
+              </div>
+              <span className="flex text-left text-xs">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lo
+                ipsum dolor sit amet,
+              </span>
+              <button className={style.addCart}>Add to cart</button>
+              <p className="text-justify text-sm">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Adipisci corrupti quae, laborum, totam necessitatibus nam ipsam.
+              </p>
+            </div>
           </div>
         </section>
       </Container>
