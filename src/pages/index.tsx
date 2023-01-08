@@ -34,8 +34,8 @@ export default function Index({
       </section>
 
       <Hero
-        sourceUrl={homePageContent?.featuredImage?.node?.sourceUrl}
-        altText={homePageContent?.featuredImage?.node?.altText}
+        sourceUrl={homePageContent?.page?.featuredImage?.node?.sourceUrl}
+        altText={homePageContent?.page?.featuredImage?.node?.altText}
       />
 
       <div className="relative py-6">
@@ -66,8 +66,12 @@ export default function Index({
       <FeaturedArtists />
       <Boxes />
       <Instagram />
+      {/* <Slider /> */}
 
-      <Footer />
+      <Footer
+        disclaimer={homePageContent?.footer?.disclaimer}
+        copyright={homePageContent?.footer?.copyright}
+      />
     </>
   )
 }
@@ -75,11 +79,6 @@ export default function Index({
 export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
   const allPosts = await getAllPostsForHome(preview)
   const homePageContent = await getHomePageContent(preview)
-  // const artistsContent = await getAllArtists()
-  // console.log(
-  //   '🚀 ~ constgetStaticProps:GetStaticProps= ~ artistsContent',
-  //   artistsContent.edges
-  // )
 
   return {
     props: { allPosts, homePageContent, preview },

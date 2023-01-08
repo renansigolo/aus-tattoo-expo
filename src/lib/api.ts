@@ -73,6 +73,23 @@ export async function getAllArtists() {
   return data?.artists
 }
 
+export async function getFooterContent() {
+  const data = await fetchAPI(`
+  query Footer {
+    siteOptions {
+      options {
+        footer {
+          copyright
+          disclaimer
+        }
+      }
+    }
+  }
+  `)
+
+  return data
+}
+
 export async function getAllPostsWithSlug() {
   const data = await fetchAPI(`
     {
@@ -102,6 +119,14 @@ export async function getHomePageContent(preview: boolean) {
           }
         }
       }
+      siteOptions {
+      options {
+        footer {
+          copyright
+          disclaimer
+          }
+        }
+      }
     }
   `,
     {
@@ -112,7 +137,10 @@ export async function getHomePageContent(preview: boolean) {
     }
   )
 
-  return data?.page
+  return {
+    page: data?.page,
+    footer: data?.siteOptions?.options?.footer,
+  }
 }
 
 export async function getAllPostsForHome(preview: boolean) {

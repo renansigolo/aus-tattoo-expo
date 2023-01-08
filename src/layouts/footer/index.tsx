@@ -34,8 +34,13 @@ const footerContent = {
   copyright: `All rights reserved. The Australian Tattoo Expo ${year}`,
 }
 
-export default function Footer() {
-  const { sponsors, disclaimer, copyright } = footerContent
+type FooterProps = {
+  disclaimer: string
+  copyright: string
+}
+
+export default function Footer({ disclaimer, copyright }: FooterProps) {
+  const { sponsors } = footerContent
 
   return (
     <footer className={style.footer}>
