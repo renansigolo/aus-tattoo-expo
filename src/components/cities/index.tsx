@@ -39,14 +39,26 @@ const cities: City[] = [
   },
 ]
 
-export default function Cities() {
+type CitiesProps = {
+  events: [
+    {
+      active: boolean | null
+      date: string
+      title: string
+      venue: string
+      url: string
+    }
+  ]
+}
+
+export default function Cities({ events }: CitiesProps) {
   return (
     <section className={style.section}>
       <div className={style.cities}>
         <ul role="list">
-          {cities.map(({ title, date, venue, active }) => (
+          {events.map(({ title, date, venue, active, url }) => (
             <li key={title} className={active ? 'text-white' : ''}>
-              <a>
+              <a href={url} target="_blank" rel="noreferrer">
                 <span>{title}</span>
                 {date}
                 <br />

@@ -62,7 +62,7 @@ export default function Index({
         {morePosts.length > 0 && <MoreStories posts={morePosts} />}
       </Container>
 
-      <Cities />
+      <Cities events={homePageContent?.events} />
       <FeaturedArtists />
       <Boxes />
       <Instagram />

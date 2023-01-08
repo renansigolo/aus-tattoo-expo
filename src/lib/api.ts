@@ -108,26 +108,37 @@ export async function getAllPostsWithSlug() {
 export async function getHomePageContent(preview: boolean) {
   const data = await fetchAPI(
     `
-    query HomePage {
-      page(id: "/", idType: URI) {
-        id
-        content
-        featuredImage {
-          node {
-            sourceUrl
-            altText
-          }
-        }
+query HomePage {
+  page(id: "/", idType: URI) {
+    id
+    content
+    featuredImage {
+      node {
+        sourceUrl
+        altText
       }
-      siteOptions {
-      options {
-        footer {
-          copyright
-          disclaimer
-          }
+    }
+    homePage {
+      eventsSection {
+        eventsLocations {
+          active
+          date
+          title
+          venue
+          url
         }
       }
     }
+  }
+  siteOptions {
+    options {
+      footer {
+        copyright
+        disclaimer
+      }
+    }
+  }
+}
   `,
     {
       variables: {
@@ -139,6 +150,7 @@ export async function getHomePageContent(preview: boolean) {
 
   return {
     page: data?.page,
+    events: data?.page?.homePage?.eventsSection?.eventsLocations,
     footer: data?.siteOptions?.options?.footer,
   }
 }
