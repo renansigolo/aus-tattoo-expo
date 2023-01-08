@@ -1,16 +1,16 @@
 import Boxes from '@/components/boxes'
 import Cities from '@/components/cities'
 import FeaturedArtists from '@/components/featured-artists'
+import Hero from '@/components/hero/hero'
 import Instagram from '@/components/instagram'
+import Sponsors from '@/components/sponsors/sponsors'
 import Container from '@/components/wordpress/container'
 import HeroPost from '@/components/wordpress/hero-post'
 import MoreStories from '@/components/wordpress/more-stories'
 import Footer from '@/layouts/footer'
-import { SanitizeHtml } from '@/lib/helpers'
+import { getAllPostsForHome, getHomePageContent } from '@/lib/api'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import { getAllPostsForHome, getHomePageContent } from 'src/lib/api'
 
 export default function Index({
   allPosts: { edges },
@@ -30,32 +30,14 @@ export default function Index({
       </Head>
 
       {/* <Navbar /> */}
-
       <section className="grid h-9 place-content-center bg-red-300">
         <h2>NAVBAR</h2>
       </section>
 
-      <section>
-        <div className="flex h-96 place-content-center">
-          <Image
-            width={1920}
-            height={1080}
-            alt={homePageContent?.featuredImage?.node?.altText}
-            src={homePageContent?.featuredImage?.node?.sourceUrl}
-            className="object-cover"
-          />
-          {/* <img
-            src={homePageContent?.featuredImage?.node?.sourceUrl}
-            alt={homePageContent?.featuredImage?.node?.altText}
-            className="w-full object-cover"
-          /> */}
-        </div>
-        <div className=" grid min-h-[20vh] place-content-center">
-          <Container>
-            <SanitizeHtml htmlString={homePageContent?.content} />
-          </Container>
-        </div>
-      </section>
+      <Hero
+        sourceUrl={homePageContent?.page?.featuredImage?.node?.sourceUrl}
+        altText={homePageContent?.page?.featuredImage?.node?.altText}
+      />
 
       <div className="relative py-6">
         <div className="absolute inset-0 flex items-center" aria-hidden="true">
@@ -81,12 +63,18 @@ export default function Index({
         {morePosts.length > 0 && <MoreStories posts={morePosts} />}
       </Container>
 
-      <Cities />
+      <Cities events={homePageContent?.events} />
       <FeaturedArtists />
       <Boxes />
       <Instagram />
+      {/* <Slider /> */}
 
-      <Footer />
+      <Sponsors />
+
+      <Footer
+        disclaimer={homePageContent?.footer?.disclaimer}
+        copyright={homePageContent?.footer?.copyright}
+      />
     </>
   )
 }

@@ -1,0 +1,78 @@
+@use 'src/styles/buttons';
+
+// Heading Component
+.heading {
+  @apply mb-12;
+
+  > p {
+    @apply inline-flex items-center rounded-full bg-primary px-3 py-0.5 font-medium text-white;
+  }
+
+  > h2 {
+    @apply mt-1 text-3xl font-bold capitalize tracking-tight text-white sm:text-5xl;
+  }
+}
+
+// Sections
+.book {
+  @apply bg-red-900;
+}
+
+.steps {
+  @apply flex flex-col py-12 px-6 text-center text-white sm:flex-row lg:py-16 lg:px-8;
+
+  div {
+    h3 {
+      @apply mb-2 text-lg font-bold uppercase lg:text-2xl;
+    }
+    p {
+      @apply mb-2 lg:text-xl;
+    }
+  }
+}
+
+.customise {
+  @apply grid grid-cols-1 gap-4 py-10 sm:grid-cols-2;
+}
+
+.highlights {
+  @apply grid grid-cols-2 gap-4 py-10 lg:grid-cols-4;
+
+  > div {
+    @apply flex h-36 w-36 flex-col justify-center place-self-center bg-black text-center font-semibold text-white;
+  }
+}
+
+.infoPack {
+  @apply grid grid-cols-1 gap-4 py-10 sm:grid-cols-2;
+
+  > div {
+    @apply bg-primary p-6 text-center text-white;
+
+    > h3 {
+      @apply mb-2 text-2xl font-bold uppercase;
+    }
+
+    > h4 {
+      @apply mb-4 text-xl font-semibold uppercase;
+    }
+
+    > a {
+      @apply uppercase underline;
+    }
+
+    > p {
+      @apply mt-6 font-semibold;
+    }
+  }
+}
+
+// Helper
+.sectionSpacing {
+  @apply mx-auto py-16 px-6 text-center sm:py-24 lg:px-8;
+}
+
+.addCart {
+  @extend %btn-primary;
+  @apply my-8;
+}

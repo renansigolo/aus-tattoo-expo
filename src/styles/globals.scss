@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  accent-color: #554d35;
+}
+
 html,
 body {
   overflow-x: hidden;

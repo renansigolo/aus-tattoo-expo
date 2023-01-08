@@ -1,13 +1,14 @@
 const API_URL: any = process.env.WORDPRESS_API_URL
 
 async function fetchAPI(query = '', { variables }: Record<string, any> = {}) {
-  const headers = { 'Content-Type': 'application/json' }
+  const headers: HeadersInit = { 'Content-Type': 'application/json' }
 
-  // if (process.env.WORDPRESS_AUTH_REFRESH_TOKEN) {
-  //   headers['Authorization'] = `Bearer ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`
-  // }
+  if (process.env.WORDPRESS_AUTH_REFRESH_TOKEN) {
+    headers[
+      'Authorization'
+    ] = `Bearer ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`
+  }
 
-  // WPGraphQL Plugin must be enabled
   const res = await fetch(API_URL, {
     headers,
     method: 'POST',
@@ -42,6 +43,53 @@ export async function getPreviewPost(id: any, idType = 'DATABASE_ID') {
   return data.post
 }
 
+export async function getAllArtists() {
+  const data = await fetchAPI(
+    `
+  query AllArtists {
+    artists {
+      edges {
+        node {
+          id
+          title
+          artists {
+            contactNumber
+            email
+            fieldGroupName
+            studioName
+          }
+          uri
+          featuredImage {
+            node {
+              sourceUrl
+            }
+          }
+        }
+      }
+    }
+  }
+  `
+  )
+  return data?.artists
+}
+
+export async function getFooterContent() {
+  const data = await fetchAPI(`
+  query Footer {
+    siteOptions {
+      options {
+        footer {
+          copyright
+          disclaimer
+        }
+      }
+    }
+  }
+  `)
+
+  return data
+}
+
 export async function getAllPostsWithSlug() {
   const data = await fetchAPI(`
     {
@@ -60,18 +108,37 @@ export async function getAllPostsWithSlug() {
 export async function getHomePageContent(preview: boolean) {
   const data = await fetchAPI(
     `
-    query HomePage {
-      page(id: "/", idType: URI) {
-        id
-        content
-        featuredImage {
-          node {
-            sourceUrl
-            altText
-          }
+query HomePage {
+  page(id: "/", idType: URI) {
+    id
+    content
+    featuredImage {
+      node {
+        sourceUrl
+        altText
+      }
+    }
+    homePage {
+      eventsSection {
+        eventsLocations {
+          active
+          date
+          title
+          venue
+          url
         }
       }
     }
+  }
+  siteOptions {
+    options {
+      footer {
+        copyright
+        disclaimer
+      }
+    }
+  }
+}
   `,
     {
       variables: {
@@ -81,7 +148,11 @@ export async function getHomePageContent(preview: boolean) {
     }
   )
 
-  return data?.page
+  return {
+    page: data?.page,
+    events: data?.page?.homePage?.eventsSection?.eventsLocations,
+    footer: data?.siteOptions?.options?.footer,
+  }
 }
 
 export async function getAllPostsForHome(preview: boolean) {
