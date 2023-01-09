@@ -1,13 +1,12 @@
 import Boxes from "@/components/boxes"
 import Cities from "@/components/cities"
 import FeaturedArtists from "@/components/featured-artists"
-import Hero from "@/components/hero/hero"
+import Hero from "@/components/hero"
 import Instagram from "@/components/instagram"
-import Sponsors from "@/components/sponsors/sponsors"
+import Sponsors from "@/components/sponsors"
 import Container from "@/components/wordpress/container"
 import HeroPost from "@/components/wordpress/hero-post"
 import MoreStories from "@/components/wordpress/more-stories"
-import Footer from "@/layouts/footer"
 import { getAllPostsForHome, getHomePageContent } from "@/lib/api"
 import { GetStaticProps } from "next"
 import Head from "next/head"
@@ -25,10 +24,9 @@ export default function Index({ allPosts: { edges }, homePageContent }: any) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* <Navbar /> */}
-      <section className="grid h-9 place-content-center bg-red-300">
+      {/* <section className="grid h-9 place-content-center bg-red-300">
         <h2>NAVBAR</h2>
-      </section>
+      </section> */}
 
       <Hero
         sourceUrl={homePageContent?.page?.featuredImage?.node?.sourceUrl}
@@ -65,11 +63,6 @@ export default function Index({ allPosts: { edges }, homePageContent }: any) {
       <Instagram />
 
       <Sponsors />
-
-      <Footer
-        disclaimer={homePageContent?.footer?.disclaimer}
-        copyright={homePageContent?.footer?.copyright}
-      />
     </>
   )
 }

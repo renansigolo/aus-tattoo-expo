@@ -1,7 +1,6 @@
-import Hero from "@/components/hero/hero"
+import Hero from "@/components/hero"
 import Notification from "@/components/notification"
 import Container from "@/components/wordpress/container"
-import Footer from "@/layouts/footer"
 import { getPageContent, PageContent } from "@/lib/api"
 import { postRequest } from "@/lib/utils/post-request"
 import { getStripe } from "@/lib/utils/stripe"
@@ -217,9 +216,9 @@ export default function Book({ pageContent }: BookProps) {
   }
   return (
     <div className={style.book}>
-      <section className="grid h-9 place-content-center bg-red-300">
+      {/* <section className="grid h-9 place-content-center bg-red-300">
         <h2>NAVBAR</h2>
-      </section>
+      </section> */}
 
       <Hero
         sourceUrl={pageContent.featuredImage.sourceUrl}
@@ -544,8 +543,6 @@ export default function Book({ pageContent }: BookProps) {
           </div>
         </Container>
       </section>
-
-      <Footer />
     </div>
   )
 }
