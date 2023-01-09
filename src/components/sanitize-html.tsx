@@ -1,6 +1,3 @@
-export const classNames = (...classes: string[] | any[]) =>
-  classes.filter(Boolean).join(" ")
-
 type SanitizeHtmlProps = {
   htmlString: string
   element?: "div" | "span" | "article" | "h1" | "p"

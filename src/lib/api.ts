@@ -1,4 +1,4 @@
-const API_URL: any = process.env.WORDPRESS_API_URL
+const API_URL = String(process.env.WORDPRESS_API_URL)
 
 async function fetchAPI(query = "", { variables }: Record<string, any> = {}) {
   const headers: HeadersInit = { "Content-Type": "application/json" }
@@ -41,6 +41,40 @@ export async function getPreviewPost(id: any, idType = "DATABASE_ID") {
     }
   )
   return data.post
+}
+
+export type PageContent = {
+  id: string
+  title: string
+  featuredImage: { sourceUrl: string; altText: string }
+  content: string | null
+}
+export async function getPageContent(id: string): Promise<PageContent> {
+  const data = await fetchAPI(
+    `
+query Page {
+  page(id: "${id}", idType: URI) {
+    id
+    title
+    featuredImage {
+      node {
+        sourceUrl
+        altText
+      }
+    }
+    content
+  }
+}
+  `
+  )
+
+  return {
+    ...data.page,
+    featuredImage: {
+      sourceUrl: data.page.featuredImage.node.sourceUrl,
+      altText: data.page.featuredImage.node.altText,
+    },
+  }
 }
 
 export async function getAllArtists() {

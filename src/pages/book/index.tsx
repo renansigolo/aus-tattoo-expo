@@ -1,11 +1,13 @@
+import CheckoutForm from "@/components/checkout-form"
+import Hero from "@/components/hero/hero"
 import Container from "@/components/wordpress/container"
 import Footer from "@/layouts/footer"
-import { postRequest } from "@/lib/postRequest"
-import { getStripe } from "@/lib/stripe"
-
-import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js"
+import { getPageContent, PageContent } from "@/lib/api"
+import { getStripe } from "@/lib/utils/stripe"
+import { Elements } from "@stripe/react-stripe-js"
+import { StripeElementsOptions } from "@stripe/stripe-js"
+import { GetStaticProps } from "next"
 import Image from "next/image"
-import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import style from "./book.module.scss"
 
@@ -72,44 +74,6 @@ const cities = [
   },
 ]
 
-const tiers = [
-  {
-    name: "Single Booth",
-    href: "#",
-    price: 1300,
-    description: "2.5m x 2.0m",
-    imgUrl: "https://placeholder.pics/svg/300x500",
-  },
-  {
-    name: "Double Booth",
-    href: "#",
-    price: 2500,
-    description: "4.5m x 2.0m",
-    imgUrl: "https://placeholder.pics/svg/300x500",
-  },
-  {
-    name: "Triple Booth",
-    href: "#",
-    price: 3600,
-    description: "6.5m x 2.0m",
-    imgUrl: "https://placeholder.pics/svg/300x500",
-  },
-  {
-    name: "Quad. Booth",
-    href: "#",
-    price: 4600,
-    description: "8.5m x 2.0m",
-    imgUrl: "https://placeholder.pics/svg/300x500",
-  },
-  {
-    name: "5 or more artist booth",
-    href: "#",
-    price: 1100,
-    description: "0.5m + 2.0m PER ARTISTS",
-    imgUrl: "https://placeholder.pics/svg/300x500",
-  },
-]
-
 const prints = [
   "https://placeholder.pics/svg/300x500",
   "https://placeholder.pics/svg/300x500",
@@ -148,113 +112,96 @@ const mItem = {
   quantity: 1,
 }
 
-const product = {
-  id: "prod_N8Qb5yLbfeqEfo",
-  object: "product",
-  active: true,
-  created: 1673226116,
-  default_price: "price_1MO9kOKRqEIk54YDWERzCYxd",
-  description: "2.5m x 2.0m",
-  images: [
-    "https://files.stripe.com/links/MDB8YWNjdF8xRTEzWWhLUnFFSWs1NFlEfGZsX3Rlc3RfeTRjU3dkRUZobDM0NnNiS2NNYWhvbnJI00sfNBkJ5y",
-  ],
-  livemode: false,
-  metadata: {},
-  name: "Single Booth",
-  package_dimensions: null,
-  shippable: null,
-  statement_descriptor: null,
-  tax_code: null,
-  unit_label: null,
-  updated: 1673226117,
-  url: null,
+type Product = {
+  id: string
+  name: string
+  price: number
+  default_price: string
+  description: string
+  images: string[]
 }
+const products: Product[] = [
+  {
+    id: "prod_N8Qb5yLbfeqEfo",
+    name: "Single Booth",
+    price: 1300,
+    default_price: "prod_N8Qb5yLbfeqEfo",
+    description: "2.5m x 2.0m",
+    images: ["https://placeholder.pics/svg/300x500"],
+  },
+  {
+    id: "prod_N8RHtaizh0Mv1V",
+    name: "Double Booth",
+    price: 2500,
+    default_price: "price_1MOAPEKRqEIk54YDba6Kwzfv",
+    description: "4.5m x 2.0m",
+    images: ["https://placeholder.pics/svg/300x500"],
+  },
+  {
+    id: "prod_N8RIctnTNKm3e5",
+    name: "Triple Booth",
+    price: 3600,
+    default_price: "price_1MOAPdKRqEIk54YDpLwSoZoD",
+    description: "6.5m x 2.0m",
+    images: ["https://placeholder.pics/svg/300x500"],
+  },
+  {
+    id: "prod_N8RI9OojluRfp9",
+    name: "Quad. Booth",
+    price: 4600,
+    description: "8.5m x 2.0m",
+    default_price: "price_1MOAQ9KRqEIk54YDzuPfOUvR",
+    images: ["https://placeholder.pics/svg/300x500"],
+  },
+  {
+    id: "prod_N8RKaoDUqLGKDB",
+    name: "5 or more artist booth",
+    price: 1100,
+    description: "0.5m + 2.0m PER ARTISTS",
+    default_price: "price_1MOARQKRqEIk54YDq1JBX67e",
+    images: ["https://placeholder.pics/svg/300x500"],
+  },
+]
 
-const stripePromise = loadStripe(
-  String(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
-)
+const stripePromise = getStripe()
 
-export default function Book() {
-  const [item, setItem] = useState(mItem)
-  const [loading, setLoading] = useState(false)
-  const { query } = useRouter()
+type BookProps = {
+  pageContent: PageContent
+}
+export default function Book({ pageContent }: BookProps) {
   const [clientSecret, setClientSecret] = useState("")
-
-  const checkout = async () => {
-    setLoading(true)
-
-    // Create a Checkout Session.
-    const response = await postRequest("/api/checkout-session", { item })
-
-    if (response.statusCode === 500) {
-      console.error(response.message)
-      return
-    }
-
-    // Redirect to Checkout.
-    const stripe = await getStripe()
-    const { error } = await stripe!.redirectToCheckout({
-      // Make the id field from the Checkout Session creation API response
-      // available to this file, so you can provide it as parameter here
-      // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
-      sessionId: response.id,
-    })
-    // If `redirectToCheckout` fails due to a browser or network
-    // error, display the localized error message to your customer
-    // using `error.message`.
-    console.warn(error.message)
-    setLoading(false)
-  }
-
-  // const decreaseQuantity: MouseEventHandler<HTMLButtonElement> = () => {
-  //   setItem((item) => ({
-  //     ...item,
-  //     quantity: item.quantity > 1 ? item.quantity - 1 : item.quantity,
-  //   }))
-  // }
-
-  // const increaseQuantity: MouseEventHandler<HTMLButtonElement> = () => {
-  //   setItem((item) => ({ ...item, quantity: item.quantity + 1 }))
-  // }
+  const [item, setItem] = useState<Product>()
 
   useEffect(() => {
-    // Check to see if this is a redirect back from Checkout
-    const query = new URLSearchParams(window.location.search)
-    if (query.get("success")) {
-      console.log("Order placed! You will receive an email confirmation.")
-    }
-
-    if (query.get("canceled")) {
-      console.log(
-        "Order canceled -- continue to shop around and checkout when you’re ready."
-      )
-    }
-  }, [])
-
-  // useEffect(() => {
-  //   // Create PaymentIntent as soon as the page loads
-  //   fetch('/api/create-payment-intent', {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({ items: [{ id: 'xl-tshirt' }] }),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => setClientSecret(data.clientSecret))
-  // }, [])
+    // Create PaymentIntent as soon as the page loads
+    fetch("/api/create-payment-intent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        items: [{ id: item?.id || "prod_N8Qb5yLbfeqEfo" }],
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => setClientSecret(data.clientSecret))
+  }, [item])
 
   const options: StripeElementsOptions = {
-    locale: "en-AU",
     clientSecret,
-    appearance: {
-      theme: "stripe",
-    },
+    appearance: { theme: "stripe" },
   }
+
+  const addToCart = (product: Product) => setItem(product)
 
   return (
     <div className={style.book}>
       <section className="grid h-9 place-content-center bg-red-300">
         <h2>NAVBAR</h2>
       </section>
+
+      <Hero
+        sourceUrl={pageContent.featuredImage.sourceUrl}
+        altText={pageContent.featuredImage.sourceUrl}
+      />
 
       <Container>
         {/* Highlights - Section */}
@@ -328,19 +275,26 @@ export default function Book() {
 
         <section id="section-2" className={style.sectionSpacing}>
           <Heading title="Step 2" description="Choose a Booth Size" />
-
           <div className="mx-auto max-w-7xl py-24 px-6 text-white lg:px-8">
             <div className="space-y-4 sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0 lg:mx-auto lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-3">
-              {tiers.map((tier, index) => (
-                <div key={tier.name}>
-                  <div className="bg-primary p-6">
+              {products.map((product, index) => (
+                <div
+                  key={product.name}
+                  className={`hover:cursor-pointer hover:drop-shadow-lg ${
+                    product.id === item?.id
+                      ? "border-4 border-primary-600"
+                      : "border-transparent"
+                  }`}
+                  onClick={() => addToCart(product)}
+                >
+                  <div className="bg-primary p-6 hover:bg-primary-100">
                     <h2 className="text-lg font-medium uppercase leading-6">
-                      {tier.name}
+                      {product.name}
                     </h2>
-                    <p className="mt-4 text-sm">{tier.description}</p>
+                    <p className="mt-4 text-sm">{product.description}</p>
                     <p className="mt-8">
                       <span className="text-4xl font-bold tracking-tight">
-                        ${tier.price}
+                        ${product.price}
                       </span>{" "}
                       {index > 3 && (
                         <span className="text-base font-medium text-white">
@@ -348,16 +302,10 @@ export default function Book() {
                         </span>
                       )}
                     </p>
-                    <a
-                      href={tier.href}
-                      className="mt-8 block w-full rounded-sm border py-2 text-center text-base font-semibold text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                    >
-                      Choose {tier.name}
-                    </a>
                   </div>
 
                   <div className="flex justify-center px-6 pt-6 pb-8">
-                    <img src={tier.imgUrl} alt={tier.name} />
+                    <img src={product.images[0]} alt={product.name} />
                   </div>
                 </div>
               ))}
@@ -430,136 +378,16 @@ export default function Book() {
       <section className={style.sectionSpacing}>
         <Container>
           <Heading title="Step 5" description="Payment" />
-          {/* {query.status === 'cancelled' && (
-            <div className="mx-auto mt-7 flex max-w-sm items-center justify-center space-x-3 rounded-lg bg-red-400 p-3 text-white shadow-lg shadow-green-200">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              <span>Cancelled by user</span>
-            </div>
-          )}
-          {query.status === 'success' && (
-            <div className="mx-auto mt-7 flex max-w-sm items-center justify-center space-x-3 rounded-lg bg-green-400 p-3 text-white shadow-lg shadow-green-200">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              <span>
-                Payment Successful. Please check your email for the receipt.
-              </span>
-            </div>
-          )}
-          <div className="relative mx-auto mt-8 max-w-sm rounded-lg bg-white shadow-xl ring-1 ring-gray-100">
-            <div className="px-4 py-3">
-              <div className="flex items-center text-purple-600">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
-                </svg>
-                <span className="text-sm">Shopping</span>
-              </div>
-
-              <h5 className="text-xl font-semibold">{item.name}</h5>
-              <p className="text-sm text-gray-400">{item.description}</p>
-
-              <div className="mt-3 flex items-center justify-between">
-                <h6 className="text-3xl font-bold">
-                  ${item.price * item.quantity}
-                </h6>
-                <div className="flex items-center space-x-3">
-                  <button
-                    className="decrease__quantity rounded-full p-1 ring-1 ring-gray-200"
-                    onClick={decreaseQuantity}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4 text-gray-500"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </button>
-
-                  <span className="quantity">{item.quantity}</span>
-
-                  <button
-                    className="increase__quantity rounded-full p-1 ring-1 ring-gray-200"
-                    onClick={increaseQuantity}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4 text-gray-500"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-
-              {loading ? (
-                <button
-                  type="button"
-                  className="mt-6 w-full rounded-md bg-blue-500 py-2 px-3 text-sm uppercase text-white shadow-lg shadow-blue-200 hover:ring-1 hover:ring-blue-500"
-                >
-                  Processing...
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  className="mt-6 w-full rounded-md bg-blue-500 py-2 px-3 text-sm uppercase text-white shadow-lg shadow-blue-200 hover:ring-1 hover:ring-blue-500"
-                  onClick={checkout}
-                >
-                  Checkout
-                </button>
-              )}
-            </div>
-          </div> */}
-
           <div className={style.stripe}>
-            {/* {clientSecret && (
-              <Elements options={options} stripe={stripePromise}>
+            {clientSecret && (
+              <Elements
+                options={options}
+                stripe={stripePromise}
+                key={clientSecret}
+              >
                 <CheckoutForm />
               </Elements>
-            )} */}
-            <form action="/api/checkout-sessions" method="POST">
-              <section>
-                <button type="submit" role="link">
-                  Submit Payment
-                </button>
-              </section>
-            </form>
+            )}
           </div>
         </Container>
       </section>
@@ -613,4 +441,13 @@ export default function Book() {
       <Footer />
     </div>
   )
+}
+
+export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
+  const pageContent = await getPageContent("book")
+
+  return {
+    props: { pageContent },
+    revalidate: 10,
+  }
 }

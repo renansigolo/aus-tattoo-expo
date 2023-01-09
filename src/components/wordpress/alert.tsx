@@ -1,6 +1,5 @@
-// import cn from 'classnames'
-import { EXAMPLE_PATH } from "@/lib/constants"
-import { classNames } from "src/lib/helpers"
+import { classNames } from "@/lib/utils/cn"
+import { EXAMPLE_PATH } from "@/lib/utils/constants"
 import Container from "./container"
 
 type AlertProps = {

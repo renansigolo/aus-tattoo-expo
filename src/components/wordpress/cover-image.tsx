@@ -1,6 +1,6 @@
+import { classNames } from "@/lib/utils/cn"
 import Image from "next/image"
 import Link from "next/link"
-import { classNames } from "src/lib/helpers"
 
 interface Props {
   title: string

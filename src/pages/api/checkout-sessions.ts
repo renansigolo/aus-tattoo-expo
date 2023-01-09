@@ -1,39 +1,53 @@
 import { NextApiRequest, NextApiResponse } from "next"
+import Stripe from "stripe"
 
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
-
-type Data = {
-  name: string
-}
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: "2022-11-15",
+  typescript: true,
+})
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse
 ) {
-  console.log("🚀 ~ handler ~ req", req)
   if (req.method === "POST") {
+    const { item } = req.body
+
     try {
       // Create Checkout Sessions from body params.
-      const session = await stripe.checkout.sessions.create({
+      const params: Stripe.Checkout.SessionCreateParams = {
+        payment_method_types: ["card"],
+        mode: "payment",
+        metadata: {
+          images: item.images[0],
+        },
         line_items: [
           {
-            // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-            price: "{{PRICE_ID}}",
-            quantity: 1,
+            price_data: {
+              currency: "aud",
+              product_data: {
+                images: [item.images[0]],
+                name: item.name,
+              },
+              unit_amount: item.price * 100, // to convert into cents
+            },
+            quantity: item.quantity || 1,
           },
         ],
-        mode: "payment",
-        success_url: `${req.headers.origin}/?success=true`,
-        cancel_url: `${req.headers.origin}/?canceled=true`,
-      })
-      res.redirect(303, session.url)
+        success_url: `${req.headers.origin}?status=success&session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${req.headers.origin}?status=cancelled`,
+      }
+      const checkoutSession: Stripe.Checkout.Session =
+        await stripe.checkout.sessions.create(params)
+
+      res.status(200).json(checkoutSession)
     } catch (err) {
-      res.status(err.statusCode || 500).json(err.message)
+      const errorMessage =
+        err instanceof Error ? err.message : "Internal server error"
+      res.status(500).json({ statusCode: 500, message: errorMessage })
     }
   } else {
     res.setHeader("Allow", "POST")
     res.status(405).end("Method Not Allowed")
   }
 }
-
-// price: 'price_1MO9kOKRqEIk54YDWERzCYxd',

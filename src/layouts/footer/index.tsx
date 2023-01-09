@@ -1,5 +1,5 @@
+import { SanitizeHtml } from "@/components/sanitize-html"
 import Container from "@/components/wordpress/container"
-import { SanitizeHtml } from "src/lib/helpers"
 import style from "./footer.module.scss"
 
 const year = new Date().getFullYear()

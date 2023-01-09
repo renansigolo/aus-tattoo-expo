@@ -16,17 +16,13 @@ export default function CheckoutForm() {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    if (!stripe) {
-      return
-    }
+    if (!stripe) return
 
     const clientSecret = new URLSearchParams(window.location.search).get(
       "payment_intent_client_secret"
     )
 
-    if (!clientSecret) {
-      return
-    }
+    if (!clientSecret) return
 
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
       switch (paymentIntent.status) {
@@ -61,7 +57,7 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3000",
+        return_url: "http://localhost:3000/book",
       },
     })
 

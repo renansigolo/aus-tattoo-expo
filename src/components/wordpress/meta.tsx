@@ -1,4 +1,4 @@
-import { CMS_NAME, HOME_OG_IMAGE_URL } from "@/lib/constants"
+import { CMS_NAME, HOME_OG_IMAGE_URL } from "@/lib/utils/constants"
 import Head from "next/head"
 
 export default function Meta() {
