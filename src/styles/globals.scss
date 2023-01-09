@@ -2,32 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-$primary: #554d35;
-
 :root {
-  accent-color: $primary;
+  accent-color: #554d35;
 }
 
 html,
 body {
   overflow-x: hidden;
-}
-
-// Loading spinner
-.spinner {
-  border: 5px solid #ffffff80;
-  border-top: 5px solid $primary;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }
