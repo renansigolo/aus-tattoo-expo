@@ -16,9 +16,8 @@ export async function postRequest(url: string, data?: {}) {
     })
     return await response.json() // parses JSON response into native JavaScript objects
   } catch (err) {
-    if (err instanceof Error) {
-      throw new Error(err.message)
-    }
+    if (err instanceof Error) throw new Error(err.message)
+
     throw err
   }
 }

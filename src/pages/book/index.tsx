@@ -1,12 +1,10 @@
-import CheckoutForm from "@/components/checkout-form"
 import Hero from "@/components/hero/hero"
+import Notification from "@/components/notification"
 import Container from "@/components/wordpress/container"
 import Footer from "@/layouts/footer"
 import { getPageContent, PageContent } from "@/lib/api"
 import { postRequest } from "@/lib/utils/post-request"
 import { getStripe } from "@/lib/utils/stripe"
-import { Elements } from "@stripe/react-stripe-js"
-import { StripeElementsOptions } from "@stripe/stripe-js"
 import { GetStaticProps } from "next"
 import Image from "next/image"
 import { useRouter } from "next/router"
@@ -122,6 +120,7 @@ type Product = {
   default_price: string
   description: string
   images: string[]
+  quantity: number
 }
 const products: Product[] = [
   {
@@ -131,6 +130,7 @@ const products: Product[] = [
     default_price: "prod_N8Qb5yLbfeqEfo",
     description: "2.5m x 2.0m",
     images: ["https://placeholder.pics/svg/300x500"],
+    quantity: 1,
   },
   {
     id: "prod_N8RHtaizh0Mv1V",
@@ -139,6 +139,7 @@ const products: Product[] = [
     default_price: "price_1MOAPEKRqEIk54YDba6Kwzfv",
     description: "4.5m x 2.0m",
     images: ["https://placeholder.pics/svg/300x500"],
+    quantity: 1,
   },
   {
     id: "prod_N8RIctnTNKm3e5",
@@ -147,14 +148,16 @@ const products: Product[] = [
     default_price: "price_1MOAPdKRqEIk54YDpLwSoZoD",
     description: "6.5m x 2.0m",
     images: ["https://placeholder.pics/svg/300x500"],
+    quantity: 1,
   },
   {
     id: "prod_N8RI9OojluRfp9",
-    name: "Quad. Booth",
+    name: "Quad Booth",
     price: 4600,
     description: "8.5m x 2.0m",
     default_price: "price_1MOAQ9KRqEIk54YDzuPfOUvR",
     images: ["https://placeholder.pics/svg/300x500"],
+    quantity: 1,
   },
   {
     id: "prod_N8RKaoDUqLGKDB",
@@ -163,42 +166,22 @@ const products: Product[] = [
     description: "0.5m + 2.0m PER ARTISTS",
     default_price: "price_1MOARQKRqEIk54YDq1JBX67e",
     images: ["https://placeholder.pics/svg/300x500"],
+    quantity: 5,
   },
 ]
-
-const stripePromise = getStripe()
 
 type BookProps = {
   pageContent: PageContent
 }
 export default function Book({ pageContent }: BookProps) {
-  const [clientSecret, setClientSecret] = useState("")
-  // const [item, setItem] = useState<Product>(products[0])
-  const [item, setItem] = useState(mItem)
+  const [item, setItem] = useState<Product>(products[0])
   const [loading, setLoading] = useState(false)
   const { query } = useRouter()
 
-  const options: StripeElementsOptions = {
-    clientSecret,
-    appearance: { theme: "stripe" },
-  }
-
-  // useEffect(() => {
-  //   // Create PaymentIntent as soon as the page loads
-  //   fetch("/api/create-payment-intent", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({
-  //       items: [{ id: item?.id || "prod_N8Qb5yLbfeqEfo" }],
-  //     }),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => setClientSecret(data.clientSecret))
-  // }, [item])
-
-  // const addToCart = (product: Product) => setItem(product)
-
   const decreaseQuantity: MouseEventHandler<HTMLButtonElement> = () => {
+    // Restrict quantity to 5 for 5 or more artist booth
+    if (item.id === "prod_N8RKaoDUqLGKDB" && item.quantity < 6) return
+
     setItem((item) => ({
       ...item,
       quantity: item.quantity > 1 ? item.quantity - 1 : item.quantity,
@@ -208,6 +191,8 @@ export default function Book({ pageContent }: BookProps) {
   const increaseQuantity: MouseEventHandler<HTMLButtonElement> = () => {
     setItem((item) => ({ ...item, quantity: item.quantity + 1 }))
   }
+
+  const selectProduct = (product: Product) => setItem(product)
 
   const checkout = async () => {
     setLoading(true)
@@ -322,12 +307,12 @@ export default function Book({ pageContent }: BookProps) {
               {products.map((product, index) => (
                 <div
                   key={product.name}
-                  // className={`hover:cursor-pointer hover:drop-shadow-lg ${
-                  //   product.id === item?.id
-                  //     ? "border-4 border-primary-600"
-                  //     : "border-transparent"
-                  // }`}
-                  // onClick={() => addToCart(product)}
+                  className={`hover:cursor-pointer hover:drop-shadow-lg ${
+                    product.id === item?.id
+                      ? "border-4 border-primary-600"
+                      : "border-transparent"
+                  }`}
+                  onClick={() => selectProduct(product)}
                 >
                   <div className="bg-primary p-6 hover:bg-primary-100">
                     <h2 className="text-lg font-medium uppercase leading-6">
@@ -421,44 +406,22 @@ export default function Book({ pageContent }: BookProps) {
         <Container>
           <Heading title="Step 5" description="Payment" />
           {query.status === "cancelled" && (
-            <div className="mx-auto mt-7 flex max-w-sm items-center justify-center space-x-3 rounded-lg bg-red-400 p-3 text-white shadow-lg shadow-green-200">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              <span>Cancelled by user</span>
-            </div>
+            <Notification status="warning" title={"Cancelled by user"} />
           )}
           {query.status === "success" && (
-            <div className="mx-auto mt-7 flex max-w-sm items-center justify-center space-x-3 rounded-lg bg-green-400 p-3 text-white shadow-lg shadow-green-200">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              <span>
-                Payment Successful. Please check your email for the receipt.
-              </span>
-            </div>
+            <Notification
+              status="success"
+              title={
+                "Payment Successful. Please check your email for the receipt."
+              }
+            />
           )}
 
           <div className="relative mx-auto mt-8 max-w-sm rounded-lg bg-white shadow-xl ring-1 ring-gray-100">
             <div className="px-4 py-3">
+              <div className="mb-2 grid place-content-center">
+                <img src={item.images[0]} alt={item.name} />
+              </div>
               <h5 className="text-xl font-semibold">{item.name}</h5>
               <p className="text-sm text-gray-400">{item.description}</p>
 
@@ -510,32 +473,20 @@ export default function Book({ pageContent }: BookProps) {
               {loading ? (
                 <button
                   type="button"
-                  className="mt-6 w-full rounded-md bg-blue-500 py-2 px-3 text-sm uppercase text-white shadow-lg shadow-blue-200 hover:ring-1 hover:ring-blue-500"
+                  className="mt-6 w-full rounded-md bg-primary-500 py-2 px-3 text-sm uppercase text-white shadow-lg shadow-primary-200 hover:ring-1 hover:ring-primary-500"
                 >
                   Processing...
                 </button>
               ) : (
                 <button
                   type="button"
-                  className="mt-6 w-full rounded-md bg-blue-500 py-2 px-3 text-sm uppercase text-white shadow-lg shadow-blue-200 hover:ring-1 hover:ring-blue-500"
+                  className="mt-6 w-full rounded-md bg-primary-500 py-2 px-3 text-sm uppercase text-white shadow-lg shadow-primary-200 hover:ring-1 hover:ring-primary-500"
                   onClick={checkout}
                 >
-                  Checkout
+                  Reserve Now
                 </button>
               )}
             </div>
-          </div>
-
-          <div className={style.stripe}>
-            {clientSecret && (
-              <Elements
-                options={options}
-                stripe={stripePromise}
-                key={clientSecret}
-              >
-                <CheckoutForm />
-              </Elements>
-            )}
           </div>
         </Container>
       </section>
