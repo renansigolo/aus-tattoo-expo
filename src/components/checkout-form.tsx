@@ -12,7 +12,7 @@ export default function CheckoutForm() {
   const elements = useElements()
 
   const [email, setEmail] = useState("")
-  const [message, setMessage] = useState(null)
+  const [message, setMessage] = useState("")
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
@@ -25,24 +25,26 @@ export default function CheckoutForm() {
     if (!clientSecret) return
 
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      switch (paymentIntent.status) {
-        case "succeeded":
-          setMessage("Payment succeeded!")
-          break
-        case "processing":
-          setMessage("Your payment is processing.")
-          break
-        case "requires_payment_method":
-          setMessage("Your payment was not successful, please try again.")
-          break
-        default:
-          setMessage("Something went wrong.")
-          break
+      if (paymentIntent) {
+        switch (paymentIntent.status) {
+          case "succeeded":
+            setMessage("Payment succeeded!")
+            break
+          case "processing":
+            setMessage("Your payment is processing.")
+            break
+          case "requires_payment_method":
+            setMessage("Your payment was not successful, please try again.")
+            break
+          default:
+            setMessage("Something went wrong.")
+            break
+        }
       }
     })
   }, [stripe])
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault()
 
     if (!stripe || !elements) {
@@ -67,7 +69,7 @@ export default function CheckoutForm() {
     // be redirected to an intermediate site first to authorize the payment, then
     // redirected to the `return_url`.
     if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message)
+      setMessage(String(error.message))
     } else {
       setMessage("An unexpected error occurred.")
     }
@@ -83,7 +85,7 @@ export default function CheckoutForm() {
     <form id="payment-form" onSubmit={handleSubmit}>
       <LinkAuthenticationElement
         id="link-authentication-element"
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e: any) => setEmail(e.target.value)}
       />
       <PaymentElement id="payment-element" options={paymentElementOptions} />
       <button disabled={isLoading || !stripe || !elements} id="submit">
