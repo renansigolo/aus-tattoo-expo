@@ -1,20 +1,20 @@
-import style from './boxes.module.scss'
+import style from "./boxes.module.scss"
 
 const boxContent = [
   {
-    title: 'Retailers',
-    pageUrl: '#',
-    imageUrl: 'https://placeholder.pics/svg/1240',
+    title: "Retailers",
+    pageUrl: "#",
+    imageUrl: "https://placeholder.pics/svg/1240",
   },
   {
-    title: 'Entertainment',
-    pageUrl: '#',
-    imageUrl: 'https://placeholder.pics/svg/1240',
+    title: "Entertainment",
+    pageUrl: "#",
+    imageUrl: "https://placeholder.pics/svg/1240",
   },
   {
-    title: 'Shop',
-    pageUrl: '#',
-    imageUrl: 'https://placeholder.pics/svg/1240',
+    title: "Shop",
+    pageUrl: "#",
+    imageUrl: "https://placeholder.pics/svg/1240",
   },
 ]
 

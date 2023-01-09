@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from "next/image"
 
 type HeroProps = {
   sourceUrl?: string
@@ -6,8 +6,8 @@ type HeroProps = {
 }
 
 export default function Hero({
-  sourceUrl = 'https://placeholder.pics/svg/1920x1080',
-  altText = 'Hero Banner',
+  sourceUrl = "https://placeholder.pics/svg/1920x1080",
+  altText = "Hero Banner",
 }: HeroProps) {
   return (
     <main>

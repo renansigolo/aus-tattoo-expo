@@ -1,39 +1,39 @@
-import { Dialog } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { useState } from 'react'
+import { Dialog } from "@headlessui/react"
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"
+import { useState } from "react"
 
 const navigation = [
   {
-    label: 'Home',
-    url: '#',
+    label: "Home",
+    url: "#",
   },
   {
-    label: 'Visiting',
-    url: '#',
+    label: "Visiting",
+    url: "#",
   },
   {
-    label: 'Exhibiting',
-    url: '#',
+    label: "Exhibiting",
+    url: "#",
   },
   {
-    label: 'Artists',
-    url: '#',
+    label: "Artists",
+    url: "#",
   },
   {
-    label: 'Shop',
-    url: '#',
+    label: "Shop",
+    url: "#",
   },
   {
-    label: 'News',
-    url: '#',
+    label: "News",
+    url: "#",
   },
   {
-    label: 'About',
-    url: '#',
+    label: "About",
+    url: "#",
   },
   {
-    label: 'Contact',
-    url: '#',
+    label: "Contact",
+    url: "#",
   },
 ]
 

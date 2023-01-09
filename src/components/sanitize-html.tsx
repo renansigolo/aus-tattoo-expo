@@ -1,21 +1,18 @@
-export const classNames = (...classes: string[] | any[]) =>
-  classes.filter(Boolean).join(' ')
-
 type SanitizeHtmlProps = {
   htmlString: string
-  element?: 'div' | 'span' | 'article' | 'h1' | 'p'
+  element?: "div" | "span" | "article" | "h1" | "p"
 }
 export const SanitizeHtml = ({ htmlString, element }: SanitizeHtmlProps) => {
   switch (element) {
-    case 'div':
+    case "div":
       return <div dangerouslySetInnerHTML={{ __html: htmlString }} />
-    case 'span':
+    case "span":
       return <span dangerouslySetInnerHTML={{ __html: htmlString }} />
-    case 'article':
+    case "article":
       return <article dangerouslySetInnerHTML={{ __html: htmlString }} />
-    case 'h1':
+    case "h1":
       return <h1 dangerouslySetInnerHTML={{ __html: htmlString }} />
-    case 'p':
+    case "p":
       return <p dangerouslySetInnerHTML={{ __html: htmlString }} />
 
     default:

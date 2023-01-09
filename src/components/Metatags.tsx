@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Head from "next/head"
 
 type MetatagsProps = {
   title: string
@@ -7,9 +7,9 @@ type MetatagsProps = {
 }
 
 export function Metatags({
-  title = 'Australian Tattoo Expo',
-  description = 'Australian Tattoo Expo Website',
-  imageUrl = 'https://tattooexpo.com.au/favicons/social-banner.svg',
+  title = "Australian Tattoo Expo",
+  description = "Australian Tattoo Expo Website",
+  imageUrl = "https://tattooexpo.com.au/favicons/social-banner.svg",
 }: MetatagsProps) {
   return (
     <Head>

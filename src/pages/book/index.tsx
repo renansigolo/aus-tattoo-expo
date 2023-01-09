@@ -1,122 +1,92 @@
-import Container from '@/components/wordpress/container'
-import Footer from '@/layouts/footer'
-import Image from 'next/image'
-import style from './book.module.scss'
+import CheckoutForm from "@/components/checkout-form"
+import Hero from "@/components/hero/hero"
+import Container from "@/components/wordpress/container"
+import Footer from "@/layouts/footer"
+import { getPageContent, PageContent } from "@/lib/api"
+import { getStripe } from "@/lib/utils/stripe"
+import { Elements } from "@stripe/react-stripe-js"
+import { StripeElementsOptions } from "@stripe/stripe-js"
+import { GetStaticProps } from "next"
+import Image from "next/image"
+import { useEffect, useState } from "react"
+import style from "./book.module.scss"
 
 const highlights = [
-  { title: 'X+', description: 'Events' },
-  { title: 'X+', description: 'Tattoo Artists' },
-  { title: 'X+', description: 'Visitors' },
-  { title: 'X+', description: 'Exhibitors' },
+  { title: "X+", description: "Events" },
+  { title: "X+", description: "Tattoo Artists" },
+  { title: "X+", description: "Visitors" },
+  { title: "X+", description: "Exhibitors" },
 ]
 
 const steps = [
   {
-    title: 'Step 1',
-    description: 'Select a city',
-    imgUrl: '/images/steps/icon-aus.svg',
+    title: "Step 1",
+    description: "Select a city",
+    imgUrl: "/images/steps/icon-aus.svg",
   },
   {
-    title: 'Step 2',
-    description: 'Choose a booth size',
-    imgUrl: '/images/steps/icon-tape.svg',
+    title: "Step 2",
+    description: "Choose a booth size",
+    imgUrl: "/images/steps/icon-tape.svg",
   },
   {
-    title: 'Step 3',
-    description: 'Customise',
-    imgUrl: '/images/steps/icon-brush.svg',
+    title: "Step 3",
+    description: "Customise",
+    imgUrl: "/images/steps/icon-brush.svg",
   },
   {
-    title: 'Step 4',
-    description: 'Sign',
-    imgUrl: '/images/steps/icon-sign.svg',
+    title: "Step 4",
+    description: "Sign",
+    imgUrl: "/images/steps/icon-sign.svg",
   },
   {
-    title: 'Step 5',
-    description: 'Payment',
-    imgUrl: '/images/steps/icon-card.svg',
+    title: "Step 5",
+    description: "Payment",
+    imgUrl: "/images/steps/icon-card.svg",
   },
   {
-    title: 'Step 6',
-    description: 'Info Pack',
-    imgUrl: '/images/steps/icon-info.svg',
+    title: "Step 6",
+    description: "Info Pack",
+    imgUrl: "/images/steps/icon-info.svg",
   },
 ]
 
 const cities = [
   {
-    title: 'Sydney',
-    date: 'April 1-3',
-    venue: 'ICC',
+    title: "Sydney",
+    date: "April 1-3",
+    venue: "ICC",
   },
   {
-    title: 'Brisbane',
-    date: 'July 15-17',
-    venue: 'BCEC',
+    title: "Brisbane",
+    date: "July 15-17",
+    venue: "BCEC",
   },
   {
-    title: 'Perth',
-    date: 'Sept 9-11',
-    venue: 'PCEC',
+    title: "Perth",
+    date: "Sept 9-11",
+    venue: "PCEC",
   },
   {
-    title: 'Melbourne',
-    date: 'Dec 2-4',
-    venue: 'MCEC',
-  },
-]
-
-const tiers = [
-  {
-    name: 'Single Booth',
-    href: '#',
-    price: 1300,
-    description: '2.5m x 2.0m',
-    imgUrl: 'https://placeholder.pics/svg/300x500',
-  },
-  {
-    name: 'Double Booth',
-    href: '#',
-    price: 2500,
-    description: '4.5m x 2.0m',
-    imgUrl: 'https://placeholder.pics/svg/300x500',
-  },
-  {
-    name: 'Triple Booth',
-    href: '#',
-    price: 3600,
-    description: '6.5m x 2.0m',
-    imgUrl: 'https://placeholder.pics/svg/300x500',
-  },
-  {
-    name: 'Quad. Booth',
-    href: '#',
-    price: 4600,
-    description: '8.5m x 2.0m',
-    imgUrl: 'https://placeholder.pics/svg/300x500',
-  },
-  {
-    name: '5 or more artist booth',
-    href: '#',
-    price: 1100,
-    description: '0.5m + 2.0m PER ARTISTS',
-    imgUrl: 'https://placeholder.pics/svg/300x500',
+    title: "Melbourne",
+    date: "Dec 2-4",
+    venue: "MCEC",
   },
 ]
 
 const prints = [
-  'https://placeholder.pics/svg/300x500',
-  'https://placeholder.pics/svg/300x500',
-  'https://placeholder.pics/svg/300x500',
-  'https://placeholder.pics/svg/300x500',
-  'https://placeholder.pics/svg/300x500',
-  'https://placeholder.pics/svg/300x500',
-  'https://placeholder.pics/svg/300x500',
-  'https://placeholder.pics/svg/300x500',
-  'https://placeholder.pics/svg/300x500',
-  'https://placeholder.pics/svg/300x500',
-  'https://placeholder.pics/svg/300x500',
-  'https://placeholder.pics/svg/300x500',
+  "https://placeholder.pics/svg/300x500",
+  "https://placeholder.pics/svg/300x500",
+  "https://placeholder.pics/svg/300x500",
+  "https://placeholder.pics/svg/300x500",
+  "https://placeholder.pics/svg/300x500",
+  "https://placeholder.pics/svg/300x500",
+  "https://placeholder.pics/svg/300x500",
+  "https://placeholder.pics/svg/300x500",
+  "https://placeholder.pics/svg/300x500",
+  "https://placeholder.pics/svg/300x500",
+  "https://placeholder.pics/svg/300x500",
+  "https://placeholder.pics/svg/300x500",
 ]
 
 type HeadingProps = {
@@ -132,12 +102,106 @@ const Heading = ({ title, description }: HeadingProps) => {
   )
 }
 
-export default function Book() {
+const mItem = {
+  name: "Nike Airforce 1",
+  image:
+    "https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8bmlrZSUyMHNob2VzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+  price: 200,
+  description:
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio, quia!",
+  quantity: 1,
+}
+
+type Product = {
+  id: string
+  name: string
+  price: number
+  default_price: string
+  description: string
+  images: string[]
+}
+const products: Product[] = [
+  {
+    id: "prod_N8Qb5yLbfeqEfo",
+    name: "Single Booth",
+    price: 1300,
+    default_price: "prod_N8Qb5yLbfeqEfo",
+    description: "2.5m x 2.0m",
+    images: ["https://placeholder.pics/svg/300x500"],
+  },
+  {
+    id: "prod_N8RHtaizh0Mv1V",
+    name: "Double Booth",
+    price: 2500,
+    default_price: "price_1MOAPEKRqEIk54YDba6Kwzfv",
+    description: "4.5m x 2.0m",
+    images: ["https://placeholder.pics/svg/300x500"],
+  },
+  {
+    id: "prod_N8RIctnTNKm3e5",
+    name: "Triple Booth",
+    price: 3600,
+    default_price: "price_1MOAPdKRqEIk54YDpLwSoZoD",
+    description: "6.5m x 2.0m",
+    images: ["https://placeholder.pics/svg/300x500"],
+  },
+  {
+    id: "prod_N8RI9OojluRfp9",
+    name: "Quad. Booth",
+    price: 4600,
+    description: "8.5m x 2.0m",
+    default_price: "price_1MOAQ9KRqEIk54YDzuPfOUvR",
+    images: ["https://placeholder.pics/svg/300x500"],
+  },
+  {
+    id: "prod_N8RKaoDUqLGKDB",
+    name: "5 or more artist booth",
+    price: 1100,
+    description: "0.5m + 2.0m PER ARTISTS",
+    default_price: "price_1MOARQKRqEIk54YDq1JBX67e",
+    images: ["https://placeholder.pics/svg/300x500"],
+  },
+]
+
+const stripePromise = getStripe()
+
+type BookProps = {
+  pageContent: PageContent
+}
+export default function Book({ pageContent }: BookProps) {
+  const [clientSecret, setClientSecret] = useState("")
+  const [item, setItem] = useState<Product>()
+
+  useEffect(() => {
+    // Create PaymentIntent as soon as the page loads
+    fetch("/api/create-payment-intent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        items: [{ id: item?.id || "prod_N8Qb5yLbfeqEfo" }],
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => setClientSecret(data.clientSecret))
+  }, [item])
+
+  const options: StripeElementsOptions = {
+    clientSecret,
+    appearance: { theme: "stripe" },
+  }
+
+  const addToCart = (product: Product) => setItem(product)
+
   return (
     <div className={style.book}>
       <section className="grid h-9 place-content-center bg-red-300">
         <h2>NAVBAR</h2>
       </section>
+
+      <Hero
+        sourceUrl={pageContent.featuredImage.sourceUrl}
+        altText={pageContent.featuredImage.sourceUrl}
+      />
 
       <Container>
         {/* Highlights - Section */}
@@ -211,36 +275,37 @@ export default function Book() {
 
         <section id="section-2" className={style.sectionSpacing}>
           <Heading title="Step 2" description="Choose a Booth Size" />
-
           <div className="mx-auto max-w-7xl py-24 px-6 text-white lg:px-8">
             <div className="space-y-4 sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0 lg:mx-auto lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-3">
-              {tiers.map((tier, index) => (
-                <div key={tier.name}>
-                  <div className="bg-primary p-6">
+              {products.map((product, index) => (
+                <div
+                  key={product.name}
+                  className={`hover:cursor-pointer hover:drop-shadow-lg ${
+                    product.id === item?.id
+                      ? "border-4 border-primary-600"
+                      : "border-transparent"
+                  }`}
+                  onClick={() => addToCart(product)}
+                >
+                  <div className="bg-primary p-6 hover:bg-primary-100">
                     <h2 className="text-lg font-medium uppercase leading-6">
-                      {tier.name}
+                      {product.name}
                     </h2>
-                    <p className="mt-4 text-sm">{tier.description}</p>
+                    <p className="mt-4 text-sm">{product.description}</p>
                     <p className="mt-8">
                       <span className="text-4xl font-bold tracking-tight">
-                        ${tier.price}
-                      </span>{' '}
+                        ${product.price}
+                      </span>{" "}
                       {index > 3 && (
                         <span className="text-base font-medium text-white">
                           PER ARTIST
                         </span>
                       )}
                     </p>
-                    <a
-                      href={tier.href}
-                      className="mt-8 block w-full rounded-sm border py-2 text-center text-base font-semibold text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                    >
-                      Choose {tier.name}
-                    </a>
                   </div>
 
                   <div className="flex justify-center px-6 pt-6 pb-8">
-                    <img src={tier.imgUrl} alt={tier.name} />
+                    <img src={product.images[0]} alt={product.name} />
                   </div>
                 </div>
               ))}
@@ -301,7 +366,7 @@ export default function Book() {
           <Heading title="Step 4" description="Sign" />
           <div className="grid min-h-[50vh] place-content-center text-white">
             <Image
-              src={'/images/placeholder-docusign.jpg'}
+              src={"/images/placeholder-docusign.jpg"}
               alt="Docu Sign"
               width={720}
               height={900}
@@ -313,8 +378,16 @@ export default function Book() {
       <section className={style.sectionSpacing}>
         <Container>
           <Heading title="Step 5" description="Payment" />
-          <div className="grid min-h-[50vh] place-content-center text-white">
-            <h2>SECTION 5 CONTENT</h2>
+          <div className={style.stripe}>
+            {clientSecret && (
+              <Elements
+                options={options}
+                stripe={stripePromise}
+                key={clientSecret}
+              >
+                <CheckoutForm />
+              </Elements>
+            )}
           </div>
         </Container>
       </section>
@@ -368,4 +441,13 @@ export default function Book() {
       <Footer />
     </div>
   )
+}
+
+export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
+  const pageContent = await getPageContent("book")
+
+  return {
+    props: { pageContent },
+    revalidate: 10,
+  }
 }

@@ -1,8 +1,8 @@
-import Avatar from './avatar'
-import Categories from './categories'
-import CoverImage from './cover-image'
-import Date from './date'
-import PostTitle from './post-title'
+import Avatar from "./avatar"
+import Categories from "./categories"
+import CoverImage from "./cover-image"
+import Date from "./date"
+import PostTitle from "./post-title"
 
 type PostHeaderProps = {
   title: string

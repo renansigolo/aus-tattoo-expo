@@ -1,4 +1,4 @@
-import style from './featured-artists.module.scss'
+import style from "./featured-artists.module.scss"
 
 type FeaturedArtist = {
   name: string
@@ -8,34 +8,34 @@ type FeaturedArtist = {
 
 const featuredArtists: FeaturedArtist[] = [
   {
-    name: 'Eric Gordon',
-    studio: 'The Black Mark',
-    imageUrl: 'https://placeholder.pics/svg/1024',
+    name: "Eric Gordon",
+    studio: "The Black Mark",
+    imageUrl: "https://placeholder.pics/svg/1024",
   },
   {
-    name: 'Carly Kawaii',
-    studio: 'Justat tattoo supplies',
-    imageUrl: 'https://placeholder.pics/svg/1024',
+    name: "Carly Kawaii",
+    studio: "Justat tattoo supplies",
+    imageUrl: "https://placeholder.pics/svg/1024",
   },
   {
-    name: 'Matt Curzon',
-    studio: 'Empire',
-    imageUrl: 'https://placeholder.pics/svg/1024',
+    name: "Matt Curzon",
+    studio: "Empire",
+    imageUrl: "https://placeholder.pics/svg/1024",
   },
   {
-    name: 'Lindsay Walton',
-    studio: 'Front-end Developer',
-    imageUrl: 'https://placeholder.pics/svg/1024',
+    name: "Lindsay Walton",
+    studio: "Front-end Developer",
+    imageUrl: "https://placeholder.pics/svg/1024",
   },
   {
-    name: 'Lindsay Walton 2',
-    studio: 'Front-end Developer',
-    imageUrl: 'https://placeholder.pics/svg/1024',
+    name: "Lindsay Walton 2",
+    studio: "Front-end Developer",
+    imageUrl: "https://placeholder.pics/svg/1024",
   },
   {
-    name: 'Lindsay Walton 3',
-    studio: 'Front-end Developer',
-    imageUrl: 'https://placeholder.pics/svg/1024',
+    name: "Lindsay Walton 3",
+    studio: "Front-end Developer",
+    imageUrl: "https://placeholder.pics/svg/1024",
   },
 ]
 
