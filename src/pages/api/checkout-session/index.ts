@@ -3,7 +3,6 @@ import Stripe from "stripe"
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2022-11-15",
-  typescript: true,
 })
 
 export default async function handler(
@@ -31,11 +30,11 @@ export default async function handler(
               },
               unit_amount: item.price * 100, // to convert into cents
             },
-            quantity: item.quantity || 1,
+            quantity: item.quantity,
           },
         ],
-        success_url: `${req.headers.origin}?status=success&session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${req.headers.origin}?status=cancelled`,
+        success_url: `${req.headers.origin}/book?status=success&session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${req.headers.origin}/book?status=cancelled`,
       }
       const checkoutSession: Stripe.Checkout.Session =
         await stripe.checkout.sessions.create(params)
