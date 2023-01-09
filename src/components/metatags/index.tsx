@@ -6,7 +6,7 @@ type MetatagsProps = {
   imageUrl: string
 }
 
-export function Metatags({
+export default function Metatags({
   title = "Australian Tattoo Expo",
   description = "Australian Tattoo Expo Website",
   imageUrl = "https://tattooexpo.com.au/favicons/social-banner.svg",

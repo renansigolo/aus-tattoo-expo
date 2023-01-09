@@ -1,6 +1,4 @@
-import Footer from "@/components/footer"
-import Hero from "@/components/hero/hero"
-import Navbar from "@/components/navbar"
+import Hero from "@/components/hero"
 import Notification from "@/components/notification"
 import Container from "@/components/wordpress/container"
 import { getPageContent, PageContent } from "@/lib/api"
@@ -218,7 +216,6 @@ export default function Book({ pageContent }: BookProps) {
   }
   return (
     <div className={style.book}>
-      <Navbar />
       {/* <section className="grid h-9 place-content-center bg-red-300">
         <h2>NAVBAR</h2>
       </section> */}
@@ -546,8 +543,6 @@ export default function Book({ pageContent }: BookProps) {
           </div>
         </Container>
       </section>
-
-      <Footer />
     </div>
   )
 }

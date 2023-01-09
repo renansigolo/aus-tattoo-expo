@@ -5,14 +5,6 @@ import { useState } from "react"
 
 const navigation = [
   {
-    label: "Home",
-    url: "/",
-  },
-  {
-    label: "Buy Tickets",
-    url: "#",
-  },
-  {
     label: "Exhibiting",
     url: "#",
   },
@@ -33,12 +25,12 @@ const navigation = [
     url: "#",
   },
   {
-    label: "Book Booth",
-    url: "book",
-  },
-  {
     label: "Contact",
     url: "#",
+  },
+  {
+    label: "Book Booth",
+    url: "/book",
   },
 ]
 
@@ -101,7 +93,11 @@ export default function Navbar() {
           <Dialog.Panel className="fixed inset-0 z-10 overflow-y-auto bg-white px-6 py-6 lg:hidden">
             <div className="flex h-9 items-center justify-between">
               <div className="flex">
-                <Link href="/" className="-m-1.5 p-1.5">
+                <Link
+                  href="/"
+                  className="-m-1.5 p-1.5"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
                   <span className="sr-only">Your Company</span>
                   <img
                     className="h-8"
@@ -129,6 +125,7 @@ export default function Navbar() {
                       key={item.label}
                       href={item.url}
                       className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-400/10"
+                      onClick={() => setMobileMenuOpen(false)}
                     >
                       {item.label}
                     </Link>
@@ -138,12 +135,14 @@ export default function Navbar() {
                   <Link
                     href="/book"
                     className="-mx-3 block rounded-lg py-6 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10"
+                    onClick={() => setMobileMenuOpen(false)}
                   >
                     Book a Booth
                   </Link>
                   <Link
                     href="#"
                     className="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10"
+                    onClick={() => setMobileMenuOpen(false)}
                   >
                     Buy Tickets
                   </Link>

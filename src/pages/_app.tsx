@@ -1,3 +1,4 @@
+import Layout from "@/components/layout"
 import "@/styles/globals.scss"
 import { Open_Sans } from "@next/font/google"
 import type { AppProps } from "next/app"
@@ -10,7 +11,9 @@ const openSans = Open_Sans({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <main className={`${openSans.variable} font-sans`}>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </main>
   )
 }
