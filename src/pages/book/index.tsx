@@ -365,7 +365,7 @@ export default function Book({ pageContent }: BookProps) {
                 {prints.map((url, index) => (
                   <img
                     key={index}
-                    src={selectedPrint}
+                    src={url}
                     alt={`Print ${index + 1}`}
                     width={300}
                     height={500}

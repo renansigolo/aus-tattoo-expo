@@ -12,11 +12,7 @@ import { getAllPostsForHome, getHomePageContent } from "@/lib/api"
 import { GetStaticProps } from "next"
 import Head from "next/head"
 
-export default function Index({
-  allPosts: { edges },
-  homePageContent,
-  preview,
-}: any) {
+export default function Index({ allPosts: { edges }, homePageContent }: any) {
   const heroPost = edges[0]?.node
   const morePosts = edges.slice(1)
 
@@ -67,7 +63,6 @@ export default function Index({
       <FeaturedArtists />
       <Boxes />
       <Instagram />
-      {/* <Slider /> */}
 
       <Sponsors />
 

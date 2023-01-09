@@ -17,13 +17,11 @@
     "@headlessui/react": "1.7.7",
     "@heroicons/react": "2.0.13",
     "@next/font": "13.1.1",
-    "@stripe/react-stripe-js": "1.16.2",
     "@stripe/stripe-js": "1.46.0",
-    "date-fns": "^2.29.3",
+    "date-fns": "2.29.3",
     "next": "13.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-multi-carousel": "2.8.2",
     "stripe": "11.6.0"
   },
   "devDependencies": {
