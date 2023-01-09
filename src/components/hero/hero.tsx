@@ -13,7 +13,7 @@ export default function Hero({
     <main>
       <div>
         <section>
-          <div className="flex min-h-[50vh]">
+          <div className="flex max-h-[70vh] min-h-[50vh]">
             <Image
               priority
               width={1920}

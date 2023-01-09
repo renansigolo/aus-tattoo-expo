@@ -51,7 +51,12 @@ const steps = [
   },
 ]
 
-const cities = [
+type City = {
+  title: string
+  date: string
+  venue: string
+}
+const cities: City[] = [
   {
     title: "Sydney",
     date: "April 1-3",
@@ -75,18 +80,18 @@ const cities = [
 ]
 
 const prints = [
-  "https://placeholder.pics/svg/300x500",
-  "https://placeholder.pics/svg/300x500",
-  "https://placeholder.pics/svg/300x500",
-  "https://placeholder.pics/svg/300x500",
-  "https://placeholder.pics/svg/300x500",
-  "https://placeholder.pics/svg/300x500",
-  "https://placeholder.pics/svg/300x500",
-  "https://placeholder.pics/svg/300x500",
-  "https://placeholder.pics/svg/300x500",
-  "https://placeholder.pics/svg/300x500",
-  "https://placeholder.pics/svg/300x500",
-  "https://placeholder.pics/svg/300x500",
+  "https://placeholder.pics/svg/300x500/DEDEDE/555555/no-print",
+  "https://placeholder.pics/svg/300x500/DEDEDE/555555/print-1",
+  "https://placeholder.pics/svg/300x500/DEDEDE/555555/print-2",
+  "https://placeholder.pics/svg/300x500/DEDEDE/555555/print-3",
+  "https://placeholder.pics/svg/300x500/DEDEDE/555555/print-4",
+  "https://placeholder.pics/svg/300x500/DEDEDE/555555/print-5",
+  "https://placeholder.pics/svg/300x500/DEDEDE/555555/print-6",
+  "https://placeholder.pics/svg/300x500/DEDEDE/555555/print-7",
+  "https://placeholder.pics/svg/300x500/DEDEDE/555555/print-8",
+  "https://placeholder.pics/svg/300x500/DEDEDE/555555/print-9",
+  "https://placeholder.pics/svg/300x500/DEDEDE/555555/print-10",
+  "https://placeholder.pics/svg/300x500/DEDEDE/555555/print-11",
 ]
 
 type HeadingProps = {
@@ -102,18 +107,7 @@ const Heading = ({ title, description }: HeadingProps) => {
   )
 }
 
-const mItem = {
-  name: "Nike Airforce 1",
-  images: [
-    "https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8bmlrZSUyMHNob2VzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-  ],
-  price: 200,
-  description:
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio, quia!",
-  quantity: 1,
-}
-
-type Product = {
+type Booth = {
   id: string
   name: string
   price: number
@@ -122,14 +116,14 @@ type Product = {
   images: string[]
   quantity: number
 }
-const products: Product[] = [
+const booths: Booth[] = [
   {
     id: "prod_N8Qb5yLbfeqEfo",
     name: "Single Booth",
     price: 1300,
     default_price: "prod_N8Qb5yLbfeqEfo",
     description: "2.5m x 2.0m",
-    images: ["https://placeholder.pics/svg/300x500"],
+    images: ["https://placeholder.pics/svg/300x500/DEDEDE/555555/single-booth"],
     quantity: 1,
   },
   {
@@ -138,7 +132,7 @@ const products: Product[] = [
     price: 2500,
     default_price: "price_1MOAPEKRqEIk54YDba6Kwzfv",
     description: "4.5m x 2.0m",
-    images: ["https://placeholder.pics/svg/300x500"],
+    images: ["https://placeholder.pics/svg/300x500/DEDEDE/555555/double-booth"],
     quantity: 1,
   },
   {
@@ -147,7 +141,7 @@ const products: Product[] = [
     price: 3600,
     default_price: "price_1MOAPdKRqEIk54YDpLwSoZoD",
     description: "6.5m x 2.0m",
-    images: ["https://placeholder.pics/svg/300x500"],
+    images: ["https://placeholder.pics/svg/300x500/DEDEDE/555555/triple-booth"],
     quantity: 1,
   },
   {
@@ -156,7 +150,7 @@ const products: Product[] = [
     price: 4600,
     description: "8.5m x 2.0m",
     default_price: "price_1MOAQ9KRqEIk54YDzuPfOUvR",
-    images: ["https://placeholder.pics/svg/300x500"],
+    images: ["https://placeholder.pics/svg/300x500/DEDEDE/555555/quad-booth"],
     quantity: 1,
   },
   {
@@ -165,7 +159,7 @@ const products: Product[] = [
     price: 1100,
     description: "0.5m + 2.0m PER ARTISTS",
     default_price: "price_1MOARQKRqEIk54YDq1JBX67e",
-    images: ["https://placeholder.pics/svg/300x500"],
+    images: ["https://placeholder.pics/svg/300x500/DEDEDE/555555/five-booth"],
     quantity: 5,
   },
 ]
@@ -174,31 +168,33 @@ type BookProps = {
   pageContent: PageContent
 }
 export default function Book({ pageContent }: BookProps) {
-  const [item, setItem] = useState<Product>(products[0])
+  const [booth, setBooth] = useState<Booth>(booths[0])
+  const [selectedCity, setSelectedCity] = useState<City>(cities[0])
+  const [selectedPrint, setSelectedPrint] = useState(prints[0])
   const [loading, setLoading] = useState(false)
   const { query } = useRouter()
 
+  const year = new Date().getFullYear()
+
   const decreaseQuantity: MouseEventHandler<HTMLButtonElement> = () => {
     // Restrict quantity to 5 for 5 or more artist booth
-    if (item.id === "prod_N8RKaoDUqLGKDB" && item.quantity < 6) return
+    if (booth.id === "prod_N8RKaoDUqLGKDB" && booth.quantity < 6) return
 
-    setItem((item) => ({
+    setBooth((item) => ({
       ...item,
       quantity: item.quantity > 1 ? item.quantity - 1 : item.quantity,
     }))
   }
 
   const increaseQuantity: MouseEventHandler<HTMLButtonElement> = () => {
-    setItem((item) => ({ ...item, quantity: item.quantity + 1 }))
+    setBooth((item) => ({ ...item, quantity: item.quantity + 1 }))
   }
-
-  const selectProduct = (product: Product) => setItem(product)
 
   const checkout = async () => {
     setLoading(true)
 
     // Create a Checkout Session.
-    const response = await postRequest("/api/checkout-session", { item })
+    const response = await postRequest("/api/checkout-session", { item: booth })
 
     if (response.statusCode === 500) {
       console.error(response.message)
@@ -282,37 +278,40 @@ export default function Book({ pageContent }: BookProps) {
       </section>
 
       <Container>
-        <section id="section-1" className={style.sectionSpacing}>
+        <section id="step-1" className={style.sectionSpacing}>
           <Heading title="Step 1" description="Select city" />
           <div className="flex flex-col items-center justify-evenly gap-4 lg:flex-row">
-            {cities.map(({ title, date, venue }) => (
+            {cities.map((city) => (
               <div
-                key={title}
-                className="hover: flex w-full cursor-pointer flex-col place-content-center bg-black p-8 uppercase text-gray-500 hover:text-white"
+                key={city.title}
+                className={`hover: flex w-full cursor-pointer flex-col place-content-center bg-black p-8 uppercase text-gray-500 hover:text-white ${
+                  city.title === selectedCity.title && "text-white"
+                }`}
+                onClick={() => setSelectedCity(city)}
               >
-                <h3 className="mb-2 text-3xl font-semibold">{title}</h3>
-                <p className="text-lg">{date}</p>
+                <h3 className="mb-2 text-3xl font-semibold">{city.title}</h3>
+                <p className="text-lg">{city.date}</p>
                 <p className="text-lg">
-                  {venue}, {title}
+                  {city.venue}, {city.title}
                 </p>
               </div>
             ))}
           </div>
         </section>
 
-        <section id="section-2" className={style.sectionSpacing}>
+        <section id="step-2" className={style.sectionSpacing}>
           <Heading title="Step 2" description="Choose a Booth Size" />
           <div className="mx-auto max-w-7xl py-24 px-6 text-white lg:px-8">
             <div className="space-y-4 sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0 lg:mx-auto lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-3">
-              {products.map((product, index) => (
+              {booths.map((product, index) => (
                 <div
                   key={product.name}
                   className={`hover:cursor-pointer hover:drop-shadow-lg ${
-                    product.id === item?.id
+                    product.id === booth?.id
                       ? "border-4 border-primary-600"
                       : "border-transparent"
                   }`}
-                  onClick={() => selectProduct(product)}
+                  onClick={() => setBooth(product)}
                 >
                   <div className="bg-primary p-6 hover:bg-primary-100">
                     <h2 className="text-lg font-medium uppercase leading-6">
@@ -340,13 +339,13 @@ export default function Book({ pageContent }: BookProps) {
           </div>
         </section>
 
-        <section id="section-3" className={style.sectionSpacing}>
+        <section id="step-3" className={style.sectionSpacing}>
           <Heading title="Step 3" description="Customise Your Booth" />
           <div className={style.customise}>
             <div className="grid place-content-center">
               <img
-                src="https://placeholder.pics/svg/300x500"
-                alt="Docu Sign"
+                src={selectedPrint}
+                alt="Selected Print"
                 width={300}
                 height={500}
               />
@@ -366,11 +365,14 @@ export default function Book({ pageContent }: BookProps) {
                 {prints.map((url, index) => (
                   <img
                     key={index}
-                    src={url}
-                    alt="Docu Sign"
+                    src={selectedPrint}
+                    alt={`Print ${index + 1}`}
                     width={300}
                     height={500}
-                    className=" hover:cursor-pointer hover:ring-2 hover:ring-primary-200"
+                    className={`hover:cursor-pointer hover:ring-2 hover:ring-primary-200 ${
+                      selectedPrint === url && "ring-2 ring-primary-200"
+                    }`}
+                    onClick={() => setSelectedPrint(url)}
                   />
                 ))}
               </div>
@@ -419,15 +421,21 @@ export default function Book({ pageContent }: BookProps) {
 
           <div className="relative mx-auto mt-8 max-w-sm rounded-lg bg-white shadow-xl ring-1 ring-gray-100">
             <div className="px-4 py-3">
+              <p className="mb-2 text-sm text-gray-400">
+                {selectedCity.title} {year} - {selectedCity.date}
+              </p>
               <div className="mb-2 grid place-content-center">
-                <img src={item.images[0]} alt={item.name} />
+                <img src={booth.images[0]} alt={booth.name} />
               </div>
-              <h5 className="text-xl font-semibold">{item.name}</h5>
-              <p className="text-sm text-gray-400">{item.description}</p>
+              <h5 className="text-xl font-semibold">{booth.name}</h5>
+              <p className="text-sm text-gray-400">
+                {selectedPrint.split("/")[selectedPrint.split("/").length - 1]}
+              </p>
+              <p className="text-sm text-gray-400">{booth.description}</p>
 
               <div className="mt-3 flex items-center justify-between">
                 <h6 className="text-3xl font-bold">
-                  ${item.price * item.quantity}
+                  ${booth.price * booth.quantity}
                 </h6>
                 <div className="flex items-center space-x-3">
                   <button
@@ -448,7 +456,7 @@ export default function Book({ pageContent }: BookProps) {
                     </svg>
                   </button>
 
-                  <span className="quantity">{item.quantity}</span>
+                  <span className="quantity">{booth.quantity}</span>
 
                   <button
                     className="increase__quantity rounded-full p-1 ring-1 ring-gray-200"
@@ -491,7 +499,7 @@ export default function Book({ pageContent }: BookProps) {
         </Container>
       </section>
 
-      <section className={style.sectionSpacing}>
+      <section id="info-pack" className={style.sectionSpacing}>
         <Container>
           <Heading title="Step 6" description="Info Pack" />
           <div className={style.infoPack}>
