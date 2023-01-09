@@ -1,6 +1,6 @@
-import { ReactNode } from 'react'
-import Alert from './alert'
-import Meta from './meta'
+import { ReactNode } from "react"
+import Alert from "./alert"
+import Meta from "./meta"
 
 type LayoutProps = {
   preview?: boolean

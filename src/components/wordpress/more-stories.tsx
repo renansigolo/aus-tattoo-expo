@@ -1,4 +1,4 @@
-import PostPreview from './post-preview'
+import PostPreview from "./post-preview"
 
 type MoreStoriesProps = {
   posts: any[]

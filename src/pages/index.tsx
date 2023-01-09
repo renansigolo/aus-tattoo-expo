@@ -1,16 +1,16 @@
-import Boxes from '@/components/boxes'
-import Cities from '@/components/cities'
-import FeaturedArtists from '@/components/featured-artists'
-import Hero from '@/components/hero/hero'
-import Instagram from '@/components/instagram'
-import Sponsors from '@/components/sponsors/sponsors'
-import Container from '@/components/wordpress/container'
-import HeroPost from '@/components/wordpress/hero-post'
-import MoreStories from '@/components/wordpress/more-stories'
-import Footer from '@/layouts/footer'
-import { getAllPostsForHome, getHomePageContent } from '@/lib/api'
-import { GetStaticProps } from 'next'
-import Head from 'next/head'
+import Boxes from "@/components/boxes"
+import Cities from "@/components/cities"
+import FeaturedArtists from "@/components/featured-artists"
+import Hero from "@/components/hero/hero"
+import Instagram from "@/components/instagram"
+import Sponsors from "@/components/sponsors/sponsors"
+import Container from "@/components/wordpress/container"
+import HeroPost from "@/components/wordpress/hero-post"
+import MoreStories from "@/components/wordpress/more-stories"
+import Footer from "@/layouts/footer"
+import { getAllPostsForHome, getHomePageContent } from "@/lib/api"
+import { GetStaticProps } from "next"
+import Head from "next/head"
 
 export default function Index({
   allPosts: { edges },

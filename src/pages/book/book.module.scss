@@ -1,4 +1,4 @@
-@use 'src/styles/buttons';
+@use "src/styles/buttons";
 
 // Heading Component
 .heading {
@@ -64,6 +64,15 @@
     > p {
       @apply mt-6 font-semibold;
     }
+  }
+}
+
+.stripe {
+  @apply grid place-content-center;
+
+  button {
+    @apply mt-4;
+    @extend %btn-primary;
   }
 }
 

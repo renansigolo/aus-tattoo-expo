@@ -4,7 +4,7 @@ export default function Instagram() {
       <div className="bg-black">
         <div className="py-6 text-center uppercase sm:py-12 lg:px-8">
           <h2 className="text-2xl font-bold text-primary sm:text-3xl">
-            Follow for more{' '}
+            Follow for more{" "}
             <a
               href="#"
               target="_blank"

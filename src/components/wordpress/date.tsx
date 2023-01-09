@@ -1,4 +1,4 @@
-import { format, parseISO } from 'date-fns'
+import { format, parseISO } from "date-fns"
 
 type DateProps = {
   dateString: string
@@ -6,5 +6,5 @@ type DateProps = {
 
 export default function Date({ dateString }: DateProps) {
   const date = parseISO(dateString)
-  return <time dateTime={dateString}>{format(date, 'LLLL	d, yyyy')}</time>
+  return <time dateTime={dateString}>{format(date, "LLLL	d, yyyy")}</time>
 }

@@ -1,5 +1,5 @@
-import Carousel from 'react-multi-carousel'
-import 'react-multi-carousel/lib/styles.css'
+import Carousel from "react-multi-carousel"
+import "react-multi-carousel/lib/styles.css"
 
 const responsive = {
   superLargeDesktop: {
@@ -23,28 +23,28 @@ const responsive = {
 
 const sponsors = [
   {
-    title: 'Sponsor Title 1',
-    imageUrl: 'https://placeholder.pics/svg/256x256',
+    title: "Sponsor Title 1",
+    imageUrl: "https://placeholder.pics/svg/256x256",
   },
   {
-    title: 'Sponsor Title 2',
-    imageUrl: 'https://placeholder.pics/svg/256x256',
+    title: "Sponsor Title 2",
+    imageUrl: "https://placeholder.pics/svg/256x256",
   },
   {
-    title: 'Sponsor Title 3',
-    imageUrl: 'https://placeholder.pics/svg/256x256',
+    title: "Sponsor Title 3",
+    imageUrl: "https://placeholder.pics/svg/256x256",
   },
   {
-    title: 'Sponsor Title 4',
-    imageUrl: 'https://placeholder.pics/svg/256x256',
+    title: "Sponsor Title 4",
+    imageUrl: "https://placeholder.pics/svg/256x256",
   },
   {
-    title: 'Sponsor Title 5',
-    imageUrl: 'https://placeholder.pics/svg/256x256',
+    title: "Sponsor Title 5",
+    imageUrl: "https://placeholder.pics/svg/256x256",
   },
   {
-    title: 'Sponsor Title 6',
-    imageUrl: 'https://placeholder.pics/svg/256x256',
+    title: "Sponsor Title 6",
+    imageUrl: "https://placeholder.pics/svg/256x256",
   },
 ]
 
