@@ -67,18 +67,6 @@
   }
 }
 
-.stripe {
-  @apply grid place-content-center;
-
-  form {
-    @apply rounded-md bg-white py-12 px-2 sm:p-12;
-  }
-  button {
-    @apply mt-4;
-    @extend %btn-primary;
-  }
-}
-
 // Helper
 .sectionSpacing {
   @apply mx-auto py-16 px-6 text-center sm:py-24 lg:px-8;
