@@ -5,15 +5,24 @@ import Hero from "@/components/hero"
 import Instagram from "@/components/instagram"
 import Sponsors from "@/components/sponsors"
 import Container from "@/components/wordpress/container"
-import HeroPost from "@/components/wordpress/hero-post"
-import MoreStories from "@/components/wordpress/more-stories"
 import { getAllPostsForHome, getHomePageContent } from "@/lib/api"
+import { Artists, getAllArtistsProfiles } from "@/lib/legacy-api"
 import { GetStaticProps } from "next"
 import Head from "next/head"
 
-export default function Index({ allPosts: { edges }, homePageContent }: any) {
-  const heroPost = edges[0]?.node
-  const morePosts = edges.slice(1)
+type IndexProps = {
+  allPosts: any
+  homePageContent: any
+  artists: Artists
+}
+
+export default function Index({
+  allPosts: { edges },
+  homePageContent,
+  artists,
+}: IndexProps): JSX.Element {
+  // const heroPost = edges[0]?.node
+  // const morePosts = edges.slice(1)
 
   return (
     <>
@@ -24,27 +33,14 @@ export default function Index({ allPosts: { edges }, homePageContent }: any) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* <section className="grid h-9 place-content-center bg-red-300">
-        <h2>NAVBAR</h2>
-      </section> */}
-
       <Hero
         sourceUrl={homePageContent?.page?.featuredImage?.node?.sourceUrl}
         altText={homePageContent?.page?.featuredImage?.node?.altText}
       />
 
-      <div className="relative py-6">
-        <div className="absolute inset-0 flex items-center" aria-hidden="true">
-          <div className="w-full border-t border-gray-300" />
-        </div>
-        <div className="relative flex justify-center">
-          <span className="bg-white px-2 text-gray-500">Divider</span>
-        </div>
-      </div>
-
       <Container>
         {/* <Intro /> */}
-        {heroPost && (
+        {/* {heroPost && (
           <HeroPost
             title={heroPost.title}
             coverImage={heroPost.featuredImage}
@@ -54,11 +50,11 @@ export default function Index({ allPosts: { edges }, homePageContent }: any) {
             excerpt={heroPost.excerpt}
           />
         )}
-        {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+        {morePosts.length > 0 && <MoreStories posts={morePosts} />} */}
       </Container>
 
       <Cities events={homePageContent?.events} />
-      <FeaturedArtists />
+      <FeaturedArtists featuredArtists={artists.profiles} />
       <Boxes />
       <Instagram />
 
@@ -70,9 +66,10 @@ export default function Index({ allPosts: { edges }, homePageContent }: any) {
 export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
   const allPosts = await getAllPostsForHome(preview)
   const homePageContent = await getHomePageContent(preview)
+  const artists = await getAllArtistsProfiles()
 
   return {
-    props: { allPosts, homePageContent, preview },
+    props: { allPosts, homePageContent, artists, preview },
     revalidate: 10,
   }
 }
