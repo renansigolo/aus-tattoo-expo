@@ -6,6 +6,7 @@ import FeaturedArtists from "@/components/featured-artists"
 import Hero from "@/components/hero"
 import Instagram from "@/components/instagram"
 import Sponsors from "@/components/sponsors"
+import YoutubePlayer from "@/components/youtube-player"
 import { getAllPostsForHome, getHomePageContent } from "@/lib/api"
 import { Artists, getAllArtistsProfiles } from "@/lib/legacy-api"
 import { GetStaticProps } from "next"
@@ -36,6 +37,7 @@ export default function Index({
         altText={homePageContent?.page?.featuredImage?.node?.altText}
       />
       <Banner />
+      <YoutubePlayer embedId={homePageContent?.page?.embedId} />
       <Cities events={homePageContent?.events} />
       <FeaturedArtists featuredArtists={artists.profiles} />
       <CTA />

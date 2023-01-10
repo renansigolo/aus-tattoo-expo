@@ -139,8 +139,45 @@ export async function getAllPostsWithSlug() {
   return data?.posts
 }
 
+type GetHomePageContent = {
+  page: {
+    id: string
+    content: any
+    featuredImage: { node: [{ sourceUrl: string; altText: string }] }
+    homePage: {
+      eventsSection: {
+        eventsLocations: [
+          active: boolean,
+          date: string,
+          title: string,
+          url: string,
+          venue: string
+        ]
+      }
+    }
+    sponsors: {
+      images: [
+        {
+          image: {
+            altText: string
+            sourceUrl: string
+          }
+        }
+      ]
+    }
+    youtube: { videoUrl: string }
+  }
+  siteOptions: {
+    options: {
+      footer: {
+        copyright: string
+        disclaimer: string
+      }
+    }
+  }
+}
 export async function getHomePageContent() {
-  const data = await fetchAPI(
+  const data: GetHomePageContent = await fetchAPI(
     `
 query HomePage {
   page(id: "/", idType: URI) {
@@ -171,6 +208,9 @@ query HomePage {
         }
       }
     }
+    youtube {
+      videoUrl
+    }
   }
   siteOptions {
     options {
@@ -185,7 +225,10 @@ query HomePage {
   )
 
   return {
-    page: data?.page,
+    page: {
+      ...data?.page,
+      embedId: data.page.youtube.videoUrl.split("v=")[1],
+    },
     events: data?.page?.homePage?.eventsSection?.eventsLocations,
     footer: data?.siteOptions?.options?.footer,
   }
