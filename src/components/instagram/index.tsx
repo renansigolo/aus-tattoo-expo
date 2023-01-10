@@ -1,18 +1,18 @@
+import Link from "next/link"
+
 export default function Instagram() {
   return (
     <>
       <div className="bg-black">
         <div className="py-6 text-center uppercase sm:py-12 lg:px-8">
           <h2 className="text-2xl font-bold text-primary sm:text-3xl">
-            Follow for more{" "}
-            <a
-              href="#"
+            <Link
+              href="https://instagram.com/austattooexpo"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white"
             >
-              @AUSTATTOOEXPO
-            </a>
+              Follow for more <span className="text-white">@AUSTATTOOEXPO</span>
+            </Link>
           </h2>
         </div>
       </div>

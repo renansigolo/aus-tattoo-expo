@@ -1,3 +1,4 @@
+import Link from "next/link"
 import style from "./cities.module.scss"
 
 type City = {
@@ -58,19 +59,26 @@ export default function Cities({ events }: CitiesProps) {
         <ul role="list">
           {events.map(({ title, date, venue, active, url }) => (
             <li key={title} className={active ? "text-white" : ""}>
-              <a href={url} target="_blank" rel="noreferrer">
+              <Link href={url || "#"} target="_blank" rel="noreferrer">
                 <span>{title}</span>
                 {date}
                 <br />
                 {venue},&nbsp;{title}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
       </div>
 
       <div className={style.tickets}>
-        <button type="button">Buy Tickets</button>
+        <Link
+          href={
+            "https://www.eventbrite.com/cc/aus-tattoo-expo-2023-tour-1538659"
+          }
+          target="_blank"
+        >
+          Buy Tickets
+        </Link>
       </div>
     </section>
   )
