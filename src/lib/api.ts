@@ -158,6 +158,7 @@ query HomePage {
           active
           date
           title
+          url
           venue
         }
       }
