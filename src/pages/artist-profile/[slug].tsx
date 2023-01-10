@@ -7,8 +7,22 @@ import ErrorPage from "next/error"
 import Image from "next/image"
 import { useRouter } from "next/router"
 
-export default function ArtistProfile({ post }: any) {
-  console.log("🚀 ~ ArtistProfile ~ post", post)
+type ArtistProfileProps = {
+  post: {
+    id: string
+    instagramUrl: string
+    title: string
+    profileImg: string
+    contactEmail: string
+    contactMobile: string
+    facebookUrl: string
+    twitterUrl: string
+    websiteUrl: string
+    slug: string
+    studioName: string
+  }
+}
+export default function ArtistProfile({ post }: ArtistProfileProps) {
   const router = useRouter()
 
   if (!router.isFallback && !post?.slug) {
