@@ -1,15 +1,15 @@
 import Container from "@/components/wordpress/container"
 import Layout from "@/components/wordpress/layout"
 import PostTitle from "@/components/wordpress/post-title"
-import { getAllArtistsWithSlug } from "@/lib/legacy-api"
+import { getAllArtistsWithSlug, getArtistProfile } from "@/lib/legacy-api"
 import { GetStaticPaths, GetStaticProps } from "next"
 import ErrorPage from "next/error"
 import { useRouter } from "next/router"
 
-export default function ArtistProfile() {
+export default function ArtistProfile({ post }: any) {
   const router = useRouter()
 
-  if (!router.isFallback) {
+  if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
   }
 
@@ -22,6 +22,7 @@ export default function ArtistProfile() {
           <>
             <article>
               <h1>Artist Content Goes Here</h1>
+              <p>{post.title}</p>
             </article>
           </>
         )}
@@ -30,9 +31,13 @@ export default function ArtistProfile() {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const data = await getArtistProfile(params?.slug)
+
   return {
-    props: {},
+    props: {
+      post: data.post,
+    },
     revalidate: 10,
   }
 }

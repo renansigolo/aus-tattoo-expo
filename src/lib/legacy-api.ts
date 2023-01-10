@@ -129,3 +129,28 @@ export async function getAllArtistsWithSlug() {
 
   return data?.artistProfiles
 }
+
+export async function getArtistProfile(slug: string | string[] | undefined) {
+  const data = await fetchAPI(
+    `
+    query ArtistProfileBySlug($id: ID!) {
+      artistProfile(id: $id, idType: URI) {
+        id
+        instagramUrl
+        date
+        slug
+        title
+      }
+    }
+  `,
+    {
+      variables: {
+        id: slug,
+      },
+    }
+  )
+
+  return {
+    post: data.artistProfile,
+  }
+}

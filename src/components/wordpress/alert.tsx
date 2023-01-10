@@ -1,5 +1,4 @@
 import { classNames } from "@/lib/utils/cn"
-import { EXAMPLE_PATH } from "@/lib/utils/constants"
 import Container from "./container"
 
 type AlertProps = {
@@ -7,6 +6,8 @@ type AlertProps = {
 }
 
 export default function Alert({ preview }: AlertProps) {
+  if (!preview) return null
+
   return (
     <div
       className={classNames("border-b", {
@@ -16,29 +17,16 @@ export default function Alert({ preview }: AlertProps) {
     >
       <Container>
         <div className="py-2 text-center text-sm">
-          {preview ? (
-            <>
-              This is a page preview.{" "}
-              <a
-                href="/api/exit-preview"
-                className="hover:text-cyan underline transition-colors duration-200"
-              >
-                Click here
-              </a>{" "}
-              to exit preview mode.
-            </>
-          ) : (
-            <>
-              The source code for this blog is{" "}
-              <a
-                href={`https://github.com/vercel/next.js/tree/canary/examples/${EXAMPLE_PATH}`}
-                className="hover:text-success underline transition-colors duration-200"
-              >
-                available on GitHub
-              </a>
-              .
-            </>
-          )}
+          <>
+            This is a page preview.{" "}
+            <a
+              href="/api/exit-preview"
+              className="hover:text-cyan underline transition-colors duration-200"
+            >
+              Click here
+            </a>{" "}
+            to exit preview mode.
+          </>
         </div>
       </Container>
     </div>
