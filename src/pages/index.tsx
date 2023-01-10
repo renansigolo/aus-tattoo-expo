@@ -34,19 +34,17 @@ export default function Index({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <Hero
-          sourceUrl={homePageContent?.page?.featuredImage?.node?.sourceUrl}
-          altText={homePageContent?.page?.featuredImage?.node?.altText}
-        />
-        <Banner />
-        <Cities events={homePageContent?.events} />
-        <FeaturedArtists featuredArtists={artists.profiles} />
-        <CTA />
-        <Boxes />
-        <Instagram />
-        <Sponsors images={homePageContent?.page?.sponsors?.images} />
-      </main>
+      <Hero
+        sourceUrl={homePageContent?.page?.featuredImage?.node?.sourceUrl}
+        altText={homePageContent?.page?.featuredImage?.node?.altText}
+      />
+      <Banner />
+      <Cities events={homePageContent?.events} />
+      <FeaturedArtists featuredArtists={artists.profiles} />
+      <CTA />
+      <Boxes />
+      <Instagram />
+      <Sponsors images={homePageContent?.page?.sponsors?.images} />
     </>
   )
 }

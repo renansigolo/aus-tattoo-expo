@@ -20,13 +20,16 @@ export default function Cities({ events }: CitiesProps) {
       <section className={style.section}>
         <div className={style.cities}>
           <ul role="list">
-            {events.map(({ title, date, venue, active, url }) => (
-              <li key={title} className={active ? "text-white" : ""}>
-                <Link href={url || "#"} target="_blank" rel="noreferrer">
-                  <span>{title}</span>
-                  {date}
+            {events.map((event) => (
+              <li
+                key={event.title}
+                className={`${event.active && "text-white"}`}
+              >
+                <Link href={event.url || "#"} target="_blank" rel="noreferrer">
+                  <span>{event.title}</span>
+                  {event.date}
                   <br />
-                  {venue},&nbsp;{title}
+                  {event.venue},&nbsp;{event.title}
                 </Link>
               </li>
             ))}

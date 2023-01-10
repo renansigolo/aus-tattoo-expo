@@ -19,17 +19,15 @@ export default function Footer({
 }: FooterProps) {
   return (
     <footer className={style.footer}>
-      <section>
-        <Container>
-          <div className={style.disclaimer}>
-            <SanitizeHtml htmlString={disclaimer} element="p" />
-          </div>
+      <Container>
+        <div className={style.disclaimer}>
+          <SanitizeHtml htmlString={disclaimer} element="p" />
+        </div>
 
-          <div className={style.copyright}>
-            <p>{copyright}</p>
-          </div>
-        </Container>
-      </section>
+        <div className={style.copyright}>
+          <p>{copyright}</p>
+        </div>
+      </Container>
     </footer>
   )
 }

@@ -72,7 +72,7 @@ export async function getAllArtistsProfiles() {
   const data: GetArtists = await fetchAPI(
     `
 query ArtistProfiles {
-  artistProfiles(first: 12) {
+  artistProfiles(first: 10) {
     nodes {
       id
       title
@@ -117,7 +117,7 @@ query ArtistProfiles {
 export async function getAllArtistsWithSlug() {
   const data = await fetchAPI(`
     {
-      artistProfiles(first: 10000) {
+      artistProfiles(first: 1000) {
         edges {
           node {
             slug
