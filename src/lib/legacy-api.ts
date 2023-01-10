@@ -117,7 +117,7 @@ query ArtistProfiles {
 export async function getAllArtistsWithSlug() {
   const data = await fetchAPI(`
     {
-      artistProfiles(first: 10000) {
+      artistProfiles(first: 1000) {
         edges {
           node {
             slug
@@ -137,9 +137,15 @@ export async function getArtistProfile(slug: string | string[] | undefined) {
       artistProfile(id: $id, idType: URI) {
         id
         instagramUrl
-        date
-        slug
         title
+        profileImg
+        contactEmail
+        contactMobile
+        facebookUrl
+        twitterUrl
+        websiteUrl
+        slug
+        studioName
       }
     }
   `,

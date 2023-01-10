@@ -8,5 +8,5 @@
 
 html,
 body {
-  overflow-x: hidden;
+  @apply overflow-x-hidden bg-black;
 }

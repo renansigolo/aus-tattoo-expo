@@ -1,17 +1,18 @@
+import Banner from "@/components/banner"
 import Boxes from "@/components/boxes"
 import Cities from "@/components/cities"
+import CTA from "@/components/cta"
 import FeaturedArtists from "@/components/featured-artists"
 import Hero from "@/components/hero"
 import Instagram from "@/components/instagram"
 import Sponsors from "@/components/sponsors"
-import Container from "@/components/wordpress/container"
 import { getAllPostsForHome, getHomePageContent } from "@/lib/api"
 import { Artists, getAllArtistsProfiles } from "@/lib/legacy-api"
 import { GetStaticProps } from "next"
 import Head from "next/head"
 
 type IndexProps = {
-  allPosts: any
+  allPosts: { edges: any }
   homePageContent: any
   artists: Artists
 }
@@ -21,9 +22,6 @@ export default function Index({
   homePageContent,
   artists,
 }: IndexProps): JSX.Element {
-  // const heroPost = edges[0]?.node
-  // const morePosts = edges.slice(1)
-
   return (
     <>
       <Head>
@@ -37,35 +35,20 @@ export default function Index({
         sourceUrl={homePageContent?.page?.featuredImage?.node?.sourceUrl}
         altText={homePageContent?.page?.featuredImage?.node?.altText}
       />
-
-      <Container>
-        {/* <Intro /> */}
-        {/* {heroPost && (
-          <HeroPost
-            title={heroPost.title}
-            coverImage={heroPost.featuredImage}
-            date={heroPost.date}
-            author={heroPost.author}
-            slug={heroPost.slug}
-            excerpt={heroPost.excerpt}
-          />
-        )}
-        {morePosts.length > 0 && <MoreStories posts={morePosts} />} */}
-      </Container>
-
+      <Banner />
       <Cities events={homePageContent?.events} />
       <FeaturedArtists featuredArtists={artists.profiles} />
+      <CTA />
       <Boxes />
       <Instagram />
-
-      <Sponsors />
+      <Sponsors images={homePageContent?.page?.sponsors?.images} />
     </>
   )
 }
 
 export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
   const allPosts = await getAllPostsForHome(preview)
-  const homePageContent = await getHomePageContent(preview)
+  const homePageContent = await getHomePageContent()
   const artists = await getAllArtistsProfiles()
 
   return {

@@ -5,6 +5,7 @@
 }
 
 .cities {
+  @apply lg:py-12;
   ul {
     @apply grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4;
   }
@@ -23,7 +24,7 @@
 }
 
 .tickets {
-  @apply mt-8 flex justify-center;
+  @apply my-6 flex justify-center;
 
   > a {
     @extend %btn-primary;

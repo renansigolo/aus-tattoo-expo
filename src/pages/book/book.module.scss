@@ -2,7 +2,7 @@
 
 // Heading Component
 .heading {
-  @apply mb-12;
+  @apply mb-12 text-center;
 
   > p {
     @apply inline-flex items-center rounded-full bg-primary px-3 py-0.5 font-medium text-white;
@@ -19,11 +19,13 @@
 }
 
 .steps {
-  @apply flex flex-col py-12 px-6 text-center text-white sm:flex-row lg:py-16 lg:px-8;
+  @apply flex flex-col items-center py-12 text-center text-white sm:flex-row sm:items-start lg:py-16;
 
   div {
+    @apply max-w-md;
+
     h3 {
-      @apply mb-2 text-lg font-bold uppercase lg:text-2xl;
+      @apply text-lg font-bold uppercase lg:text-2xl;
     }
     p {
       @apply mb-2 lg:text-xl;
@@ -69,7 +71,7 @@
 
 // Helper
 .sectionSpacing {
-  @apply mx-auto py-16 px-6 text-center sm:py-24 lg:px-8;
+  @apply py-16 sm:py-24;
 }
 
 .addCart {

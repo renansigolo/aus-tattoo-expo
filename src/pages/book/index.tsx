@@ -238,11 +238,11 @@ export default function Book({ pageContent }: BookProps) {
 
         {/* CTA Book - Section */}
         <section id="cta-book">
-          <div className="mx-auto max-w-7xl py-12 px-6 text-center text-white lg:py-16 lg:px-8">
+          <div className="mx-auto py-12 px-6 text-center text-white lg:py-16 lg:px-8">
             <div className="mb-8 flex justify-center">
               <div className="inline-flex rounded-md shadow">
                 <a
-                  href="#"
+                  href="#step-1"
                   className="inline-flex items-center justify-center rounded-sm border border-transparent bg-primary-600 px-5 py-3 text-lg font-medium  text-white hover:bg-primary-700 sm:text-2xl"
                 >
                   Book your booth
@@ -283,10 +283,9 @@ export default function Book({ pageContent }: BookProps) {
             {cities.map((city) => (
               <div
                 key={city.title}
-                className={`hover: flex w-full cursor-pointer flex-col place-content-center bg-black p-8 uppercase text-gray-500 hover:text-white ${
-                  city.title === selectedCity.title && "text-white"
-                }`}
                 onClick={() => setSelectedCity(city)}
+                className={`flex w-full flex-col place-content-center bg-black p-8 text-center uppercase text-gray-500 hover:cursor-pointer hover:text-white
+                ${city.title === selectedCity.title && "!text-white"}`}
               >
                 <h3 className="mb-2 text-3xl font-semibold">{city.title}</h3>
                 <p className="text-lg">{city.date}</p>
@@ -300,41 +299,39 @@ export default function Book({ pageContent }: BookProps) {
 
         <section id="step-2" className={style.sectionSpacing}>
           <Heading title="Step 2" description="Choose a Booth Size" />
-          <div className="mx-auto max-w-7xl py-24 px-6 text-white lg:px-8">
-            <div className="space-y-4 sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0 lg:mx-auto lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-3">
-              {booths.map((product, index) => (
-                <div
-                  key={product.name}
-                  className={`hover:cursor-pointer hover:drop-shadow-lg ${
-                    product.id === booth?.id
-                      ? "border-4 border-primary-600"
-                      : "border-transparent"
-                  }`}
-                  onClick={() => setBooth(product)}
-                >
-                  <div className="bg-primary p-6 hover:bg-primary-100">
-                    <h2 className="text-lg font-medium uppercase leading-6">
-                      {product.name}
-                    </h2>
-                    <p className="mt-4 text-sm">{product.description}</p>
-                    <p className="mt-8">
-                      <span className="text-4xl font-bold tracking-tight">
-                        ${product.price}
-                      </span>{" "}
-                      {index > 3 && (
-                        <span className="text-base font-medium text-white">
-                          PER ARTIST
-                        </span>
-                      )}
-                    </p>
-                  </div>
-
-                  <div className="flex justify-center px-6 pt-6 pb-8">
-                    <img src={product.images[0]} alt={product.name} />
-                  </div>
+          <div className="space-y-4 text-white sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0 lg:mx-auto xl:mx-0 xl:max-w-none xl:grid-cols-3">
+            {booths.map((product, index) => (
+              <div
+                key={product.name}
+                className={`text-center hover:cursor-pointer hover:drop-shadow-lg ${
+                  product.id === booth?.id
+                    ? "border-4 border-primary-600"
+                    : "border-transparent"
+                }`}
+                onClick={() => setBooth(product)}
+              >
+                <div className="bg-primary p-6 hover:bg-primary-100">
+                  <h2 className="text-xl font-medium uppercase leading-6">
+                    {product.name}
+                  </h2>
+                  <p className="mt-4 text-sm">{product.description}</p>
+                  <p className="mt-8">
+                    <span className="text-4xl font-bold tracking-tight">
+                      ${product.price}
+                    </span>{" "}
+                    {index > 3 && (
+                      <span className="text-base font-medium text-white">
+                        PER ARTIST
+                      </span>
+                    )}
+                  </p>
                 </div>
-              ))}
-            </div>
+
+                <div className="flex justify-center px-6 pt-6 pb-8">
+                  <img src={product.images[0]} alt={product.name} />
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -420,7 +417,7 @@ export default function Book({ pageContent }: BookProps) {
 
           <div className="relative mx-auto mt-8 max-w-sm rounded-lg bg-white shadow-xl ring-1 ring-gray-100">
             <div className="px-4 py-3">
-              <p className="mb-2 text-sm text-gray-400">
+              <p className="mb-2 text-center text-sm text-gray-400">
                 {selectedCity.title} {year} - {selectedCity.date}
               </p>
               <div className="mb-2 grid place-content-center">
@@ -538,7 +535,7 @@ export default function Book({ pageContent }: BookProps) {
             </div>
           </div>
 
-          <div className="text-3xl font-bold text-white">
+          <div className="text-center text-3xl font-bold text-white">
             <h2>All done! We look forward to seeing you soon!</h2>
           </div>
         </Container>
