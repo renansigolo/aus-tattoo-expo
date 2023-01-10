@@ -12,7 +12,7 @@ import { GetStaticProps } from "next"
 import Head from "next/head"
 
 type IndexProps = {
-  allPosts: any
+  allPosts: { edges: any }
   homePageContent: any
   artists: Artists
 }
@@ -22,9 +22,6 @@ export default function Index({
   homePageContent,
   artists,
 }: IndexProps): JSX.Element {
-  // const heroPost = edges[0]?.node
-  // const morePosts = edges.slice(1)
-
   return (
     <>
       <Head>
