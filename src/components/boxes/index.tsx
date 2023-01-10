@@ -1,3 +1,5 @@
+import Container from "@/components/wordpress/container"
+import Link from "next/link"
 import style from "./boxes.module.scss"
 
 const boxContent = [
@@ -20,27 +22,25 @@ const boxContent = [
 
 export default function Boxes() {
   return (
-    <section className={style.section}>
-      <div className={style.boxes}>
-        {boxContent.map(({ title, pageUrl, imageUrl }) => (
-          //   <a
-          //     aria-label={title}
-          //     className={style.card}
-          //     href={pageUrl}
-          //     rel="noopener noreferrer"
-          //     target="_blank"
-          //     key={title}
-          //   >
-          <div className={style.card} key={title}>
-            <button className={style.cardTitle}>{title}</button>
-            <img className={style.cardImage} src={imageUrl} alt={title} />
-          </div>
-          //   </a>
-        ))}
-      </div>
-      <div className={style.tickets}>
-        <button type="button">Buy Tickets</button>
-      </div>
-    </section>
+    <Container>
+      <section className={style.section}>
+        <div className={style.boxes}>
+          {boxContent.map(({ title, pageUrl, imageUrl }) => (
+            <div className={style.card} key={title}>
+              <button className={style.cardTitle}>{title}</button>
+              <img className={style.cardImage} src={imageUrl} alt={title} />
+            </div>
+          ))}
+        </div>
+        <div className={style.tickets}>
+          <Link
+            href="https://www.eventbrite.com/cc/aus-tattoo-expo-2023-tour-1538659"
+            target="_blank"
+          >
+            Buy Tickets
+          </Link>
+        </div>
+      </section>
+    </Container>
   )
 }

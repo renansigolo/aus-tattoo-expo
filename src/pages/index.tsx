@@ -1,10 +1,11 @@
+import Banner from "@/components/banner"
 import Boxes from "@/components/boxes"
 import Cities from "@/components/cities"
+import CTA from "@/components/cta"
 import FeaturedArtists from "@/components/featured-artists"
 import Hero from "@/components/hero"
 import Instagram from "@/components/instagram"
 import Sponsors from "@/components/sponsors"
-import Container from "@/components/wordpress/container"
 import { getAllPostsForHome, getHomePageContent } from "@/lib/api"
 import { Artists, getAllArtistsProfiles } from "@/lib/legacy-api"
 import { GetStaticProps } from "next"
@@ -33,39 +34,26 @@ export default function Index({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Hero
-        sourceUrl={homePageContent?.page?.featuredImage?.node?.sourceUrl}
-        altText={homePageContent?.page?.featuredImage?.node?.altText}
-      />
-
-      <Container>
-        {/* <Intro /> */}
-        {/* {heroPost && (
-          <HeroPost
-            title={heroPost.title}
-            coverImage={heroPost.featuredImage}
-            date={heroPost.date}
-            author={heroPost.author}
-            slug={heroPost.slug}
-            excerpt={heroPost.excerpt}
-          />
-        )}
-        {morePosts.length > 0 && <MoreStories posts={morePosts} />} */}
-      </Container>
-
-      <Cities events={homePageContent?.events} />
-      <FeaturedArtists featuredArtists={artists.profiles} />
-      <Boxes />
-      <Instagram />
-
-      <Sponsors />
+      <main>
+        <Hero
+          sourceUrl={homePageContent?.page?.featuredImage?.node?.sourceUrl}
+          altText={homePageContent?.page?.featuredImage?.node?.altText}
+        />
+        <Banner />
+        <Cities events={homePageContent?.events} />
+        <FeaturedArtists featuredArtists={artists.profiles} />
+        <CTA />
+        <Boxes />
+        <Instagram />
+        <Sponsors images={homePageContent?.page?.sponsors?.images} />
+      </main>
     </>
   )
 }
 
 export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
   const allPosts = await getAllPostsForHome(preview)
-  const homePageContent = await getHomePageContent(preview)
+  const homePageContent = await getHomePageContent()
   const artists = await getAllArtistsProfiles()
 
   return {

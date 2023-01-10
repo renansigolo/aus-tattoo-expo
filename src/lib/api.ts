@@ -139,7 +139,7 @@ export async function getAllPostsWithSlug() {
   return data?.posts
 }
 
-export async function getHomePageContent(preview: boolean) {
+export async function getHomePageContent() {
   const data = await fetchAPI(
     `
 query HomePage {
@@ -159,7 +159,14 @@ query HomePage {
           date
           title
           venue
-          url
+        }
+      }
+    }
+    sponsors {
+      images {
+        image {
+          altText
+          sourceUrl(size: THUMBNAIL)
         }
       }
     }
@@ -173,13 +180,7 @@ query HomePage {
     }
   }
 }
-  `,
-    {
-      variables: {
-        onlyEnabled: !preview,
-        preview,
-      },
-    }
+  `
   )
 
   return {

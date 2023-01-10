@@ -5,6 +5,7 @@
 }
 
 .cities {
+  @apply lg:py-12;
   ul {
     @apply grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4;
   }
@@ -17,7 +18,7 @@
     @apply flex flex-col items-center text-center uppercase;
 
     > span {
-      @apply text-3xl font-bold;
+      @apply text-3xl font-bold lg:text-4xl;
     }
   }
 }

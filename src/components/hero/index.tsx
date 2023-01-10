@@ -1,3 +1,4 @@
+import Container from "@/components/wordpress/container"
 import Image from "next/image"
 
 type HeroProps = {
@@ -10,21 +11,19 @@ export default function Hero({
   altText = "Hero Banner",
 }: HeroProps) {
   return (
-    <main>
-      <div>
-        <section>
-          <div className="flex max-h-[70vh] min-h-[50vh]">
-            <Image
-              priority
-              width={1920}
-              height={1080}
-              alt={altText}
-              src={sourceUrl}
-              className="h-auto w-screen object-cover"
-            />
-          </div>
-        </section>
-      </div>
-    </main>
+    <Container>
+      <section>
+        <div className="flex">
+          <Image
+            priority
+            width={1920}
+            height={1080}
+            alt={altText}
+            src={sourceUrl}
+            className="h-auto w-screen object-cover"
+          />
+        </div>
+      </section>
+    </Container>
   )
 }

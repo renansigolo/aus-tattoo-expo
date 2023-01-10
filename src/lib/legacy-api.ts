@@ -72,7 +72,7 @@ export async function getAllArtistsProfiles() {
   const data: GetArtists = await fetchAPI(
     `
 query ArtistProfiles {
-  artistProfiles(first: 10) {
+  artistProfiles(first: 12) {
     nodes {
       id
       title
@@ -137,9 +137,15 @@ export async function getArtistProfile(slug: string | string[] | undefined) {
       artistProfile(id: $id, idType: URI) {
         id
         instagramUrl
-        date
-        slug
         title
+        profileImg
+        contactEmail
+        contactMobile
+        facebookUrl
+        twitterUrl
+        websiteUrl
+        slug
+        studioName
       }
     }
   `,

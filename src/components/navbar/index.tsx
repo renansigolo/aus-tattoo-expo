@@ -68,8 +68,9 @@ export default function Navbar() {
         </div>
         <div className="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-end">
           <Link
-            href="#"
+            href="https://www.eventbrite.com/cc/aus-tattoo-expo-2023-tour-1538659"
             className="inline-block rounded-sm bg-white px-3 py-1.5 text-sm font-semibold leading-6 text-primary shadow-sm ring-1 ring-primary/10 hover:ring-primary/20"
+            target="_blank"
           >
             Buy Tickets
           </Link>
@@ -139,9 +140,10 @@ export default function Navbar() {
                   Book a Booth
                 </Link>
                 <Link
-                  href="#"
+                  href="https://www.eventbrite.com/cc/aus-tattoo-expo-2023-tour-1538659"
                   className="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10"
                   onClick={() => setMobileMenuOpen(false)}
+                  target="_blank"
                 >
                   Buy Tickets
                 </Link>

@@ -4,9 +4,11 @@ import PostTitle from "@/components/wordpress/post-title"
 import { getAllArtistsWithSlug, getArtistProfile } from "@/lib/legacy-api"
 import { GetStaticPaths, GetStaticProps } from "next"
 import ErrorPage from "next/error"
+import Image from "next/image"
 import { useRouter } from "next/router"
 
 export default function ArtistProfile({ post }: any) {
+  console.log("🚀 ~ ArtistProfile ~ post", post)
   const router = useRouter()
 
   if (!router.isFallback && !post?.slug) {
@@ -19,12 +21,25 @@ export default function ArtistProfile({ post }: any) {
         {router.isFallback ? (
           <PostTitle>Loading…</PostTitle>
         ) : (
-          <>
-            <article>
-              <h1>Artist Content Goes Here</h1>
-              <p>{post.title}</p>
-            </article>
-          </>
+          <article className="text-white">
+            <h1>{post.title}</h1>
+            <div className="sm:flex">
+              <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
+                <Image
+                  src={post.profileImg}
+                  alt={`Profile Image of ${post.title}`}
+                  width={128}
+                  height={128}
+                  className="h-32 w-full border border-gray-300 bg-white text-gray-300 sm:w-32"
+                />
+              </div>
+              <div>
+                <h4 className="text-lg font-bold">Name: {post.title}</h4>
+                <p className="mt-1">Studio: {post.studioName}</p>
+                <p className="mt-1">Contact: {post.contactEmail}</p>
+              </div>
+            </div>
+          </article>
         )}
       </Container>
     </Layout>

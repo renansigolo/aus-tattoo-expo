@@ -283,10 +283,9 @@ export default function Book({ pageContent }: BookProps) {
             {cities.map((city) => (
               <div
                 key={city.title}
-                className={`hover: flex w-full cursor-pointer flex-col place-content-center bg-black p-8 uppercase text-gray-500 hover:text-white ${
-                  city.title === selectedCity.title && "text-white"
-                }`}
                 onClick={() => setSelectedCity(city)}
+                className={`flex w-full flex-col place-content-center bg-black p-8 uppercase text-gray-500 hover:cursor-pointer hover:text-white
+                ${city.title === selectedCity.title && "!text-white"}`}
               >
                 <h3 className="mb-2 text-3xl font-semibold">{city.title}</h3>
                 <p className="text-lg">{city.date}</p>
