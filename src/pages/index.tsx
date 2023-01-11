@@ -23,7 +23,7 @@ export default function Index({
   allPosts: { edges },
   homePageContent,
   artists,
-}: IndexProps): JSX.Element {
+}: IndexProps) {
   return (
     <>
       <Head>

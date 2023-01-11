@@ -216,10 +216,6 @@ export default function Book({ pageContent }: BookProps) {
   }
   return (
     <div className={style.book}>
-      {/* <section className="grid h-9 place-content-center bg-red-300">
-        <h2>NAVBAR</h2>
-      </section> */}
-
       <Hero
         sourceUrl={pageContent.featuredImage.sourceUrl}
         altText={pageContent.featuredImage.sourceUrl}
