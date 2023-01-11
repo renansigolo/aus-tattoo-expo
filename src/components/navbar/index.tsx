@@ -4,21 +4,17 @@ import Link from "next/link"
 import { useState } from "react"
 
 const navigation = [
-  {
-    label: "Exhibiting",
-    url: "/exhibiting",
-  },
+  // {
+  //   label: "Exhibiting",
+  //   url: "/exhibiting",
+  // },
   {
     label: "Artists",
     url: "/artists",
   },
   {
-    label: "Shop",
-    url: "/shop",
-  },
-  {
-    label: "News",
-    url: "/news",
+    label: "Retailers",
+    url: "/Retailers",
   },
   {
     label: "About",

@@ -1,5 +1,6 @@
 import Banner from "@/components/banner"
 import Boxes from "@/components/boxes"
+import Carousel from "@/components/carousel"
 import Cities from "@/components/cities"
 import CTA from "@/components/cta"
 import FeaturedArtists from "@/components/featured-artists"
@@ -38,6 +39,7 @@ export default function Index({
       />
       <Banner />
       <YoutubePlayer embedId={homePageContent?.page?.embedId} />
+      <Carousel />
       <Cities events={homePageContent?.events} />
       <FeaturedArtists featuredArtists={artists.profiles} />
       <CTA />
