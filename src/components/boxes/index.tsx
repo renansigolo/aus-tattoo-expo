@@ -15,7 +15,7 @@ const boxContent = [
   },
   {
     title: "Shop",
-    pageUrl: "/book",
+    pageUrl: "/shop/booths",
     imageUrl: "https://placeholder.pics/svg/1240",
   },
 ]

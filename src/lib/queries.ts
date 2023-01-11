@@ -24,6 +24,7 @@ export type PageContent = {
   content: string | null
 }
 export async function getPageContent(id: string): Promise<PageContent> {
+  console.log("🚀 ~ getPageContent ~ id", id)
   const data = await fetchApi(
     `
 query Page {
