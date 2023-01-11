@@ -1,30 +1,4 @@
-const API_URL = String(process.env.WORDPRESS_API_URL_LEGACY)
-
-async function fetchAPI(query = "", { variables }: Record<string, any> = {}) {
-  const headers: HeadersInit = { "Content-Type": "application/json" }
-
-  if (process.env.WORDPRESS_AUTH_REFRESH_TOKEN) {
-    headers[
-      "Authorization"
-    ] = `Bearer ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`
-  }
-
-  const res = await fetch(API_URL, {
-    headers,
-    method: "POST",
-    body: JSON.stringify({
-      query,
-      variables,
-    }),
-  })
-
-  const json = await res.json()
-  if (json.errors) {
-    console.error(json.errors)
-    throw new Error("Failed to fetch API")
-  }
-  return json.data
-}
+import { fetchApi } from "@/lib/utils/fetch"
 
 export type FeaturedArtist = {
   title: string
@@ -69,7 +43,7 @@ type GetArtists = {
 }
 
 export async function getAllArtistsProfiles() {
-  const data: GetArtists = await fetchAPI(
+  const data: GetArtists = await fetchApi(
     `
 query ArtistProfiles {
   artistProfiles(first: 10) {
@@ -105,7 +79,9 @@ query ArtistProfiles {
     }
   }
 }
-  `
+  `,
+    {},
+    true
   )
 
   return {
@@ -115,7 +91,8 @@ query ArtistProfiles {
 }
 
 export async function getAllArtistsWithSlug() {
-  const data = await fetchAPI(`
+  const data = await fetchApi(
+    `
     {
       artistProfiles(first: 1000) {
         edges {
@@ -125,13 +102,16 @@ export async function getAllArtistsWithSlug() {
         }
       }
     }
-  `)
+  `,
+    {},
+    true
+  )
 
   return data?.artistProfiles
 }
 
 export async function getArtistProfile(slug: string | string[] | undefined) {
-  const data = await fetchAPI(
+  const data = await fetchApi(
     `
     query ArtistProfileBySlug($id: ID!) {
       artistProfile(id: $id, idType: URI) {
@@ -153,7 +133,8 @@ export async function getArtistProfile(slug: string | string[] | undefined) {
       variables: {
         id: slug,
       },
-    }
+    },
+    true
   )
 
   return {

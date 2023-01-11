@@ -5,32 +5,28 @@ import { useState } from "react"
 
 const navigation = [
   {
-    label: "Exhibiting",
-    url: "#",
-  },
-  {
     label: "Artists",
-    url: "#",
+    url: "/artists",
   },
   {
-    label: "Shop",
-    url: "#",
-  },
-  {
-    label: "News",
-    url: "#",
+    label: "Retailers",
+    url: "/retailers",
   },
   {
     label: "About",
-    url: "#",
+    url: "/about",
+  },
+  {
+    label: "FAQ",
+    url: "/faq",
   },
   {
     label: "Contact",
-    url: "#",
+    url: "/contact",
   },
   {
     label: "Book Booth",
-    url: "/book",
+    url: "/shop/booths",
   },
 ]
 
@@ -133,7 +129,7 @@ export default function Navbar() {
               </div>
               <div className="py-6">
                 <Link
-                  href="/book"
+                  href="/shop/booths"
                   className="-mx-3 block rounded-lg py-6 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10"
                   onClick={() => setMobileMenuOpen(false)}
                 >

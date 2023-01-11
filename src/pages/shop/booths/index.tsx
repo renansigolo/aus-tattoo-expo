@@ -1,14 +1,14 @@
 import Hero from "@/components/hero"
 import Notification from "@/components/notification"
 import Container from "@/components/wordpress/container"
-import { getPageContent, PageContent } from "@/lib/api"
+import { getPageContent, PageContent } from "@/lib/queries"
 import { postRequest } from "@/lib/utils/post-request"
 import { getStripe } from "@/lib/utils/stripe"
 import { GetStaticProps } from "next"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { MouseEventHandler, useState } from "react"
-import style from "./book.module.scss"
+import style from "./booths.module.scss"
 
 const highlights = [
   { title: "X+", description: "Events" },
@@ -163,10 +163,10 @@ const booths: Booth[] = [
   },
 ]
 
-type BookProps = {
+type BoothsProps = {
   pageContent: PageContent
 }
-export default function Book({ pageContent }: BookProps) {
+export default function Booths({ pageContent }: BoothsProps) {
   const [booth, setBooth] = useState<Booth>(booths[0])
   const [selectedCity, setSelectedCity] = useState<City>(cities[0])
   const [selectedPrint, setSelectedPrint] = useState(prints[0])
@@ -215,11 +215,7 @@ export default function Book({ pageContent }: BookProps) {
     setLoading(false)
   }
   return (
-    <div className={style.book}>
-      {/* <section className="grid h-9 place-content-center bg-red-300">
-        <h2>NAVBAR</h2>
-      </section> */}
-
+    <div className={style.booths}>
       <Hero
         sourceUrl={pageContent.featuredImage.sourceUrl}
         altText={pageContent.featuredImage.sourceUrl}
@@ -545,7 +541,7 @@ export default function Book({ pageContent }: BookProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const pageContent = await getPageContent("book")
+  const pageContent = await getPageContent("shop/booths")
 
   return {
     props: { pageContent },

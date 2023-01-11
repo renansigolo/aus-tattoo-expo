@@ -1,5 +1,5 @@
 import Container from "@/components/wordpress/container"
-import { ArtistProfile } from "@/lib/legacy-api"
+import { ArtistProfile } from "@/lib/queries-legacy"
 import Image from "next/image"
 import Link from "next/link"
 import style from "./featured-artists.module.scss"
@@ -20,7 +20,7 @@ export default function FeaturedArtists({
         <ul role="list">
           {featuredArtists.map((artist) => (
             <li key={artist.title}>
-              <Link href={`/artist-profile/${artist.slug}`}>
+              <Link href={`/artists/profile/${artist.slug}`}>
                 <article className={style.card}>
                   <header>
                     <Image

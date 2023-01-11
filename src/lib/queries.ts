@@ -1,33 +1,7 @@
-const API_URL = String(process.env.WORDPRESS_API_URL)
-
-async function fetchAPI(query = "", { variables }: Record<string, any> = {}) {
-  const headers: HeadersInit = { "Content-Type": "application/json" }
-
-  if (process.env.WORDPRESS_AUTH_REFRESH_TOKEN) {
-    headers[
-      "Authorization"
-    ] = `Bearer ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`
-  }
-
-  const res = await fetch(API_URL, {
-    headers,
-    method: "POST",
-    body: JSON.stringify({
-      query,
-      variables,
-    }),
-  })
-
-  const json = await res.json()
-  if (json.errors) {
-    console.error(json.errors)
-    throw new Error("Failed to fetch API")
-  }
-  return json.data
-}
+import { fetchApi } from "@/lib/utils/fetch"
 
 export async function getPreviewPost(id: any, idType = "DATABASE_ID") {
-  const data = await fetchAPI(
+  const data = await fetchApi(
     `
     query PreviewPost($id: ID!, $idType: PostIdType!) {
       post(id: $id, idType: $idType) {
@@ -50,7 +24,7 @@ export type PageContent = {
   content: string | null
 }
 export async function getPageContent(id: string): Promise<PageContent> {
-  const data = await fetchAPI(
+  const data = await fetchApi(
     `
 query Page {
   page(id: "${id}", idType: URI) {
@@ -78,7 +52,7 @@ query Page {
 }
 
 export async function getAllArtists() {
-  const data = await fetchAPI(
+  const data = await fetchApi(
     `
   query AllArtists {
     artists {
@@ -108,7 +82,7 @@ export async function getAllArtists() {
 }
 
 export async function getFooterContent() {
-  const data = await fetchAPI(`
+  const data = await fetchApi(`
   query Footer {
     siteOptions {
       options {
@@ -125,7 +99,7 @@ export async function getFooterContent() {
 }
 
 export async function getAllPostsWithSlug() {
-  const data = await fetchAPI(`
+  const data = await fetchApi(`
     {
       posts(first: 10000) {
         edges {
@@ -177,7 +151,7 @@ type GetHomePageContent = {
   }
 }
 export async function getHomePageContent() {
-  const data: GetHomePageContent = await fetchAPI(
+  const data: GetHomePageContent = await fetchApi(
     `
 query HomePage {
   page(id: "/", idType: URI) {
@@ -235,7 +209,7 @@ query HomePage {
 }
 
 export async function getAllPostsForHome(preview: boolean) {
-  const data = await fetchAPI(
+  const data = await fetchApi(
     `
     query AllPosts {
       posts(first: 20, where: { orderby: { field: DATE, order: DESC } }) {
@@ -289,7 +263,7 @@ export async function getPostAndMorePosts(
     : slug === postPreview.slug
   const isDraft = isSamePost && postPreview?.status === "draft"
   const isRevision = isSamePost && postPreview?.status === "publish"
-  const data = await fetchAPI(
+  const data = await fetchApi(
     `
     fragment AuthorFields on User {
       name

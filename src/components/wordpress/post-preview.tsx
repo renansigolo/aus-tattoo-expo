@@ -1,12 +1,11 @@
 import Link from "next/link"
 import Avatar from "./avatar"
 import CoverImage from "./cover-image"
-import Date from "./date"
 
 type PostPreview = {
   title: string
   coverImage: any
-  date: string
+  date?: string
   excerpt: string
   author: string
   slug: string
@@ -34,9 +33,9 @@ export default function PostPreview({
           dangerouslySetInnerHTML={{ __html: title }}
         ></Link>
       </h3>
-      <div className="mb-4 text-lg">
+      {/* <div className="mb-4 text-lg">
         <Date dateString={date} />
-      </div>
+      </div> */}
       <div
         className="mb-4 text-lg leading-relaxed"
         dangerouslySetInnerHTML={{ __html: excerpt }}

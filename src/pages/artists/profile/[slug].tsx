@@ -1,7 +1,7 @@
 import Container from "@/components/wordpress/container"
 import Layout from "@/components/wordpress/layout"
 import PostTitle from "@/components/wordpress/post-title"
-import { getAllArtistsWithSlug, getArtistProfile } from "@/lib/legacy-api"
+import { getAllArtistsWithSlug, getArtistProfile } from "@/lib/queries-legacy"
 import { GetStaticPaths, GetStaticProps } from "next"
 import ErrorPage from "next/error"
 import Image from "next/image"
@@ -77,7 +77,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths:
       allArtistsPosts.edges.map(
-        ({ node }: any) => `/artist-profile/${node.slug}`
+        ({ node }: any) => `/artists/profile/${node.slug}`
       ) || [],
     fallback: true,
   }

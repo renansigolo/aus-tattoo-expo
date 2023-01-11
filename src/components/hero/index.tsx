@@ -7,7 +7,7 @@ type HeroProps = {
 }
 
 export default function Hero({
-  sourceUrl = "https://placeholder.pics/svg/1920x1080",
+  sourceUrl = "https://placeholder.pics/svg/1920x1080/DEDEDE/555555/hero-banner-placeholder",
   altText = "Hero Banner",
 }: HeroProps) {
   return (
