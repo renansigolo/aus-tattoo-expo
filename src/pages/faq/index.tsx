@@ -29,13 +29,13 @@ const faqs = [
     question:
       "If I can't attend the proposed rescheduled dates as a patron, what are my options?",
     answer:
-      "If you as a ticket purchaser or ticket holder are unable to attend the rescheduled dates, your ticket can be transferred to an alternate Australian Exhibition Group event, or can be gifted or donated to friends or family members. In the event of your tickets being transferred to another attendee, the details of the attendee’s ticket will be updated by our staff to ensure a smooth check-in process.",
+      "If you as a ticket purchaser or ticket holder are unable to attend the rescheduled dates, your ticket can be transferred to an alternate Australian Exhibition Group event, or can be gifted or donated to friends or family members. In the event of your tickets being transferred to another attendee, the details of the attendee's ticket will be updated by our staff to ensure a smooth check-in process.",
   },
   {
     question:
       "If I feel unsafe attending a public event due to the pandemic, what are my options?",
     answer:
-      "Our staff, exhibitors and patron’s health and safety remains our number one priority. If you feel unsafe attending a public gathering in the current climate, we respect your decision and will not force anyone to attend. In the event that you are unable to attend, your ticket can be gifted or given to friends or family members. In the event of your tickets being transferred to another attendee, the details of the attendee’s ticket will be updated by our staff to ensure a smooth check-in process.",
+      "Our staff, exhibitors and patron's health and safety remains our number one priority. If you feel unsafe attending a public gathering in the current climate, we respect your decision and will not force anyone to attend. In the event that you are unable to attend, your ticket can be gifted or given to friends or family members. In the event of your tickets being transferred to another attendee, the details of the attendee's ticket will be updated by our staff to ensure a smooth check-in process.",
   },
 ]
 

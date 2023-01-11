@@ -6,7 +6,8 @@
 @mixin grid($columns) {
   @apply grid grid-cols-1 place-items-center gap-2;
 
-  @media (min-width: 1024px) {
+  // @media (min-width: 1024px) {
+  @media (min-width: 640px) {
     @apply gap-4;
     grid-template-columns: repeat($columns, minmax(0, 1fr));
   }

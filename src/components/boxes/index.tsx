@@ -5,7 +5,7 @@ import style from "./boxes.module.scss"
 const boxContent = [
   {
     title: "Retailers",
-    pageUrl: "#",
+    pageUrl: "/retailers",
     imageUrl: "https://placeholder.pics/svg/1240",
   },
   {
@@ -15,7 +15,7 @@ const boxContent = [
   },
   {
     title: "Shop",
-    pageUrl: "#",
+    pageUrl: "/book",
     imageUrl: "https://placeholder.pics/svg/1240",
   },
 ]

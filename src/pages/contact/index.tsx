@@ -1,3 +1,4 @@
+// This page requires '@tailwindcss/forms'
 import Container from "@/components/wordpress/container"
 
 export default function Contact() {
