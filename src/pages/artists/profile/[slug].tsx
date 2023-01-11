@@ -77,7 +77,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths:
       allArtistsPosts.edges.map(
-        ({ node }: any) => `/artist-profile/${node.slug}`
+        ({ node }: any) => `/artists/profile/${node.slug}`
       ) || [],
     fallback: true,
   }

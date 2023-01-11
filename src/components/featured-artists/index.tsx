@@ -20,7 +20,7 @@ export default function FeaturedArtists({
         <ul role="list">
           {featuredArtists.map((artist) => (
             <li key={artist.title}>
-              <Link href={`/artist-profile/${artist.slug}`}>
+              <Link href={`/artists/profile/${artist.slug}`}>
                 <article className={style.card}>
                   <header>
                     <Image
