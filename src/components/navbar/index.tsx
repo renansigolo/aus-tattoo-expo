@@ -21,8 +21,8 @@ const navigation = [
     url: "/about",
   },
   {
-    label: "Contact",
-    url: "/contact",
+    label: "FAQ",
+    url: "/faq",
   },
   {
     label: "Book Booth",
