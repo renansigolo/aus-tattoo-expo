@@ -1,5 +1,5 @@
 import Container from "@/components/wordpress/container"
-import { ArtistProfile } from "@/lib/legacy-api"
+import { ArtistProfile } from "@/lib/queries-legacy"
 import Image from "next/image"
 import Link from "next/link"
 import style from "./featured-artists.module.scss"

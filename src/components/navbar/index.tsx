@@ -6,27 +6,27 @@ import { useState } from "react"
 const navigation = [
   {
     label: "Exhibiting",
-    url: "#",
+    url: "/exhibiting",
   },
   {
     label: "Artists",
-    url: "#",
+    url: "/artists",
   },
   {
     label: "Shop",
-    url: "#",
+    url: "/shop",
   },
   {
     label: "News",
-    url: "#",
+    url: "/news",
   },
   {
     label: "About",
-    url: "#",
+    url: "/about",
   },
   {
     label: "Contact",
-    url: "#",
+    url: "/contact",
   },
   {
     label: "Book Booth",

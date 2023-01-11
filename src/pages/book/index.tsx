@@ -1,7 +1,7 @@
 import Hero from "@/components/hero"
 import Notification from "@/components/notification"
 import Container from "@/components/wordpress/container"
-import { getPageContent, PageContent } from "@/lib/api"
+import { getPageContent, PageContent } from "@/lib/queries"
 import { postRequest } from "@/lib/utils/post-request"
 import { getStripe } from "@/lib/utils/stripe"
 import { GetStaticProps } from "next"
