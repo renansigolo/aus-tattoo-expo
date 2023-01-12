@@ -1,5 +1,6 @@
+import { LayoutQuery } from "@/interfaces/index"
 import { ReactNode } from "react"
-import useSWR from "swr"
+import useSWR, { Fetcher } from "swr"
 import Footer from "./footer"
 import Navbar from "./navbar"
 
@@ -7,9 +8,9 @@ type LayoutProps = {
   children: ReactNode
 }
 export default function Layout({ children }: LayoutProps) {
-  const fetcher = (url: string) => fetch(url).then((res) => res.json())
-
-  const { data, error } = useSWR("/api/fetch-layout", fetcher)
+  const fetcher: Fetcher<LayoutQuery> = (url: string) =>
+    fetch(url).then((res) => res.json())
+  const { data, error } = useSWR<LayoutQuery>("/api/fetch-layout", fetcher)
 
   if (error) return <div>Failed to load</div>
   if (!data) return <div>Loading...</div>
