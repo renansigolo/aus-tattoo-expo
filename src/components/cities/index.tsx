@@ -26,6 +26,9 @@ export default function Cities({ events }: CitiesProps) {
                 className={`${event.active && "text-white"}`}
               >
                 <Link href={event.url || "#"} target="_blank" rel="noreferrer">
+                  <div className="flex h-6 text-center">
+                    {event.active && <span className="w-full">Next up:</span>}
+                  </div>
                   <span>{event.title}</span>
                   {event.date}
                   <br />
