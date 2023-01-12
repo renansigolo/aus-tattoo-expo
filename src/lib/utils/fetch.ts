@@ -1,4 +1,4 @@
-const API_URL = process.env.WORDPRESS_API_URL
+const API_URL = process.env.WORDPRESS_API_URL as string
 
 export async function fetchApi(
   query = "",
@@ -12,7 +12,7 @@ export async function fetchApi(
     ] = `Bearer ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`
   }
 
-  const res = await fetch(API_URL as string, {
+  const res = await fetch(API_URL, {
     headers,
     method: "POST",
     body: JSON.stringify({

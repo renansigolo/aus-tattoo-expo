@@ -5,6 +5,8 @@ import { ReactNode } from "react"
 import Footer from "./footer"
 import Navbar from "./navbar"
 
+const API_URL = process.env.WORDPRESS_API_URL as string
+
 type LayoutQuery = {
   acfOptionsFooter: {
     footer: {
@@ -44,7 +46,7 @@ export default function Layout({ children }: LayoutProps) {
   const { data } = useQuery<LayoutQuery>({
     queryKey: ["layout"],
     queryFn: async () =>
-      request("http://aus-tattoo-expo.local/graphql", getLayoutQuery, {
+      request(API_URL, getLayoutQuery, {
         first: 10,
       }),
   })
