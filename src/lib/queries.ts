@@ -81,6 +81,23 @@ export async function getAllArtists() {
   return data?.artists
 }
 
+export async function getMenuItems() {
+  const data = await fetchApi(`
+  query MenuItems {
+    menuItems(where: {location: NAVIGATION_MENU}) {
+      nodes {
+        key: id
+        parentId
+        title: label
+        url
+        path
+      }
+    }
+  }
+  `)
+  return data
+}
+
 export async function getFooterContent() {
   const data = await fetchApi(`
   query Footer {

@@ -8,7 +8,11 @@ import Hero from "@/components/hero"
 import Instagram from "@/components/instagram"
 import Sponsors from "@/components/sponsors"
 import YoutubePlayer from "@/components/youtube-player"
-import { getAllPostsForHome, getHomePageContent } from "@/lib/queries"
+import {
+  getAllPostsForHome,
+  getHomePageContent,
+  getMenuItems,
+} from "@/lib/queries"
 import { Artists, getAllArtistsProfiles } from "@/lib/queries-legacy"
 import { GetStaticProps } from "next"
 import Head from "next/head"
@@ -16,6 +20,7 @@ import Head from "next/head"
 type IndexProps = {
   allPosts: { edges: any }
   homePageContent: any
+  menuItems: any
   artists: Artists
 }
 
@@ -54,9 +59,10 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
   const allPosts = await getAllPostsForHome(preview)
   const homePageContent = await getHomePageContent()
   const artists = await getAllArtistsProfiles()
+  const menuItems = await getMenuItems()
 
   return {
-    props: { allPosts, homePageContent, artists, preview },
+    props: { allPosts, homePageContent, menuItems, artists, preview },
     revalidate: 10,
   }
 }
