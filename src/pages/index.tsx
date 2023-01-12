@@ -6,29 +6,16 @@ import CTA from "@/components/cta"
 import FeaturedArtists from "@/components/featured-artists"
 import Hero from "@/components/hero"
 import Instagram from "@/components/instagram"
-import Sponsors from "@/components/sponsors"
 import YoutubePlayer from "@/components/youtube-player"
-import {
-  getAllPostsForHome,
-  getHomePageContent,
-  getMenuItems,
-} from "@/lib/queries"
-import { Artists, getAllArtistsProfiles } from "@/lib/queries-legacy"
+import { getHomePageContent } from "@/lib/queries"
 import { GetStaticProps } from "next"
 import Head from "next/head"
 
 type IndexProps = {
-  allPosts: { edges: any }
-  homePageContent: any
-  menuItems: any
-  artists: Artists
+  pageContent: any
 }
 
-export default function Index({
-  allPosts: { edges },
-  homePageContent,
-  artists,
-}: IndexProps) {
+export default function Index({ pageContent }: IndexProps) {
   return (
     <>
       <Head>
@@ -39,30 +26,26 @@ export default function Index({
       </Head>
 
       <Hero
-        sourceUrl={homePageContent?.page?.featuredImage?.node?.sourceUrl}
-        altText={homePageContent?.page?.featuredImage?.node?.altText}
+        sourceUrl={pageContent?.page?.featuredImage?.node?.sourceUrl}
+        altText={pageContent?.page?.featuredImage?.node?.altText}
       />
       <Banner />
-      <YoutubePlayer embedId={homePageContent?.page?.embedId} />
-      <Carousel />
-      <Cities events={homePageContent?.events} />
-      <FeaturedArtists featuredArtists={artists.profiles} />
+      <YoutubePlayer videoId={pageContent?.youtubeVideoId} />
+      <Carousel images={pageContent?.page.homePage.sliderImages} />
+      <Cities events={pageContent?.events} />
+      <FeaturedArtists featuredArtists={pageContent?.featuredArtists} />
       <CTA />
       <Boxes />
       <Instagram />
-      <Sponsors images={homePageContent?.page?.sponsors?.images} />
     </>
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
-  const allPosts = await getAllPostsForHome(preview)
-  const homePageContent = await getHomePageContent()
-  const artists = await getAllArtistsProfiles()
-  const menuItems = await getMenuItems()
+export const getStaticProps: GetStaticProps = async () => {
+  const pageContent = await getHomePageContent()
 
   return {
-    props: { allPosts, homePageContent, menuItems, artists, preview },
+    props: { pageContent },
     revalidate: 10,
   }
 }

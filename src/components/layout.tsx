@@ -1,3 +1,4 @@
+import { getLayoutQuery } from "@/lib/queries"
 import { useQuery } from "@tanstack/react-query"
 import { request } from "graphql-request"
 import { ReactNode } from "react"
@@ -8,28 +9,19 @@ type LayoutProps = {
   children: ReactNode
 }
 export default function Layout({ children }: LayoutProps) {
-  const query = `query MenuItems {
-    menuItems(where: {location: NAVIGATION_MENU}) {
-      nodes {
-        key: id
-        parentId
-        title: label
-        url
-        path
-      }
-    }
-  }`
   const { data } = useQuery({
-    queryKey: ["menu"],
+    queryKey: ["layout"],
     queryFn: async () =>
-      request("http://aus-tattoo-expo.local/graphql", query, { first: 10 }),
+      request("http://aus-tattoo-expo.local/graphql", getLayoutQuery, {
+        first: 10,
+      }),
   })
 
   return (
     <>
       <Navbar menuItems={data?.menuItems} />
       <main>{children}</main>
-      <Footer />
+      <Footer {...data?.acfOptionsFooter?.footer} />
     </>
   )
 }

@@ -26,19 +26,19 @@ export type PageContent = {
 export async function getPageContent(id: string): Promise<PageContent> {
   const data = await fetchApi(
     `
-query Page {
-  page(id: "${id}", idType: URI) {
-    id
-    title
-    featuredImage {
-      node {
-        sourceUrl
-        altText
+    query Page {
+      page(id: "${id}", idType: URI) {
+        id
+        title
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+        content
       }
     }
-    content
-  }
-}
   `
   )
 
@@ -54,65 +54,31 @@ query Page {
 export async function getAllArtists() {
   const data = await fetchApi(
     `
-  query AllArtists {
-    artists {
-      edges {
-        node {
-          id
-          title
-          artists {
-            contactNumber
-            email
-            fieldGroupName
-            studioName
-          }
-          uri
-          featuredImage {
-            node {
-              sourceUrl
+    query AllArtists {
+      artists {
+        edges {
+          node {
+            id
+            title
+            artists {
+              contactNumber
+              email
+              fieldGroupName
+              studioName
+            }
+            uri
+            featuredImage {
+              node {
+                sourceUrl
+              }
             }
           }
         }
       }
     }
-  }
   `
   )
   return data?.artists
-}
-
-export async function getMenuItems() {
-  const data = await fetchApi(`
-  query MenuItems {
-    menuItems(where: {location: NAVIGATION_MENU}) {
-      nodes {
-        key: id
-        parentId
-        title: label
-        url
-        path
-      }
-    }
-  }
-  `)
-  return data
-}
-
-export async function getFooterContent() {
-  const data = await fetchApi(`
-  query Footer {
-    siteOptions {
-      options {
-        footer {
-          copyright
-          disclaimer
-        }
-      }
-    }
-  }
-  `)
-
-  return data
 }
 
 export async function getAllPostsWithSlug() {
@@ -130,59 +96,50 @@ export async function getAllPostsWithSlug() {
   return data?.posts
 }
 
-type GetHomePageContent = {
-  page: {
-    id: string
-    content: any
-    featuredImage: { node: [{ sourceUrl: string; altText: string }] }
-    homePage: {
-      eventsSection: {
-        eventsLocations: [
-          active: boolean,
-          date: string,
-          title: string,
-          url: string,
-          venue: string
-        ]
-      }
-    }
-    sponsors: {
-      images: [
-        {
-          image: {
-            altText: string
-            sourceUrl: string
-          }
-        }
-      ]
-    }
-    youtube: { videoUrl: string }
-  }
-  siteOptions: {
-    options: {
-      footer: {
-        copyright: string
-        disclaimer: string
-      }
-    }
-  }
-}
+// type GetHomePageContent = {
+//   page: {
+//     id: string
+//     content: any
+//     featuredImage: { node: [{ sourceUrl: string; altText: string }] }
+//     homePage: {
+//       eventsSection: {
+//         eventsLocations: [
+//           active: boolean,
+//           date: string,
+//           title: string,
+//           url: string,
+//           venue: string
+//         ]
+//       }
+//     }
+//     sponsors: {
+//       images: [
+//         {
+//           image: {
+//             altText: string
+//             sourceUrl: string
+//           }
+//         }
+//       ]
+//     }
+//     youtube: { videoUrl: string }
+//   }
+// }
 export async function getHomePageContent() {
-  const data: GetHomePageContent = await fetchApi(
+  const data = await fetchApi(
     `
 query HomePage {
   page(id: "/", idType: URI) {
-    id
-    content
     featuredImage {
       node {
         sourceUrl
         altText
+        title
       }
     }
     homePage {
-      eventsSection {
-        eventsLocations {
+      events {
+        locations {
           active
           date
           title
@@ -190,38 +147,42 @@ query HomePage {
           venue
         }
       }
-    }
-    sponsors {
-      images {
-        image {
-          altText
-          sourceUrl(size: THUMBNAIL)
+      featuredArtists {
+        ... on Artist {
+          featuredImage {
+            node {
+              altText
+              sourceUrl(size: THUMBNAIL)
+            }
+          }
+          artist {
+            studioName
+            images {
+              altText
+              sourceUrl
+              title
+            }
+          }
+          title
+          slug
         }
       }
-    }
-    youtube {
-      videoUrl
-    }
-  }
-  siteOptions {
-    options {
-      footer {
-        copyright
-        disclaimer
+      youtubeUrl
+      sliderImages {
+        altText
+        title
+        sourceUrl
       }
     }
   }
-}
-  `
+}`
   )
 
   return {
-    page: {
-      ...data?.page,
-      embedId: data.page.youtube.videoUrl.split("v=")[1],
-    },
-    events: data?.page?.homePage?.eventsSection?.eventsLocations,
-    footer: data?.siteOptions?.options?.footer,
+    ...data,
+    youtubeVideoId: data?.page?.homePage?.youtubeUrl?.split("v=")[1],
+    featuredArtists: data?.page?.homePage?.featuredArtists,
+    events: data?.page?.homePage?.events?.locations,
   }
 }
 
@@ -382,3 +343,33 @@ export async function getPostAndMorePosts(
 
   return data
 }
+
+export const getLayoutQuery = `
+query GetLayout {
+  menuItems(where: {location: NAVIGATION_MENU}) {
+    nodes {
+      title: label
+      url
+      path
+    }
+  }
+  acfOptionsFooter {
+    footer {
+      copyright
+      disclaimer
+      sponsors {
+        sourceUrl(size: THUMBNAIL)
+        title
+        altText
+      }
+    }
+  }
+  acfOptionsSocial {
+    socialMediaLinks {
+      twitter
+      instagram
+      facebook
+    }
+  }
+}
+`

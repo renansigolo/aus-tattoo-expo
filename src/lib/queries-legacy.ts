@@ -42,7 +42,7 @@ type GetArtists = {
   }
 }
 
-export async function getAllArtistsProfiles() {
+export async function getFeaturedArtists() {
   const data: GetArtists = await fetchApi(
     `
 query ArtistProfiles {

@@ -11,6 +11,7 @@ const footerContent = {
 type FooterProps = {
   disclaimer?: string
   copyright?: string
+  sponsors?: any[]
 }
 
 export default function Footer({
@@ -20,6 +21,7 @@ export default function Footer({
   return (
     <footer className={style.footer}>
       <Container>
+        {/* <Sponsors images={homePageContent?.page?.sponsors?.images} /> */}
         <div className={style.disclaimer}>
           <SanitizeHtml htmlString={disclaimer} element="p" />
         </div>
