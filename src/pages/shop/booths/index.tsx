@@ -1,7 +1,7 @@
 import Hero from "@/components/hero"
 import Notification from "@/components/notification"
 import Container from "@/components/wordpress/container"
-import { getPageContent, PageContent } from "@/lib/queries"
+import { getWPPageContent, PageContent } from "@/lib/queries"
 import { postRequest } from "@/lib/utils/post-request"
 import { getStripe } from "@/lib/utils/stripe"
 import { GetStaticProps } from "next"
@@ -216,10 +216,7 @@ export default function Booths({ pageContent }: BoothsProps) {
   }
   return (
     <div className={style.booths}>
-      <Hero
-        sourceUrl={pageContent.featuredImage.sourceUrl}
-        altText={pageContent.featuredImage.sourceUrl}
-      />
+      <Hero {...pageContent.featuredImage} />
 
       <Container>
         {/* Highlights - Section */}
@@ -541,7 +538,7 @@ export default function Booths({ pageContent }: BoothsProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const pageContent = await getPageContent("shop/booths")
+  const pageContent = await getWPPageContent("shop/booths")
 
   return {
     props: { pageContent },

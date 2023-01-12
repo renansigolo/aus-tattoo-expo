@@ -3,35 +3,21 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"
 import Link from "next/link"
 import { useState } from "react"
 
-const navigation = [
-  {
-    label: "Artists",
-    url: "/artists",
-  },
-  {
-    label: "Retailers",
-    url: "/retailers",
-  },
-  {
-    label: "About",
-    url: "/about",
-  },
-  {
-    label: "FAQ",
-    url: "/faq",
-  },
-  {
-    label: "Contact",
-    url: "/contact",
-  },
-  {
-    label: "Book Booth",
-    url: "/shop/booths",
-  },
-]
-
-export default function Navbar() {
+type NavbarProps = {
+  menuItems: {
+    nodes: [
+      {
+        title: string
+        url: string
+        path: string
+      }
+    ]
+  }
+}
+export default function Navbar({ menuItems }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  if (!menuItems) return null
 
   return (
     <div className="bg-black p-6">
@@ -52,13 +38,14 @@ export default function Navbar() {
         </div>
 
         <div className="z-10 hidden text-center align-middle text-white lg:flex lg:min-w-0 lg:justify-center lg:gap-x-12">
-          {navigation.map((item) => (
+          {menuItems.nodes.map((item) => (
             <Link
-              key={item.label}
-              href={item.url}
+              key={item.title}
+              href={item.path}
               className="self-center font-semibold text-white hover:cursor-pointer hover:text-white"
+              target={item.path.includes("http") ? "_blank" : "_self"}
             >
-              {item.label}
+              {item.title}
             </Link>
           ))}
         </div>
@@ -116,14 +103,14 @@ export default function Navbar() {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                {navigation.map((item) => (
+                {menuItems.nodes.map((item) => (
                   <Link
-                    key={item.label}
-                    href={item.url}
+                    key={item.title}
+                    href={item.path}
                     className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-400/10"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    {item.label}
+                    {item.title}
                   </Link>
                 ))}
               </div>

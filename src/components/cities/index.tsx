@@ -3,29 +3,33 @@ import Link from "next/link"
 import style from "./cities.module.scss"
 
 type CitiesProps = {
-  events: [
+  locations: [
     {
       active: boolean | null
       date: string
       title: string
-      venue: string
       url: string
+      venue: string
     }
   ]
 }
 
-export default function Cities({ events }: CitiesProps) {
+export default function Cities({ locations }: CitiesProps) {
+  if (!locations) return <></>
   return (
     <Container>
       <section className={style.section}>
         <div className={style.cities}>
           <ul role="list">
-            {events.map((event) => (
+            {locations.map((event) => (
               <li
                 key={event.title}
                 className={`${event.active && "text-white"}`}
               >
                 <Link href={event.url || "#"} target="_blank" rel="noreferrer">
+                  <div className="flex h-6 text-center">
+                    {event.active && <span className="w-full">Next up:</span>}
+                  </div>
                   <span>{event.title}</span>
                   {event.date}
                   <br />

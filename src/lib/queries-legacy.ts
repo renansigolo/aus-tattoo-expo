@@ -1,100 +1,22 @@
 import { fetchApi } from "@/lib/utils/fetch"
+import { WPImage } from "@/lib/utils/types"
 
-export type FeaturedArtist = {
-  title: string
-  studioName: string
-  profileImg: string
-  slug: string
-}
-
-export type ArtistProfile = FeaturedArtist & {
-  id: string
-  contactEmail: string
-  answer1: string
-  answer2: string
-  answer3: string
-  facebookUrl: string
-  instagramUrl: string
-  twitterUrl: string
-  websiteUrl: string
-  uploadImage2: string
-  uploadImage1: string
-  categories: [{ id: string; name: string }]
-  uri: string
-}
-
-type ArtistModule = {
-  id: string
-  title: string
-}
-
-export type Artists = {
-  profiles: ArtistProfile[]
-  modules: ArtistModule[]
-}
-
-type GetArtists = {
-  artistProfiles: {
-    nodes: ArtistProfile[]
-  }
-  artistsModules: {
-    nodes: ArtistModule[]
-  }
-}
-
-export async function getAllArtistsProfiles() {
-  const data: GetArtists = await fetchApi(
-    `
-query ArtistProfiles {
-  artistProfiles(first: 10) {
-    nodes {
-      id
-      title
-      studioName
-      contactEmail
-      answer1
-      answer2
-      answer3
-      facebookUrl
-      instagramUrl
-      twitterUrl
-      websiteUrl
-      uploadImage2
-      uploadImage1
-      profileImg
-      categories {
-        nodes {
-          id
-          name
+type GetArtistsBySlug = {
+  artists: {
+    edges: [
+      {
+        node: {
+          slug: string
         }
       }
-      slug
-      uri
-    }
-  }
-  artistsModules {
-    nodes {
-      id
-      title
-    }
+    ]
   }
 }
-  `,
-    {},
-    true
-  )
-
-  return {
-    profiles: data.artistProfiles.nodes,
-    modules: data.artistsModules.nodes,
-  }
-}
-
 export async function getAllArtistsWithSlug() {
-  const data = await fetchApi(
+  const data: GetArtistsBySlug = await fetchApi(
     `
-    {
-      artistProfiles(first: 1000) {
+    query GetArtistsBySlug {
+      artists(first: 1000) {
         edges {
           node {
             slug
@@ -102,30 +24,49 @@ export async function getAllArtistsWithSlug() {
         }
       }
     }
-  `,
-    {},
-    true
+  `
   )
 
-  return data?.artistProfiles
+  return data?.artists
 }
 
+type GetArtistProfile = {
+  artist: {
+    artist: {
+      website: string
+      twitter: string
+      studioName: string
+      instagram: string
+      contactNumber: string
+      email: string
+      facebook: string
+      featuredImage: WPImage
+    }
+    title: string
+    slug: string
+  }
+}
 export async function getArtistProfile(slug: string | string[] | undefined) {
-  const data = await fetchApi(
+  const data: GetArtistProfile = await fetchApi(
     `
     query ArtistProfileBySlug($id: ID!) {
-      artistProfile(id: $id, idType: URI) {
-        id
-        instagramUrl
+      artist(id: $id, idType: URI) {
+        artist {
+          website
+          twitter
+          studioName
+          instagram
+          contactNumber
+          email
+          facebook
+          featuredImage {
+            altText
+            title
+            sourceUrl
+          }
+        }
         title
-        profileImg
-        contactEmail
-        contactMobile
-        facebookUrl
-        twitterUrl
-        websiteUrl
         slug
-        studioName
       }
     }
   `,
@@ -133,11 +74,10 @@ export async function getArtistProfile(slug: string | string[] | undefined) {
       variables: {
         id: slug,
       },
-    },
-    true
+    }
   )
 
   return {
-    post: data.artistProfile,
+    post: data?.artist,
   }
 }

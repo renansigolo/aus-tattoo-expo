@@ -2,6 +2,7 @@ import Container from "@/components/wordpress/container"
 import Layout from "@/components/wordpress/layout"
 import PostTitle from "@/components/wordpress/post-title"
 import { getAllArtistsWithSlug, getArtistProfile } from "@/lib/queries-legacy"
+import { WPImage } from "@/lib/utils/types"
 import { GetStaticPaths, GetStaticProps } from "next"
 import ErrorPage from "next/error"
 import Image from "next/image"
@@ -9,17 +10,18 @@ import { useRouter } from "next/router"
 
 type ArtistProfileProps = {
   post: {
-    id: string
-    instagramUrl: string
-    title: string
-    profileImg: string
-    contactEmail: string
-    contactMobile: string
-    facebookUrl: string
-    twitterUrl: string
-    websiteUrl: string
     slug: string
-    studioName: string
+    title: string
+    artist: {
+      featuredImage: WPImage
+      studioName: string
+      email: string
+      contactNumber: number
+      instagram: string | null
+      facebook: string | null
+      twitter: string | null
+      website: string | null
+    }
   }
 }
 export default function ArtistProfile({ post }: ArtistProfileProps) {
@@ -40,7 +42,7 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
             <div className="sm:flex">
               <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
                 <Image
-                  src={post.profileImg}
+                  src={post.artist.featuredImage.sourceUrl}
                   alt={`Profile Image of ${post.title}`}
                   width={128}
                   height={128}
@@ -49,8 +51,9 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
               </div>
               <div>
                 <h4 className="text-lg font-bold">Name: {post.title}</h4>
-                <p className="mt-1">Studio: {post.studioName}</p>
-                <p className="mt-1">Contact: {post.contactEmail}</p>
+                <p className="mt-1">Studio: {post.artist.studioName}</p>
+                <p className="mt-1">Email: {post.artist.email}</p>
+                <p className="mt-1">Contact: {post.artist.contactNumber}</p>
               </div>
             </div>
           </article>

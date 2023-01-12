@@ -1,37 +1,49 @@
 import Container from "@/components/wordpress/container"
-import { ArtistProfile } from "@/lib/queries-legacy"
+import { WPImage } from "@/lib/utils/types"
 import Image from "next/image"
 import Link from "next/link"
 import style from "./featured-artists.module.scss"
 
 type FeaturedArtistsProps = {
-  featuredArtists: ArtistProfile[]
+  featuredArtists: [
+    {
+      slug: string
+      title: string
+      artist: {
+        studioName: string
+        images: WPImage[] | null
+        featuredImage: WPImage
+      }
+    }
+  ]
 }
 
 export default function FeaturedArtists({
   featuredArtists,
 }: FeaturedArtistsProps) {
   if (!featuredArtists) return <></>
-
   return (
     <section className={style.section}>
       <Container>
-        <h2>Melbourne Featured Artists</h2>
+        <h2>Featured Artists</h2>
         <ul role="list">
-          {featuredArtists.map((artist) => (
-            <li key={artist.title}>
-              <Link href={`/artists/profile/${artist.slug}`}>
+          {featuredArtists.map(({ title, slug, artist }) => (
+            <li key={title}>
+              <Link href={`/artists/profile/${slug}`}>
                 <article className={style.card}>
                   <header>
                     <Image
-                      src={artist.profileImg || "/images/no-image.svg"}
-                      alt={artist.title}
+                      src={artist.featuredImage?.sourceUrl}
+                      alt={
+                        artist.featuredImage.altText ||
+                        artist.featuredImage.title
+                      }
                       width={140}
                       height={140}
                     />
                   </header>
                   <footer>
-                    <h3>{artist.title}</h3>
+                    <h3>{title}</h3>
                     <p>{artist.studioName}</p>
                   </footer>
                 </article>

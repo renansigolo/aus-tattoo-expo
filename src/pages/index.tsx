@@ -6,24 +6,41 @@ import CTA from "@/components/cta"
 import FeaturedArtists from "@/components/featured-artists"
 import Hero from "@/components/hero"
 import Instagram from "@/components/instagram"
-import Sponsors from "@/components/sponsors"
 import YoutubePlayer from "@/components/youtube-player"
-import { getAllPostsForHome, getHomePageContent } from "@/lib/queries"
-import { Artists, getAllArtistsProfiles } from "@/lib/queries-legacy"
+import { getHomePageContent } from "@/lib/queries"
+import { WPImage } from "@/lib/utils/types"
 import { GetStaticProps } from "next"
 import Head from "next/head"
 
 type IndexProps = {
-  allPosts: { edges: any }
-  homePageContent: any
-  artists: Artists
+  pageContent: {
+    youtubeVideoId: string
+    heroBanner: WPImage
+    eventLocations: [
+      {
+        active: boolean | null
+        date: string
+        title: string
+        url: string
+        venue: string
+      }
+    ]
+    featuredArtists: [
+      {
+        slug: string
+        title: string
+        artist: {
+          studioName: string
+          images: null | WPImage[]
+          featuredImage: WPImage
+        }
+      }
+    ]
+    sliderImages: WPImage[]
+  }
 }
 
-export default function Index({
-  allPosts: { edges },
-  homePageContent,
-  artists,
-}: IndexProps) {
+export default function Index({ pageContent }: IndexProps) {
   return (
     <>
       <Head>
@@ -33,30 +50,24 @@ export default function Index({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Hero
-        sourceUrl={homePageContent?.page?.featuredImage?.node?.sourceUrl}
-        altText={homePageContent?.page?.featuredImage?.node?.altText}
-      />
+      <Hero {...pageContent.heroBanner} />
       <Banner />
-      <YoutubePlayer embedId={homePageContent?.page?.embedId} />
-      <Carousel />
-      <Cities events={homePageContent?.events} />
-      <FeaturedArtists featuredArtists={artists.profiles} />
+      <YoutubePlayer videoId={pageContent?.youtubeVideoId} />
+      <Carousel images={pageContent?.sliderImages} />
+      <Cities locations={pageContent?.eventLocations} />
+      <FeaturedArtists featuredArtists={pageContent?.featuredArtists} />
       <CTA />
       <Boxes />
       <Instagram />
-      <Sponsors images={homePageContent?.page?.sponsors?.images} />
     </>
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
-  const allPosts = await getAllPostsForHome(preview)
-  const homePageContent = await getHomePageContent()
-  const artists = await getAllArtistsProfiles()
+export const getStaticProps: GetStaticProps = async () => {
+  const pageContent = await getHomePageContent()
 
   return {
-    props: { allPosts, homePageContent, artists, preview },
+    props: { pageContent },
     revalidate: 10,
   }
 }

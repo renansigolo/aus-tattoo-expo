@@ -1,23 +1,17 @@
 import "swiper/css"
 
 import Container from "@/components/wordpress/container"
+import { WPImage } from "@/lib/utils/types"
 import Image from "next/image"
 import { Autoplay } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
 
-const images = [
-  "/images/slider/AustralianTattooExpo-Slide01.jpg",
-  "/images/slider/AustralianTattooExpo-Slide02.jpg",
-  "/images/slider/AustralianTattooExpo-Slide03.jpg",
-  "/images/slider/AustralianTattooExpo-Slide04.jpg",
-  "/images/slider/AustralianTattooExpo-Slide05.jpg",
-]
+type CarouselProps = {
+  images: WPImage[]
+}
 
-// type CarouselProps = {
-//   images: string[]
-// }
-
-export default function Carousel() {
+export default function Carousel({ images }: CarouselProps) {
+  if (!images) return <></>
   return (
     <Container>
       <div className="py-4">
@@ -33,12 +27,12 @@ export default function Carousel() {
             disableOnInteraction: false,
           }}
         >
-          {images.map((imageUrl, index) => (
+          {images.map((image, index) => (
             <SwiperSlide key={index}>
               <div className="h-full min-h-[10vh]">
                 <Image
-                  src={imageUrl}
-                  alt={`Slider Image ${index}`}
+                  src={image.sourceUrl}
+                  alt={image.altText || `Slider Image ${index}`}
                   width={1170}
                   height={387}
                 />

@@ -1,44 +1,29 @@
 import { fetchApi } from "@/lib/utils/fetch"
-
-export async function getPreviewPost(id: any, idType = "DATABASE_ID") {
-  const data = await fetchApi(
-    `
-    query PreviewPost($id: ID!, $idType: PostIdType!) {
-      post(id: $id, idType: $idType) {
-        databaseId
-        slug
-        status
-      }
-    }`,
-    {
-      variables: { id, idType },
-    }
-  )
-  return data.post
-}
+import { WPImage } from "@/lib/utils/types"
 
 export type PageContent = {
   id: string
   title: string
-  featuredImage: { sourceUrl: string; altText: string }
+  featuredImage: WPImage
   content: string | null
 }
-export async function getPageContent(id: string): Promise<PageContent> {
+export async function getWPPageContent(id: string): Promise<PageContent> {
   const data = await fetchApi(
     `
-query Page {
-  page(id: "${id}", idType: URI) {
-    id
-    title
-    featuredImage {
-      node {
-        sourceUrl
-        altText
+    query Page {
+      page(id: "${id}", idType: URI) {
+        id
+        title
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+            title
+          }
+        }
+        content
       }
     }
-    content
-  }
-}
   `
   )
 
@@ -54,54 +39,37 @@ query Page {
 export async function getAllArtists() {
   const data = await fetchApi(
     `
-  query AllArtists {
-    artists {
-      edges {
-        node {
-          id
-          title
-          artists {
-            contactNumber
-            email
-            fieldGroupName
-            studioName
-          }
-          uri
-          featuredImage {
-            node {
-              sourceUrl
+    query AllArtists {
+      artists {
+        edges {
+          node {
+            id
+            title
+            artists {
+              contactNumber
+              email
+              fieldGroupName
+              studioName
+            }
+            uri
+            featuredImage {
+              node {
+                sourceUrl
+              }
             }
           }
         }
       }
     }
-  }
   `
   )
   return data?.artists
 }
 
-export async function getFooterContent() {
-  const data = await fetchApi(`
-  query Footer {
-    siteOptions {
-      options {
-        footer {
-          copyright
-          disclaimer
-        }
-      }
-    }
-  }
-  `)
-
-  return data
-}
-
-export async function getAllPostsWithSlug() {
+export async function getAllArtistsWithSlug() {
   const data = await fetchApi(`
     {
-      posts(first: 10000) {
+      artists(first: 10000) {
         edges {
           node {
             slug
@@ -110,42 +78,36 @@ export async function getAllPostsWithSlug() {
       }
     }
   `)
-  return data?.posts
+  return data?.artists
 }
 
 type GetHomePageContent = {
   page: {
-    id: string
-    content: any
-    featuredImage: { node: [{ sourceUrl: string; altText: string }] }
+    featuredImage: { node: WPImage }
     homePage: {
-      eventsSection: {
-        eventsLocations: [
-          active: boolean,
-          date: string,
-          title: string,
-          url: string,
-          venue: string
-        ]
-      }
-    }
-    sponsors: {
-      images: [
+      youtubeUrl: string
+      featuredArtists: [
         {
-          image: {
-            altText: string
-            sourceUrl: string
+          slug: string
+          title: string
+          artist: {
+            studioName: string
+            images: null | WPImage[]
+            featuredImage: WPImage
           }
         }
       ]
-    }
-    youtube: { videoUrl: string }
-  }
-  siteOptions: {
-    options: {
-      footer: {
-        copyright: string
-        disclaimer: string
+      sliderImages: WPImage[]
+      events: {
+        locations: [
+          {
+            active: boolean | null
+            date: string
+            title: string
+            url: string
+            venue: string
+          }
+        ]
       }
     }
   }
@@ -155,17 +117,16 @@ export async function getHomePageContent() {
     `
 query HomePage {
   page(id: "/", idType: URI) {
-    id
-    content
     featuredImage {
       node {
         sourceUrl
         altText
+        title
       }
     }
     homePage {
-      eventsSection {
-        eventsLocations {
+      events {
+        locations {
           active
           date
           title
@@ -173,38 +134,42 @@ query HomePage {
           venue
         }
       }
-    }
-    sponsors {
-      images {
-        image {
-          altText
-          sourceUrl(size: THUMBNAIL)
+      featuredArtists {
+        ... on Artist {
+          artist {
+            studioName
+            images {
+              altText
+              sourceUrl
+              title
+            }
+            featuredImage {
+              altText
+              title
+              sourceUrl(size: THUMBNAIL)
+            }
+          }
+          title
+          slug
         }
       }
-    }
-    youtube {
-      videoUrl
-    }
-  }
-  siteOptions {
-    options {
-      footer {
-        copyright
-        disclaimer
+      youtubeUrl
+      sliderImages {
+        altText
+        title
+        sourceUrl
       }
     }
   }
-}
-  `
+}`
   )
 
   return {
-    page: {
-      ...data?.page,
-      embedId: data.page.youtube.videoUrl.split("v=")[1],
-    },
-    events: data?.page?.homePage?.eventsSection?.eventsLocations,
-    footer: data?.siteOptions?.options?.footer,
+    heroBanner: data.page.featuredImage.node,
+    sliderImages: data.page.homePage.sliderImages,
+    youtubeVideoId: data.page.homePage.youtubeUrl?.split("v=")[1],
+    featuredArtists: data.page.homePage.featuredArtists,
+    eventLocations: data.page.homePage.events.locations,
   }
 }
 
@@ -365,3 +330,33 @@ export async function getPostAndMorePosts(
 
   return data
 }
+
+export const getLayoutQuery = `
+query GetLayout {
+  menuItems(where: {location: NAVIGATION_MENU}) {
+    nodes {
+      title: label
+      url
+      path
+    }
+  }
+  acfOptionsFooter {
+    footer {
+      copyright
+      disclaimer
+      sponsors {
+        sourceUrl(size: THUMBNAIL)
+        title
+        altText
+      }
+    }
+  }
+  acfOptionsSocial {
+    socialMediaLinks {
+      twitter
+      instagram
+      facebook
+    }
+  }
+}
+`
