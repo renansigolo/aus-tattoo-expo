@@ -216,10 +216,7 @@ export default function Booths({ pageContent }: BoothsProps) {
   }
   return (
     <div className={style.booths}>
-      <Hero
-        sourceUrl={pageContent.featuredImage.sourceUrl}
-        altText={pageContent.featuredImage.sourceUrl}
-      />
+      <Hero {...pageContent.featuredImage} />
 
       <Container>
         {/* Highlights - Section */}

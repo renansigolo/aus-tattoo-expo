@@ -1,20 +1,17 @@
 import "swiper/css"
 
 import Container from "@/components/wordpress/container"
+import { WPImage } from "@/lib/utils/types"
 import Image from "next/image"
 import { Autoplay } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
 
 type CarouselProps = {
-  images: [
-    {
-      altText: string
-      sourceUrl: string
-    }
-  ]
+  images: WPImage[]
 }
 
 export default function Carousel({ images }: CarouselProps) {
+  if (!images) return <></>
   return (
     <Container>
       <div className="py-4">

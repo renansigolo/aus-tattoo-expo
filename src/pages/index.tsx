@@ -8,11 +8,36 @@ import Hero from "@/components/hero"
 import Instagram from "@/components/instagram"
 import YoutubePlayer from "@/components/youtube-player"
 import { getHomePageContent } from "@/lib/queries"
+import { WPImage } from "@/lib/utils/types"
 import { GetStaticProps } from "next"
 import Head from "next/head"
 
 type IndexProps = {
-  pageContent: any
+  pageContent: {
+    youtubeVideoId: string
+    heroBanner: WPImage
+    eventLocations: [
+      {
+        active: boolean | null
+        date: string
+        title: string
+        url: string
+        venue: string
+      }
+    ]
+    featuredArtists: [
+      {
+        slug: string
+        title: string
+        artist: {
+          studioName: string
+          images: null | WPImage[]
+          featuredImage: WPImage
+        }
+      }
+    ]
+    sliderImages: WPImage[]
+  }
 }
 
 export default function Index({ pageContent }: IndexProps) {
@@ -25,14 +50,11 @@ export default function Index({ pageContent }: IndexProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Hero
-        sourceUrl={pageContent?.page?.featuredImage?.node?.sourceUrl}
-        altText={pageContent?.page?.featuredImage?.node?.altText}
-      />
+      <Hero {...pageContent.heroBanner} />
       <Banner />
       <YoutubePlayer videoId={pageContent?.youtubeVideoId} />
-      <Carousel images={pageContent?.page.homePage.sliderImages} />
-      <Cities events={pageContent?.events} />
+      <Carousel images={pageContent?.sliderImages} />
+      <Cities locations={pageContent?.eventLocations} />
       <FeaturedArtists featuredArtists={pageContent?.featuredArtists} />
       <CTA />
       <Boxes />

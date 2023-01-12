@@ -7,11 +7,9 @@ type NavbarProps = {
   menuItems: {
     nodes: [
       {
-        key: string
-        parentId: string | null
-        path: string
         title: string
         url: string
+        path: string
       }
     ]
   }

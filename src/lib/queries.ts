@@ -1,4 +1,5 @@
 import { fetchApi } from "@/lib/utils/fetch"
+import { WPImage } from "@/lib/utils/types"
 
 export async function getPreviewPost(id: any, idType = "DATABASE_ID") {
   const data = await fetchApi(
@@ -20,7 +21,7 @@ export async function getPreviewPost(id: any, idType = "DATABASE_ID") {
 export type PageContent = {
   id: string
   title: string
-  featuredImage: { sourceUrl: string; altText: string }
+  featuredImage: WPImage
   content: string | null
 }
 export async function getPageContent(id: string): Promise<PageContent> {
@@ -34,6 +35,7 @@ export async function getPageContent(id: string): Promise<PageContent> {
           node {
             sourceUrl
             altText
+            title
           }
         }
         content
@@ -96,37 +98,39 @@ export async function getAllPostsWithSlug() {
   return data?.posts
 }
 
-// type GetHomePageContent = {
-//   page: {
-//     id: string
-//     content: any
-//     featuredImage: { node: [{ sourceUrl: string; altText: string }] }
-//     homePage: {
-//       eventsSection: {
-//         eventsLocations: [
-//           active: boolean,
-//           date: string,
-//           title: string,
-//           url: string,
-//           venue: string
-//         ]
-//       }
-//     }
-//     sponsors: {
-//       images: [
-//         {
-//           image: {
-//             altText: string
-//             sourceUrl: string
-//           }
-//         }
-//       ]
-//     }
-//     youtube: { videoUrl: string }
-//   }
-// }
+type GetHomePageContent = {
+  page: {
+    featuredImage: { node: WPImage }
+    homePage: {
+      youtubeUrl: string
+      featuredArtists: [
+        {
+          slug: string
+          title: string
+          artist: {
+            studioName: string
+            images: null | WPImage[]
+            featuredImage: WPImage
+          }
+        }
+      ]
+      sliderImages: WPImage[]
+      events: {
+        locations: [
+          {
+            active: boolean | null
+            date: string
+            title: string
+            url: string
+            venue: string
+          }
+        ]
+      }
+    }
+  }
+}
 export async function getHomePageContent() {
-  const data = await fetchApi(
+  const data: GetHomePageContent = await fetchApi(
     `
 query HomePage {
   page(id: "/", idType: URI) {
@@ -149,18 +153,17 @@ query HomePage {
       }
       featuredArtists {
         ... on Artist {
-          featuredImage {
-            node {
-              altText
-              sourceUrl(size: THUMBNAIL)
-            }
-          }
           artist {
             studioName
             images {
               altText
               sourceUrl
               title
+            }
+            featuredImage {
+              altText
+              title
+              sourceUrl(size: THUMBNAIL)
             }
           }
           title
@@ -179,10 +182,11 @@ query HomePage {
   )
 
   return {
-    ...data,
-    youtubeVideoId: data?.page?.homePage?.youtubeUrl?.split("v=")[1],
-    featuredArtists: data?.page?.homePage?.featuredArtists,
-    events: data?.page?.homePage?.events?.locations,
+    heroBanner: data.page.featuredImage.node,
+    sliderImages: data.page.homePage.sliderImages,
+    youtubeVideoId: data.page.homePage.youtubeUrl?.split("v=")[1],
+    featuredArtists: data.page.homePage.featuredArtists,
+    eventLocations: data.page.homePage.events.locations,
   }
 }
 
