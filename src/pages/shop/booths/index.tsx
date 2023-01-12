@@ -1,7 +1,7 @@
 import Hero from "@/components/hero"
 import Notification from "@/components/notification"
 import Container from "@/components/wordpress/container"
-import { getPageContent, PageContent } from "@/lib/queries"
+import { getWPPageContent, PageContent } from "@/lib/queries"
 import { postRequest } from "@/lib/utils/post-request"
 import { getStripe } from "@/lib/utils/stripe"
 import { GetStaticProps } from "next"
@@ -538,7 +538,7 @@ export default function Booths({ pageContent }: BoothsProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const pageContent = await getPageContent("shop/booths")
+  const pageContent = await getWPPageContent("shop/booths")
 
   return {
     props: { pageContent },

@@ -7,7 +7,7 @@ import PostHeader from "@/components/wordpress/post-header"
 import PostTitle from "@/components/wordpress/post-title"
 import SectionSeparator from "@/components/wordpress/section-separator"
 import Tags from "@/components/wordpress/tags"
-import { getAllPostsWithSlug, getPostAndMorePosts } from "@/lib/queries"
+import { getAllArtistsWithSlug, getPostAndMorePosts } from "@/lib/queries"
 import { CMS_NAME } from "@/lib/utils/constants"
 import { GetStaticPaths, GetStaticProps } from "next"
 import ErrorPage from "next/error"
@@ -80,7 +80,7 @@ export const getStaticProps: GetStaticProps = async ({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const allPosts = await getAllPostsWithSlug()
+  const allPosts = await getAllArtistsWithSlug()
 
   return {
     paths: allPosts.edges.map(({ node }: any) => `/posts/${node.slug}`) || [],

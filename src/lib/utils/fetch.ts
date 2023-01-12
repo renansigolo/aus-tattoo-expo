@@ -1,12 +1,9 @@
 const API_URL = process.env.WORDPRESS_API_URL
-const API_URL_LEGACY = process.env.WORDPRESS_API_URL_LEGACY
 
 export async function fetchApi(
   query = "",
-  { variables }: Record<string, any> = {},
-  useLegacy: boolean = false
+  { variables }: Record<string, any> = {}
 ) {
-  const apiUrl = useLegacy ? (API_URL_LEGACY as string) : (API_URL as string)
   const headers: HeadersInit = { "Content-Type": "application/json" }
 
   if (process.env.WORDPRESS_AUTH_REFRESH_TOKEN) {
@@ -15,7 +12,7 @@ export async function fetchApi(
     ] = `Bearer ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`
   }
 
-  const res = await fetch(apiUrl, {
+  const res = await fetch(API_URL as string, {
     headers,
     method: "POST",
     body: JSON.stringify({

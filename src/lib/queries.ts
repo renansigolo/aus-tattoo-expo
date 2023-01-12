@@ -1,30 +1,13 @@
 import { fetchApi } from "@/lib/utils/fetch"
 import { WPImage } from "@/lib/utils/types"
 
-export async function getPreviewPost(id: any, idType = "DATABASE_ID") {
-  const data = await fetchApi(
-    `
-    query PreviewPost($id: ID!, $idType: PostIdType!) {
-      post(id: $id, idType: $idType) {
-        databaseId
-        slug
-        status
-      }
-    }`,
-    {
-      variables: { id, idType },
-    }
-  )
-  return data.post
-}
-
 export type PageContent = {
   id: string
   title: string
   featuredImage: WPImage
   content: string | null
 }
-export async function getPageContent(id: string): Promise<PageContent> {
+export async function getWPPageContent(id: string): Promise<PageContent> {
   const data = await fetchApi(
     `
     query Page {
@@ -83,10 +66,10 @@ export async function getAllArtists() {
   return data?.artists
 }
 
-export async function getAllPostsWithSlug() {
+export async function getAllArtistsWithSlug() {
   const data = await fetchApi(`
     {
-      posts(first: 10000) {
+      artists(first: 10000) {
         edges {
           node {
             slug
@@ -95,7 +78,7 @@ export async function getAllPostsWithSlug() {
       }
     }
   `)
-  return data?.posts
+  return data?.artists
 }
 
 type GetHomePageContent = {
