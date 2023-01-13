@@ -1,3 +1,4 @@
+import Hero from "@/components/hero"
 import Container from "@/components/wordpress/container"
 import Layout from "@/components/wordpress/layout"
 import PostTitle from "@/components/wordpress/post-title"
@@ -12,8 +13,10 @@ type ArtistProfileProps = {
   post: {
     slug: string
     title: string
-    artist: {
+    acfFeaturedImage: {
       featuredImage: WPImage
+    }
+    artist: {
       studioName: string
       email: string
       contactNumber: number
@@ -37,26 +40,29 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
         {router.isFallback ? (
           <PostTitle>Loading…</PostTitle>
         ) : (
-          <article className="text-white">
-            <h1>{post.title}</h1>
-            <div className="sm:flex">
-              <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
-                <Image
-                  src={post.artist.featuredImage.sourceUrl}
-                  alt={`Profile Image of ${post.title}`}
-                  width={128}
-                  height={128}
-                  className="h-32 w-full border border-gray-300 bg-white text-gray-300 sm:w-32"
-                />
+          <>
+            <Hero {...post.acfFeaturedImage.featuredImage} />
+            <article className="text-white">
+              <h1>{post.title}</h1>
+              <div className="sm:flex">
+                <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
+                  <Image
+                    src={post.acfFeaturedImage.featuredImage.sourceUrl}
+                    alt={`Profile Image of ${post.title}`}
+                    width={128}
+                    height={128}
+                    className="h-32 w-full border border-gray-300 bg-white text-gray-300 sm:w-32"
+                  />
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold">Name: {post.title}</h4>
+                  <p className="mt-1">Studio: {post.artist.studioName}</p>
+                  <p className="mt-1">Email: {post.artist.email}</p>
+                  <p className="mt-1">Contact: {post.artist.contactNumber}</p>
+                </div>
               </div>
-              <div>
-                <h4 className="text-lg font-bold">Name: {post.title}</h4>
-                <p className="mt-1">Studio: {post.artist.studioName}</p>
-                <p className="mt-1">Email: {post.artist.email}</p>
-                <p className="mt-1">Contact: {post.artist.contactNumber}</p>
-              </div>
-            </div>
-          </article>
+            </article>
+          </>
         )}
       </Container>
     </Layout>

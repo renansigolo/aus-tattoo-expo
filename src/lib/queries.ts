@@ -90,10 +90,12 @@ type GetHomePageContent = {
         {
           slug: string
           title: string
+          acfFeaturedImage: {
+            featuredImage: WPImage
+          }
           artist: {
             studioName: string
             images: null | WPImage[]
-            featuredImage: WPImage
           }
         }
       ]
@@ -143,14 +145,16 @@ query HomePage {
               sourceUrl
               title
             }
+          }
+          title
+          slug
+          acfFeaturedImage {
             featuredImage {
               altText
               title
               sourceUrl(size: THUMBNAIL)
             }
           }
-          title
-          slug
         }
       }
       youtubeUrl
@@ -161,7 +165,8 @@ query HomePage {
       }
     }
   }
-}`
+}
+`
   )
 
   return {

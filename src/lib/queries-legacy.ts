@@ -40,6 +40,8 @@ type GetArtistProfile = {
       contactNumber: string
       email: string
       facebook: string
+    }
+    acfFeaturedImage: {
       featuredImage: WPImage
     }
     title: string
@@ -59,6 +61,8 @@ export async function getArtistProfile(slug: string | string[] | undefined) {
           contactNumber
           email
           facebook
+        }
+        acfFeaturedImage {
           featuredImage {
             altText
             title

@@ -5,10 +5,11 @@ import Image from "next/image"
 type HeroProps = WPImage
 
 export default function Hero({
-  sourceUrl = "https://placeholder.pics/svg/1920x1080/DEDEDE/555555/hero-banner-placeholder",
+  sourceUrl,
   altText = "Hero Banner",
-  title = "Image Title",
+  title = "Hero Banner Title",
 }: HeroProps) {
+  if (!sourceUrl) return <></>
   return (
     <Container>
       <section>

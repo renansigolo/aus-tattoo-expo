@@ -2,16 +2,16 @@ import Container from "@/components/wordpress/container"
 import Link from "next/link"
 import style from "./cities.module.scss"
 
+export type EventLocation = {
+  active: boolean | null
+  date: string
+  title: string
+  url: string
+  venue: string
+}
+
 type CitiesProps = {
-  locations: [
-    {
-      active: boolean | null
-      date: string
-      title: string
-      url: string
-      venue: string
-    }
-  ]
+  locations: EventLocation[]
 }
 
 export default function Cities({ locations }: CitiesProps) {
