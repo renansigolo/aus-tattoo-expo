@@ -6,6 +6,13 @@ import PostTitle from "@/components/wordpress/post-title"
 import { getAllArtistsWithSlug, getArtistProfile } from "@/lib/queries"
 import { WPImage } from "@/lib/utils/types"
 import {
+  faChrome,
+  faFacebook,
+  faInstagram,
+  faTwitter,
+} from "@fortawesome/free-brands-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import {
   AcademicCapIcon,
   BanknotesIcon,
   CheckBadgeIcon,
@@ -16,6 +23,7 @@ import {
 import { GetStaticPaths, GetStaticProps } from "next"
 import ErrorPage from "next/error"
 import Image from "next/image"
+import Link from "next/link"
 import { useRouter } from "next/router"
 import { useState } from "react"
 
@@ -146,13 +154,43 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
                               </p>
                             </div>
                           </div>
-                          <div className="mt-5 flex justify-center sm:mt-0">
-                            <a
-                              href="#"
-                              className="flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
-                            >
-                              SOCIAL MEDIA ICONS HERE
-                            </a>
+                          <div className="mt-5 flex justify-center gap-x-4 sm:mt-0">
+                            {post.artist.instagram && (
+                              <Link
+                                href={post.artist.instagram}
+                                className="flex items-center justify-center text-sm font-medium text-gray-700 hover:text-primary-500"
+                                target="_blank"
+                              >
+                                <FontAwesomeIcon icon={faInstagram} size="lg" />
+                              </Link>
+                            )}
+                            {post.artist.facebook && (
+                              <Link
+                                href={post.artist.facebook}
+                                className="flex items-center justify-center text-sm font-medium text-gray-700 hover:text-blue-500"
+                                target="_blank"
+                              >
+                                <FontAwesomeIcon icon={faFacebook} size="lg" />
+                              </Link>
+                            )}
+                            {post.artist.twitter && (
+                              <Link
+                                href={post.artist.twitter}
+                                className="flex items-center justify-center text-sm font-medium text-gray-700 hover:text-sky-500"
+                                target="_blank"
+                              >
+                                <FontAwesomeIcon icon={faTwitter} size="lg" />
+                              </Link>
+                            )}
+                            {post.artist.website && (
+                              <Link
+                                href={post.artist.website}
+                                className="flex items-center justify-center text-sm font-medium text-gray-700 hover:text-sky-500"
+                                target="_blank"
+                              >
+                                <FontAwesomeIcon icon={faChrome} size="lg" />
+                              </Link>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -187,9 +225,9 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
                           }}
                         >
                           <Image
+                            fill
                             src={image.sourceUrl}
                             alt={image.altText || image.title}
-                            fill
                             className="rounded-md object-cover"
                           />
                         </div>

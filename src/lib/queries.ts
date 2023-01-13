@@ -359,6 +359,10 @@ export async function getArtistProfile(slug: string | string[] | undefined) {
             altText
             sourceUrl(size: LARGE)
             title
+            mediaDetails {
+              width
+              height
+            }
           }
         }
         acfFeaturedImage {

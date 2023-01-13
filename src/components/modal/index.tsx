@@ -1,4 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react"
+import { XMarkIcon } from "@heroicons/react/24/outline"
 import { default as Image } from "next/image"
 import { Fragment } from "react"
 
@@ -40,11 +41,24 @@ export default function Modal({
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="relative min-h-[80vh] min-w-full transform overflow-hidden rounded-lg p-4 shadow-xl transition-all">
+                <div className="absolute top-0 right-0 z-10 sm:block">
+                  <button
+                    type="button"
+                    className="m-2 rounded-sm p-2 text-white hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500"
+                    onClick={() => setOpen(false)}
+                  >
+                    <span className="sr-only">Close</span>
+                    <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                  </button>
+                </div>
+
                 <Image
-                  src={sourceUrl}
                   fill
+                  src={sourceUrl}
                   alt="Image"
                   className="object-contain"
+                  // width={Number(image.mediaDetails?.width)}
+                  // height={Number(image.mediaDetails?.height)}
                 />
               </Dialog.Panel>
             </Transition.Child>
