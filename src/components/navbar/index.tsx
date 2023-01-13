@@ -1,6 +1,7 @@
 import Container from "@/components/wordpress/container"
 import { Dialog } from "@headlessui/react"
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"
+import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
 
@@ -35,6 +36,7 @@ export default function Navbar({
   siteIdentity,
   generalSettings,
 }: NavbarProps) {
+  console.log("🚀 ~ siteIdentity", siteIdentity)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   if (!menuItems) return null
@@ -50,10 +52,12 @@ export default function Navbar({
           <div className="flex lg:min-w-0 lg:flex-1" aria-label="Global">
             <Link href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">{generalSettings.title}</span>
-              <img
+              <Image
                 className="h-8"
                 src={siteIdentity.logo.sourceUrl}
                 alt={siteIdentity.logo.altText || "Brand Logo"}
+                width={32}
+                height={32}
               />
             </Link>
           </div>
@@ -104,10 +108,12 @@ export default function Navbar({
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <span className="sr-only">{generalSettings.title}</span>
-                <img
+                <Image
                   className="h-8"
                   src={siteIdentity.logo.sourceUrl}
                   alt={siteIdentity.logo.altText || "Brand Logo"}
+                  width={32}
+                  height={32}
                 />
               </Link>
             </div>
