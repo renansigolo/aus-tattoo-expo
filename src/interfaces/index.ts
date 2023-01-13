@@ -1,23 +1,20 @@
+import { SiteIdentity } from "@/components/navbar"
+import { WPImage } from "@/lib/utils/types"
+
 export type LayoutQuery = {
+  acfOptionsGeneral: {
+    siteIdentity: SiteIdentity
+  }
   acfOptionsFooter: {
     footer: {
       copyright: string
       disclaimer: string
-      sponsors: [
-        {
-          altText: string
-          sourceUrl: string
-          title: string
-        }
-      ]
+      sponsors: WPImage[]
     }
   }
-  acfOptionsSocial: {
-    socialMediaLinks: {
-      facebook: string
-      instagram: string
-      twitter: string
-    }
+  generalSettings: {
+    title: string
+    description: string
   }
   menuItems: {
     nodes: [

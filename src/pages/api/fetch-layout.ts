@@ -7,33 +7,43 @@ export default async function handler(
   res: NextApiResponse<LayoutQuery>
 ) {
   const data = await fetchApi(
-    `query GetLayout {
-  menuItems(where: {location: NAVIGATION_MENU}) {
-    nodes {
-      title: label
-      url
-      path
-    }
-  }
-  acfOptionsFooter {
-    footer {
-      copyright
-      disclaimer
-      sponsors {
-        sourceUrl(size: THUMBNAIL)
+    `
+    query GetLayout {
+      menuItems(where: {location: NAVIGATION_MENU}) {
+        nodes {
+          title: label
+          url
+          path
+        }
+      }
+      acfOptionsGeneral {
+        siteIdentity {
+          logo {
+            altText
+            sourceUrl
+          }
+          facebook
+          instagram
+          twitter
+        }
+      }
+      acfOptionsFooter {
+        footer {
+          copyright
+          disclaimer
+          sponsors {
+            sourceUrl(size: THUMBNAIL)
+            title
+            altText
+          }
+        }
+      }
+      generalSettings {
         title
-        altText
+        description
       }
     }
-  }
-  acfOptionsSocial {
-    socialMediaLinks {
-      twitter
-      instagram
-      facebook
-    }
-  }
-}`
+`
   )
 
   return res.status(200).json(data)

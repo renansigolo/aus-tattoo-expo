@@ -19,6 +19,10 @@ type IndexProps = {
     eventLocations: EventLocation[]
     featuredArtists: FeaturedArtist[]
     sliderImages: WPImage[]
+    siteIdentity: {
+      title: string
+      description: string
+    }
   }
 }
 
@@ -26,8 +30,11 @@ export default function Index({ pageContent }: IndexProps) {
   return (
     <>
       <Head>
-        <title>Australian Tattoo Expo</title>
-        <meta name="description" content="Australian Tattoo Expo Website" />
+        <title>{pageContent.siteIdentity.title}</title>
+        <meta
+          name="description"
+          content={pageContent.siteIdentity.description}
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

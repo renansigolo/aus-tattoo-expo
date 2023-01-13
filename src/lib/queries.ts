@@ -1,3 +1,5 @@
+import { EventLocation } from "@/components/cities"
+import { FeaturedArtist } from "@/components/featured-artists"
 import { fetchApi } from "@/lib/utils/fetch"
 import { WPImage } from "@/lib/utils/types"
 
@@ -82,34 +84,18 @@ export async function getAllArtistsWithSlug() {
 }
 
 type GetHomePageContent = {
+  generalSettings: {
+    title: string
+    description: string
+  }
   page: {
     featuredImage: { node: WPImage }
     homePage: {
       youtubeUrl: string
-      featuredArtists: [
-        {
-          slug: string
-          title: string
-          acfFeaturedImage: {
-            featuredImage: WPImage
-          }
-          artist: {
-            studioName: string
-            images: null | WPImage[]
-          }
-        }
-      ]
+      featuredArtists: FeaturedArtist[]
       sliderImages: WPImage[]
       events: {
-        locations: [
-          {
-            active: boolean | null
-            date: string
-            title: string
-            url: string
-            venue: string
-          }
-        ]
+        locations: EventLocation[]
       }
     }
   }
@@ -165,6 +151,10 @@ query HomePage {
       }
     }
   }
+  generalSettings {
+    title
+    description
+  }
 }
 `
   )
@@ -175,6 +165,7 @@ query HomePage {
     youtubeVideoId: data.page.homePage.youtubeUrl?.split("v=")[1],
     featuredArtists: data.page.homePage.featuredArtists,
     eventLocations: data.page.homePage.events.locations,
+    siteIdentity: data.generalSettings,
   }
 }
 
@@ -335,33 +326,3 @@ export async function getPostAndMorePosts(
 
   return data
 }
-
-export const getLayoutQuery = `
-query GetLayout {
-  menuItems(where: {location: NAVIGATION_MENU}) {
-    nodes {
-      title: label
-      url
-      path
-    }
-  }
-  acfOptionsFooter {
-    footer {
-      copyright
-      disclaimer
-      sponsors {
-        sourceUrl(size: THUMBNAIL)
-        title
-        altText
-      }
-    }
-  }
-  acfOptionsSocial {
-    socialMediaLinks {
-      twitter
-      instagram
-      facebook
-    }
-  }
-}
-`

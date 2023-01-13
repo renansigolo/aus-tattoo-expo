@@ -4,7 +4,22 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"
 import Link from "next/link"
 import { useState } from "react"
 
+export type SiteIdentity = {
+  logo: {
+    altText: string
+    sourceUrl: string
+  }
+  facebook: string
+  instagram: string
+  twitter: string
+}
+
 type NavbarProps = {
+  siteIdentity: SiteIdentity
+  generalSettings: {
+    title: string
+    description: string
+  }
   menuItems: {
     nodes: [
       {
@@ -15,7 +30,11 @@ type NavbarProps = {
     ]
   }
 }
-export default function Navbar({ menuItems }: NavbarProps) {
+export default function Navbar({
+  menuItems,
+  siteIdentity,
+  generalSettings,
+}: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   if (!menuItems) return null
@@ -30,11 +49,11 @@ export default function Navbar({ menuItems }: NavbarProps) {
         >
           <div className="flex lg:min-w-0 lg:flex-1" aria-label="Global">
             <Link href="/" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
+              <span className="sr-only">{generalSettings.title}</span>
               <img
                 className="h-8"
-                src="https://placeholder.pics/svg/40x40"
-                alt="Brand Logo"
+                src={siteIdentity.logo.sourceUrl}
+                alt={siteIdentity.logo.altText || "Brand Logo"}
               />
             </Link>
           </div>
@@ -84,11 +103,11 @@ export default function Navbar({ menuItems }: NavbarProps) {
                 className="-m-1.5 p-1.5"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <span className="sr-only">Your Company</span>
+                <span className="sr-only">{generalSettings.title}</span>
                 <img
                   className="h-8"
-                  src="https://placeholder.pics/svg/40x40"
-                  alt="Brand Logo"
+                  src={siteIdentity.logo.sourceUrl}
+                  alt={siteIdentity.logo.altText || "Brand Logo"}
                 />
               </Link>
             </div>
