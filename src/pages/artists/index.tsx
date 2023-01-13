@@ -41,6 +41,7 @@ export default function Artists({ nodes }: ArtistsProps) {
                         alt={node.title}
                         width={140}
                         height={140}
+                        className="mx-auto"
                       />
                     </header>
                     <footer>
