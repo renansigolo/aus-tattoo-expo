@@ -17,7 +17,11 @@ export default function Layout({ children }: LayoutProps) {
 
   return (
     <>
-      <Navbar menuItems={data.menuItems} />
+      <Navbar
+        menuItems={data.menuItems}
+        siteIdentity={data.acfOptionsGeneral.siteIdentity}
+        generalSettings={data.generalSettings}
+      />
       <main>{children}</main>
       <Footer {...data.acfOptionsFooter?.footer} />
     </>

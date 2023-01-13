@@ -1,9 +1,26 @@
+import Container from "@/components/wordpress/container"
 import { Dialog } from "@headlessui/react"
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"
+import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
 
+export type SiteIdentity = {
+  logo: {
+    altText: string
+    sourceUrl: string
+  }
+  facebook: string
+  instagram: string
+  twitter: string
+}
+
 type NavbarProps = {
+  siteIdentity: SiteIdentity
+  generalSettings: {
+    title: string
+    description: string
+  }
   menuItems: {
     nodes: [
       {
@@ -14,7 +31,11 @@ type NavbarProps = {
     ]
   }
 }
-export default function Navbar({ menuItems }: NavbarProps) {
+export default function Navbar({
+  menuItems,
+  siteIdentity,
+  generalSettings,
+}: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   if (!menuItems) return null
@@ -22,54 +43,58 @@ export default function Navbar({ menuItems }: NavbarProps) {
   return (
     <div className="bg-black p-6">
       {/* Desktop Navbar */}
-      <nav
-        className="flex h-9 items-center justify-between"
-        aria-label="Global"
-      >
-        <div className="flex lg:min-w-0 lg:flex-1" aria-label="Global">
-          <Link href="/" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
-            <img
-              className="h-8"
-              src="https://placeholder.pics/svg/40x40"
-              alt="Brand Logo"
-            />
-          </Link>
-        </div>
-
-        <div className="z-10 hidden text-center align-middle text-white lg:flex lg:min-w-0 lg:justify-center lg:gap-x-12">
-          {menuItems.nodes.map((item) => (
-            <Link
-              key={item.title}
-              href={item.path}
-              className="self-center font-semibold text-white hover:cursor-pointer hover:text-white"
-              target={item.path.includes("http") ? "_blank" : "_self"}
-            >
-              {item.title}
+      <Container>
+        <nav
+          className="flex h-9 items-center justify-between"
+          aria-label="Global"
+        >
+          <div className="flex lg:min-w-0 lg:flex-1" aria-label="Global">
+            <Link href="/" className="-m-1.5 p-1.5">
+              <span className="sr-only">{generalSettings.title}</span>
+              <Image
+                className="h-8"
+                src={siteIdentity.logo.sourceUrl}
+                alt={siteIdentity.logo.altText || "Brand Logo"}
+                width={32}
+                height={32}
+              />
             </Link>
-          ))}
-        </div>
-        <div className="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-end">
-          <Link
-            href="https://www.eventbrite.com/cc/aus-tattoo-expo-2023-tour-1538659"
-            className="inline-block rounded-sm bg-white px-3 py-1.5 text-sm font-semibold leading-6 text-primary shadow-sm ring-1 ring-primary/10 hover:ring-primary/20"
-            target="_blank"
-          >
-            Buy Tickets
-          </Link>
-        </div>
+          </div>
 
-        <div className="flex lg:hidden">
-          <button
-            type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white"
-            onClick={() => setMobileMenuOpen(true)}
-          >
-            <span className="sr-only">Open main menu</span>
-            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-          </button>
-        </div>
-      </nav>
+          <div className="z-10 hidden text-center align-middle text-white lg:flex lg:min-w-0 lg:justify-center lg:gap-x-12">
+            {menuItems.nodes.map((item) => (
+              <Link
+                key={item.title}
+                href={item.path}
+                className="self-center font-semibold text-white hover:cursor-pointer hover:text-white"
+                target={item.path.includes("http") ? "_blank" : "_self"}
+              >
+                {item.title}
+              </Link>
+            ))}
+          </div>
+          <div className="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-end">
+            <Link
+              href="https://www.eventbrite.com/cc/aus-tattoo-expo-2023-tour-1538659"
+              className="inline-block rounded-sm bg-white px-3 py-1.5 text-sm font-semibold leading-6 text-primary shadow-sm ring-1 ring-primary/10 hover:ring-primary/20"
+              target="_blank"
+            >
+              Buy Tickets
+            </Link>
+          </div>
+
+          <div className="flex lg:hidden">
+            <button
+              type="button"
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white"
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              <span className="sr-only">Open main menu</span>
+              <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+            </button>
+          </div>
+        </nav>
+      </Container>
 
       {/* Mobile Navbar */}
       <Dialog as="div" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -81,11 +106,13 @@ export default function Navbar({ menuItems }: NavbarProps) {
                 className="-m-1.5 p-1.5"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <span className="sr-only">Your Company</span>
-                <img
+                <span className="sr-only">{generalSettings.title}</span>
+                <Image
                   className="h-8"
-                  src="https://placeholder.pics/svg/40x40"
-                  alt="Brand Logo"
+                  src={siteIdentity.logo.sourceUrl}
+                  alt={siteIdentity.logo.altText || "Brand Logo"}
+                  width={32}
+                  height={32}
                 />
               </Link>
             </div>

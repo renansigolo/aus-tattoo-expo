@@ -1,5 +1,8 @@
+import { EventLocation } from "@/components/cities"
+import { FeaturedArtist } from "@/components/featured-artists"
 import { fetchApi } from "@/lib/utils/fetch"
 import { WPImage } from "@/lib/utils/types"
+import { ArtistProfileType } from "@/pages/artists/profile/[slug]"
 
 export type PageContent = {
   id: string
@@ -36,38 +39,56 @@ export async function getWPPageContent(id: string): Promise<PageContent> {
   }
 }
 
+type GetAllArtists = {
+  artists: {
+    nodes: [
+      {
+        node: ArtistProfileType
+      }
+    ]
+  }
+}
+
 export async function getAllArtists() {
-  const data = await fetchApi(
+  const data: GetAllArtists = await fetchApi(
     `
-    query AllArtists {
+    query GetAllArtists {
       artists {
-        edges {
-          node {
-            id
-            title
-            artists {
-              contactNumber
-              email
-              fieldGroupName
-              studioName
-            }
-            uri
+        nodes {
+          artist {
+            studioName
+          }
+          acfFeaturedImage {
             featuredImage {
-              node {
-                sourceUrl
-              }
+              altText
+              sourceUrl
+              title
             }
           }
+          slug
+          title
         }
       }
     }
   `
   )
+
   return data?.artists
 }
 
+type GetArtistsBySlug = {
+  artists: {
+    edges: [
+      {
+        node: {
+          slug: string
+        }
+      }
+    ]
+  }
+}
 export async function getAllArtistsWithSlug() {
-  const data = await fetchApi(`
+  const data: GetArtistsBySlug = await fetchApi(`
     {
       artists(first: 10000) {
         edges {
@@ -82,32 +103,18 @@ export async function getAllArtistsWithSlug() {
 }
 
 type GetHomePageContent = {
+  generalSettings: {
+    title: string
+    description: string
+  }
   page: {
     featuredImage: { node: WPImage }
     homePage: {
       youtubeUrl: string
-      featuredArtists: [
-        {
-          slug: string
-          title: string
-          artist: {
-            studioName: string
-            images: null | WPImage[]
-            featuredImage: WPImage
-          }
-        }
-      ]
+      featuredArtists: FeaturedArtist[]
       sliderImages: WPImage[]
       events: {
-        locations: [
-          {
-            active: boolean | null
-            date: string
-            title: string
-            url: string
-            venue: string
-          }
-        ]
+        locations: EventLocation[]
       }
     }
   }
@@ -143,14 +150,16 @@ query HomePage {
               sourceUrl
               title
             }
+          }
+          title
+          slug
+          acfFeaturedImage {
             featuredImage {
               altText
               title
               sourceUrl(size: THUMBNAIL)
             }
           }
-          title
-          slug
         }
       }
       youtubeUrl
@@ -161,7 +170,12 @@ query HomePage {
       }
     }
   }
-}`
+  generalSettings {
+    title
+    description
+  }
+}
+`
   )
 
   return {
@@ -170,6 +184,7 @@ query HomePage {
     youtubeVideoId: data.page.homePage.youtubeUrl?.split("v=")[1],
     featuredArtists: data.page.homePage.featuredArtists,
     eventLocations: data.page.homePage.events.locations,
+    siteIdentity: data.generalSettings,
   }
 }
 
@@ -331,32 +346,52 @@ export async function getPostAndMorePosts(
   return data
 }
 
-export const getLayoutQuery = `
-query GetLayout {
-  menuItems(where: {location: NAVIGATION_MENU}) {
-    nodes {
-      title: label
-      url
-      path
-    }
-  }
-  acfOptionsFooter {
-    footer {
-      copyright
-      disclaimer
-      sponsors {
-        sourceUrl(size: THUMBNAIL)
+type GetArtistProfile = {
+  artist: ArtistProfileType
+}
+export async function getArtistProfile(slug: string | string[] | undefined) {
+  const data: GetArtistProfile = await fetchApi(
+    `
+    query ArtistProfileBySlug($id: ID!) {
+      artist(id: $id, idType: URI) {
+        artist {
+          website
+          twitter
+          studioName
+          instagram
+          contactNumber
+          email
+          facebook
+          images {
+            altText
+            sourceUrl(size: LARGE)
+            title
+            mediaDetails {
+              width
+              height
+            }
+          }
+        }
+        acfFeaturedImage {
+          featuredImage {
+            altText
+            title
+            sourceUrl
+          }
+        }
         title
-        altText
+        slug
       }
     }
-  }
-  acfOptionsSocial {
-    socialMediaLinks {
-      twitter
-      instagram
-      facebook
+  `,
+    {
+      variables: {
+        id: slug,
+      },
     }
+  )
+
+  return {
+    post: data?.artist,
   }
 }
-`

@@ -1,28 +1,24 @@
-import Container from "@/components/wordpress/container"
 import { WPImage } from "@/lib/utils/types"
 import Image from "next/image"
 
 type HeroProps = WPImage
 
 export default function Hero({
-  sourceUrl = "https://placeholder.pics/svg/1920x1080/DEDEDE/555555/hero-banner-placeholder",
+  sourceUrl,
   altText = "Hero Banner",
-  title = "Image Title",
+  title = "Hero Banner Title",
 }: HeroProps) {
+  if (!sourceUrl) return <></>
   return (
-    <Container>
-      <section>
-        <div className="flex">
-          <Image
-            priority
-            width={1920}
-            height={1080}
-            alt={altText || title}
-            src={sourceUrl}
-            className="h-auto w-screen object-cover"
-          />
-        </div>
-      </section>
-    </Container>
+    <section>
+      <Image
+        priority
+        width={1920}
+        height={1080}
+        alt={altText || title}
+        src={sourceUrl}
+        className="h-auto max-h-72 w-screen object-cover"
+      />
+    </section>
   )
 }

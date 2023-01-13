@@ -4,18 +4,20 @@ import Image from "next/image"
 import Link from "next/link"
 import style from "./featured-artists.module.scss"
 
+export type FeaturedArtist = {
+  slug: string
+  title: string
+  acfFeaturedImage: {
+    featuredImage: WPImage
+  }
+  artist: {
+    studioName: string
+    images: WPImage[] | null
+  }
+}
+
 type FeaturedArtistsProps = {
-  featuredArtists: [
-    {
-      slug: string
-      title: string
-      artist: {
-        studioName: string
-        images: WPImage[] | null
-        featuredImage: WPImage
-      }
-    }
-  ]
+  featuredArtists: FeaturedArtist[]
 }
 
 export default function FeaturedArtists({
@@ -27,16 +29,16 @@ export default function FeaturedArtists({
       <Container>
         <h2>Featured Artists</h2>
         <ul role="list">
-          {featuredArtists.map(({ title, slug, artist }) => (
+          {featuredArtists.map(({ title, slug, artist, acfFeaturedImage }) => (
             <li key={title}>
               <Link href={`/artists/profile/${slug}`}>
                 <article className={style.card}>
                   <header>
                     <Image
-                      src={artist.featuredImage?.sourceUrl}
+                      src={acfFeaturedImage.featuredImage?.sourceUrl}
                       alt={
-                        artist.featuredImage.altText ||
-                        artist.featuredImage.title
+                        acfFeaturedImage.featuredImage.altText ||
+                        acfFeaturedImage.featuredImage.title
                       }
                       width={140}
                       height={140}
