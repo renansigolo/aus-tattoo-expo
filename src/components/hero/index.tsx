@@ -1,4 +1,3 @@
-import Container from "@/components/wordpress/container"
 import { WPImage } from "@/lib/utils/types"
 import Image from "next/image"
 
@@ -11,19 +10,15 @@ export default function Hero({
 }: HeroProps) {
   if (!sourceUrl) return <></>
   return (
-    <Container>
-      <section>
-        <div className="flex">
-          <Image
-            priority
-            width={1920}
-            height={1080}
-            alt={altText || title}
-            src={sourceUrl}
-            className="h-auto w-screen object-cover"
-          />
-        </div>
-      </section>
-    </Container>
+    <section>
+      <Image
+        priority
+        width={1920}
+        height={1080}
+        alt={altText || title}
+        src={sourceUrl}
+        className="h-auto max-h-72 w-screen object-cover"
+      />
+    </section>
   )
 }

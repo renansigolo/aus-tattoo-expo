@@ -2,6 +2,7 @@ import { EventLocation } from "@/components/cities"
 import { FeaturedArtist } from "@/components/featured-artists"
 import { fetchApi } from "@/lib/utils/fetch"
 import { WPImage } from "@/lib/utils/types"
+import { ArtistProfileType } from "@/pages/artists/profile/[slug]"
 
 export type PageContent = {
   id: string
@@ -68,8 +69,19 @@ export async function getAllArtists() {
   return data?.artists
 }
 
+type GetArtistsBySlug = {
+  artists: {
+    edges: [
+      {
+        node: {
+          slug: string
+        }
+      }
+    ]
+  }
+}
 export async function getAllArtistsWithSlug() {
-  const data = await fetchApi(`
+  const data: GetArtistsBySlug = await fetchApi(`
     {
       artists(first: 10000) {
         edges {
@@ -325,4 +337,50 @@ export async function getPostAndMorePosts(
   if (data.posts.edges.length > 2) data.posts.edges.pop()
 
   return data
+}
+
+type GetArtistProfile = {
+  artist: ArtistProfileType
+}
+export async function getArtistProfile(slug: string | string[] | undefined) {
+  const data: GetArtistProfile = await fetchApi(
+    `
+    query ArtistProfileBySlug($id: ID!) {
+      artist(id: $id, idType: URI) {
+        artist {
+          website
+          twitter
+          studioName
+          instagram
+          contactNumber
+          email
+          facebook
+          images {
+            altText
+            sourceUrl(size: LARGE)
+            title
+          }
+        }
+        acfFeaturedImage {
+          featuredImage {
+            altText
+            title
+            sourceUrl
+          }
+        }
+        title
+        slug
+      }
+    }
+  `,
+    {
+      variables: {
+        id: slug,
+      },
+    }
+  )
+
+  return {
+    post: data?.artist,
+  }
 }

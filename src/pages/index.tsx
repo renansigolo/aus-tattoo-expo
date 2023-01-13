@@ -6,6 +6,7 @@ import CTA from "@/components/cta"
 import FeaturedArtists, { FeaturedArtist } from "@/components/featured-artists"
 import Hero from "@/components/hero"
 import Instagram from "@/components/instagram"
+import Container from "@/components/wordpress/container"
 import YoutubePlayer from "@/components/youtube-player"
 import { getHomePageContent } from "@/lib/queries"
 import { WPImage } from "@/lib/utils/types"
@@ -39,7 +40,9 @@ export default function Index({ pageContent }: IndexProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Hero {...pageContent.heroBanner} />
+      <Container>
+        <Hero {...pageContent.heroBanner} />
+      </Container>
       <Banner />
       <YoutubePlayer videoId={pageContent?.youtubeVideoId} />
       <Carousel images={pageContent?.sliderImages} />
