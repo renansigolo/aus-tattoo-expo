@@ -1,188 +1,43 @@
 import { Grid } from "@/components/grid"
 import Container from "@/components/wordpress/container"
+import { getAllArtists } from "@/lib/queries"
+import { WPImage } from "@/lib/utils/types"
+import { GetStaticProps } from "next"
 import Image from "next/image"
 import Link from "next/link"
 
-const nodes = [
-  {
-    slug: "lil-j-tattoos",
-    title: "Lil J Tattoos",
-    studioName: "The Admiral's Arms",
-    featuredImage: {
-      node: {
-        sourceUrl:
-          "https://www.tattooexpo.com.au/wp-content/uploads/2022/11/Screen-Shot-2022-11-30-at-11.02.35-am-1.png",
-      },
-    },
-    author: {
-      node: {
-        name: "Lil J",
-        avatar: {
-          url: "https://www.tattooexpo.com.au/wp-content/uploads/2022/11/Screen-Shot-2022-11-30-at-11.02.35-am-1.png",
-        },
-      },
-    },
-    excerpt: "The Admiral's Arms",
-  },
-  {
-    slug: "lil-j-tattoos",
-    title: "Lil J Tattoos",
-    studioName: "The Admiral's Arms",
-    featuredImage: {
-      node: {
-        sourceUrl:
-          "https://www.tattooexpo.com.au/wp-content/uploads/2022/11/Screen-Shot-2022-11-30-at-11.02.35-am-1.png",
-      },
-    },
-    author: {
-      node: {
-        name: "Lil J",
-        avatar: {
-          url: "https://www.tattooexpo.com.au/wp-content/uploads/2022/11/Screen-Shot-2022-11-30-at-11.02.35-am-1.png",
-        },
-      },
-    },
-    excerpt: "The Admiral's Arms",
-  },
-  {
-    slug: "lil-j-tattoos",
-    title: "Lil J Tattoos",
-    studioName: "The Admiral's Arms",
-    featuredImage: {
-      node: {
-        sourceUrl:
-          "https://www.tattooexpo.com.au/wp-content/uploads/2022/11/Screen-Shot-2022-11-30-at-11.02.35-am-1.png",
-      },
-    },
-    author: {
-      node: {
-        name: "Lil J",
-        avatar: {
-          url: "https://www.tattooexpo.com.au/wp-content/uploads/2022/11/Screen-Shot-2022-11-30-at-11.02.35-am-1.png",
-        },
-      },
-    },
-    excerpt: "The Admiral's Arms",
-  },
-  {
-    slug: "lil-j-tattoos",
-    title: "Lil J Tattoos",
-    studioName: "The Admiral's Arms",
-    featuredImage: {
-      node: {
-        sourceUrl:
-          "https://www.tattooexpo.com.au/wp-content/uploads/2022/11/Screen-Shot-2022-11-30-at-11.02.35-am-1.png",
-      },
-    },
-    author: {
-      node: {
-        name: "Lil J",
-        avatar: {
-          url: "https://www.tattooexpo.com.au/wp-content/uploads/2022/11/Screen-Shot-2022-11-30-at-11.02.35-am-1.png",
-        },
-      },
-    },
-    excerpt: "The Admiral's Arms",
-  },
-  {
-    slug: "lil-j-tattoos",
-    title: "Lil J Tattoos",
-    studioName: "The Admiral's Arms",
-    featuredImage: {
-      node: {
-        sourceUrl:
-          "https://www.tattooexpo.com.au/wp-content/uploads/2022/11/Screen-Shot-2022-11-30-at-11.02.35-am-1.png",
-      },
-    },
-    author: {
-      node: {
-        name: "Lil J",
-        avatar: {
-          url: "https://www.tattooexpo.com.au/wp-content/uploads/2022/11/Screen-Shot-2022-11-30-at-11.02.35-am-1.png",
-        },
-      },
-    },
-    excerpt: "The Admiral's Arms",
-  },
-  {
-    slug: "lil-j-tattoos",
-    title: "Lil J Tattoos",
-    studioName: "The Admiral's Arms",
-    featuredImage: {
-      node: {
-        sourceUrl:
-          "https://www.tattooexpo.com.au/wp-content/uploads/2022/11/Screen-Shot-2022-11-30-at-11.02.35-am-1.png",
-      },
-    },
-    author: {
-      node: {
-        name: "Lil J",
-        avatar: {
-          url: "https://www.tattooexpo.com.au/wp-content/uploads/2022/11/Screen-Shot-2022-11-30-at-11.02.35-am-1.png",
-        },
-      },
-    },
-    excerpt: "The Admiral's Arms",
-  },
-  {
-    slug: "lil-j-tattoos",
-    title: "Lil J Tattoos",
-    studioName: "The Admiral's Arms",
-    featuredImage: {
-      node: {
-        sourceUrl:
-          "https://www.tattooexpo.com.au/wp-content/uploads/2022/11/Screen-Shot-2022-11-30-at-11.02.35-am-1.png",
-      },
-    },
-    author: {
-      node: {
-        name: "Lil J",
-        avatar: {
-          url: "https://www.tattooexpo.com.au/wp-content/uploads/2022/11/Screen-Shot-2022-11-30-at-11.02.35-am-1.png",
-        },
-      },
-    },
-    excerpt: "The Admiral's Arms",
-  },
-  {
-    slug: "lil-j-tattoos",
-    title: "Lil J Tattoos",
-    studioName: "The Admiral's Arms",
-    featuredImage: {
-      node: {
-        sourceUrl:
-          "https://www.tattooexpo.com.au/wp-content/uploads/2022/11/Screen-Shot-2022-11-30-at-11.02.35-am-1.png",
-      },
-    },
-    author: {
-      node: {
-        name: "Lil J",
-        avatar: {
-          url: "https://www.tattooexpo.com.au/wp-content/uploads/2022/11/Screen-Shot-2022-11-30-at-11.02.35-am-1.png",
-        },
-      },
-    },
-    excerpt: "The Admiral's Arms",
-  },
-]
-
-export default function Artists() {
+type ArtistsProps = {
+  nodes: [
+    node: {
+      artist: {
+        studioName: string
+      }
+      acfFeaturedImage: {
+        featuredImage: WPImage
+      }
+      title: string
+      slug: string
+    }
+  ]
+}
+export default function Artists({ nodes }: ArtistsProps) {
   return (
     <section className="text-white">
       <Container>
         <h1 className="py-6 text-center text-3xl font-bold tracking-tight text-white sm:text-3xl">
           Meet the Artists
         </h1>
-        <ul role="list">
+        <ul role="list" className="text-center">
           <Grid col={4}>
             {nodes.map((node) => (
               <li key={node.title}>
                 <Link href={`/artists/profile/${node.slug}`}>
                   <article>
-                    {/* <article className={style.card}> */}
                     <header>
                       <Image
-                        src={node.featuredImage.node.sourceUrl}
+                        src={
+                          node.acfFeaturedImage?.featuredImage.sourceUrl || ""
+                        }
                         alt={node.title}
                         width={140}
                         height={140}
@@ -190,7 +45,7 @@ export default function Artists() {
                     </header>
                     <footer>
                       <h3>{node.title}</h3>
-                      <p>{node.studioName}</p>
+                      <p>{node.artist.studioName}</p>
                     </footer>
                   </article>
                 </Link>
@@ -202,3 +57,24 @@ export default function Artists() {
     </section>
   )
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const data = await getAllArtists()
+
+  return {
+    props: { ...data },
+    revalidate: 10,
+  }
+}
+
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const allArtistsPosts = await getAllArtistsWithSlug()
+
+//   return {
+//     paths:
+//       allArtistsPosts.edges.map(
+//         ({ node }: any) => `/artists/profile/${node.slug}`
+//       ) || [],
+//     fallback: true,
+//   }
+// }

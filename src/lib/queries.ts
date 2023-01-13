@@ -39,33 +39,40 @@ export async function getWPPageContent(id: string): Promise<PageContent> {
   }
 }
 
+type GetAllArtists = {
+  artists: {
+    nodes: [
+      {
+        node: ArtistProfileType
+      }
+    ]
+  }
+}
+
 export async function getAllArtists() {
-  const data = await fetchApi(
+  const data: GetAllArtists = await fetchApi(
     `
-    query AllArtists {
+    query GetAllArtists {
       artists {
-        edges {
-          node {
-            id
-            title
-            artists {
-              contactNumber
-              email
-              fieldGroupName
-              studioName
-            }
-            uri
+        nodes {
+          artist {
+            studioName
+          }
+          acfFeaturedImage {
             featuredImage {
-              node {
-                sourceUrl
-              }
+              altText
+              sourceUrl
+              title
             }
           }
+          slug
+          title
         }
       }
     }
   `
   )
+
   return data?.artists
 }
 
