@@ -36,7 +36,6 @@ export default function Navbar({
   siteIdentity,
   generalSettings,
 }: NavbarProps) {
-  console.log("🚀 ~ siteIdentity", siteIdentity)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   if (!menuItems) return null
