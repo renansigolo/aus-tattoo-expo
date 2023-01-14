@@ -1,5 +1,5 @@
-import Hero from "@/components/hero"
-import Notification from "@/components/notification"
+import HeroBanner from "@/components/HeroBanner"
+import Notification from "@/components/Notification"
 import Container from "@/components/wordpress/container"
 import { getWPPageContent, PageContent } from "@/lib/queries"
 import { postRequest } from "@/lib/utils/post-request"
@@ -216,7 +216,7 @@ export default function Booths({ pageContent }: BoothsProps) {
   }
   return (
     <div className={style.booths}>
-      <Hero {...pageContent.featuredImage} />
+      <HeroBanner {...pageContent.featuredImage} />
 
       <Container>
         {/* Highlights - Section */}

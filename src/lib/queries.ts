@@ -411,17 +411,37 @@ export async function getArtistProfile(slug: string | string[] | undefined) {
 //   return data?.posts
 // }
 
-// export async function getAllPagesWithUri() {
-//   const data = await fetchApi(`
-//     {
-//       pages(first: 10000) {
-//         edges {
-//           node {
-//             uri
-//           }
-//         }
-//       }
-//     }
-//   `)
-//   return data?.pages
-// }
+export async function getAllPagesWithUri() {
+  const data = await fetchApi(`
+    {
+      pages(first: 10000) {
+        edges {
+          node {
+            uri
+          }
+        }
+      }
+    }
+  `)
+  return data?.pages
+}
+
+export async function getPageContent(uri: string | string[] | undefined) {
+  const data = await fetchApi(
+    `
+    query PageContent($id: ID!) {
+      page(id: $id, idType: URI) {
+        title
+      }
+    }
+    `,
+    {
+      variables: {
+        id: uri,
+      },
+    }
+  )
+
+  console.log("🚀 ~ getPageContent ~ data", data)
+  return data?.page
+}

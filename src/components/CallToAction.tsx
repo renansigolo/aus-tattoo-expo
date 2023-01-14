@@ -1,7 +1,7 @@
 import Container from "@/components/wordpress/container"
 import Link from "next/link"
 
-export default function CTA() {
+export default function CallToAction() {
   return (
     <section className="bg-black">
       <Container>

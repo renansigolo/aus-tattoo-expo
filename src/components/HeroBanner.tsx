@@ -1,13 +1,13 @@
 import { WPImage } from "@/lib/utils/types"
 import Image from "next/image"
 
-type HeroProps = WPImage
+type HeroBannerProps = WPImage
 
-export default function Hero({
+export default function HeroBanner({
   sourceUrl,
   altText = "Hero Banner",
   title = "Hero Banner Title",
-}: HeroProps) {
+}: HeroBannerProps) {
   if (!sourceUrl) return <></>
   return (
     <section>
