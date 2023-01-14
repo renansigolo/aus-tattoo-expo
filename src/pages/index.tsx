@@ -12,7 +12,6 @@ import { getHomePageContent } from "@/lib/queries"
 import { WPImage } from "@/lib/utils/types"
 import { GetStaticProps } from "next"
 import Head from "next/head"
-import { useRouter } from "next/router"
 
 type IndexProps = {
   pageContent: {
@@ -29,9 +28,6 @@ type IndexProps = {
 }
 
 export default function Index({ pageContent }: IndexProps) {
-  const router = useRouter()
-  console.log("🚀 ~ Home ~ router", router)
-
   return (
     <>
       <Head>

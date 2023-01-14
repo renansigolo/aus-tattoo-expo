@@ -4,10 +4,8 @@ type PageTitleProps = {
 
 export default function PageTitle({ title }: PageTitleProps) {
   return (
-    <>
-      <h1 className="mb-12 text-center text-6xl font-bold leading-tight tracking-tighter md:text-left md:text-7xl md:leading-none lg:text-8xl">
-        {title || "Page Title"}
-      </h1>
-    </>
+    <h1 className="mt-2 block text-center text-3xl font-bold leading-8 tracking-tight text-white sm:text-4xl">
+      {title}
+    </h1>
   )
 }

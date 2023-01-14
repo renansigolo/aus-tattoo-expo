@@ -432,6 +432,7 @@ export async function getPageContent(uri: string | string[] | undefined) {
     query PageContent($id: ID!) {
       page(id: $id, idType: URI) {
         title
+        content
       }
     }
     `,
@@ -442,6 +443,5 @@ export async function getPageContent(uri: string | string[] | undefined) {
     }
   )
 
-  console.log("🚀 ~ getPageContent ~ data", data)
   return data?.page
 }
