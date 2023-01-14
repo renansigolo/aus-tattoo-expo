@@ -27,7 +27,7 @@ export default function Page({
           {page.title}
         </h1>
         <div
-          className="prose prose-lg prose-invert mx-auto mt-6 text-gray-100"
+          className="prose prose-lg prose-invert prose-pink mx-auto mt-6 text-gray-100"
           dangerouslySetInnerHTML={{ __html: page.content }}
         />
       </Container>
