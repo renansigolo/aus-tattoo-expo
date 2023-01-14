@@ -1,15 +1,31 @@
 import Container from "@/components/wordpress/container"
-import style from "./youtube-player.module.scss"
 
 type YoutubePlayerProps = {
   videoId: string
 }
 
 export default function YoutubePlayer({ videoId }: YoutubePlayerProps) {
+  const styles = {
+    videoResponsive: {
+      overflow: "hidden",
+      paddingBottom: "56.25%",
+      position: "relative" as "relative",
+      height: 0,
+    },
+    iFrame: {
+      left: 0,
+      top: 0,
+      height: "100%",
+      width: "100%",
+      position: "absolute" as "absolute",
+    },
+  }
+
   return (
     <Container>
-      <div className={style.videoResponsive}>
+      <div style={styles.videoResponsive}>
         <iframe
+          style={styles.iFrame}
           width="853"
           height="480"
           src={`https://www.youtube.com/embed/${videoId}`}

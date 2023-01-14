@@ -1,4 +1,4 @@
-import { SiteIdentity } from "@/components/navbar"
+import { SiteIdentity } from "@/components/Navbar"
 import { WPImage } from "@/lib/utils/types"
 
 export type LayoutQuery = {
