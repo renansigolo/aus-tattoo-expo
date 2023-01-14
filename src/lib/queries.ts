@@ -395,3 +395,33 @@ export async function getArtistProfile(slug: string | string[] | undefined) {
     post: data?.artist,
   }
 }
+
+// export async function getAllPostsWithSlug() {
+//   const data = await fetchApi(`
+//     {
+//       posts(first: 10000) {
+//         edges {
+//           node {
+//             slug
+//           }
+//         }
+//       }
+//     }
+//   `)
+//   return data?.posts
+// }
+
+// export async function getAllPagesWithUri() {
+//   const data = await fetchApi(`
+//     {
+//       pages(first: 10000) {
+//         edges {
+//           node {
+//             uri
+//           }
+//         }
+//       }
+//     }
+//   `)
+//   return data?.pages
+// }

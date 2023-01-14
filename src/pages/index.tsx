@@ -1,17 +1,11 @@
-import Banner from "@/components/banner"
-import Boxes from "@/components/boxes"
-import Carousel from "@/components/carousel"
-import Cities, { EventLocation } from "@/components/cities"
-import CTA from "@/components/cta"
-import FeaturedArtists, { FeaturedArtist } from "@/components/featured-artists"
-import Hero from "@/components/hero"
-import Instagram from "@/components/instagram"
-import Container from "@/components/wordpress/container"
-import YoutubePlayer from "@/components/youtube-player"
+import { EventLocation } from "@/components/cities"
+import { FeaturedArtist } from "@/components/featured-artists"
 import { getHomePageContent } from "@/lib/queries"
 import { WPImage } from "@/lib/utils/types"
+import Home from "@/pages/home"
 import { GetStaticProps } from "next"
 import Head from "next/head"
+import { useRouter } from "next/router"
 
 type IndexProps = {
   pageContent: {
@@ -28,6 +22,9 @@ type IndexProps = {
 }
 
 export default function Index({ pageContent }: IndexProps) {
+  const router = useRouter()
+  console.log("🚀 ~ Home ~ router", router)
+
   return (
     <>
       <Head>
@@ -39,18 +36,7 @@ export default function Index({ pageContent }: IndexProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <Container>
-        <Hero {...pageContent.heroBanner} />
-      </Container>
-      <Banner />
-      <YoutubePlayer videoId={pageContent?.youtubeVideoId} />
-      <Carousel images={pageContent?.sliderImages} />
-      <Cities locations={pageContent?.eventLocations} />
-      <FeaturedArtists featuredArtists={pageContent?.featuredArtists} />
-      <CTA />
-      <Boxes />
-      <Instagram />
+      {router.asPath === "/" && <Home pageContent={pageContent} />}
     </>
   )
 }
