@@ -6,6 +6,7 @@ import { postRequest } from "@/lib/utils/post-request"
 import { getStripe } from "@/lib/utils/stripe"
 import { GetStaticProps } from "next"
 import Image from "next/image"
+import Link from "next/link"
 import { useRouter } from "next/router"
 import { MouseEventHandler, useState } from "react"
 import style from "./booths.module.scss"
@@ -497,9 +498,9 @@ export default function Booths({ pageContent }: BoothsProps) {
             <div>
               <h3>Exhibitor Manual</h3>
               <h4>Every Exhibitor must read!</h4>
-              <a href="#" target="_blank" rel="noopener noreferrer">
+              <Link href="#" target="_blank" rel="noopener noreferrer">
                 Download
-              </a>
+              </Link>
               <p>
                 Find above the 2022 Australian Tattoo Expo Exhibitor Manual.
                 <br />
@@ -514,9 +515,9 @@ export default function Booths({ pageContent }: BoothsProps) {
             <div>
               <h3>Waiver Form Example</h3>
               <h4>Preview Only</h4>
-              <a href="#" target="_blank" rel="noopener noreferrer">
+              <Link href="#" target="_blank" rel="noopener noreferrer">
                 Download
-              </a>
+              </Link>
               <p>
                 Find above the Australian Tattoo Expo Preview Artist Waiver Form
                 (READ ONLY).
