@@ -1,4 +1,4 @@
-import Container from "@/components/wordpress/container"
+import Container from "@/components/Container"
 import { getAllArtists } from "@/lib/queries"
 import { WPImage } from "@/lib/utils/types"
 import { GetStaticProps } from "next"

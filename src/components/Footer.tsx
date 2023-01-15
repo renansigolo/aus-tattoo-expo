@@ -1,4 +1,5 @@
-import Container from "@/components/wordpress/container"
+import Container from "@/components/Container"
+import Sponsors from "@/components/Sponsors"
 import { WPImage } from "@/lib/utils/types"
 
 const year = new Date().getFullYear()
@@ -10,7 +11,7 @@ const footerContent = {
 type FooterProps = {
   disclaimer?: string
   copyright?: string
-  sponsors?: WPImage[] | any
+  sponsors?: WPImage[]
 }
 
 export default function Footer({
@@ -21,7 +22,7 @@ export default function Footer({
   return (
     <footer className="bg-black py-6 text-center text-white">
       <Container>
-        {/* <Sponsors images={sponsors} /> */}
+        <Sponsors sponsors={sponsors} />
         <div
           className="py-6 text-sm"
           dangerouslySetInnerHTML={{ __html: disclaimer }}
