@@ -12,70 +12,12 @@ import {
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {
-  AcademicCapIcon,
-  BanknotesIcon,
-  CheckBadgeIcon,
-  ClockIcon,
-  ReceiptRefundIcon,
-  UsersIcon,
-} from "@heroicons/react/24/outline"
 import { GetStaticPaths, GetStaticProps } from "next"
 import ErrorPage from "next/error"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useState } from "react"
-
-const stats = [
-  { label: "Events Attended", value: 12 },
-  { label: "Tattos Made", value: 350 },
-  { label: "Stars", value: 5 },
-]
-const actions = [
-  {
-    icon: ClockIcon,
-    name: "Request time off",
-    href: "#",
-    iconForeground: "text-teal-700",
-    iconBackground: "bg-teal-50",
-  },
-  {
-    icon: CheckBadgeIcon,
-    name: "Benefits",
-    href: "#",
-    iconForeground: "text-purple-700",
-    iconBackground: "bg-purple-50",
-  },
-  {
-    icon: UsersIcon,
-    name: "Schedule a one-on-one",
-    href: "#",
-    iconForeground: "text-sky-700",
-    iconBackground: "bg-sky-50",
-  },
-  {
-    icon: BanknotesIcon,
-    name: "Payroll",
-    href: "#",
-    iconForeground: "text-yellow-700",
-    iconBackground: "bg-yellow-50",
-  },
-  {
-    icon: ReceiptRefundIcon,
-    name: "Submit an expense",
-    href: "#",
-    iconForeground: "text-rose-700",
-    iconBackground: "bg-rose-50",
-  },
-  {
-    icon: AcademicCapIcon,
-    name: "Training",
-    href: "#",
-    iconForeground: "text-indigo-700",
-    iconBackground: "bg-indigo-50",
-  },
-]
 
 export type ArtistProfileType = {
   artist: {
@@ -91,6 +33,7 @@ export type ArtistProfileType = {
   acfFeaturedImage: {
     featuredImage: WPImage
   }
+  categories: { events: [{ name: string }]; tattoo: [{ name: string }] }
   title: string
   slug: string
 }
@@ -106,6 +49,22 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
   }
+
+  const eventsAttended = post.categories.events.length
+  let attendingCurrentEvent = false
+  for (const event of post.categories.events) {
+    if (event.name === "Melbourne 2023") {
+      attendingCurrentEvent = true
+    }
+  }
+  const stats = [
+    {
+      label: `Event${eventsAttended > 1 ? "s" : ""} Attended`,
+      value: post.categories.events.length,
+    },
+    { label: post.categories.events[0].name, value: "Attending" },
+    { label: post.categories?.tattoo[0].name, value: "Category" },
+  ]
 
   return (
     <Layout>
@@ -144,7 +103,7 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
                             </div>
                             <div className="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
                               <p className="text-sm font-medium text-gray-600">
-                                Artist Profile
+                                {post.categories?.tattoo[0].name}
                               </p>
                               <p className="text-xl font-bold text-gray-900 sm:text-2xl">
                                 {post.title}
@@ -208,11 +167,11 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
                     </div>
                   </section>
 
-                  {/* Actions panel */}
-                  <section aria-labelledby="quick-links-title">
+                  {/* Images grid */}
+                  <section aria-labelledby="arts-title">
                     <div className="gap-4 overflow-hidden shadow sm:grid sm:grid-cols-2">
-                      <h2 className="sr-only" id="quick-links-title">
-                        Quick links
+                      <h2 className="sr-only" id="arts-title">
+                        Arts
                       </h2>
 
                       {post.artist.images?.map((image, actionIdx) => (

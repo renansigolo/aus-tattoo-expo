@@ -380,6 +380,14 @@ export async function getArtistProfile(slug: string | string[] | undefined) {
         }
         title
         slug
+        categories {
+          events {
+            name
+          }
+          tattoo {
+            name
+          }
+        }
       }
     }
   `,
@@ -453,6 +461,20 @@ query PageContent($id: ID!) {
         ... on Page_Pageflexiblecontent_PageComponents_Carousel {
           fieldGroupName
           images {
+            altText
+            sourceUrl
+            title
+          }
+        }
+        ... on Page_Pageflexiblecontent_PageComponents_CtaBanner {
+          bannerType
+          fieldGroupName
+          text
+          link {
+            target
+            url
+          }
+          image {
             altText
             sourceUrl
             title

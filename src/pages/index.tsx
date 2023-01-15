@@ -1,4 +1,3 @@
-import Banner from "@/components/Banner"
 import Carousel from "@/components/Carousel"
 import Cities, { EventLocation } from "@/components/Cities"
 import FeaturedArtists, { FeaturedArtist } from "@/components/FeaturedArtists"
@@ -35,7 +34,7 @@ export default function Index({
       </Head>
       <Container>
         <HeroBanner {...page?.heroBanner} />
-        <Banner />
+        {/* <CallToActionBanner /> */}
         <VideoPlayer videoUrl={page?.youtubeVideoId} />
         <Carousel images={page?.carouselImages} />
         <Cities locations={page?.eventLocations} />

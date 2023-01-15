@@ -1,3 +1,4 @@
+import CallToActionBanner from "@/components/CallToActionBanner"
 import Carousel from "@/components/Carousel"
 import HeroBanner from "@/components/HeroBanner"
 import { PageContent } from "@/components/PageContent"
@@ -36,6 +37,9 @@ export default function Page({
               )}
               {flexibleContent.fieldGroupName === "ContentEditor" && (
                 <PageContent content={flexibleContent.content} />
+              )}
+              {flexibleContent.fieldGroupName === "CtaBanner" && (
+                <CallToActionBanner {...flexibleContent} />
               )}
             </div>
           )
