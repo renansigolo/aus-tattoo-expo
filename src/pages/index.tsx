@@ -1,8 +1,8 @@
 import Carousel from "@/components/Carousel"
 import Cities, { EventLocation } from "@/components/Cities"
+import Container from "@/components/Container"
 import FeaturedArtists, { FeaturedArtist } from "@/components/FeaturedArtists"
 import HeroBanner from "@/components/HeroBanner"
-import Container from "@/components/wordpress/container"
 import VideoPlayer from "@/components/YoutubePlayer"
 import { getHomePageContent } from "@/lib/queries"
 import { WPImage } from "@/lib/utils/types"
@@ -30,7 +30,7 @@ export default function Index({
         <title>{page.siteIdentity.title}</title>
         <meta name="description" content={page.siteIdentity.description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
       <Container>
         <HeroBanner {...page?.heroBanner} />

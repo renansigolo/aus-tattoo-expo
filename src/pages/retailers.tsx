@@ -1,4 +1,4 @@
-import Container from "@/components/wordpress/container"
+import Container from "@/components/Container"
 import Image from "next/image"
 import Link from "next/link"
 

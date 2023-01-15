@@ -1,4 +1,4 @@
-import Container from "@/components/wordpress/container"
+import Container from "@/components/Container"
 import { Dialog } from "@headlessui/react"
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"
 import Image from "next/image"

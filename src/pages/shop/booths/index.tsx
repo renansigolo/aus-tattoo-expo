@@ -1,6 +1,6 @@
+import Container from "@/components/Container"
 import HeroBanner from "@/components/HeroBanner"
 import Notification from "@/components/Notification"
-import Container from "@/components/wordpress/container"
 import { getWPPageContent, PageContent } from "@/lib/queries"
 import { postRequest } from "@/lib/utils/post-request"
 import { getStripe } from "@/lib/utils/stripe"

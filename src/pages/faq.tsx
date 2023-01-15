@@ -1,4 +1,4 @@
-import Container from "@/components/wordpress/container"
+import Container from "@/components/Container"
 import { classNames } from "@/lib/utils/cn"
 import { Disclosure } from "@headlessui/react"
 import { ChevronDownIcon } from "@heroicons/react/24/outline"

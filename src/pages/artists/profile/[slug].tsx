@@ -1,8 +1,6 @@
+import Container from "@/components/Container"
 import HeroBanner from "@/components/HeroBanner"
 import Modal from "@/components/Modal"
-import Container from "@/components/wordpress/container"
-import Layout from "@/components/wordpress/layout"
-import PostTitle from "@/components/wordpress/post-title"
 import { getAllArtistsWithSlug, getArtistProfile } from "@/lib/queries"
 import { WPImage } from "@/lib/utils/types"
 import {
@@ -33,7 +31,10 @@ export type ArtistProfileType = {
   acfFeaturedImage: {
     featuredImage: WPImage
   }
-  categories: { events: [{ name: string }]; tattoo: [{ name: string }] }
+  categories: {
+    events: [{ name: string }] | null
+    tattoo: [{ name: string }] | null
+  }
   title: string
   slug: string
 }
@@ -50,27 +51,36 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
     return <ErrorPage statusCode={404} />
   }
 
-  const eventsAttended = post.categories.events.length
-  let attendingCurrentEvent = false
-  for (const event of post.categories.events) {
-    if (event.name === "Melbourne 2023") {
-      attendingCurrentEvent = true
-    }
-  }
   const stats = [
-    {
-      label: `Event${eventsAttended > 1 ? "s" : ""} Attended`,
-      value: post.categories.events.length,
-    },
-    { label: post.categories.events[0].name, value: "Attending" },
-    { label: post.categories?.tattoo[0].name, value: "Category" },
+    { label: "Events Attended", value: 12 },
+    { label: "Tattos Made", value: 350 },
+    { label: "Stars", value: 5 },
   ]
 
+  const eventsAttended = post.categories?.events?.length || []
+  let attendingCurrentEvent = false
+
+  if (post.categories.events && post.categories.tattoo) {
+    for (const event of post?.categories?.events) {
+      if (event.name === "Melbourne 2023") {
+        attendingCurrentEvent = true
+      }
+    }
+    const stats = [
+      {
+        label: `Event${eventsAttended > 1 ? "s" : ""} Attended`,
+        value: post?.categories?.events.length || 0,
+      },
+      { label: post.categories.events[0].name, value: "Attending" },
+      { label: post.categories.tattoo[0].name, value: "Category" },
+    ]
+  }
+
   return (
-    <Layout>
+    <>
       <Container>
         {router.isFallback ? (
-          <PostTitle>Loading…</PostTitle>
+          <p>Loading…</p>
         ) : (
           <>
             <div className="mb-6">
@@ -103,7 +113,8 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
                             </div>
                             <div className="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
                               <p className="text-sm font-medium text-gray-600">
-                                {post.categories?.tattoo[0].name}
+                                {/* {post.categories?.tattoo?[0].length > 0 ? post.categories?.tattoo?[0].name : "Tattoo Artist"} */}
+                                Tattoo Category
                               </p>
                               <p className="text-xl font-bold text-gray-900 sm:text-2xl">
                                 {post.title}
@@ -154,15 +165,20 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
                         </div>
                       </div>
                       <div className="grid grid-cols-1 divide-y divide-gray-200 border-t border-gray-200 bg-gray-50 sm:grid-cols-3 sm:divide-y-0 sm:divide-x">
-                        {stats.map((stat) => (
-                          <div
-                            key={stat.label}
-                            className="px-6 py-5 text-center text-sm font-medium"
-                          >
-                            <span className="text-gray-900">{stat.value}</span>{" "}
-                            <span className="text-gray-600">{stat.label}</span>
-                          </div>
-                        ))}
+                        {stats &&
+                          stats?.map((stat: any) => (
+                            <div
+                              key={stat.label}
+                              className="px-6 py-5 text-center text-sm font-medium"
+                            >
+                              <span className="text-gray-900">
+                                {stat.value}
+                              </span>{" "}
+                              <span className="text-gray-600">
+                                {stat.label}
+                              </span>
+                            </div>
+                          ))}
                       </div>
                     </div>
                   </section>
@@ -201,7 +217,7 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
       </Container>
 
       <Modal sourceUrl={imageRef} open={open} setOpen={setOpen} />
-    </Layout>
+    </>
   )
 }
 
@@ -222,7 +238,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths:
       allArtistsPosts.edges.map(
-        ({ node }: any) => `/artists/profile/${node.slug}`
+        ({ node }: { node: { slug: string } }) =>
+          `/artists/profile/${node.slug}`
       ) || [],
     fallback: true,
   }
