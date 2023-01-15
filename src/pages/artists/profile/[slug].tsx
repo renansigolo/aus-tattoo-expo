@@ -1,5 +1,5 @@
-import Hero from "@/components/hero"
-import Modal from "@/components/modal"
+import HeroBanner from "@/components/HeroBanner"
+import Modal from "@/components/Modal"
 import Container from "@/components/wordpress/container"
 import Layout from "@/components/wordpress/layout"
 import PostTitle from "@/components/wordpress/post-title"
@@ -115,7 +115,7 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
         ) : (
           <>
             <div className="mb-6">
-              <Hero {...post.acfFeaturedImage.featuredImage} />
+              <HeroBanner {...post.acfFeaturedImage.featuredImage} />
             </div>
             <article className="pb-8">
               <div className="mx-auto">

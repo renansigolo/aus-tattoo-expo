@@ -1,5 +1,5 @@
-import { EventLocation } from "@/components/cities"
-import { FeaturedArtist } from "@/components/featured-artists"
+import { EventLocation } from "@/components/Cities"
+import { FeaturedArtist } from "@/components/FeaturedArtists"
 import { fetchApi } from "@/lib/utils/fetch"
 import { WPImage } from "@/lib/utils/types"
 import { ArtistProfileType } from "@/pages/artists/profile/[slug]"
@@ -112,7 +112,8 @@ type GetHomePageContent = {
     homePage: {
       youtubeUrl: string
       featuredArtists: FeaturedArtist[]
-      sliderImages: WPImage[]
+      carouselImages: WPImage[]
+      heroBanner: WPImage
       events: {
         locations: EventLocation[]
       }
@@ -124,13 +125,6 @@ export async function getHomePageContent() {
     `
 query HomePage {
   page(id: "/", idType: URI) {
-    featuredImage {
-      node {
-        sourceUrl
-        altText
-        title
-      }
-    }
     homePage {
       events {
         locations {
@@ -163,10 +157,15 @@ query HomePage {
         }
       }
       youtubeUrl
-      sliderImages {
+      carouselImages {
         altText
         title
         sourceUrl
+      }
+      heroBanner {
+        altText
+        sourceUrl
+        title
       }
     }
   }
@@ -179,9 +178,9 @@ query HomePage {
   )
 
   return {
-    heroBanner: data.page.featuredImage.node,
-    sliderImages: data.page.homePage.sliderImages,
-    youtubeVideoId: data.page.homePage.youtubeUrl?.split("v=")[1],
+    heroBanner: data.page.homePage.heroBanner,
+    carouselImages: data.page.homePage.carouselImages,
+    youtubeVideoId: data.page.homePage.youtubeUrl,
     featuredArtists: data.page.homePage.featuredArtists,
     eventLocations: data.page.homePage.events.locations,
     siteIdentity: data.generalSettings,
@@ -393,5 +392,91 @@ export async function getArtistProfile(slug: string | string[] | undefined) {
 
   return {
     post: data?.artist,
+  }
+}
+
+// export async function getAllPostsWithSlug() {
+//   const data = await fetchApi(`
+//     {
+//       posts(first: 10000) {
+//         edges {
+//           node {
+//             slug
+//           }
+//         }
+//       }
+//     }
+//   `)
+//   return data?.posts
+// }
+
+export async function getAllPagesWithUri() {
+  const data = await fetchApi(`
+    {
+      pages(first: 10000) {
+        edges {
+          node {
+            uri
+          }
+        }
+      }
+    }
+  `)
+  return data?.pages
+}
+
+export async function getPageContent(uri: string | string[] | undefined) {
+  // query PageContent($id: ID!) {
+  const data = await fetchApi(
+    `
+query PageContent($id: ID!) {
+  page(id: $id, idType: URI) {
+    title
+    pageFlexibleContent {
+      pageComponents {
+        ... on Page_Pageflexiblecontent_PageComponents_HeroBanner {
+          fieldGroupName
+          image {
+            altText
+            title
+            sourceUrl
+          }
+        }
+        ... on Page_Pageflexiblecontent_PageComponents_YoutubeVideo {
+          fieldGroupName
+          videoUrl
+        }
+        ... on Page_Pageflexiblecontent_PageComponents_ContentEditor {
+          content
+          fieldGroupName
+        }
+        ... on Page_Pageflexiblecontent_PageComponents_Carousel {
+          fieldGroupName
+          images {
+            altText
+            sourceUrl
+            title
+          }
+        }
+      }
+    }
+  }
+}
+    `,
+    {
+      variables: {
+        id: uri,
+      },
+    }
+  )
+
+  // Extract the last part of the fieldGroupName
+  for (const pageComponent of data?.page?.pageFlexibleContent?.pageComponents) {
+    pageComponent.fieldGroupName = pageComponent.fieldGroupName.split("_").pop()
+  }
+
+  return {
+    title: data?.page?.title,
+    pageFlexibleContent: data?.page?.pageFlexibleContent?.pageComponents,
   }
 }

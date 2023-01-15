@@ -1,65 +1,66 @@
-import Banner from "@/components/banner"
-import Boxes from "@/components/boxes"
-import Carousel from "@/components/carousel"
-import Cities, { EventLocation } from "@/components/cities"
-import CTA from "@/components/cta"
-import FeaturedArtists, { FeaturedArtist } from "@/components/featured-artists"
-import Hero from "@/components/hero"
-import Instagram from "@/components/instagram"
+import Banner from "@/components/Banner"
+import Carousel from "@/components/Carousel"
+import Cities, { EventLocation } from "@/components/Cities"
+import FeaturedArtists, { FeaturedArtist } from "@/components/FeaturedArtists"
+import HeroBanner from "@/components/HeroBanner"
 import Container from "@/components/wordpress/container"
-import YoutubePlayer from "@/components/youtube-player"
+import VideoPlayer from "@/components/YoutubePlayer"
 import { getHomePageContent } from "@/lib/queries"
 import { WPImage } from "@/lib/utils/types"
-import { GetStaticProps } from "next"
+import { GetStaticProps, InferGetStaticPropsType } from "next"
 import Head from "next/head"
 
 type IndexProps = {
-  pageContent: {
-    youtubeVideoId: string
-    heroBanner: WPImage
-    eventLocations: EventLocation[]
-    featuredArtists: FeaturedArtist[]
-    sliderImages: WPImage[]
-    siteIdentity: {
-      title: string
-      description: string
-    }
+  youtubeVideoId: string
+  heroBanner: WPImage
+  eventLocations: EventLocation[]
+  featuredArtists: FeaturedArtist[]
+  carouselImages: WPImage[]
+  siteIdentity: {
+    title: string
+    description: string
   }
 }
 
-export default function Index({ pageContent }: IndexProps) {
+export default function Index({
+  page,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
       <Head>
-        <title>{pageContent.siteIdentity.title}</title>
-        <meta
-          name="description"
-          content={pageContent.siteIdentity.description}
-        />
+        <title>{page.siteIdentity.title}</title>
+        <meta name="description" content={page.siteIdentity.description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <Container>
-        <Hero {...pageContent.heroBanner} />
+        <HeroBanner {...page?.heroBanner} />
+        <Banner />
+        <VideoPlayer videoUrl={page?.youtubeVideoId} />
+        <Carousel images={page?.carouselImages} />
+        <Cities locations={page?.eventLocations} />
       </Container>
-      <Banner />
-      <YoutubePlayer videoId={pageContent?.youtubeVideoId} />
-      <Carousel images={pageContent?.sliderImages} />
-      <Cities locations={pageContent?.eventLocations} />
-      <FeaturedArtists featuredArtists={pageContent?.featuredArtists} />
-      <CTA />
-      <Boxes />
-      <Instagram />
+
+      <section className="flex flex-col bg-zinc-800 py-12 text-center uppercase text-white">
+        <Container>
+          <FeaturedArtists featuredArtists={page?.featuredArtists} />
+        </Container>
+      </section>
+
+      {/* <Container>
+        <CallToAction />
+        <Boxes />
+        <Instagram />
+      </Container> */}
     </>
   )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const pageContent = await getHomePageContent()
+  const page: IndexProps = await getHomePageContent()
 
   return {
-    props: { pageContent },
+    props: { page },
     revalidate: 10,
   }
 }

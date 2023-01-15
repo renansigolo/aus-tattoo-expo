@@ -1,6 +1,5 @@
-import { SanitizeHtml } from "@/components/sanitize-html"
 import Container from "@/components/wordpress/container"
-import style from "./footer.module.scss"
+import { WPImage } from "@/lib/utils/types"
 
 const year = new Date().getFullYear()
 const footerContent = {
@@ -11,22 +10,24 @@ const footerContent = {
 type FooterProps = {
   disclaimer?: string
   copyright?: string
-  sponsors?: any[]
+  sponsors?: WPImage[] | any
 }
 
 export default function Footer({
   disclaimer = footerContent.disclaimer,
   copyright = footerContent.copyright,
+  sponsors,
 }: FooterProps) {
   return (
-    <footer className={style.footer}>
+    <footer className="bg-black py-6 text-center text-white">
       <Container>
-        {/* <Sponsors images={homePageContent?.page?.sponsors?.images} /> */}
-        <div className={style.disclaimer}>
-          <SanitizeHtml htmlString={disclaimer} element="p" />
-        </div>
+        {/* <Sponsors images={sponsors} /> */}
+        <div
+          className="py-6 text-sm"
+          dangerouslySetInnerHTML={{ __html: disclaimer }}
+        />
 
-        <div className={style.copyright}>
+        <div className="text-xs text-gray-400">
           <p>{copyright}</p>
         </div>
       </Container>

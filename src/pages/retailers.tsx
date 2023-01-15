@@ -1,4 +1,3 @@
-import { Grid } from "@/components/grid"
 import Container from "@/components/wordpress/container"
 import Image from "next/image"
 import Link from "next/link"
@@ -173,30 +172,31 @@ export default function Retailers() {
         <h1 className="py-6 text-center text-3xl font-bold tracking-tight text-white sm:text-3xl">
           Meet all the Retailers
         </h1>
-        <ul role="list">
-          <Grid col={4}>
-            {nodes.map((node) => (
-              <li key={node.title}>
-                <Link href={`/artists/profile/${node.slug}`}>
-                  <article>
-                    {/* <article className={style.card}> */}
-                    <header>
-                      <Image
-                        src={node.featuredImage.node.sourceUrl}
-                        alt={node.title}
-                        width={140}
-                        height={140}
-                      />
-                    </header>
-                    <footer>
-                      <h3>{node.title}</h3>
-                      <p>{node.studioName}</p>
-                    </footer>
-                  </article>
-                </Link>
-              </li>
-            ))}
-          </Grid>
+        <ul
+          role="list"
+          className="grid gap-3 text-center sm:grid-cols-3 lg:grid-cols-4 lg:gap-6"
+        >
+          {nodes.map((node) => (
+            <li key={node.title}>
+              <Link href={`/artists/profile/${node.slug}`}>
+                <article>
+                  {/* <article className={style.card}> */}
+                  <header>
+                    <Image
+                      src={node.featuredImage.node.sourceUrl}
+                      alt={node.title}
+                      width={140}
+                      height={140}
+                    />
+                  </header>
+                  <footer>
+                    <h3>{node.title}</h3>
+                    <p>{node.studioName}</p>
+                  </footer>
+                </article>
+              </Link>
+            </li>
+          ))}
         </ul>
       </Container>
     </section>

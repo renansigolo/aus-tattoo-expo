@@ -1,11 +1,12 @@
-import Hero from "@/components/hero"
-import Notification from "@/components/notification"
+import HeroBanner from "@/components/HeroBanner"
+import Notification from "@/components/Notification"
 import Container from "@/components/wordpress/container"
 import { getWPPageContent, PageContent } from "@/lib/queries"
 import { postRequest } from "@/lib/utils/post-request"
 import { getStripe } from "@/lib/utils/stripe"
 import { GetStaticProps } from "next"
 import Image from "next/image"
+import Link from "next/link"
 import { useRouter } from "next/router"
 import { MouseEventHandler, useState } from "react"
 import style from "./booths.module.scss"
@@ -216,7 +217,7 @@ export default function Booths({ pageContent }: BoothsProps) {
   }
   return (
     <div className={style.booths}>
-      <Hero {...pageContent.featuredImage} />
+      <HeroBanner {...pageContent.featuredImage} />
 
       <Container>
         {/* Highlights - Section */}
@@ -369,7 +370,9 @@ export default function Booths({ pageContent }: BoothsProps) {
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lo
                 ipsum dolor sit amet,
               </span>
-              <button className={style.addCart}>Add to cart</button>
+              <button className={`${style.addCart} btn-primary`}>
+                Add to cart
+              </button>
               <p className="text-justify text-sm">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Adipisci corrupti quae, laborum, totam necessitatibus nam ipsam.
@@ -495,9 +498,9 @@ export default function Booths({ pageContent }: BoothsProps) {
             <div>
               <h3>Exhibitor Manual</h3>
               <h4>Every Exhibitor must read!</h4>
-              <a href="#" target="_blank" rel="noopener noreferrer">
+              <Link href="#" target="_blank" rel="noopener noreferrer">
                 Download
-              </a>
+              </Link>
               <p>
                 Find above the 2022 Australian Tattoo Expo Exhibitor Manual.
                 <br />
@@ -512,9 +515,9 @@ export default function Booths({ pageContent }: BoothsProps) {
             <div>
               <h3>Waiver Form Example</h3>
               <h4>Preview Only</h4>
-              <a href="#" target="_blank" rel="noopener noreferrer">
+              <Link href="#" target="_blank" rel="noopener noreferrer">
                 Download
-              </a>
+              </Link>
               <p>
                 Find above the Australian Tattoo Expo Preview Artist Waiver Form
                 (READ ONLY).

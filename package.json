@@ -10,7 +10,8 @@
     "postinstall": "scripts/setup-git-hooks.sh",
     "build": "next build",
     "dev": "next dev",
-    "lint": "next lint",
+    "fix": "npm run lint -- --fix",
+    "lint": "eslint .",
     "start": "next start"
   },
   "dependencies": {
