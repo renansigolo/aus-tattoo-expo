@@ -46,9 +46,9 @@ export default function Page({
 }
 
 export const getServerSideProps = async ({
-  query,
+  resolvedUrl,
 }: GetServerSidePropsContext) => {
-  const page: PageProps = await getPageContent(query?.page)
+  const page: PageProps = await getPageContent(resolvedUrl)
 
   return {
     props: { page },
