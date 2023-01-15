@@ -112,7 +112,8 @@ type GetHomePageContent = {
     homePage: {
       youtubeUrl: string
       featuredArtists: FeaturedArtist[]
-      sliderImages: WPImage[]
+      carouselImages: WPImage[]
+      heroBanner: WPImage
       events: {
         locations: EventLocation[]
       }
@@ -124,13 +125,6 @@ export async function getHomePageContent() {
     `
 query HomePage {
   page(id: "/", idType: URI) {
-    featuredImage {
-      node {
-        sourceUrl
-        altText
-        title
-      }
-    }
     homePage {
       events {
         locations {
@@ -163,10 +157,15 @@ query HomePage {
         }
       }
       youtubeUrl
-      sliderImages {
+      carouselImages {
         altText
         title
         sourceUrl
+      }
+      heroBanner {
+        altText
+        sourceUrl
+        title
       }
     }
   }
@@ -179,8 +178,8 @@ query HomePage {
   )
 
   return {
-    heroBanner: data.page.featuredImage.node,
-    sliderImages: data.page.homePage.sliderImages,
+    heroBanner: data.page.homePage.heroBanner,
+    carouselImages: data.page.homePage.carouselImages,
     youtubeVideoId: data.page.homePage.youtubeUrl,
     featuredArtists: data.page.homePage.featuredArtists,
     eventLocations: data.page.homePage.events.locations,
