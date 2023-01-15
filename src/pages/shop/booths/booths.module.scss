@@ -1,5 +1,3 @@
-@use "src/styles/buttons";
-
 // Heading Component
 .heading {
   @apply mb-12 text-center;
@@ -75,6 +73,5 @@
 }
 
 .addCart {
-  @extend %btn-primary;
   @apply my-8;
 }

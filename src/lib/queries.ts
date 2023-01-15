@@ -1,5 +1,5 @@
-import { EventLocation } from "@/components/cities"
-import { FeaturedArtist } from "@/components/featured-artists"
+import { EventLocation } from "@/components/Cities"
+import { FeaturedArtist } from "@/components/FeaturedArtists"
 import { fetchApi } from "@/lib/utils/fetch"
 import { WPImage } from "@/lib/utils/types"
 import { ArtistProfileType } from "@/pages/artists/profile/[slug]"
@@ -181,7 +181,7 @@ query HomePage {
   return {
     heroBanner: data.page.featuredImage.node,
     sliderImages: data.page.homePage.sliderImages,
-    youtubeVideoId: data.page.homePage.youtubeUrl?.split("v=")[1],
+    youtubeVideoId: data.page.homePage.youtubeUrl,
     featuredArtists: data.page.homePage.featuredArtists,
     eventLocations: data.page.homePage.events.locations,
     siteIdentity: data.generalSettings,
@@ -427,14 +427,42 @@ export async function getAllPagesWithUri() {
 }
 
 export async function getPageContent(uri: string | string[] | undefined) {
+  // query PageContent($id: ID!) {
   const data = await fetchApi(
     `
-    query PageContent($id: ID!) {
-      page(id: $id, idType: URI) {
-        title
-        content
+query PageContent($id: ID!) {
+  page(id: $id, idType: URI) {
+    title
+    pageFlexibleContent {
+      pageComponents {
+        ... on Page_Pageflexiblecontent_PageComponents_HeroBanner {
+          fieldGroupName
+          image {
+            altText
+            title
+            sourceUrl
+          }
+        }
+        ... on Page_Pageflexiblecontent_PageComponents_YoutubeVideo {
+          fieldGroupName
+          videoUrl
+        }
+        ... on Page_Pageflexiblecontent_PageComponents_ContentEditor {
+          content
+          fieldGroupName
+        }
+        ... on Page_Pageflexiblecontent_PageComponents_Carousel {
+          fieldGroupName
+          images {
+            altText
+            sourceUrl
+            title
+          }
+        }
       }
     }
+  }
+}
     `,
     {
       variables: {
@@ -443,5 +471,13 @@ export async function getPageContent(uri: string | string[] | undefined) {
     }
   )
 
-  return data?.page
+  // Extract the last part of the fieldGroupName
+  for (const pageComponent of data?.page?.pageFlexibleContent?.pageComponents) {
+    pageComponent.fieldGroupName = pageComponent.fieldGroupName.split("_").pop()
+  }
+
+  return {
+    title: data?.page?.title,
+    pageFlexibleContent: data?.page?.pageFlexibleContent?.pageComponents,
+  }
 }

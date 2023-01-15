@@ -1,13 +1,13 @@
 import Banner from "@/components/Banner"
-import Boxes from "@/components/boxes"
+import Boxes from "@/components/Boxes"
 import CallToAction from "@/components/CallToAction"
 import Carousel from "@/components/Carousel"
-import Cities, { EventLocation } from "@/components/cities"
-import FeaturedArtists, { FeaturedArtist } from "@/components/featured-artists"
+import Cities, { EventLocation } from "@/components/Cities"
+import FeaturedArtists, { FeaturedArtist } from "@/components/FeaturedArtists"
 import HeroBanner from "@/components/HeroBanner"
 import Instagram from "@/components/Instagram"
 import Container from "@/components/wordpress/container"
-import YoutubePlayer from "@/components/YoutubePlayer"
+import VideoPlayer from "@/components/YoutubePlayer"
 import { getHomePageContent } from "@/lib/queries"
 import { WPImage } from "@/lib/utils/types"
 import { GetStaticProps } from "next"
@@ -41,15 +41,23 @@ export default function Index({ pageContent }: IndexProps) {
       </Head>
       <Container>
         <HeroBanner {...pageContent.heroBanner} />
+        <Banner />
+        <VideoPlayer videoUrl={pageContent?.youtubeVideoId} />
+        <Carousel images={pageContent?.sliderImages} />
+        <Cities locations={pageContent?.eventLocations} />
       </Container>
-      <Banner />
-      <YoutubePlayer videoId={pageContent?.youtubeVideoId} />
-      <Carousel images={pageContent?.sliderImages} />
-      <Cities locations={pageContent?.eventLocations} />
-      <FeaturedArtists featuredArtists={pageContent?.featuredArtists} />
-      <CallToAction />
-      <Boxes />
-      <Instagram />
+
+      <section className="flex flex-col bg-zinc-800 py-12 text-center uppercase text-white">
+        <Container>
+          <FeaturedArtists featuredArtists={pageContent?.featuredArtists} />
+        </Container>
+      </section>
+
+      <Container>
+        <CallToAction />
+        <Boxes />
+        <Instagram />
+      </Container>
     </>
   )
 }

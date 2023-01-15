@@ -369,7 +369,9 @@ export default function Booths({ pageContent }: BoothsProps) {
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lo
                 ipsum dolor sit amet,
               </span>
-              <button className={style.addCart}>Add to cart</button>
+              <button className={`${style.addCart} btn-primary`}>
+                Add to cart
+              </button>
               <p className="text-justify text-sm">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Adipisci corrupti quae, laborum, totam necessitatibus nam ipsam.
