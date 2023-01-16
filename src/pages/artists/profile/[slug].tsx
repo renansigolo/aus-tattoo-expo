@@ -44,7 +44,6 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
     return <ErrorPage statusCode={404} />
   }
 
-  console.log(post.categories.tattooStyle[0].name)
   return (
     <>
       <Container>

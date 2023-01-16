@@ -264,7 +264,7 @@ export async function getPageContent(uri: string | string[] | undefined) {
   const data = await fetchApi(
     `
 query PageContent($id: ID!) {
-  page(id: $id, idType: URI) {
+  page(idType: URI, id: $id) {
     title
     pageFlexibleContent {
       pageComponents {
@@ -299,11 +299,19 @@ query PageContent($id: ID!) {
           link {
             target
             url
+            title
           }
           image {
             altText
             sourceUrl
             title
+          }
+        }
+        ... on Page_Pageflexiblecontent_PageComponents_Accordion {
+          fieldGroupName
+          items {
+            title
+            description
           }
         }
       }

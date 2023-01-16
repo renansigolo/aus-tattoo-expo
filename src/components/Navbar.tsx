@@ -23,7 +23,6 @@ export default function Navbar({
   siteIdentity,
   generalSettings,
 }: NavbarProps) {
-  console.log("🚀 ~ generalSettings", siteIdentity)
   return (
     <Popover className="relative">
       <div className="mx-auto max-w-5xl px-6">
