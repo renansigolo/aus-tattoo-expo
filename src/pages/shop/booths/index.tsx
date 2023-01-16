@@ -9,7 +9,6 @@ import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { MouseEventHandler, useState } from "react"
-import style from "./booths.module.scss"
 
 const highlights = [
   { title: "X+", description: "Events" },
@@ -100,9 +99,13 @@ type HeadingProps = {
 }
 const Heading = ({ title, description }: HeadingProps) => {
   return (
-    <div className={style.heading}>
-      <p>{title}</p>
-      <h2>{description}</h2>
+    <div className="mb-12 text-center">
+      <p className="inline-flex items-center rounded-full bg-primary px-3 py-0.5 font-medium text-white">
+        {title}
+      </p>
+      <h2 className="mt-1 text-3xl font-bold capitalize tracking-tight text-white sm:text-5xl">
+        {description}
+      </h2>
     </div>
   )
 }
@@ -216,14 +219,20 @@ export default function Booths({ pageContent }: BoothsProps) {
     setLoading(false)
   }
   return (
-    <div className={style.booths}>
+    <div className="bg-zinc-900">
       <HeroBanner {...pageContent.featuredImage} />
 
       <Container>
         {/* Highlights - Section */}
-        <section id="highlights" className={style.highlights}>
+        <section
+          id="highlights"
+          className="grid grid-cols-2 gap-4 py-10 lg:grid-cols-4"
+        >
           {highlights.map(({ title, description }, index) => (
-            <div key={index}>
+            <div
+              key={index}
+              className="flex h-36 w-36 flex-col justify-center place-self-center bg-black text-center font-semibold text-white"
+            >
               <h2 className="text-4xl">{title}</h2>
               <p className="text-lg">{description}</p>
             </div>
@@ -258,11 +267,13 @@ export default function Booths({ pageContent }: BoothsProps) {
       {/* Steps - Section */}
       <section id="steps" className="bg-black">
         <Container>
-          <div className={style.steps}>
+          <div className="flex flex-col items-center py-12 text-center text-white sm:flex-row sm:items-start lg:py-16">
             {steps.map(({ title, description, imgUrl }) => (
-              <div key={title}>
-                <h3>{title}</h3>
-                <p>{description}</p>
+              <div key={title} className="max-w-md">
+                <h3 className="text-lg font-bold uppercase lg:text-2xl">
+                  {title}
+                </h3>
+                <p className="mb-2 lg:text-xl">{description}</p>
                 <img src={imgUrl} alt={title} />
               </div>
             ))}
@@ -271,7 +282,7 @@ export default function Booths({ pageContent }: BoothsProps) {
       </section>
 
       <Container>
-        <section id="step-1" className={style.sectionSpacing}>
+        <section id="step-1" className="sectionSpacing">
           <Heading title="Step 1" description="Select city" />
           <div className="flex flex-col items-center justify-evenly gap-4 lg:flex-row">
             {cities.map((city) => (
@@ -291,7 +302,7 @@ export default function Booths({ pageContent }: BoothsProps) {
           </div>
         </section>
 
-        <section id="step-2" className={style.sectionSpacing}>
+        <section id="step-2" className="sectionSpacing">
           <Heading title="Step 2" description="Choose a Booth Size" />
           <div className="space-y-4 text-white sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0 lg:mx-auto xl:mx-0 xl:max-w-none xl:grid-cols-3">
             {booths.map((product, index) => (
@@ -329,9 +340,9 @@ export default function Booths({ pageContent }: BoothsProps) {
           </div>
         </section>
 
-        <section id="step-3" className={style.sectionSpacing}>
+        <section id="step-3" className="sectionSpacing">
           <Heading title="Step 3" description="Customise Your Booth" />
-          <div className={style.customise}>
+          <div className="grid grid-cols-1 gap-4 py-10 sm:grid-cols-2">
             <div className="grid place-content-center">
               <img
                 src={selectedPrint}
@@ -370,9 +381,7 @@ export default function Booths({ pageContent }: BoothsProps) {
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lo
                 ipsum dolor sit amet,
               </span>
-              <button className={`${style.addCart} btn-primary`}>
-                Add to cart
-              </button>
+              <button className="btn-primary my-8">Add to cart</button>
               <p className="text-justify text-sm">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Adipisci corrupti quae, laborum, totam necessitatibus nam ipsam.
@@ -382,7 +391,7 @@ export default function Booths({ pageContent }: BoothsProps) {
         </section>
       </Container>
 
-      <section className={`${style.sectionSpacing} max-w-full bg-black`}>
+      <section className="sectionSpacing max-w-full bg-black">
         <Container>
           <Heading title="Step 4" description="Sign" />
           <div className="grid min-h-[50vh] place-content-center text-white">
@@ -396,7 +405,7 @@ export default function Booths({ pageContent }: BoothsProps) {
         </Container>
       </section>
 
-      <section id="payment" className={style.sectionSpacing}>
+      <section id="payment" className="sectionSpacing">
         <Container>
           <Heading title="Step 5" description="Payment" />
           {query.status === "cancelled" && (
@@ -491,17 +500,26 @@ export default function Booths({ pageContent }: BoothsProps) {
         </Container>
       </section>
 
-      <section id="info-pack" className={style.sectionSpacing}>
+      <section id="info-pack" className="sectionSpacing">
         <Container>
           <Heading title="Step 6" description="Info Pack" />
-          <div className={style.infoPack}>
-            <div>
-              <h3>Exhibitor Manual</h3>
-              <h4>Every Exhibitor must read!</h4>
-              <Link href="#" target="_blank" rel="noopener noreferrer">
+          <div className="grid grid-cols-1 gap-4 py-10 sm:grid-cols-2">
+            <div className="bg-primary p-6 text-center text-white">
+              <h3 className="mb-2 text-2xl font-bold uppercase">
+                Exhibitor Manual
+              </h3>
+              <h4 className="mb-4 text-xl font-semibold uppercase">
+                Every Exhibitor must read!
+              </h4>
+              <Link
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="uppercase underline"
+              >
                 Download
               </Link>
-              <p>
+              <p className="mt-6 font-semibold">
                 Find above the 2022 Australian Tattoo Expo Exhibitor Manual.
                 <br />
                 <br />
@@ -512,13 +530,22 @@ export default function Booths({ pageContent }: BoothsProps) {
               </p>
             </div>
 
-            <div>
-              <h3>Waiver Form Example</h3>
-              <h4>Preview Only</h4>
-              <Link href="#" target="_blank" rel="noopener noreferrer">
+            <div className="bg-primary p-6 text-center text-white">
+              <h3 className="mb-2 text-2xl font-bold uppercase">
+                Waiver Form Example
+              </h3>
+              <h4 className="mb-4 text-xl font-semibold uppercase">
+                Preview Only
+              </h4>
+              <Link
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="uppercase underline"
+              >
                 Download
               </Link>
-              <p>
+              <p className="mt-6 font-semibold">
                 Find above the Australian Tattoo Expo Preview Artist Waiver Form
                 (READ ONLY).
                 <br />
