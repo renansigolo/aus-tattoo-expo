@@ -1,8 +1,8 @@
+import Navbar from "@/components/Navbar"
 import { LayoutQuery } from "@/interfaces/index"
 import { ReactNode } from "react"
 import useSWR, { Fetcher } from "swr"
 import Footer from "./Footer"
-import Navbar from "./Navbar"
 
 type LayoutProps = {
   children: ReactNode

@@ -1,3 +1,4 @@
+import Accordion from "@/components/Accordion"
 import CallToActionBanner from "@/components/CallToActionBanner"
 import Carousel from "@/components/Carousel"
 import Container from "@/components/Container"
@@ -43,6 +44,9 @@ export default function Page({
                 )}
                 {flexibleContent.fieldGroupName === "CtaBanner" && (
                   <CallToActionBanner {...flexibleContent} />
+                )}
+                {flexibleContent.fieldGroupName === "Accordion" && (
+                  <Accordion {...flexibleContent} />
                 )}
               </div>
             )
