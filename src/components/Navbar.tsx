@@ -26,7 +26,7 @@ export default function Navbar({
   return (
     <Popover className="relative">
       <div className="mx-auto max-w-5xl px-6">
-        <div className="flex min-w-full items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start">
+        <div className="flex min-w-full items-center justify-between py-6 md:justify-start">
           {/* Desktop Logo */}
           <Link href="/" className="mr-6">
             <span className="sr-only">{generalSettings.title}</span>

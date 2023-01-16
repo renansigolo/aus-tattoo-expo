@@ -226,7 +226,7 @@ export async function getArtistProfile(slug: string | string[] | undefined) {
           events {
             name
           }
-          tattoo {
+          tattooStyle {
             name
           }
         }

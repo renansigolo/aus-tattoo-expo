@@ -32,8 +32,8 @@ export type ArtistProfileType = {
     featuredImage: WPImage
   }
   categories: {
-    events: [{ name: string }] | null
-    tattoo: [{ name: string }] | null
+    events: [{ name: string }]
+    tattooStyle: [{ name: string }]
   }
   title: string
   slug: string
@@ -51,31 +51,7 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
     return <ErrorPage statusCode={404} />
   }
 
-  const stats = [
-    { label: "Events Attended", value: 12 },
-    { label: "Tattos Made", value: 350 },
-    { label: "Stars", value: 5 },
-  ]
-
-  const eventsAttended = post.categories?.events?.length || []
-  let attendingCurrentEvent = false
-
-  if (post.categories.events && post.categories.tattoo) {
-    for (const event of post?.categories?.events) {
-      if (event.name === "Melbourne 2023") {
-        attendingCurrentEvent = true
-      }
-    }
-    const stats = [
-      {
-        label: `Event${eventsAttended > 1 ? "s" : ""} Attended`,
-        value: post?.categories?.events.length || 0,
-      },
-      { label: post.categories.events[0].name, value: "Attending" },
-      { label: post.categories.tattoo[0].name, value: "Category" },
-    ]
-  }
-
+  console.log(post.categories.tattooStyle[0].name)
   return (
     <>
       <Container>
@@ -83,8 +59,14 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
           <p>Loading…</p>
         ) : (
           <>
-            <div className="mb-6">
-              <HeroBanner {...post.acfFeaturedImage.featuredImage} />
+            <div className="mb-6 grid w-full justify-items-center">
+              <div className="opacity-50">
+                <HeroBanner {...post.acfFeaturedImage.featuredImage} />
+              </div>
+              <div className="absolute inline-grid items-center self-center text-center text-white">
+                <h2 className="mb-1 text-5xl font-semibold">{post.title}</h2>
+                <p className="text-xl">{post.artist.studioName}</p>
+              </div>
             </div>
             <article className="pb-8">
               <div className="mx-auto">
@@ -111,11 +93,7 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
                                 className="mx-auto h-20 w-20 rounded-full"
                               />
                             </div>
-                            <div className="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
-                              <p className="text-sm font-medium text-gray-600">
-                                {/* {post.categories?.tattoo?[0].length > 0 ? post.categories?.tattoo?[0].name : "Tattoo Artist"} */}
-                                Tattoo Category
-                              </p>
+                            <div className="felx mt-4 flex h-20 flex-col justify-center text-center sm:mt-0 sm:text-left">
                               <p className="text-xl font-bold text-gray-900 sm:text-2xl">
                                 {post.title}
                               </p>
@@ -155,7 +133,7 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
                             {post.artist.website && (
                               <Link
                                 href={post.artist.website}
-                                className="flex items-center justify-center text-sm font-medium text-gray-700 hover:text-sky-500"
+                                className="flex items-center justify-center text-sm font-medium text-gray-700 hover:text-amber-500"
                                 target="_blank"
                               >
                                 <FontAwesomeIcon icon={faChrome} size="lg" />
@@ -164,21 +142,28 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
                           </div>
                         </div>
                       </div>
-                      <div className="grid grid-cols-1 divide-y divide-gray-200 border-t border-gray-200 bg-gray-50 sm:grid-cols-3 sm:divide-y-0 sm:divide-x">
-                        {stats &&
-                          stats?.map((stat: any) => (
-                            <div
-                              key={stat.label}
-                              className="px-6 py-5 text-center text-sm font-medium"
-                            >
-                              <span className="text-gray-900">
-                                {stat.value}
-                              </span>{" "}
+                      <div className="grid grid-cols-1 divide-y divide-gray-200 border-t border-gray-200 bg-gray-50 sm:grid-cols-2 sm:divide-y-0 sm:divide-x">
+                        <div className="px-6 py-5 text-center text-sm font-medium">
+                          <span className="text-gray-900">Tattoo Style</span>
+                          {post.categories.tattooStyle.map((tattooCategory) => (
+                            <div key={tattooCategory.name} className="my-1">
                               <span className="text-gray-600">
-                                {stat.label}
+                                {tattooCategory.name}
                               </span>
                             </div>
                           ))}
+                        </div>
+
+                        <div className="px-6 py-5 text-center text-sm font-medium">
+                          <span className="text-gray-900">Attending</span>
+                          {post.categories.events.map((event) => (
+                            <div key={event.name} className="my-1">
+                              <span className="text-gray-600">
+                                {event.name}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </section>
@@ -193,7 +178,7 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
                       {post.artist.images?.map((image, actionIdx) => (
                         <div
                           key={actionIdx}
-                          className="group relative mb-2 h-96 rounded-md border-2 border-gray-600 hover:cursor-pointer hover:border-pink-300 lg:mb-0"
+                          className="group relative mb-2 h-96 rounded-md border-2 border-gray-800 hover:cursor-pointer hover:border-pink-300 lg:mb-0"
                           onClick={() => {
                             setImageRef(image.sourceUrl)
                             setOpen(true)

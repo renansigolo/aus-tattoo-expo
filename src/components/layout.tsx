@@ -1,4 +1,4 @@
-import Nav from "@/components/Navbar"
+import Navbar from "@/components/Navbar"
 import { LayoutQuery } from "@/interfaces/index"
 import { ReactNode } from "react"
 import useSWR, { Fetcher } from "swr"
@@ -17,12 +17,7 @@ export default function Layout({ children }: LayoutProps) {
 
   return (
     <>
-      {/* <Navbar
-        menuItems={data.menuItems}
-        siteIdentity={data.acfOptionsGeneral.siteIdentity}
-        generalSettings={data.generalSettings}
-      /> */}
-      <Nav
+      <Navbar
         menuItems={data.menuItems}
         siteIdentity={data.acfOptionsGeneral.siteIdentity}
         generalSettings={data.generalSettings}
