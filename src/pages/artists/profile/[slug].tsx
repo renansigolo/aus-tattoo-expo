@@ -1,19 +1,12 @@
 import Container from "@/components/Container"
 import HeroBanner from "@/components/HeroBanner"
 import Modal from "@/components/Modal"
+import { SocialMediaIcons } from "@/components/SocialMediaIcons"
 import { getAllArtistsWithSlug, getArtistProfile } from "@/lib/queries"
 import { WPImage } from "@/lib/utils/types"
-import {
-  faChrome,
-  faFacebook,
-  faInstagram,
-  faTwitter,
-} from "@fortawesome/free-brands-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { GetStaticPaths, GetStaticProps } from "next"
 import ErrorPage from "next/error"
 import Image from "next/image"
-import Link from "next/link"
 import { useRouter } from "next/router"
 import { useState } from "react"
 
@@ -102,44 +95,12 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
                               </p>
                             </div>
                           </div>
-                          <div className="mt-5 flex justify-center gap-x-4 sm:mt-0">
-                            {post.artist.instagram && (
-                              <Link
-                                href={post.artist.instagram}
-                                className="flex items-center justify-center text-sm font-medium text-gray-700 hover:text-primary-500"
-                                target="_blank"
-                              >
-                                <FontAwesomeIcon icon={faInstagram} size="lg" />
-                              </Link>
-                            )}
-                            {post.artist.facebook && (
-                              <Link
-                                href={post.artist.facebook}
-                                className="flex items-center justify-center text-sm font-medium text-gray-700 hover:text-blue-500"
-                                target="_blank"
-                              >
-                                <FontAwesomeIcon icon={faFacebook} size="lg" />
-                              </Link>
-                            )}
-                            {post.artist.twitter && (
-                              <Link
-                                href={post.artist.twitter}
-                                className="flex items-center justify-center text-sm font-medium text-gray-700 hover:text-sky-500"
-                                target="_blank"
-                              >
-                                <FontAwesomeIcon icon={faTwitter} size="lg" />
-                              </Link>
-                            )}
-                            {post.artist.website && (
-                              <Link
-                                href={post.artist.website}
-                                className="flex items-center justify-center text-sm font-medium text-gray-700 hover:text-amber-500"
-                                target="_blank"
-                              >
-                                <FontAwesomeIcon icon={faChrome} size="lg" />
-                              </Link>
-                            )}
-                          </div>
+                          <SocialMediaIcons
+                            instagram={post.artist?.instagram}
+                            facebook={post.artist?.facebook}
+                            twitter={post.artist?.twitter}
+                            website={post.artist?.website}
+                          />
                         </div>
                       </div>
                       <div className="grid grid-cols-1 divide-y divide-gray-200 border-t border-gray-200 bg-gray-50 sm:grid-cols-2 sm:divide-y-0 sm:divide-x">

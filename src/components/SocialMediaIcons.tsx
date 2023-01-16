@@ -26,18 +26,55 @@ const socialMediaIcons = [
   },
 ]
 
-export type SocialMediaIconsProps = {
+type SocialMediaContent = {
   id: string
   icon: IconDefinition
   url: string
   brandColor: string
 }
-export function SocialMediaIcons() {
-  if (!socialMediaIcons) return <></>
+
+type SocialMediaIconsProps = {
+  instagram?: string
+  facebook?: string
+  twitter?: string
+  website?: string
+}
+export function SocialMediaIcons({
+  instagram,
+  facebook,
+  twitter,
+  website,
+}: SocialMediaIconsProps) {
+  const socialMediaContent: SocialMediaContent[] = [
+    {
+      id: "instagram",
+      icon: faInstagram,
+      url: instagram || "",
+      brandColor: "pink-500",
+    },
+    {
+      id: "facebook",
+      icon: faFacebook,
+      url: facebook || "",
+      brandColor: "blue-500",
+    },
+    {
+      id: "twitter",
+      icon: faTwitter,
+      url: twitter || "",
+      brandColor: "sky-500",
+    },
+    {
+      id: "website",
+      icon: faChrome,
+      url: website || "",
+      brandColor: "amber-500",
+    },
+  ]
 
   return (
     <div className="mt-5 flex justify-center gap-x-4 sm:mt-0">
-      {socialMediaIcons?.map(
+      {socialMediaContent.map(
         (item: any) =>
           item.url && (
             <Link

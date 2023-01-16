@@ -23,6 +23,7 @@ export default function Navbar({
   siteIdentity,
   generalSettings,
 }: NavbarProps) {
+  console.log("🚀 ~ generalSettings", siteIdentity)
   return (
     <Popover className="relative">
       <div className="mx-auto max-w-5xl px-6">
@@ -114,7 +115,11 @@ export default function Navbar({
 
           {/* Navbar END:  Social Icons and Cta Button */}
           <div className="hidden items-center justify-end text-gray-50 md:flex md:flex-1 lg:w-0">
-            <SocialMediaIcons />
+            <SocialMediaIcons
+              instagram={siteIdentity.instagram}
+              facebook={siteIdentity.facebook}
+              twitter={siteIdentity.twitter}
+            />
             <Link
               href="#"
               className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-primary-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-primary-700"
