@@ -4,6 +4,7 @@ import { Carousel } from "@/components/Carousel"
 import { Container } from "@/components/Container"
 import { HeroBanner } from "@/components/HeroBanner"
 import { PageContent } from "@/components/PageContent"
+import { Row } from "@/components/Row"
 import { YoutubePlayer } from "@/components/YoutubePlayer"
 import { getPageContent } from "@/lib/queries"
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next"
@@ -13,7 +14,16 @@ type PageProps = {
   layout: {
     rows: [
       {
-        components: any[]
+        components: [
+          any
+          // fieldGroupName:
+          // | "HeroBanner"
+          // | "YoutubeVideo"
+          // | "ContentEditor"
+          // | "CtaBanner"
+          // | "Accordion"
+          // | "Carousel"
+        ]
       }
     ]
   }
@@ -29,34 +39,34 @@ export default function Page({
           {page.title}
         </h1>
         {page.layout.rows.map((row, index) => (
-          <div key={index} className="my-3">
+          <Row key={index} col={row.components.length}>
             {/* Map over the flexible content and render the appropriate component based
             on the fieldGroupName. */}
-            {row.components?.map((flexibleContent: any, index: number) => {
+            {row.components?.map((component, index: number) => {
               return (
                 <div key={index} className="my-3">
-                  {flexibleContent.fieldGroupName === "Video" && (
-                    <YoutubePlayer videoUrl={flexibleContent.videoUrl} />
+                  {component.fieldGroupName === "YoutubeVideo" && (
+                    <YoutubePlayer videoUrl={component.videoUrl} />
                   )}
-                  {flexibleContent.fieldGroupName === "HeroBanner" && (
-                    <HeroBanner {...flexibleContent.image} />
+                  {component.fieldGroupName === "HeroBanner" && (
+                    <HeroBanner {...component.image} />
                   )}
-                  {flexibleContent.fieldGroupName === "Carousel" && (
-                    <Carousel images={flexibleContent.images} />
+                  {component.fieldGroupName === "Carousel" && (
+                    <Carousel images={component.images} />
                   )}
-                  {flexibleContent.fieldGroupName === "ContentEditor" && (
-                    <PageContent content={flexibleContent.content} />
+                  {component.fieldGroupName === "ContentEditor" && (
+                    <PageContent content={component.content} />
                   )}
-                  {flexibleContent.fieldGroupName === "CtaBanner" && (
-                    <CallToActionBanner {...flexibleContent} />
+                  {component.fieldGroupName === "CtaBanner" && (
+                    <CallToActionBanner {...component} />
                   )}
-                  {flexibleContent.fieldGroupName === "Accordion" && (
-                    <Accordion {...flexibleContent} />
+                  {component.fieldGroupName === "Accordion" && (
+                    <Accordion {...component} />
                   )}
                 </div>
               )
             })}
-          </div>
+          </Row>
         ))}
       </Container>
     </main>
@@ -67,7 +77,6 @@ export const getServerSideProps = async ({
   resolvedUrl,
 }: GetServerSidePropsContext) => {
   const page: PageProps = await getPageContent(resolvedUrl)
-  console.log("🚀 ~ page", page)
 
   return {
     props: { page },

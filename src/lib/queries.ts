@@ -313,9 +313,7 @@ query PageContent($id: ID!) {
     }
   )
 
-  console.log("🚀 ~ getPageContent ~ data", data.page.layout)
   // Extract the last part of the fieldGroupName
-
   for (const row of data.page.layout.rows) {
     for (const component of row.components) {
       component.fieldGroupName = component.fieldGroupName.split("_").pop()
