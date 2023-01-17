@@ -171,7 +171,6 @@ type BoothsProps = {
   pageContent: PageContent
 }
 export default function Booths({ pageContent }: BoothsProps) {
-  console.log("🚀 ~ Booths ~ pageContent", pageContent)
   const [booth, setBooth] = useState<Booth>(booths[0])
   const [selectedCity, setSelectedCity] = useState<City>(cities[0])
   const [selectedPrint, setSelectedPrint] = useState(prints[0])

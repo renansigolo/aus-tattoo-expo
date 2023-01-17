@@ -29,8 +29,6 @@ export default function EventsPage({ post }: EventsPageProps) {
     return <ErrorPage statusCode={404} />
   }
 
-  console.log(post.artists.edges[0])
-
   return (
     <>
       <Container>
