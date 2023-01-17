@@ -214,14 +214,14 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
                   >
                     Buy Tickets
                   </Link>
-                  {/* <p className="mt-6 text-center text-base font-medium">
+                  <p className="mt-6 text-center text-base font-medium">
                     <Link
                       href="/shop/booth"
                       className="text-primary-600 hover:text-primary-500"
                     >
                       Book a Booth
                     </Link>
-                  </p> */}
+                  </p>
                 </div>
               </div>
             </div>

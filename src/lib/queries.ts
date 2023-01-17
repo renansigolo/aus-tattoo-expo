@@ -26,7 +26,12 @@ export async function getBoothsPageContent(id: string): Promise<PageContent> {
         content
       }
     }
-  `
+  `,
+    {
+      variables: {
+        id,
+      },
+    }
   )
 
   return {
@@ -357,10 +362,12 @@ query PageContent($id: ID!) {
     }
   )
 
-  // Extract the last part of the fieldGroupName
-  for (const row of data.page.layout.rows) {
-    for (const component of row.components) {
-      component.fieldGroupName = component.fieldGroupName.split("_").pop()
+  if (data.page?.layout) {
+    // Extract the last part of the fieldGroupName
+    for (const row of data?.page?.layout?.rows) {
+      for (const component of row.components) {
+        component.fieldGroupName = component.fieldGroupName.split("_").pop()
+      }
     }
   }
 

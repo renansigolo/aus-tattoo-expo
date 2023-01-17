@@ -1,3 +1,4 @@
+import { CardImage } from "@/components/CardImage"
 import { Container } from "@/components/Container"
 import { getAllArtistsByEvent, getArtistsTags } from "@/lib/queries"
 import { WPImage } from "@/lib/utils/types"
@@ -28,6 +29,8 @@ export default function EventsPage({ post }: EventsPageProps) {
     return <ErrorPage statusCode={404} />
   }
 
+  console.log(post.artists.edges[0])
+
   return (
     <>
       <Container>
@@ -36,9 +39,24 @@ export default function EventsPage({ post }: EventsPageProps) {
         ) : (
           <>
             <article className="pb-8 text-white">
+              <h1 className="mb-8 text-center text-3xl">
+                {post.name} Featured Artists
+              </h1>
               <div className="mx-auto">
-                <h1>Events Page {post.name}</h1>
-                {/* <FeaturedArtists featuredArtists={post.artists.edges} /> */}
+                <div
+                  role="list"
+                  className="grid gap-3 sm:grid-cols-3 lg:grid-cols-4 lg:gap-6"
+                >
+                  {post.artists.edges.map(({ node }) => (
+                    <CardImage
+                      key={node.slug}
+                      image={node.acfFeaturedImage.featuredImage}
+                      title={node.title}
+                      description={node.studioName}
+                      url={`/artists/profile/${node.slug}`}
+                    />
+                  ))}
+                </div>
               </div>
             </article>
           </>

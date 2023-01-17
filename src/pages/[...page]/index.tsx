@@ -32,10 +32,10 @@ export default function Page({
     <main className="min-h-[80vh] text-white">
       <Container>
         <h1 className="mt-2 block text-center text-3xl font-bold leading-8 tracking-tight text-white sm:text-4xl">
-          {page.title}
+          {page?.title}
         </h1>
 
-        {page.layout.rows.map((row, index) => (
+        {page?.layout.rows.map((row, index) => (
           <Row key={index} columns={row.components.length}>
             {row.components?.map((component, index: number) => {
               return (
