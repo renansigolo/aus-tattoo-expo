@@ -10,7 +10,7 @@ type AccordionProps = {
     }
   ]
 }
-export default function Accordion({ items }: AccordionProps) {
+export function Accordion({ items }: AccordionProps) {
   if (!items) return <></>
 
   return (

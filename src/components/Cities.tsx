@@ -1,4 +1,4 @@
-import BuyTickets from "@/components/BuyTickets"
+import { BuyTickets } from "@/components/BuyTickets"
 import Link from "next/link"
 
 export type EventLocation = {
@@ -13,7 +13,7 @@ type CitiesProps = {
   locations: EventLocation[]
 }
 
-export default function Cities({ locations }: CitiesProps) {
+export function Cities({ locations }: CitiesProps) {
   if (!locations) return <></>
   return (
     <section className="py-5 text-gray-400">

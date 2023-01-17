@@ -8,11 +8,7 @@ type ModalProps = {
   open?: boolean
   setOpen?: any
 }
-export default function Modal({
-  sourceUrl,
-  open = false,
-  setOpen,
-}: ModalProps) {
+export function Modal({ sourceUrl, open = false, setOpen }: ModalProps) {
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>

@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-export default function BuyTickets({}) {
+export function BuyTickets({}) {
   return (
     <div className="my-6 flex justify-center">
       <Link

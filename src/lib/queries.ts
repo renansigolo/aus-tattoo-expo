@@ -10,7 +10,7 @@ export type PageContent = {
   featuredImage: WPImage
   content: string | null
 }
-export async function getWPPageContent(id: string): Promise<PageContent> {
+export async function getBoothsPageContent(id: string): Promise<PageContent> {
   const data = await fetchApi(
     `
     query Page {
@@ -48,7 +48,6 @@ type GetAllArtists = {
     ]
   }
 }
-
 export async function getAllArtists() {
   const data: GetAllArtists = await fetchApi(
     `
@@ -245,73 +244,61 @@ export async function getArtistProfile(slug: string | string[] | undefined) {
   }
 }
 
-export async function getAllPagesWithUri() {
-  const data = await fetchApi(`
-    {
-      pages(first: 10000) {
-        edges {
-          node {
-            uri
-          }
-        }
-      }
-    }
-  `)
-  return data?.pages
-}
-
 export async function getPageContent(uri: string | string[] | undefined) {
   const data = await fetchApi(
     `
 query PageContent($id: ID!) {
   page(idType: URI, id: $id) {
     title
-    pageFlexibleContent {
-      pageComponents {
-        ... on Page_Pageflexiblecontent_PageComponents_HeroBanner {
-          fieldGroupName
-          image {
-            altText
-            title
-            sourceUrl
-          }
-        }
-        ... on Page_Pageflexiblecontent_PageComponents_YoutubeVideo {
-          fieldGroupName
-          videoUrl
-        }
-        ... on Page_Pageflexiblecontent_PageComponents_ContentEditor {
-          content
-          fieldGroupName
-        }
-        ... on Page_Pageflexiblecontent_PageComponents_Carousel {
-          fieldGroupName
-          images {
-            altText
-            sourceUrl
-            title
-          }
-        }
-        ... on Page_Pageflexiblecontent_PageComponents_CtaBanner {
-          bannerType
-          fieldGroupName
-          text
-          link {
-            target
-            url
-            title
-          }
-          image {
-            altText
-            sourceUrl
-            title
-          }
-        }
-        ... on Page_Pageflexiblecontent_PageComponents_Accordion {
-          fieldGroupName
-          items {
-            title
-            description
+    layout {
+      rows {
+        ... on Page_Layout_Rows_Row {
+          components {
+            ... on Page_Layout_Rows_Row_Components_HeroBanner {
+              fieldGroupName
+              image {
+                altText
+                sourceUrl
+                title
+              }
+            }
+            ... on Page_Layout_Rows_Row_Components_YoutubeVideo {
+              fieldGroupName
+              videoUrl
+            }
+            ... on Page_Layout_Rows_Row_Components_ContentEditor {
+              content
+              fieldGroupName
+            }
+            ... on Page_Layout_Rows_Row_Components_Carousel {
+              fieldGroupName
+              images {
+                altText
+                sourceUrl
+                title
+              }
+            }
+            ... on Page_Layout_Rows_Row_Components_Accordion {
+              fieldGroupName
+              items {
+                title
+                description
+              }
+            }
+            ... on Page_Layout_Rows_Row_Components_CtaBanner {
+              bannerType
+              fieldGroupName
+              image {
+                altText
+                title
+                sourceUrl
+              }
+              link {
+                target
+                title
+                url
+              }
+            }
           }
         }
       }
@@ -326,15 +313,14 @@ query PageContent($id: ID!) {
     }
   )
 
-  if (!data.page) return null
-
+  console.log("🚀 ~ getPageContent ~ data", data.page.layout)
   // Extract the last part of the fieldGroupName
-  for (const pageComponent of data?.page?.pageFlexibleContent?.pageComponents) {
-    pageComponent.fieldGroupName = pageComponent.fieldGroupName.split("_").pop()
+
+  for (const row of data.page.layout.rows) {
+    for (const component of row.components) {
+      component.fieldGroupName = component.fieldGroupName.split("_").pop()
+    }
   }
 
-  return {
-    title: data?.page?.title,
-    pageFlexibleContent: data?.page?.pageFlexibleContent?.pageComponents,
-  }
+  return data.page
 }

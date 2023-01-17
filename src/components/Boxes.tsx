@@ -1,4 +1,4 @@
-import BuyTickets from "@/components/BuyTickets"
+import { BuyTickets } from "@/components/BuyTickets"
 
 const boxContent = [
   {
@@ -18,7 +18,7 @@ const boxContent = [
   },
 ]
 
-export default function Boxes() {
+export function Boxes() {
   return (
     <section>
       <div className="grid grid-cols-1 sm:grid-cols-3">

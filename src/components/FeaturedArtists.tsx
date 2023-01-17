@@ -56,9 +56,7 @@ type FeaturedArtistsProps = {
   featuredArtists: FeaturedArtist[]
 }
 
-export default function FeaturedArtists({
-  featuredArtists,
-}: FeaturedArtistsProps) {
+export function FeaturedArtists({ featuredArtists }: FeaturedArtistsProps) {
   if (!featuredArtists) return <></>
   return (
     <>

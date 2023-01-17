@@ -9,7 +9,7 @@ function getYouTubeId(url: string) {
   return match && match[7].length == 11 ? match[7] : false
 }
 
-export default function YoutubePlayer({ videoUrl }: YoutubePlayerProps) {
+export function YoutubePlayer({ videoUrl }: YoutubePlayerProps) {
   const styles = {
     videoResponsive: {
       overflow: "hidden",

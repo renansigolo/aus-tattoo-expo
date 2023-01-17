@@ -18,7 +18,7 @@ type NavbarProps = {
     nodes: MenuItem[]
   }
 }
-export default function Navbar({
+export function Navbar({
   menuItems,
   siteIdentity,
   generalSettings,

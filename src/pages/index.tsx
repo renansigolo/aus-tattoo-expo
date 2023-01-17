@@ -1,9 +1,9 @@
-import Carousel from "@/components/Carousel"
-import Cities, { EventLocation } from "@/components/Cities"
-import Container from "@/components/Container"
-import FeaturedArtists, { FeaturedArtist } from "@/components/FeaturedArtists"
-import HeroBanner from "@/components/HeroBanner"
-import VideoPlayer from "@/components/YoutubePlayer"
+import { Carousel } from "@/components/Carousel"
+import { Cities, EventLocation } from "@/components/Cities"
+import { Container } from "@/components/Container"
+import { FeaturedArtist, FeaturedArtists } from "@/components/FeaturedArtists"
+import { HeroBanner } from "@/components/HeroBanner"
+import { YoutubePlayer } from "@/components/YoutubePlayer"
 import { getHomePageContent } from "@/lib/queries"
 import { WPImage } from "@/lib/utils/types"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
@@ -35,7 +35,7 @@ export default function Index({
       <Container>
         <HeroBanner {...page?.heroBanner} />
         {/* <CallToActionBanner /> */}
-        <VideoPlayer videoUrl={page?.youtubeVideoId} />
+        <YoutubePlayer videoUrl={page?.youtubeVideoId} />
         <Carousel images={page?.carouselImages} />
         <Cities locations={page?.eventLocations} />
       </Container>

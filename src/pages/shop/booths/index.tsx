@@ -1,7 +1,7 @@
-import Container from "@/components/Container"
-import HeroBanner from "@/components/HeroBanner"
-import Notification from "@/components/Notification"
-import { getWPPageContent, PageContent } from "@/lib/queries"
+import { Container } from "@/components/Container"
+import { HeroBanner } from "@/components/HeroBanner"
+import { Notification } from "@/components/Notification"
+import { getBoothsPageContent, PageContent } from "@/lib/queries"
 import { postRequest } from "@/lib/utils/post-request"
 import { getStripe } from "@/lib/utils/stripe"
 import { GetStaticProps } from "next"
@@ -568,7 +568,7 @@ export default function Booths({ pageContent }: BoothsProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const pageContent = await getWPPageContent("shop/booths")
+  const pageContent = await getBoothsPageContent("shop/booths")
 
   return {
     props: { pageContent },

@@ -13,11 +13,7 @@ type NotificationProps = {
   title: string
   message?: string
 }
-export default function Notification({
-  status,
-  title,
-  message,
-}: NotificationProps) {
+export function Notification({ status, title, message }: NotificationProps) {
   const [show, setShow] = useState(true)
   const NotificationIcon = () => {
     switch (status) {

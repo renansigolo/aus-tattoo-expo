@@ -3,7 +3,7 @@ import Image from "next/image"
 
 type HeroBannerProps = WPImage
 
-export default function HeroBanner({
+export function HeroBanner({
   sourceUrl,
   altText = "Hero Banner",
   title = "Hero Banner Title",

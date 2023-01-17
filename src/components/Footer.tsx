@@ -1,5 +1,5 @@
-import Container from "@/components/Container"
-import Sponsors from "@/components/Sponsors"
+import { Container } from "@/components/Container"
+import { Sponsors } from "@/components/Sponsors"
 import { WPImage } from "@/lib/utils/types"
 
 const year = new Date().getFullYear()
@@ -14,7 +14,7 @@ type FooterProps = {
   sponsors?: WPImage[]
 }
 
-export default function Footer({
+export function Footer({
   disclaimer = footerContent.disclaimer,
   copyright = footerContent.copyright,
   sponsors,

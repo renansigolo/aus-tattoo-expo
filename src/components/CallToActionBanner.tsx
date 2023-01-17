@@ -12,7 +12,7 @@ type CallToActionBannerProps = {
   }
   text: string
 }
-export default function CallToActionBanner(content: CallToActionBannerProps) {
+export function CallToActionBanner(content: CallToActionBannerProps) {
   return (
     <div className="py-6 text-center sm:py-12">
       <h2 className="text-3xl font-bold uppercase text-primary">
