@@ -5,7 +5,7 @@ type SponsorsProps = {
   sponsors: WPImage[] | undefined
 }
 
-export default function Sponsors({ sponsors }: SponsorsProps) {
+export function Sponsors({ sponsors }: SponsorsProps) {
   if (!sponsors) return null
 
   return (

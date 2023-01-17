@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-export default function Card() {
+export function Card() {
   return (
     <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
       <div className="px-4 py-5 sm:px-6">

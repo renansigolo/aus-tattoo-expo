@@ -9,7 +9,7 @@ type CarouselProps = {
   images: WPImage[]
 }
 
-export default function Carousel({ images }: CarouselProps) {
+export function Carousel({ images }: CarouselProps) {
   if (!images) return <></>
   return (
     <Swiper

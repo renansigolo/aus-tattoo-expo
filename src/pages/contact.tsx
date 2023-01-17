@@ -1,5 +1,5 @@
 // This page requires '@tailwindcss/forms'
-import Container from "@/components/Container"
+import { Container } from "@/components/Container"
 
 export default function Contact() {
   return (

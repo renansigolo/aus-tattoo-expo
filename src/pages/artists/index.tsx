@@ -1,9 +1,8 @@
-import Container from "@/components/Container"
+import { CardImage } from "@/components/CardImage"
+import { Container } from "@/components/Container"
 import { getAllArtists } from "@/lib/queries"
 import { WPImage } from "@/lib/utils/types"
 import { GetStaticProps } from "next"
-import Image from "next/image"
-import Link from "next/link"
 
 type ArtistsProps = {
   nodes: [
@@ -32,23 +31,13 @@ export default function Artists({ nodes }: ArtistsProps) {
         >
           {nodes.map((node) => (
             <li key={node.title}>
-              <Link href={`/artists/profile/${node.slug}`}>
-                <article>
-                  <header>
-                    <Image
-                      src={node.acfFeaturedImage?.featuredImage.sourceUrl || ""}
-                      alt={node.title}
-                      width={140}
-                      height={140}
-                      className="mx-auto"
-                    />
-                  </header>
-                  <footer>
-                    <h3>{node.title}</h3>
-                    <p>{node.artist.studioName}</p>
-                  </footer>
-                </article>
-              </Link>
+              <CardImage
+                key={node.slug}
+                image={node.acfFeaturedImage.featuredImage}
+                title={node.title}
+                description={node.artist.studioName}
+                url={`/artists/profile/${node.slug}`}
+              />
             </li>
           ))}
         </ul>

@@ -3,7 +3,7 @@ import Image from "next/image"
 
 type HeroBannerProps = WPImage
 
-export default function HeroBanner({
+export function HeroBanner({
   sourceUrl,
   altText = "Hero Banner",
   title = "Hero Banner Title",
@@ -17,7 +17,7 @@ export default function HeroBanner({
         height={1080}
         alt={altText || title}
         src={sourceUrl}
-        className="h-auto max-h-72 w-screen object-cover"
+        className="h-auto max-h-72 object-cover"
       />
     </section>
   )
