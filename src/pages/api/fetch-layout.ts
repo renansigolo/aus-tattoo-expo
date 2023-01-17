@@ -16,12 +16,14 @@ query GetLayout {
       childItems {
         edges {
           node {
-            uri
             label
+            target
+            path
           }
         }
       }
       parentId
+      target
     }
   }
   acfOptionsGeneral {

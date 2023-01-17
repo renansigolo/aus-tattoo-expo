@@ -75,22 +75,21 @@ export function Navbar({
                           <Popover.Panel className="absolute z-10 -ml-4 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2">
                             <div className="overflow-hidden rounded-lg shadow-lg ring-2 ring-gray-500 ring-opacity-40">
                               <div className="relative grid gap-6 bg-black px-5 py-6 sm:gap-8 sm:p-8">
-                                {item.childItems.edges.map(
-                                  ({ node }, index) => (
-                                    <Link
-                                      key={node.label}
-                                      href={node.uri}
-                                      className="-m-3 flex items-start rounded-lg p-3 hover:bg-primary-900 hover:bg-opacity-30 hover:ring-1 hover:ring-primary hover:ring-opacity-40"
-                                      onClick={() => close()}
-                                    >
-                                      <div className="ml-4">
-                                        <p className="text-base font-medium text-gray-100">
-                                          {node.label}
-                                        </p>
-                                      </div>
-                                    </Link>
-                                  )
-                                )}
+                                {item.childItems.edges.map(({ node }) => (
+                                  <Link
+                                    key={node.label}
+                                    href={node.path}
+                                    className="-m-3 flex items-start rounded-lg p-3 hover:bg-primary-900 hover:bg-opacity-30 hover:ring-1 hover:ring-primary hover:ring-opacity-40"
+                                    target={(node.target ||= "_self")}
+                                    onClick={() => close()}
+                                  >
+                                    <div className="ml-4">
+                                      <p className="text-base font-medium text-gray-100">
+                                        {node.label}
+                                      </p>
+                                    </div>
+                                  </Link>
+                                ))}
                               </div>
                             </div>
                           </Popover.Panel>
@@ -104,7 +103,7 @@ export function Navbar({
                   key={item.title}
                   href={item.path}
                   className="text-base font-medium text-gray-200 hover:text-gray-400"
-                  target={item.path.includes("http") ? "_blank" : "_self"}
+                  target={(item.target ||= "_self")}
                 >
                   {item.title}
                 </Link>
@@ -177,7 +176,7 @@ export function Navbar({
                       <Link
                         key={index}
                         href={item.path}
-                        target={item.path.includes("http") ? "_blank" : "_self"}
+                        target={(item.target ||= "_self")}
                         className="-m-3 flex flex-col rounded-md p-3 hover:bg-gray-50"
                         onClick={() => close()}
                       >
@@ -188,10 +187,8 @@ export function Navbar({
                           item.childItems.edges.map(({ node }, index) => (
                             <Link
                               key={index}
-                              href={node.uri}
-                              target={
-                                item.path.includes("http") ? "_blank" : "_self"
-                              }
+                              href={node.path}
+                              target={(item.target ||= "_self")}
                             >
                               <p className="my-4 ml-6 text-base text-gray-500">
                                 {node.label}
@@ -208,6 +205,7 @@ export function Navbar({
                   <Link
                     href="https://www.eventbrite.com/cc/aus-tattoo-expo-2023-tour-1538659"
                     className="flex w-full items-center justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-primary-700"
+                    target={"_blank"}
                   >
                     Buy Tickets
                   </Link>

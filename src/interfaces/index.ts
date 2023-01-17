@@ -19,12 +19,14 @@ export type MenuItem = {
   title: string
   path: string
   parentId: string | null
+  target: string | null
   childItems: {
     edges: [
       {
         node: {
-          uri: string
+          path: string
           label: string
+          target: string | null
         }
       }
     ]
