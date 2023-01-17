@@ -18,7 +18,7 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <>
       <Navbar
-        menuItems={data.menuItems}
+        menu={data.menu}
         siteIdentity={data.acfOptionsGeneral.siteIdentity}
         generalSettings={data.generalSettings}
       />

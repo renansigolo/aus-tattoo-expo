@@ -11,18 +11,24 @@ import Image from "next/image"
 import Link from "next/link"
 import { Fragment } from "react"
 
+const buyTicketsUrl =
+  "https://www.eventbrite.com/cc/aus-tattoo-expo-2023-tour-1538659"
+
 type NavbarProps = {
   siteIdentity: SiteIdentity
   generalSettings: GeneralSettings
-  menuItems: {
-    nodes: MenuItem[]
-  }
+  menu: [
+    {
+      children: MenuItem[] | []
+      key: string
+      parentId: string | null
+      path: string
+      title: string
+      urL: string
+    }
+  ]
 }
-export function Navbar({
-  menuItems,
-  siteIdentity,
-  generalSettings,
-}: NavbarProps) {
+export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
   return (
     <Popover className="relative">
       <div className="mx-auto max-w-5xl px-6">
@@ -41,8 +47,8 @@ export function Navbar({
 
           {/* Navigation Items */}
           <Popover.Group as="nav" className="hidden space-x-8 md:flex">
-            {menuItems.nodes.map((item) =>
-              item.childItems.edges.length > 0 ? (
+            {menu.map((item) =>
+              item.children.length > 0 ? (
                 <div key={item.title}>
                   <Popover className="relative" key={item.title}>
                     {({ open, close }) => (
@@ -75,22 +81,21 @@ export function Navbar({
                           <Popover.Panel className="absolute z-10 -ml-4 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2">
                             <div className="overflow-hidden rounded-lg shadow-lg ring-2 ring-gray-500 ring-opacity-40">
                               <div className="relative grid gap-6 bg-black px-5 py-6 sm:gap-8 sm:p-8">
-                                {item.childItems.edges.map(
-                                  ({ node }, index) => (
-                                    <Link
-                                      key={node.label}
-                                      href={node.uri}
-                                      className="-m-3 flex items-start rounded-lg p-3 hover:bg-primary-900 hover:bg-opacity-30 hover:ring-1 hover:ring-primary hover:ring-opacity-40"
-                                      onClick={() => close()}
-                                    >
-                                      <div className="ml-4">
-                                        <p className="text-base font-medium text-gray-100">
-                                          {node.label}
-                                        </p>
-                                      </div>
-                                    </Link>
-                                  )
-                                )}
+                                {item.children.map((item) => (
+                                  <Link
+                                    key={item.title}
+                                    href={item.path}
+                                    className="-m-3 flex items-start rounded-lg p-3 hover:bg-primary-900 hover:bg-opacity-30 hover:ring-1 hover:ring-primary hover:ring-opacity-40"
+                                    target={(item.target ||= "_self")}
+                                    onClick={() => close()}
+                                  >
+                                    <div className="ml-4">
+                                      <p className="text-base font-medium text-gray-100">
+                                        {item.title}
+                                      </p>
+                                    </div>
+                                  </Link>
+                                ))}
                               </div>
                             </div>
                           </Popover.Panel>
@@ -104,7 +109,6 @@ export function Navbar({
                   key={item.title}
                   href={item.path}
                   className="text-base font-medium text-gray-200 hover:text-gray-400"
-                  target={item.path.includes("http") ? "_blank" : "_self"}
                 >
                   {item.title}
                 </Link>
@@ -120,8 +124,9 @@ export function Navbar({
               twitter={siteIdentity.twitter}
             />
             <Link
-              href="#"
+              href={buyTicketsUrl}
               className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-primary-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-primary-700"
+              target={"_blank"}
             >
               Buy Tickets
             </Link>
@@ -173,28 +178,25 @@ export function Navbar({
                 </div>
                 <div className="mt-6">
                   <nav className="grid gap-y-8">
-                    {menuItems.nodes.map((item, index) => (
+                    {menu.map((item, index) => (
                       <Link
                         key={index}
                         href={item.path}
-                        target={item.path.includes("http") ? "_blank" : "_self"}
                         className="-m-3 flex flex-col rounded-md p-3 hover:bg-gray-50"
                         onClick={() => close()}
                       >
                         <p className="ml-3 text-base font-medium text-gray-900">
                           {item.title}
                         </p>
-                        {item.childItems.edges.length > 0 &&
-                          item.childItems.edges.map(({ node }, index) => (
+                        {item.children.length > 0 &&
+                          item.children.map((item, index) => (
                             <Link
                               key={index}
-                              href={node.uri}
-                              target={
-                                item.path.includes("http") ? "_blank" : "_self"
-                              }
+                              href={item.path}
+                              target={(item.target ||= "_self")}
                             >
                               <p className="my-4 ml-6 text-base text-gray-500">
-                                {node.label}
+                                {item.title}
                               </p>
                             </Link>
                           ))}
@@ -206,19 +208,20 @@ export function Navbar({
               <div className="space-y-6 py-6 px-5">
                 <div>
                   <Link
-                    href="https://www.eventbrite.com/cc/aus-tattoo-expo-2023-tour-1538659"
+                    href={buyTicketsUrl}
                     className="flex w-full items-center justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-primary-700"
+                    target={"_blank"}
                   >
                     Buy Tickets
                   </Link>
-                  {/* <p className="mt-6 text-center text-base font-medium">
+                  <p className="mt-6 text-center text-base font-medium">
                     <Link
                       href="/shop/booth"
                       className="text-primary-600 hover:text-primary-500"
                     >
                       Book a Booth
                     </Link>
-                  </p> */}
+                  </p>
                 </div>
               </div>
             </div>

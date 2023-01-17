@@ -9,19 +9,14 @@ export default async function handler(
   const data: LayoutQuery = await fetchApi(
     `
 query GetLayout {
-  menuItems(where: {location: NAVIGATION_MENU}) {
+  menuItems(where: {location: NAVIGATION_MENU}, first: 50) {
     nodes {
+      key: id
+      parentId
+      url
       title: label
       path
-      childItems {
-        edges {
-          node {
-            uri
-            label
-          }
-        }
-      }
-      parentId
+      target
     }
   }
   acfOptionsGeneral {
@@ -54,13 +49,25 @@ query GetLayout {
 `
   )
 
-  // Remove parent menu items which are actually children
-  for (var i = 0; i < data.menuItems.nodes.length; i++) {
-    if (data.menuItems.nodes[i].parentId !== null) {
-      data.menuItems.nodes.splice(i, 1)
-      i--
-    }
+  // Convert flat list to hierarchical list
+  const flatListToHierarchical = (
+    data = [],
+    { idKey = "key", parentKey = "parentId", childrenKey = "children" } = {}
+  ) => {
+    const tree: any = []
+    const childrenOf: any = {}
+    data.forEach((item) => {
+      const newItem = { ...(item as any) }
+      const { [idKey]: id, [parentKey]: parentId = 0 } = newItem
+      childrenOf[id] = childrenOf[id] || []
+      newItem[childrenKey] = childrenOf[id]
+      parentId
+        ? (childrenOf[parentId] = childrenOf[parentId] || []).push(newItem)
+        : tree.push(newItem)
+    })
+    return tree
   }
 
-  return res.status(200).json(data)
+  const hierarchicalList = flatListToHierarchical(data?.menuItems?.nodes as any)
+  return res.status(200).json({ ...data, menu: hierarchicalList })
 }

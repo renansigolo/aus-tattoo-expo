@@ -125,8 +125,8 @@ const booths: Booth[] = [
     name: "Single Booth",
     price: 1300,
     default_price: "prod_N8Qb5yLbfeqEfo",
-    description: "2.5m x 2.0m",
-    images: ["https://placeholder.pics/svg/300x500/DEDEDE/555555/single-booth"],
+    description: "2.0m x 2.5m",
+    images: ["/images/booths/single-booth.png"],
     quantity: 1,
   },
   {
@@ -134,8 +134,8 @@ const booths: Booth[] = [
     name: "Double Booth",
     price: 2500,
     default_price: "price_1MOAPEKRqEIk54YDba6Kwzfv",
-    description: "4.5m x 2.0m",
-    images: ["https://placeholder.pics/svg/300x500/DEDEDE/555555/double-booth"],
+    description: "2.0m x 4.5m",
+    images: ["/images/booths/double-booth.png"],
     quantity: 1,
   },
   {
@@ -143,26 +143,26 @@ const booths: Booth[] = [
     name: "Triple Booth",
     price: 3600,
     default_price: "price_1MOAPdKRqEIk54YDpLwSoZoD",
-    description: "6.5m x 2.0m",
-    images: ["https://placeholder.pics/svg/300x500/DEDEDE/555555/triple-booth"],
+    description: "2.0m x 6.5m",
+    images: ["/images/booths/triple-booth.png"],
     quantity: 1,
   },
   {
     id: "prod_N8RI9OojluRfp9",
     name: "Quad Booth",
     price: 4600,
-    description: "8.5m x 2.0m",
+    description: "2.0m x 8.5m",
     default_price: "price_1MOAQ9KRqEIk54YDzuPfOUvR",
-    images: ["https://placeholder.pics/svg/300x500/DEDEDE/555555/quad-booth"],
+    images: ["/images/booths/quad-booth.png"],
     quantity: 1,
   },
   {
     id: "prod_N8RKaoDUqLGKDB",
     name: "5 or more artist booth",
     price: 1100,
-    description: "0.5m + 2.0m PER ARTISTS",
+    description: "2.0m + 0.5m PER ARTISTS",
     default_price: "price_1MOARQKRqEIk54YDq1JBX67e",
-    images: ["https://placeholder.pics/svg/300x500/DEDEDE/555555/five-booth"],
+    images: ["/images/booths/five-booth.png"],
     quantity: 5,
   },
 ]
@@ -244,12 +244,12 @@ export default function Booths({ pageContent }: BoothsProps) {
           <div className="mx-auto py-12 px-6 text-center text-white lg:py-16 lg:px-8">
             <div className="mb-8 flex justify-center">
               <div className="inline-flex rounded-md shadow">
-                <a
+                <Link
                   href="#step-1"
                   className="inline-flex items-center justify-center rounded-sm border border-transparent bg-primary-600 px-5 py-3 text-lg font-medium  text-white hover:bg-primary-700 sm:text-2xl"
                 >
                   Book your booth
-                </a>
+                </Link>
               </div>
             </div>
             <h2 className="sm:text-2xl">
