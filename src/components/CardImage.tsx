@@ -16,6 +16,8 @@ export function CardImage({ image, title, description, url }: CardImageProps) {
           <Image
             src={image.sourceUrl}
             alt={image.altText || image.title}
+            width={256}
+            height={256}
             className="pointer-events-none min-w-full object-cover group-hover:opacity-75"
           />
           <Link href={url} className="absolute inset-0 focus:outline-none" />
