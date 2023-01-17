@@ -100,6 +100,62 @@ export async function getAllArtistsWithSlug() {
   return data?.artists
 }
 
+export async function getArtistsTags() {
+  const data = await fetchApi(`
+query GetAllArtistsTags {
+  eventTaxonomies {
+    nodes {
+      id
+      name
+      slug
+    }
+  }
+}
+  `)
+
+  return data
+}
+
+export async function getAllArtistsByEvent(
+  slug: string | string[] | undefined
+) {
+  const data = await fetchApi(
+    `
+query GetArtistsByEvent($id: ID = "melbourne-2023") {
+  eventTaxonomy(id: $id, idType: SLUG) {
+    artists {
+      edges {
+        node {
+          acfFeaturedImage {
+            featuredImage {
+              altText
+              sourceUrl
+              title
+            }
+          }
+          slug
+          title
+          artist {
+            studioName
+          }
+        }
+      }
+    }
+    name
+    slug
+  }
+}
+  `,
+    {
+      variables: {
+        id: slug,
+      },
+    }
+  )
+
+  return data
+}
+
 type GetHomePageContent = {
   generalSettings: {
     title: string

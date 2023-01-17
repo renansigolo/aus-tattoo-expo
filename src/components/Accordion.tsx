@@ -22,7 +22,7 @@ export function Accordion({ items }: AccordionProps) {
               <>
                 <dt className="text-lg text-white">
                   <Disclosure.Button className="flex w-full items-start justify-between text-left">
-                    <span className="font-medium ">{item.title}</span>
+                    <span className="font-medium">{item.title}</span>
                     <span className="ml-6 flex h-7 items-center">
                       <ChevronDownIcon
                         className={classNames(
@@ -34,8 +34,8 @@ export function Accordion({ items }: AccordionProps) {
                     </span>
                   </Disclosure.Button>
                 </dt>
-                <Disclosure.Panel as="dd" className="mt-2 pr-12">
-                  <p className="text-base text-gray-300">{item.description}</p>
+                <Disclosure.Panel as="dd" className="mt-2 sm:pr-12">
+                  <p className="text-base text-gray-400">{item.description}</p>
                 </Disclosure.Panel>
               </>
             )}
