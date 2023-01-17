@@ -1,4 +1,3 @@
-import { EventLocation } from "@/components/Events"
 import { FeaturedArtist } from "@/components/FeaturedArtists"
 import { fetchApi } from "@/lib/utils/fetch"
 import { WPImage } from "@/lib/utils/types"
@@ -109,13 +108,7 @@ type GetHomePageContent = {
   page: {
     featuredImage: { node: WPImage }
     homePage: {
-      youtubeUrl: string
       featuredArtists: FeaturedArtist[]
-      carouselImages: WPImage[]
-      heroBanner: WPImage
-      events: {
-        locations: EventLocation[]
-      }
     }
   }
 }
@@ -123,65 +116,15 @@ export async function getHomePageContent() {
   const data: GetHomePageContent = await fetchApi(
     `
 query HomePage {
-  page(id: "/", idType: URI) {
-    homePage {
-      events {
-        locations {
-          active
-          date
-          title
-          url
-          venue
-        }
-      }
-      featuredArtists {
-        ... on Artist {
-          artist {
-            studioName
-            images {
-              altText
-              sourceUrl
-              title
-            }
-          }
-          title
-          slug
-          acfFeaturedImage {
-            featuredImage {
-              altText
-              title
-              sourceUrl(size: THUMBNAIL)
-            }
-          }
-        }
-      }
-      youtubeUrl
-      carouselImages {
-        altText
-        title
-        sourceUrl
-      }
-      heroBanner {
-        altText
-        sourceUrl
-        title
-      }
-    }
-  }
   generalSettings {
     title
     description
-  }
+ } 
 }
 `
   )
 
   return {
-    heroBanner: data.page.homePage.heroBanner,
-    carouselImages: data.page.homePage.carouselImages,
-    youtubeVideoId: data.page.homePage.youtubeUrl,
-    featuredArtists: data.page.homePage.featuredArtists,
-    eventLocations: data.page.homePage.events.locations,
     siteIdentity: data.generalSettings,
   }
 }
@@ -288,6 +231,7 @@ query PageContent($id: ID!) {
             ... on Page_Layout_Rows_Row_Components_CtaBanner {
               bannerType
               fieldGroupName
+              text
               image {
                 altText
                 title
@@ -299,13 +243,48 @@ query PageContent($id: ID!) {
                 url
               }
             }
-            ... on Page_Layout_Rows_Row_Components_Events {
+            ... on Page_Layout_Rows_Row_Components_Shows {
               fieldGroupName
               locations {
                 venue
                 url
                 title
                 date
+              }
+            }
+            ... on Page_Layout_Rows_Row_Components_Featured {
+              fieldGroupName
+              featuredArtists {
+                ... on Artist {
+                  id
+                  acfFeaturedImage {
+                    featuredImage {
+                      altText
+                      title
+                      sourceUrl
+                    }
+                  }
+                  title
+                  slug
+                  artist {
+                    studioName
+                  }
+                }
+              }
+            }
+            ... on Page_Layout_Rows_Row_Components_Boxes {
+              fieldGroupName
+              boxes {
+                image {
+                  altText
+                  title
+                  sourceUrl
+                }
+                link {
+                  url
+                  title
+                  target
+                }
               }
             }
           }

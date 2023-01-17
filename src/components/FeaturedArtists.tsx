@@ -20,8 +20,10 @@ type FeaturedArtistsProps = {
 export function FeaturedArtists({ featuredArtists }: FeaturedArtistsProps) {
   if (!featuredArtists) return <></>
   return (
-    <>
-      <h2 className="lg:text-4xl; mb-8 text-2xl font-bold">Featured Artists</h2>
+    <div className="my-8 text-center">
+      <h2 className="mb-8 text-2xl font-bold uppercase text-white lg:text-4xl">
+        Featured Artists
+      </h2>
       <ul
         role="list"
         className="grid gap-3 sm:grid-cols-3 lg:grid-cols-4 lg:gap-6"
@@ -36,6 +38,6 @@ export function FeaturedArtists({ featuredArtists }: FeaturedArtistsProps) {
           />
         ))}
       </ul>
-    </>
+    </div>
   )
 }

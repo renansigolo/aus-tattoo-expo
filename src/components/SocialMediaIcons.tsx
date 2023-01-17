@@ -50,25 +50,25 @@ export function SocialMediaIcons({
       id: "instagram",
       icon: faInstagram,
       url: instagram || "",
-      brandColor: "pink-500",
+      brandColor: "hover:text-pink-500",
     },
     {
       id: "facebook",
       icon: faFacebook,
       url: facebook || "",
-      brandColor: "blue-500",
+      brandColor: "hover:text-blue-500",
     },
     {
       id: "twitter",
       icon: faTwitter,
       url: twitter || "",
-      brandColor: "sky-500",
+      brandColor: "hover:text-sky-500",
     },
     {
       id: "website",
       icon: faChrome,
       url: website || "",
-      brandColor: "amber-500",
+      brandColor: "hover:text-amber-500",
     },
   ]
 
@@ -83,7 +83,7 @@ export function SocialMediaIcons({
               target="_blank"
               className={classNames(
                 "flex items-center justify-center text-sm font-medium",
-                `hover:text-${item.brandColor}`
+                item.brandColor
               )}
             >
               <FontAwesomeIcon icon={item.icon} size="lg" />
