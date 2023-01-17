@@ -16,21 +16,13 @@ export type GeneralSettings = {
 }
 
 export type MenuItem = {
-  title: string
-  path: string
+  key: string
   parentId: string | null
-  target: string | null
-  childItems: {
-    edges: [
-      {
-        node: {
-          path: string
-          label: string
-          target: string | null
-        }
-      }
-    ]
-  }
+  path: string
+  title: string
+  urL: string
+  target?: string | null
+  chidren?: MenuItem[] | []
 }
 
 export type LayoutQuery = {
@@ -48,4 +40,15 @@ export type LayoutQuery = {
   menuItems: {
     nodes: MenuItem[]
   }
+  menu: [
+    {
+      children: MenuItem[]
+      key: string
+      parentId: string | null
+      path: string
+      title: string
+      urL: string
+      target?: string | null
+    }
+  ]
 }

@@ -24,12 +24,10 @@ type EventsPageProps = {
 export default function EventsPage({ post }: EventsPageProps) {
   const router = useRouter()
 
-  console.log("🚀 ~ EventsPage ~ post", post)
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
   }
 
-  console.log("🚀 ~ EventsPage ~ post.artists.edges", post.artists.edges)
   return (
     <>
       <Container>

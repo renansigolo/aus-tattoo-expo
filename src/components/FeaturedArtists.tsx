@@ -19,7 +19,7 @@ type FeaturedArtistsProps = {
 
 export function FeaturedArtists({ featuredArtists }: FeaturedArtistsProps) {
   if (!featuredArtists) return <></>
-  console.log("🚀 ~ FeaturedArtists ~ featuredArtists", featuredArtists)
+
   return (
     <div className="my-8 text-center">
       <h2 className="mb-8 text-2xl font-bold uppercase text-white lg:text-4xl">
