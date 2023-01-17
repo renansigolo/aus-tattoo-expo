@@ -39,7 +39,7 @@ export default function Page({
           {page.title}
         </h1>
         {page.layout.rows.map((row, index) => (
-          <Row key={index} col={row.components.length}>
+          <Row key={index} columns={row.components.length}>
             {/* Map over the flexible content and render the appropriate component based
             on the fieldGroupName. */}
             {row.components?.map((component, index: number) => {

@@ -17,7 +17,7 @@ export function HeroBanner({
         height={1080}
         alt={altText || title}
         src={sourceUrl}
-        className="h-auto max-h-72 w-screen object-cover"
+        className="h-auto max-h-72 object-cover"
       />
     </section>
   )

@@ -3,14 +3,15 @@ import { ReactNode } from "react"
 
 type ContainerProps = {
   children: ReactNode
-  col?: number
+  columns?: number
 }
 
-export function Row({ children, col }: ContainerProps) {
+export function Row({ children, columns }: ContainerProps) {
   return (
     <div
       className={classNames(
-        col && `lg:grid-cols-${col}`,
+        columns === 2 && `lg:grid-cols-2`,
+        columns === 3 && `lg:grid-cols-3`,
         "grid grid-cols-1 gap-6"
       )}
     >
