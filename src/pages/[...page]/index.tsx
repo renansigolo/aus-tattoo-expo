@@ -2,11 +2,13 @@ import { Accordion } from "@/components/Accordion"
 import { CallToActionBanner } from "@/components/CallToActionBanner"
 import { Carousel } from "@/components/Carousel"
 import { Container } from "@/components/Container"
+import { Events } from "@/components/Events"
 import { HeroBanner } from "@/components/HeroBanner"
 import { PageContent } from "@/components/PageContent"
 import { Row } from "@/components/Row"
 import { YoutubePlayer } from "@/components/YoutubePlayer"
 import { getPageContent } from "@/lib/queries"
+
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next"
 
 type PageProps = {
@@ -62,6 +64,9 @@ export default function Page({
                   )}
                   {component.fieldGroupName === "Accordion" && (
                     <Accordion {...component} />
+                  )}
+                  {component.fieldGroupName === "Events" && (
+                    <Events {...component} />
                   )}
                 </div>
               )

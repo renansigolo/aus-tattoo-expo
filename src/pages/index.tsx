@@ -1,6 +1,6 @@
 import { Carousel } from "@/components/Carousel"
-import { Cities, EventLocation } from "@/components/Cities"
 import { Container } from "@/components/Container"
+import { EventLocation, Events } from "@/components/Events"
 import { FeaturedArtist, FeaturedArtists } from "@/components/FeaturedArtists"
 import { HeroBanner } from "@/components/HeroBanner"
 import { YoutubePlayer } from "@/components/YoutubePlayer"
@@ -37,7 +37,7 @@ export default function Index({
         {/* <CallToActionBanner /> */}
         <YoutubePlayer videoUrl={page?.youtubeVideoId} />
         <Carousel images={page?.carouselImages} />
-        <Cities locations={page?.eventLocations} />
+        <Events locations={page?.eventLocations} />
       </Container>
 
       <section className="flex flex-col bg-zinc-800 py-12 text-center uppercase text-white">

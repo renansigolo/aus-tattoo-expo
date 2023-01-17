@@ -1,4 +1,4 @@
-import { EventLocation } from "@/components/Cities"
+import { EventLocation } from "@/components/Events"
 import { FeaturedArtist } from "@/components/FeaturedArtists"
 import { fetchApi } from "@/lib/utils/fetch"
 import { WPImage } from "@/lib/utils/types"
@@ -297,6 +297,15 @@ query PageContent($id: ID!) {
                 target
                 title
                 url
+              }
+            }
+            ... on Page_Layout_Rows_Row_Components_Events {
+              fieldGroupName
+              locations {
+                venue
+                url
+                title
+                date
               }
             }
           }

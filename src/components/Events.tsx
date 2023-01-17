@@ -9,12 +9,15 @@ export type EventLocation = {
   venue: string
 }
 
-type CitiesProps = {
+type EventsProps = {
   locations: EventLocation[]
 }
 
-export function Cities({ locations }: CitiesProps) {
+export function Events({ locations }: EventsProps) {
   if (!locations) return <></>
+
+  // const month = new Date().toLocaleString("en-AU", { month: "short" })
+
   return (
     <section className="py-5 text-gray-400">
       <div className="lg:py-12">
@@ -22,11 +25,11 @@ export function Cities({ locations }: CitiesProps) {
           role="list"
           className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4"
         >
-          {locations.map((event) => (
+          {locations.map((event, index) => (
             <li
               key={event.title}
               className={`${
-                event.active && "text-white"
+                (event.active || index === 0) && "text-white"
               } hover:cursor-pointer hover:text-white`}
             >
               <Link
@@ -36,7 +39,9 @@ export function Cities({ locations }: CitiesProps) {
                 className="flex flex-col items-center text-center uppercase"
               >
                 <div className="flex h-6 text-center">
-                  {event.active && <span className="w-full">Next up:</span>}
+                  {(event.active || index === 0) && (
+                    <span className="w-full">Next up:</span>
+                  )}
                 </div>
                 <span className="text-3xl font-bold">{event.title}</span>
                 {event.date}
