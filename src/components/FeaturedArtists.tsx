@@ -27,7 +27,7 @@ export function FeaturedArtists({ featuredArtists }: FeaturedArtistsProps) {
       </h2>
       <ul
         role="list"
-        className="grid gap-3 sm:grid-cols-3 lg:grid-cols-4 lg:gap-6"
+        className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 lg:gap-6"
       >
         {featuredArtists.map((artist) => (
           <CardImage

@@ -65,7 +65,10 @@ export function Boxes({ items }: BoxesProps) {
             key={item.link.title}
             target={item.link.target}
           >
-            <div className="grid w-full justify-items-center text-center uppercase">
+            <div
+              className="grid w-full justify-items-center text-center uppercase"
+              style={{ display: "-webkit-flex", justifyContent: "center" }}
+            >
               <button className="absolute inline-grid items-center self-center rounded-sm border border-transparent bg-primary-500 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">
                 {item.link.title}
               </button>
