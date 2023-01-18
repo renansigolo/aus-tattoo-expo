@@ -1,20 +1,42 @@
 import Link from "next/link"
 
 export type EventLocation = {
+  // startDate: string
+  // endDate: string
   date: string
   title: string
   url: string
   venue: string
 }
 
-type ShowsProps = {
+type ExposProps = {
   locations: EventLocation[]
 }
 
-export function Shows({ locations }: ShowsProps) {
+export function Expos({ locations }: ExposProps) {
   if (!locations) return <></>
 
-  // const month = new Date().toLocaleString("en-AU", { month: "short" })
+  // const currentDate = new Date().toJSON()
+  // const month = currentDate.toLocaleString("en-AU", { month: "short" })
+
+  // const calculateDate = ({ startDate, endDate }: EventLocation) => {
+  //   const month = new Date(startDate).toLocaleString("en-AU", {
+  //     month: "short",
+  //   })
+  //   const startDay = new Date(startDate).toLocaleString("en-AU", {
+  //     day: "numeric",
+  //   })
+  //   const endDay = new Date(endDate).toLocaleString("en-AU", {
+  //     day: "numeric",
+  //   })
+
+  //   return `${month} ${startDay}-${endDay}`
+  // }
+
+  // const isActive = ({ endDate }: EventLocation) => {
+  //   const currentDate = new Date().toJSON()
+  //   return new Date(currentDate) < new Date(endDate)
+  // }
 
   return (
     <section className="py-5 text-gray-400">

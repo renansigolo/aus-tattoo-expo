@@ -12,14 +12,14 @@ import { useState } from "react"
 
 export type ArtistProfileType = {
   artist: {
-    website: string
-    twitter: string
     studioName: string
-    instagram: string
     contactNumber: string
     email: string
-    facebook: string
     images: WPImage[]
+    instagramUrl: string
+    facebookUrl: string
+    twitterUrl: string
+    websiteUrl: string
   }
   acfFeaturedImage: {
     featuredImage: WPImage
@@ -95,10 +95,10 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
                             </div>
                           </div>
                           <SocialMediaIcons
-                            instagram={post.artist?.instagram}
-                            facebook={post.artist?.facebook}
-                            twitter={post.artist?.twitter}
-                            website={post.artist?.website}
+                            instagramUrl={post.artist?.instagramUrl}
+                            facebookUrl={post.artist?.facebookUrl}
+                            twitterUrl={post.artist?.twitterUrl}
+                            websiteUrl={post.artist?.websiteUrl}
                           />
                         </div>
                       </div>

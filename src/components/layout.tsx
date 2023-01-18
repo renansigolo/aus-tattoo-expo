@@ -19,7 +19,7 @@ export default function Layout({ children }: LayoutProps) {
     <>
       <Navbar
         menu={data.menu}
-        siteIdentity={data.acfOptionsGeneral.siteIdentity}
+        siteIdentity={data.acfOptionsGeneral.general.siteIdentity}
         generalSettings={data.generalSettings}
       />
       <main>{children}</main>

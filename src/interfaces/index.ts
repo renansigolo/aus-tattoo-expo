@@ -1,13 +1,11 @@
 import { WPImage } from "@/lib/utils/types"
 
 export type SiteIdentity = {
-  logo: {
-    altText: string
-    sourceUrl: string
-  }
-  facebook: string
-  instagram: string
-  twitter: string
+  logo: WPImage
+  facebookUrl: string
+  instagramUrl: string
+  twitterUrl: string
+  ticketsUrl: string
 }
 
 export type GeneralSettings = {
@@ -27,7 +25,9 @@ export type MenuItem = {
 
 export type LayoutQuery = {
   acfOptionsGeneral: {
-    siteIdentity: SiteIdentity
+    general: {
+      siteIdentity: SiteIdentity
+    }
   }
   acfOptionsFooter: {
     footer: {

@@ -5,10 +5,24 @@ import { Carousel } from "@/components/Carousel"
 import { FeaturedArtists } from "@/components/FeaturedArtists"
 import { HeroBanner } from "@/components/HeroBanner"
 import { PageContent } from "@/components/PageContent"
-import { Shows } from "@/components/Shows"
+import { Expos } from "@/components/Shows"
 import { YoutubePlayer } from "@/components/YoutubePlayer"
 
-export function FlexibleComponent({ component }: any) {
+export function FlexibleComponents({ flexibleContent }: any) {
+  return (
+    <>
+      {flexibleContent?.components?.map((component: any, index: number) => {
+        return (
+          <div key={index} className="my-3">
+            <FlexibleComponent component={component} />
+          </div>
+        )
+      })}
+    </>
+  )
+}
+
+function FlexibleComponent({ component }: any) {
   return (
     <>
       {component.fieldGroupName === "YoutubeVideo" && (
@@ -24,10 +38,10 @@ export function FlexibleComponent({ component }: any) {
         <PageContent content={component.content} />
       )}
       {component.fieldGroupName === "CtaBanner" && (
-        <CallToAction {...component} />
+        <CallToAction {...component.ctaBanner} />
       )}
       {component.fieldGroupName === "Accordion" && <Accordion {...component} />}
-      {component.fieldGroupName === "Shows" && <Shows {...component} />}
+      {component.fieldGroupName === "Expos" && <Expos {...component} />}
       {component.fieldGroupName === "Boxes" && <Boxes {...component} />}
       {component.fieldGroupName === "Featured" && (
         <FeaturedArtists {...component} />

@@ -1,10 +1,10 @@
 import { WPImage } from "@/lib/utils/types"
 import Image from "next/image"
 
-type HeroBannerProps = WPImage
+export type HeroBannerProps = WPImage
 
 export function HeroBanner({
-  sourceUrl,
+  sourceUrl = "/images/defaults/hero-banner.jpg",
   altText = "Hero Banner",
   title = "Hero Banner Title",
 }: HeroBannerProps) {

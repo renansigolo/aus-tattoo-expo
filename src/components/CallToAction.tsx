@@ -4,7 +4,6 @@ import Link from "next/link"
 
 type CallToActionProps = {
   bannerType: "button" | "text" | "image"
-  fieldGroupName: "CtaBanner"
   image: WPImage
   link: null | {
     url: string

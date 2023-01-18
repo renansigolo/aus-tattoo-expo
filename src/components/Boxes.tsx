@@ -1,4 +1,3 @@
-import { BuyTickets } from "@/components/BuyTickets"
 import { WPImage } from "@/lib/utils/types"
 import Image from "next/image"
 import Link from "next/link"
@@ -43,8 +42,6 @@ export function Boxes({ boxes }: BoxesProps) {
           </Link>
         ))}
       </div>
-
-      <BuyTickets />
     </section>
   )
 }

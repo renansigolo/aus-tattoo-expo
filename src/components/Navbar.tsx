@@ -11,9 +11,6 @@ import Image from "next/image"
 import Link from "next/link"
 import { Fragment } from "react"
 
-const buyTicketsUrl =
-  "https://www.eventbrite.com/cc/aus-tattoo-expo-2023-tour-1538659"
-
 type NavbarProps = {
   siteIdentity: SiteIdentity
   generalSettings: GeneralSettings
@@ -119,12 +116,12 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
           {/* Navbar END:  Social Icons and Cta Button */}
           <div className="hidden items-center justify-end text-gray-50 md:flex md:flex-1 lg:w-0">
             <SocialMediaIcons
-              instagram={siteIdentity.instagram}
-              facebook={siteIdentity.facebook}
-              twitter={siteIdentity.twitter}
+              instagramUrl={siteIdentity.instagramUrl}
+              facebookUrl={siteIdentity.facebookUrl}
+              twitterUrl={siteIdentity.twitterUrl}
             />
             <Link
-              href={buyTicketsUrl}
+              href={siteIdentity.ticketsUrl}
               className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-primary-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-primary-700"
               target={"_blank"}
             >
@@ -208,7 +205,7 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
               <div className="space-y-6 py-6 px-5">
                 <div>
                   <Link
-                    href={buyTicketsUrl}
+                    href={siteIdentity.ticketsUrl}
                     className="flex w-full items-center justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-primary-700"
                     target={"_blank"}
                   >

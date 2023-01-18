@@ -1,4 +1,4 @@
-import { FeaturedArtist } from "@/components/FeaturedArtists"
+import { GetPageProps } from "@/interfaces/get-page-content-query"
 import { fetchApi } from "@/lib/utils/fetch"
 import { WPImage } from "@/lib/utils/types"
 import { ArtistProfileType } from "@/pages/artists/profile/[slug]"
@@ -161,33 +161,25 @@ query GetArtistsByEvent($id: ID = "melbourne-2023") {
   return data
 }
 
-type GetHomePageContent = {
+type GetSiteOptions = {
   generalSettings: {
     title: string
     description: string
   }
-  page: {
-    featuredImage: { node: WPImage }
-    homePage: {
-      featuredArtists: FeaturedArtist[]
-    }
-  }
 }
-export async function getHomePageContent() {
-  const data: GetHomePageContent = await fetchApi(
+export async function getSiteOptions(): Promise<GetSiteOptions> {
+  const data = await fetchApi(
     `
-query HomePage {
-  generalSettings {
-    title
-    description
- } 
-}
+  query HomePage {
+    generalSettings {
+      title
+      description
+    } 
+  }
 `
   )
 
-  return {
-    siteIdentity: data.generalSettings,
-  }
+  return data
 }
 
 type GetArtistProfile = {
@@ -199,13 +191,13 @@ export async function getArtistProfile(slug: string | string[] | undefined) {
     query ArtistProfileBySlug($id: ID!) {
       artist(id: $id, idType: URI) {
         artist {
-          website
-          twitter
           studioName
-          instagram
           contactNumber
           email
-          facebook
+          websiteUrl
+          twitterUrl
+          facebookUrl
+          instagramUrl
           images {
             altText
             sourceUrl(size: LARGE)
@@ -248,105 +240,113 @@ export async function getArtistProfile(slug: string | string[] | undefined) {
   }
 }
 
-export async function getPageContent(uri: string | string[] | undefined) {
-  const data = await fetchApi(
+export async function getPageContent(uri: string) {
+  const data: GetPageProps = await fetchApi(
     `
 query PageContent($id: ID!) {
   page(idType: URI, id: $id) {
     title
-    layout {
-      rows {
-        ... on Page_Layout_Rows_Row {
-          components {
-            ... on Page_Layout_Rows_Row_Components_HeroBanner {
-              fieldGroupName
-              image {
-                altText
-                sourceUrl
-                title
-              }
+    isFrontPage
+    pageHeading {
+      heroBanner {
+        image {
+          altText
+          sourceUrl
+          title
+        }
+      }
+    }
+    flexibleContent {
+      components {
+        ... on Page_Flexiblecontent_Components_HeroBanner {
+          fieldGroupName
+          image {
+            altText
+            sourceUrl
+            title
+          }
+        }
+        ... on Page_Flexiblecontent_Components_YoutubeVideo {
+          fieldGroupName
+          videoUrl
+        }
+        ... on Page_Flexiblecontent_Components_ContentEditor {
+          content
+          fieldGroupName
+        }
+        ... on Page_Flexiblecontent_Components_Carousel {
+          fieldGroupName
+          images {
+            altText
+            sourceUrl
+            title
+          }
+        }
+        ... on Page_Flexiblecontent_Components_Accordion {
+          fieldGroupName
+          items {
+            title
+            description
+          }
+        }
+        ... on Page_Flexiblecontent_Components_CtaBanner {
+          fieldGroupName
+          ctaBanner {
+            bannerType
+            text
+            image {
+              altText
+              title
+              sourceUrl
             }
-            ... on Page_Layout_Rows_Row_Components_YoutubeVideo {
-              fieldGroupName
-              videoUrl
+            link {
+              target
+              title
+              url
             }
-            ... on Page_Layout_Rows_Row_Components_ContentEditor {
-              content
-              fieldGroupName
-            }
-            ... on Page_Layout_Rows_Row_Components_Carousel {
-              fieldGroupName
-              images {
-                altText
-                sourceUrl
-                title
-              }
-            }
-            ... on Page_Layout_Rows_Row_Components_Accordion {
-              fieldGroupName
-              items {
-                title
-                description
-              }
-            }
-            ... on Page_Layout_Rows_Row_Components_CtaBanner {
-              bannerType
-              fieldGroupName
-              text
-              image {
-                altText
-                title
-                sourceUrl
-              }
-              link {
-                target
-                title
-                url
-              }
-            }
-            ... on Page_Layout_Rows_Row_Components_Shows {
-              fieldGroupName
-              locations {
-                venue
-                url
-                title
-                date
-              }
-            }
-            ... on Page_Layout_Rows_Row_Components_Featured {
-              fieldGroupName
-              featuredArtists {
-                ... on Artist {
-                  id
-                  acfFeaturedImage {
-                    featuredImage {
-                      altText
-                      title
-                      sourceUrl
-                    }
-                  }
-                  title
-                  slug
-                  artist {
-                    studioName
-                  }
-                }
-              }
-            }
-            ... on Page_Layout_Rows_Row_Components_Boxes {
-              fieldGroupName
-              boxes {
-                image {
+          }
+        }
+        ... on Page_Flexiblecontent_Components_Expos {
+          fieldGroupName
+          locations {
+            date
+            title
+            url
+            venue
+          }
+        }
+        ... on Page_Flexiblecontent_Components_Featured {
+          fieldGroupName
+          featuredArtists {
+            ... on Artist {
+              id
+              acfFeaturedImage {
+                featuredImage {
                   altText
                   title
                   sourceUrl
                 }
-                link {
-                  url
-                  title
-                  target
-                }
               }
+              title
+              slug
+              artist {
+                studioName
+              }
+            }
+          }
+        }
+        ... on Page_Flexiblecontent_Components_Boxes {
+          fieldGroupName
+          boxes {
+            image {
+              altText
+              title
+              sourceUrl
+            }
+            link {
+              url
+              title
+              target
             }
           }
         }
@@ -362,14 +362,12 @@ query PageContent($id: ID!) {
     }
   )
 
-  if (data.page?.layout) {
-    // Extract the last part of the fieldGroupName
-    for (const row of data?.page?.layout?.rows) {
-      for (const component of row.components) {
-        component.fieldGroupName = component.fieldGroupName.split("_").pop()
-      }
-    }
+  // Extract the last part of the fieldGroupName
+  for (const component of data?.page?.flexibleContent.components) {
+    component.fieldGroupName = component.fieldGroupName
+      .split("_")
+      .pop() as string
   }
 
-  return data.page
+  return data?.page
 }
