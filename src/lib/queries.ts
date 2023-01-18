@@ -1,16 +1,14 @@
-import { GetPageProps } from "@/interfaces/get-page-content-query"
+import { GetAllArtists } from "@/interfaces/get-all-artists"
+import { GetArtistProfile } from "@/interfaces/get-artist-profile"
+import { GetArtistsByEvents } from "@/interfaces/get-artists-by-event"
+import { GetArtistsTaxonomies } from "@/interfaces/get-artists-taxonomies"
+import { GetArtistsWithSlug } from "@/interfaces/get-artists-with-slug"
+import { GetBoothsPage } from "@/interfaces/get-booths-page"
+import { GetPageContent } from "@/interfaces/get-page-content"
 import { fetchApi } from "@/lib/utils/fetch"
-import { WPImage } from "@/lib/utils/types"
-import { ArtistProfileType } from "@/pages/artists/profile/[slug]"
 
-export type PageContent = {
-  id: string
-  title: string
-  featuredImage: WPImage
-  content: string | null
-}
-export async function getBoothsPageContent(id: string): Promise<PageContent> {
-  const data = await fetchApi(
+export async function getBoothsPage(id: string) {
+  const data: GetBoothsPage = await fetchApi(
     `
     query Page {
       page(id: "${id}", idType: URI) {
@@ -34,24 +32,9 @@ export async function getBoothsPageContent(id: string): Promise<PageContent> {
     }
   )
 
-  return {
-    ...data.page,
-    featuredImage: {
-      sourceUrl: data.page.featuredImage.node.sourceUrl,
-      altText: data.page.featuredImage.node.altText,
-    },
-  }
+  return data?.page
 }
 
-type GetAllArtists = {
-  artists: {
-    nodes: [
-      {
-        node: ArtistProfileType
-      }
-    ]
-  }
-}
 export async function getAllArtists() {
   const data: GetAllArtists = await fetchApi(
     `
@@ -79,19 +62,8 @@ export async function getAllArtists() {
   return data?.artists
 }
 
-type GetArtistsBySlug = {
-  artists: {
-    edges: [
-      {
-        node: {
-          slug: string
-        }
-      }
-    ]
-  }
-}
-export async function getAllArtistsWithSlug() {
-  const data: GetArtistsBySlug = await fetchApi(`
+export async function getArtistsWithSlug() {
+  const data: GetArtistsWithSlug = await fetchApi(`
     {
       artists(first: 10000) {
         edges {
@@ -102,15 +74,15 @@ export async function getAllArtistsWithSlug() {
       }
     }
   `)
+
   return data?.artists
 }
 
-export async function getArtistsTags() {
-  const data = await fetchApi(`
+export async function getArtistsTaxonomies() {
+  const data: GetArtistsTaxonomies = await fetchApi(`
 query GetAllArtistsTags {
   eventTaxonomies {
     nodes {
-      id
       name
       slug
     }
@@ -121,12 +93,10 @@ query GetAllArtistsTags {
   return data
 }
 
-export async function getAllArtistsByEvent(
-  slug: string | string[] | undefined
-) {
-  const data = await fetchApi(
+export async function getArtistsByEvent(slug: string | string[] | undefined) {
+  const data: GetArtistsByEvents = await fetchApi(
     `
-query GetArtistsByEvent($id: ID = "melbourne-2023") {
+query GetArtistsByEvent($id: ID!) {
   eventTaxonomy(id: $id, idType: SLUG) {
     artists {
       edges {
@@ -161,30 +131,6 @@ query GetArtistsByEvent($id: ID = "melbourne-2023") {
   return data
 }
 
-type GetSiteOptions = {
-  generalSettings: {
-    title: string
-    description: string
-  }
-}
-export async function getSiteOptions(): Promise<GetSiteOptions> {
-  const data = await fetchApi(
-    `
-  query HomePage {
-    generalSettings {
-      title
-      description
-    } 
-  }
-`
-  )
-
-  return data
-}
-
-type GetArtistProfile = {
-  artist: ArtistProfileType
-}
 export async function getArtistProfile(slug: string | string[] | undefined) {
   const data: GetArtistProfile = await fetchApi(
     `
@@ -241,7 +187,7 @@ export async function getArtistProfile(slug: string | string[] | undefined) {
 }
 
 export async function getPageContent(uri: string) {
-  const data: GetPageProps = await fetchApi(
+  const data: GetPageContent = await fetchApi(
     `
 query PageContent($id: ID!) {
   page(idType: URI, id: $id) {

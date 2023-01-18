@@ -1,28 +1,13 @@
 import { CardImage } from "@/components/CardImage"
 import { Container } from "@/components/Container"
-import { getAllArtistsByEvent, getArtistsTags } from "@/lib/queries"
-import { WPImage } from "@/lib/utils/types"
-import { GetStaticPaths, GetStaticProps } from "next"
+import { getArtistsByEvent, getArtistsTaxonomies } from "@/lib/queries"
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
 import { useRouter } from "next/router"
 
-type Artist = {
-  title: "Minimal"
-  slug: "minimal"
-  uri: "/artists/minimal/"
-  acfFeaturedImage: { featuredImage: WPImage }
-}
+type Props = InferGetStaticPropsType<typeof getStaticProps>
 
-type EventsPageProps = {
-  post: {
-    slug: string
-    name: string
-    artists: {
-      edges: any[]
-    }
-  }
-}
-export default function EventsPage({ post }: EventsPageProps) {
+export default function EventsPage({ post }: Props) {
   const router = useRouter()
 
   if (!router.isFallback && !post?.slug) {
@@ -50,7 +35,7 @@ export default function EventsPage({ post }: EventsPageProps) {
                       key={node.slug}
                       image={node.acfFeaturedImage.featuredImage}
                       title={node.title}
-                      description={node.studioName}
+                      description={node.artist.studioName}
                       url={`/artists/profile/${node.slug}`}
                     />
                   ))}
@@ -64,8 +49,8 @@ export default function EventsPage({ post }: EventsPageProps) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const data = await getAllArtistsByEvent(params?.slug)
+export const getStaticProps = (async ({ params }) => {
+  const data = await getArtistsByEvent(params?.slug)
 
   return {
     props: {
@@ -73,10 +58,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     },
     revalidate: 10,
   }
-}
+}) satisfies GetStaticProps
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await getArtistsTags()
+  const data = await getArtistsTaxonomies()
 
   return {
     paths:

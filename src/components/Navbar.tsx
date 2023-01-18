@@ -182,6 +182,7 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
                         key={index}
                         href={item.path}
                         className="-m-3 flex flex-col rounded-md p-3 hover:bg-gray-50"
+                        target={(item.target ||= "_self")}
                         onClick={() => close()}
                       >
                         <p className="ml-3 text-base font-medium text-gray-900">
@@ -215,8 +216,9 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
                   </Link>
                   <p className="mt-6 text-center text-base font-medium">
                     <Link
-                      href="/shop/booth"
+                      href="/shop/booths"
                       className="text-primary-600 hover:text-primary-500"
+                      onClick={() => close()}
                     >
                       Book a Booth
                     </Link>

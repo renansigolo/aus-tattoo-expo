@@ -9,7 +9,7 @@ export default function Index({ page }: Props) {
   return (
     <>
       <Head>
-        <title>{page.title}</title>
+        <title>{`Australian Tattoo Expo - ${page.title}`}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

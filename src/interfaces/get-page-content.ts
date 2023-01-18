@@ -1,41 +1,40 @@
-// getPageContent Query
-export interface GetPageProps {
+export type GetPageContent = {
   page: Page
 }
 
-export interface Page {
+type Page = {
   title: string
   isFrontPage: boolean
   pageHeading: PageHeading
   flexibleContent: FlexibleContent
 }
 
-export interface FlexibleContent {
+type FlexibleContent = {
   components: Component[]
 }
 
-export interface Component {
+type Component = {
   fieldGroupName: string
   multiColumns: MultiColumns
 }
 
-export interface MultiColumns {
+type MultiColumns = {
   items: Item[]
 }
 
-export interface Item {
+type Item = {
   content: string
 }
 
-export interface PageHeading {
+type PageHeading = {
   heroBanner: HeroBanner
 }
 
-export interface HeroBanner {
+type HeroBanner = {
   image: Image
 }
 
-export interface Image {
+type Image = {
   altText: string
   sourceUrl: string
   title: string

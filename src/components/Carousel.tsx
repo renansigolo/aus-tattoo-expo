@@ -5,40 +5,40 @@ import Image from "next/image"
 import { Autoplay } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
 
-const defaultImages = [
-  {
-    sourceUrl: "/images/defaults/carousel-1.jpg",
-    altText: "Banner Image 1",
-    title: "Banner Image 1",
-  },
-  {
-    sourceUrl: "/images/defaults/carousel-2.jpg",
-    altText: "Banner Image 2",
-    title: "Banner Image 2",
-  },
-  {
-    sourceUrl: "/images/defaults/carousel-3.jpg",
-    altText: "Banner Image 3",
-    title: "Banner Image 3",
-  },
-  {
-    sourceUrl: "/images/defaults/carousel-4.jpg",
-    altText: "Banner Image 4",
-    title: "Banner Image 4",
-  },
-  {
-    sourceUrl: "/images/defaults/carousel-5.jpg",
-    altText: "Banner Image 5",
-    title: "Banner Image 5",
-  },
-]
+// const defaultImages = [
+//   {
+//     sourceUrl: "/images/defaults/carousel-1.jpg",
+//     altText: "Banner Image 1",
+//     title: "Banner Image 1",
+//   },
+//   {
+//     sourceUrl: "/images/defaults/carousel-2.jpg",
+//     altText: "Banner Image 2",
+//     title: "Banner Image 2",
+//   },
+//   {
+//     sourceUrl: "/images/defaults/carousel-3.jpg",
+//     altText: "Banner Image 3",
+//     title: "Banner Image 3",
+//   },
+//   {
+//     sourceUrl: "/images/defaults/carousel-4.jpg",
+//     altText: "Banner Image 4",
+//     title: "Banner Image 4",
+//   },
+//   {
+//     sourceUrl: "/images/defaults/carousel-5.jpg",
+//     altText: "Banner Image 5",
+//     title: "Banner Image 5",
+//   },
+// ]
 
 type CarouselProps = {
-  images: WPImage[] | null
+  images: WPImage[]
 }
 
 export function Carousel({ images }: CarouselProps) {
-  if (!images) images = defaultImages
+  if (!images) return <></>
 
   return (
     <Swiper

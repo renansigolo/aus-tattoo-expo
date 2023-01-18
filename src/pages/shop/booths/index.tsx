@@ -1,10 +1,10 @@
 import { Container } from "@/components/Container"
 import { HeroBanner } from "@/components/HeroBanner"
 import { Notification } from "@/components/Notification"
-import { getBoothsPageContent, PageContent } from "@/lib/queries"
+import { getBoothsPage } from "@/lib/queries"
 import { postRequest } from "@/lib/utils/post-request"
 import { getStripe } from "@/lib/utils/stripe"
-import { GetStaticProps } from "next"
+import { GetStaticProps, InferGetStaticPropsType } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -167,10 +167,8 @@ const booths: Booth[] = [
   },
 ]
 
-type BoothsProps = {
-  pageContent: PageContent
-}
-export default function Booths({ pageContent }: BoothsProps) {
+type Props = InferGetStaticPropsType<typeof getStaticProps>
+export default function Booths({ page }: Props) {
   const [booth, setBooth] = useState<Booth>(booths[0])
   const [selectedCity, setSelectedCity] = useState<City>(cities[0])
   const [selectedPrint, setSelectedPrint] = useState(prints[0])
@@ -220,8 +218,10 @@ export default function Booths({ pageContent }: BoothsProps) {
   }
   return (
     <div className="bg-zinc-900">
-      <HeroBanner {...pageContent.featuredImage} />
-
+      <HeroBanner
+        sourceUrl="/images/defaults/hero-banner.jpg"
+        altText="HeroBanner"
+      />
       <Container>
         {/* Highlights - Section */}
         <section
@@ -567,11 +567,11 @@ export default function Booths({ pageContent }: BoothsProps) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const pageContent = await getBoothsPageContent("shop/booths")
+export const getStaticProps = (async () => {
+  const page = await getBoothsPage("shop/booths")
 
   return {
-    props: { pageContent },
+    props: { page },
     revalidate: 10,
   }
-}
+}) satisfies GetStaticProps

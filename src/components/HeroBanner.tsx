@@ -3,12 +3,9 @@ import Image from "next/image"
 
 export type HeroBannerProps = WPImage
 
-export function HeroBanner({
-  sourceUrl,
-  altText = "Hero Banner",
-  title,
-}: HeroBannerProps) {
+export function HeroBanner({ sourceUrl, altText, title }: HeroBannerProps) {
   if (!sourceUrl) return <></>
+
   return (
     <section>
       <Image
