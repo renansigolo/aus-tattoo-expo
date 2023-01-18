@@ -22,6 +22,7 @@ type NavbarProps = {
       path: string
       title: string
       urL: string
+      target: string | null
     }
   ]
 }
@@ -106,6 +107,7 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
                   key={item.title}
                   href={item.path}
                   className="text-base font-medium text-gray-200 hover:text-gray-400"
+                  target={(item.target ||= "_self")}
                 >
                   {item.title}
                 </Link>

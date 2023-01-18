@@ -43,7 +43,7 @@ export default function EventsPage({ post }: EventsPageProps) {
               <div className="mx-auto">
                 <div
                   role="list"
-                  className="grid gap-3 sm:grid-cols-3 lg:grid-cols-4 lg:gap-6"
+                  className="grid gap-3 text-center sm:grid-cols-3 lg:grid-cols-4 lg:gap-6"
                 >
                   {post.artists.edges.map(({ node }) => (
                     <CardImage

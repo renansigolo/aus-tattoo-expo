@@ -6,6 +6,7 @@ import { Expos } from "@/components/Expos"
 import { FeaturedArtists } from "@/components/FeaturedArtists"
 import { Gallery } from "@/components/Gallery"
 import { HeroBanner } from "@/components/HeroBanner"
+import { MultiColumns } from "@/components/MultiColumns"
 import { PageContent } from "@/components/PageContent"
 import { YoutubePlayer } from "@/components/YoutubePlayer"
 
@@ -27,6 +28,9 @@ function FlexibleComponent({ component }: any) {
   return (
     <>
       {component.fieldGroupName === "Gallery" && <Gallery {...component} />}
+      {component.fieldGroupName === "MultiColumns" && (
+        <MultiColumns {...component.multiColumns} />
+      )}
       {component.fieldGroupName === "HeroBanner" && (
         <HeroBanner {...component.heroBanner} />
       )}

@@ -73,7 +73,7 @@ export function Boxes({ items }: BoxesProps) {
                 width={328}
                 height={328}
                 src={item.image.sourceUrl}
-                alt={item.image.altText}
+                alt={item.image.altText || item.image.title || "Box image"}
                 className="object-cover"
               />
             </div>

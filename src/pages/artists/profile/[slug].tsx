@@ -147,7 +147,7 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
                           <Image
                             fill
                             src={image.sourceUrl}
-                            alt={image.altText || image.title}
+                            alt={image.altText || image.title || "Image"}
                             className="rounded-md object-cover"
                           />
                         </div>

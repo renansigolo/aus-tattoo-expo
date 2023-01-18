@@ -22,15 +22,17 @@ export function PageTemplate({
       <main className="min-h-[80vh] text-white">
         <Container>
           {!isFrontPage && (
-            <h1 className="mt-2 block text-center text-3xl font-bold leading-8 tracking-tight text-white sm:text-4xl">
+            <h1 className="my-8 block text-center text-3xl font-bold leading-8 tracking-tight text-white sm:text-5xl">
               {title}
             </h1>
           )}
 
           <HeroBanner
-            sourceUrl="/images/defaults/hero-banner.jpg"
-            altText="Hero Banner"
-            title="Hero Banner Title"
+            sourceUrl={
+              heroBanner?.sourceUrl || "/images/defaults/hero-banner.jpg"
+            }
+            altText={heroBanner?.altText}
+            title={heroBanner?.title}
           />
 
           <FlexibleComponents flexibleContent={flexibleContent} />

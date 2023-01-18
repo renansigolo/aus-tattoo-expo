@@ -245,7 +245,7 @@ export async function getPageContent(uri: string) {
     `
 query PageContent($id: ID!) {
   page(idType: URI, id: $id) {
-        title
+    title
     isFrontPage
     pageHeading {
       heroBanner {
@@ -375,6 +375,14 @@ query PageContent($id: ID!) {
                   studioName
                 }
               }
+            }
+          }
+        }
+        ... on Page_Flexiblecontent_Components_MultiColumns {
+          fieldGroupName
+          multiColumns {
+            items {
+              content
             }
           }
         }
