@@ -1,24 +1,11 @@
 import { CardImage } from "@/components/CardImage"
 import { Container } from "@/components/Container"
 import { getAllArtists } from "@/lib/queries"
-import { WPImage } from "@/lib/utils/types"
-import { GetStaticProps } from "next"
+import { GetStaticProps, InferGetStaticPropsType } from "next"
 
-type ArtistsProps = {
-  nodes: [
-    node: {
-      artist: {
-        studioName: string
-      }
-      acfFeaturedImage: {
-        featuredImage: WPImage
-      }
-      title: string
-      slug: string
-    }
-  ]
-}
-export default function Artists({ nodes }: ArtistsProps) {
+type Props = InferGetStaticPropsType<typeof getStaticProps>
+
+export default function Artists({ nodes }: Props) {
   return (
     <section className="text-white">
       <Container>
@@ -46,11 +33,11 @@ export default function Artists({ nodes }: ArtistsProps) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps = (async () => {
   const data = await getAllArtists()
 
   return {
     props: { ...data },
     revalidate: 10,
   }
-}
+}) satisfies GetStaticProps

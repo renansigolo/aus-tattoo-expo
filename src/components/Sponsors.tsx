@@ -15,7 +15,7 @@ export function Sponsors({ sponsors }: SponsorsProps) {
           <Image
             key={index}
             src={sourceUrl}
-            alt={altText || title}
+            alt={altText || title || "Sponsor image"}
             width={256}
             height={256}
             className="grayscale hover:grayscale-0"

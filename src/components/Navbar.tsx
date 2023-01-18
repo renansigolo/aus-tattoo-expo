@@ -11,9 +11,6 @@ import Image from "next/image"
 import Link from "next/link"
 import { Fragment } from "react"
 
-const buyTicketsUrl =
-  "https://www.eventbrite.com/cc/aus-tattoo-expo-2023-tour-1538659"
-
 type NavbarProps = {
   siteIdentity: SiteIdentity
   generalSettings: GeneralSettings
@@ -25,6 +22,7 @@ type NavbarProps = {
       path: string
       title: string
       urL: string
+      target: string | null
     }
   ]
 }
@@ -109,6 +107,7 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
                   key={item.title}
                   href={item.path}
                   className="text-base font-medium text-gray-200 hover:text-gray-400"
+                  target={(item.target ||= "_self")}
                 >
                   {item.title}
                 </Link>
@@ -119,12 +118,12 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
           {/* Navbar END:  Social Icons and Cta Button */}
           <div className="hidden items-center justify-end text-gray-50 md:flex md:flex-1 lg:w-0">
             <SocialMediaIcons
-              instagram={siteIdentity.instagram}
-              facebook={siteIdentity.facebook}
-              twitter={siteIdentity.twitter}
+              instagramUrl={siteIdentity.instagramUrl}
+              facebookUrl={siteIdentity.facebookUrl}
+              twitterUrl={siteIdentity.twitterUrl}
             />
             <Link
-              href={buyTicketsUrl}
+              href={siteIdentity.ticketsUrl}
               className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-primary-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-primary-700"
               target={"_blank"}
             >
@@ -183,6 +182,7 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
                         key={index}
                         href={item.path}
                         className="-m-3 flex flex-col rounded-md p-3 hover:bg-gray-50"
+                        target={(item.target ||= "_self")}
                         onClick={() => close()}
                       >
                         <p className="ml-3 text-base font-medium text-gray-900">
@@ -208,7 +208,7 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
               <div className="space-y-6 py-6 px-5">
                 <div>
                   <Link
-                    href={buyTicketsUrl}
+                    href={siteIdentity.ticketsUrl}
                     className="flex w-full items-center justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-primary-700"
                     target={"_blank"}
                   >
@@ -216,8 +216,9 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
                   </Link>
                   <p className="mt-6 text-center text-base font-medium">
                     <Link
-                      href="/shop/booth"
+                      href="/shop/booths"
                       className="text-primary-600 hover:text-primary-500"
+                      onClick={() => close()}
                     >
                       Book a Booth
                     </Link>

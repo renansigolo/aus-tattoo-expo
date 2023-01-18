@@ -1,53 +1,32 @@
-import { Container } from "@/components/Container"
-import { FlexibleComponent } from "@/components/FlexibleComponent"
-import { Row } from "@/components/Row"
-import { getHomePageContent, getPageContent } from "@/lib/queries"
+import { PageTemplate } from "@/layouts/PageTemplate"
+import { getPageContent } from "@/lib/queries"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
 import Head from "next/head"
 
-type IndexProps = {
-  siteIdentity: {
-    title: string
-    description: string
-  }
-}
+type Props = InferGetStaticPropsType<typeof getStaticProps>
 
-export default function Index({
-  page,
-  dynamicContent,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Index({ page }: Props) {
   return (
     <>
       <Head>
-        <title>{page.siteIdentity.title}</title>
-        <meta name="description" content={page.siteIdentity.description} />
+        <title>{`Australian Tattoo Expo - ${page.title}`}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <Container>
-        {dynamicContent.layout.rows.map((row: any, index: number) => (
-          <Row key={index} columns={row.components.length}>
-            {row.components?.map((component: any, index: number) => {
-              return (
-                <div key={index} className="my-3">
-                  <FlexibleComponent component={component} />
-                </div>
-              )
-            })}
-          </Row>
-        ))}
-      </Container>
+      <PageTemplate
+        heroBanner={page.pageHeading.heroBanner}
+        flexibleContent={page.flexibleContent}
+        isFrontPage={page.isFrontPage}
+      />
     </>
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const page: IndexProps = await getHomePageContent()
-  const dynamicContent: any = await getPageContent("/")
+export const getStaticProps = (async () => {
+  const page = await getPageContent("/")
 
   return {
-    props: { page, dynamicContent },
+    props: { page },
     revalidate: 10,
   }
-}
+}) satisfies GetStaticProps

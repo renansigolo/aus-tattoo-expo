@@ -20,14 +20,18 @@ query GetLayout {
     }
   }
   acfOptionsGeneral {
-    siteIdentity {
-      logo {
-        altText
-        sourceUrl
+    general {
+      siteIdentity {
+        logo {
+          sourceUrl
+          altText
+          title
+        }
+        facebookUrl
+        instagramUrl
+        twitterUrl
+        ticketsUrl
       }
-      facebook
-      instagram
-      twitter
     }
   }
   acfOptionsFooter {

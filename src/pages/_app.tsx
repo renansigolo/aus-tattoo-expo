@@ -1,5 +1,6 @@
-import Layout from "@/components/layout"
 import "@/styles/globals.css"
+
+import Layout from "@/components/layout"
 import { Open_Sans } from "@next/font/google"
 import type { AppProps } from "next/app"
 

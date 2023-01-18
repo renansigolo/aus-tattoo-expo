@@ -18,3 +18,8 @@ body {
 .sectionSpacing {
   @apply py-16 sm:py-24;
 }
+
+/* WP Content Editor Default classes */
+.aligncenter {
+  @apply mx-auto text-center;
+}

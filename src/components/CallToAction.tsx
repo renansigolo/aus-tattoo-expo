@@ -2,9 +2,17 @@ import { WPImage } from "@/lib/utils/types"
 import Image from "next/image"
 import Link from "next/link"
 
+// const defaultCta = {
+//   text: "Follow for more <span class='text-white'>@AUSTATTOOEXPO</span>",
+//   image: {
+//     sourceUrl: "/images/defaults/cta-banner-image.jpg",
+//     altText: "Banner Image",
+//     title: "Banner Image",
+//   },
+// }
+
 type CallToActionProps = {
   bannerType: "button" | "text" | "image"
-  fieldGroupName: "CtaBanner"
   image: WPImage
   link: null | {
     url: string
@@ -32,7 +40,10 @@ export function CallToAction(content: CallToActionProps) {
 
           {content.bannerType === "image" && (
             <Image
-              src={content.image?.sourceUrl}
+              src={
+                content.image?.sourceUrl ||
+                "public/images/defaults/cta-banner-image.jpg"
+              }
               width={1024}
               height={127}
               alt={

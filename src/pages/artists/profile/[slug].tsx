@@ -2,40 +2,16 @@ import { Container } from "@/components/Container"
 import { HeroBanner } from "@/components/HeroBanner"
 import { Modal } from "@/components/Modal"
 import { SocialMediaIcons } from "@/components/SocialMediaIcons"
-import { getAllArtistsWithSlug, getArtistProfile } from "@/lib/queries"
-import { WPImage } from "@/lib/utils/types"
-import { GetStaticPaths, GetStaticProps } from "next"
+import { getArtistProfile, getArtistsWithSlug } from "@/lib/queries"
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { useState } from "react"
 
-export type ArtistProfileType = {
-  artist: {
-    website: string
-    twitter: string
-    studioName: string
-    instagram: string
-    contactNumber: string
-    email: string
-    facebook: string
-    images: WPImage[]
-  }
-  acfFeaturedImage: {
-    featuredImage: WPImage
-  }
-  categories: {
-    events: [{ name: string }]
-    tattooStyle: [{ name: string }]
-  }
-  title: string
-  slug: string
-}
+type Props = InferGetStaticPropsType<typeof getStaticProps>
 
-type ArtistProfileProps = {
-  post: ArtistProfileType
-}
-export default function ArtistProfile({ post }: ArtistProfileProps) {
+export default function ArtistProfile({ post }: Props) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const [imageRef, setImageRef] = useState("")
@@ -53,7 +29,11 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
           <>
             <div className="mb-6 grid w-full justify-items-center">
               <div className="opacity-50">
-                <HeroBanner {...post.acfFeaturedImage.featuredImage} />
+                <HeroBanner
+                  sourceUrl={post.acfFeaturedImage.featuredImage.sourceUrl}
+                  altText={post.acfFeaturedImage.featuredImage.altText}
+                  title={post.acfFeaturedImage.featuredImage.title}
+                />
               </div>
               <div className="absolute inline-grid items-center self-center text-center text-white">
                 <h2 className="mb-1 text-5xl font-semibold">{post.title}</h2>
@@ -95,10 +75,10 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
                             </div>
                           </div>
                           <SocialMediaIcons
-                            instagram={post.artist?.instagram}
-                            facebook={post.artist?.facebook}
-                            twitter={post.artist?.twitter}
-                            website={post.artist?.website}
+                            instagramUrl={post.artist?.instagramUrl}
+                            facebookUrl={post.artist?.facebookUrl}
+                            twitterUrl={post.artist?.twitterUrl}
+                            websiteUrl={post.artist?.websiteUrl}
                           />
                         </div>
                       </div>
@@ -147,7 +127,7 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
                           <Image
                             fill
                             src={image.sourceUrl}
-                            alt={image.altText || image.title}
+                            alt={image.altText || image.title || "Image"}
                             className="rounded-md object-cover"
                           />
                         </div>
@@ -166,7 +146,7 @@ export default function ArtistProfile({ post }: ArtistProfileProps) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps = (async ({ params }) => {
   const data = await getArtistProfile(params?.slug)
 
   return {
@@ -175,10 +155,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     },
     revalidate: 10,
   }
-}
+}) satisfies GetStaticProps
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const allArtistsPosts = await getAllArtistsWithSlug()
+  const allArtistsPosts = await getArtistsWithSlug()
 
   return {
     paths:

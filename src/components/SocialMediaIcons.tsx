@@ -34,40 +34,40 @@ type SocialMediaContent = {
 }
 
 type SocialMediaIconsProps = {
-  instagram?: string
-  facebook?: string
-  twitter?: string
-  website?: string
+  instagramUrl?: string
+  facebookUrl?: string
+  twitterUrl?: string
+  websiteUrl?: string
 }
 export function SocialMediaIcons({
-  instagram,
-  facebook,
-  twitter,
-  website,
+  instagramUrl,
+  facebookUrl,
+  twitterUrl,
+  websiteUrl,
 }: SocialMediaIconsProps) {
   const socialMediaContent: SocialMediaContent[] = [
     {
       id: "instagram",
       icon: faInstagram,
-      url: instagram || "",
+      url: instagramUrl || "",
       brandColor: "hover:text-pink-500",
     },
     {
       id: "facebook",
       icon: faFacebook,
-      url: facebook || "",
+      url: facebookUrl || "",
       brandColor: "hover:text-blue-500",
     },
     {
       id: "twitter",
       icon: faTwitter,
-      url: twitter || "",
+      url: twitterUrl || "",
       brandColor: "hover:text-sky-500",
     },
     {
       id: "website",
       icon: faChrome,
-      url: website || "",
+      url: websiteUrl || "",
       brandColor: "hover:text-amber-500",
     },
   ]
