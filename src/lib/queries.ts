@@ -245,7 +245,7 @@ export async function getPageContent(uri: string) {
     `
 query PageContent($id: ID!) {
   page(idType: URI, id: $id) {
-    title
+        title
     isFrontPage
     pageHeading {
       heroBanner {
@@ -260,39 +260,50 @@ query PageContent($id: ID!) {
       components {
         ... on Page_Flexiblecontent_Components_HeroBanner {
           fieldGroupName
-          image {
-            altText
-            sourceUrl
-            title
+          heroBanner {
+            image {
+              altText
+              sourceUrl
+              title
+            }
           }
         }
         ... on Page_Flexiblecontent_Components_YoutubeVideo {
           fieldGroupName
-          videoUrl
+          youtubeVideo {
+            videoUrl
+          }
         }
         ... on Page_Flexiblecontent_Components_ContentEditor {
-          content
           fieldGroupName
+          contentEditor {
+            content
+          }
         }
         ... on Page_Flexiblecontent_Components_Carousel {
           fieldGroupName
-          images {
-            altText
-            sourceUrl
-            title
+          carousel {
+            images {
+              altText
+              sourceUrl
+              title
+            }
           }
         }
         ... on Page_Flexiblecontent_Components_Accordion {
           fieldGroupName
-          items {
-            title
-            description
+          accordion {
+            items {
+              title
+              description
+            }
           }
         }
         ... on Page_Flexiblecontent_Components_CtaBanner {
           fieldGroupName
           ctaBanner {
             bannerType
+            fieldGroupName
             text
             image {
               altText
@@ -308,45 +319,62 @@ query PageContent($id: ID!) {
         }
         ... on Page_Flexiblecontent_Components_Expos {
           fieldGroupName
-          locations {
-            date
-            title
-            url
-            venue
-          }
-        }
-        ... on Page_Flexiblecontent_Components_Featured {
-          fieldGroupName
-          featuredArtists {
-            ... on Artist {
-              id
-              acfFeaturedImage {
-                featuredImage {
-                  altText
-                  title
-                  sourceUrl
-                }
-              }
+          expos {
+            locations {
+              date
               title
-              slug
-              artist {
-                studioName
-              }
+              url
+              venue
             }
           }
         }
         ... on Page_Flexiblecontent_Components_Boxes {
           fieldGroupName
           boxes {
-            image {
+            items {
+              image {
               altText
               title
               sourceUrl
             }
-            link {
-              url
+              link {
+                url
+                title
+                target
+              }
+            }
+          }
+        }
+        ... on Page_Flexiblecontent_Components_Gallery {
+          fieldGroupName
+          gallery {
+            columns
+            images {
+              altText
               title
-              target
+              sourceUrl(size: LARGE)
+            }
+          }
+        }
+        ... on Page_Flexiblecontent_Components_Featured {
+          fieldGroupName
+          featured {
+            featuredArtists {
+              ... on Artist {
+                id
+                acfFeaturedImage {
+                  featuredImage {
+                    altText
+                    title
+                    sourceUrl
+                  }
+                }
+                title
+                slug
+                artist {
+                  studioName
+                }
+              }
             }
           }
         }

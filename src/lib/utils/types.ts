@@ -1,6 +1,6 @@
 export type WPImage = {
-  altText: string
   sourceUrl: string
+  altText: string
   title: string
   mediaDetails?: {
     width: string
