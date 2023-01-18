@@ -6,6 +6,10 @@
   accent-color: #554d35;
 }
 
+html {
+  scroll-behavior: smooth !important;
+}
+
 html,
 body {
   @apply overflow-x-hidden bg-black;

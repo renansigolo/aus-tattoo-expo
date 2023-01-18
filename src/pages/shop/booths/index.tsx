@@ -217,7 +217,7 @@ export default function Booths({ page }: Props) {
     setLoading(false)
   }
   return (
-    <div className="bg-zinc-900">
+    <div className="scroll-smooth bg-zinc-900">
       <HeroBanner
         sourceUrl="/images/defaults/hero-banner.jpg"
         altText="HeroBanner"
@@ -245,7 +245,7 @@ export default function Booths({ page }: Props) {
             <div className="mb-8 flex justify-center">
               <div className="inline-flex rounded-md shadow">
                 <Link
-                  href="#step-1"
+                  href="#steps"
                   className="inline-flex items-center justify-center rounded-sm border border-transparent bg-primary-600 px-5 py-3 text-lg font-medium  text-white hover:bg-primary-700 sm:text-2xl"
                 >
                   Book your booth
@@ -267,14 +267,23 @@ export default function Booths({ page }: Props) {
       {/* Steps - Section */}
       <section id="steps" className="bg-black">
         <Container>
-          <div className="flex flex-col items-center py-12 text-center text-white sm:flex-row sm:items-start lg:py-16">
+          <div className="grid grid-cols-2 py-12 text-center text-white sm:grid-cols-3 lg:grid-cols-6 lg:py-16">
             {steps.map(({ title, description, imgUrl }) => (
-              <div key={title} className="max-w-md">
-                <h3 className="text-lg font-bold uppercase lg:text-2xl">
-                  {title}
-                </h3>
-                <p className="mb-2 lg:text-xl">{description}</p>
-                <img src={imgUrl} alt={title} />
+              <div
+                key={title}
+                className="flex max-w-md flex-col items-center justify-between"
+              >
+                <div>
+                  <h3 className="text-lg font-bold uppercase lg:text-xl">
+                    {title}
+                  </h3>
+                  <p className="mb-2">{description}</p>
+                </div>
+                <img
+                  src={imgUrl}
+                  alt={title}
+                  className="w-full max-w-[240px]"
+                />
               </div>
             ))}
           </div>
@@ -284,12 +293,12 @@ export default function Booths({ page }: Props) {
       <Container>
         <section id="step-1" className="sectionSpacing">
           <Heading title="Step 1" description="Select city" />
-          <div className="flex flex-col items-center justify-evenly gap-4 lg:flex-row">
+          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
             {cities.map((city) => (
               <div
                 key={city.title}
                 onClick={() => setSelectedCity(city)}
-                className={`flex w-full flex-col place-content-center bg-black p-8 text-center uppercase text-gray-500 hover:cursor-pointer hover:text-white
+                className={`flex w-full flex-col place-content-center bg-black p-4 py-8 text-center uppercase text-gray-500 hover:cursor-pointer hover:text-white
                 ${city.title === selectedCity.title && "!text-white"}`}
               >
                 <h3 className="mb-2 text-3xl font-semibold">{city.title}</h3>
@@ -304,24 +313,24 @@ export default function Booths({ page }: Props) {
 
         <section id="step-2" className="sectionSpacing">
           <Heading title="Step 2" description="Choose a Booth Size" />
-          <div className="space-y-4 text-white sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0 lg:mx-auto xl:mx-0 xl:max-w-none xl:grid-cols-3">
+          <div className="grid grid-cols-2 gap-2 text-white sm:gap-6 sm:space-y-0 lg:mx-auto xl:mx-0 xl:max-w-none xl:grid-cols-3">
             {booths.map((product, index) => (
               <div
                 key={product.name}
-                className={`text-center hover:cursor-pointer hover:drop-shadow-lg ${
+                className={`flex flex-col justify-between text-center hover:cursor-pointer hover:drop-shadow-lg ${
                   product.id === booth?.id
-                    ? "border-4 border-primary-600"
+                    ? "border-2 border-primary-600"
                     : "border-transparent"
                 }`}
                 onClick={() => setBooth(product)}
               >
-                <div className="bg-primary p-6 hover:bg-primary-100">
-                  <h2 className="text-xl font-medium uppercase leading-6">
+                <div className="bg-primary px-2 py-6 hover:bg-primary-700">
+                  <h2 className="font-medium uppercase lg:text-xl">
                     {product.name}
                   </h2>
-                  <p className="mt-4 text-sm">{product.description}</p>
-                  <p className="mt-8">
-                    <span className="text-4xl font-bold tracking-tight">
+                  <p className="mt-1 text-sm">{product.description}</p>
+                  <p className="mt-4">
+                    <span className="font-bold tracking-tight lg:text-4xl">
                       ${product.price}
                     </span>{" "}
                     {index > 3 && (
@@ -333,7 +342,12 @@ export default function Booths({ page }: Props) {
                 </div>
 
                 <div className="flex justify-center px-6 pt-6 pb-8">
-                  <img src={product.images[0]} alt={product.name} />
+                  <Image
+                    src={product.images[0]}
+                    alt={product.name}
+                    width={512}
+                    height={512}
+                  />
                 </div>
               </div>
             ))}
@@ -352,11 +366,10 @@ export default function Booths({ page }: Props) {
               />
             </div>
             <div className="bg-black p-8 text-white">
-              <h3 className="mb-8 text-3xl font-semibold">$ PER</h3>
+              <h3 className="mb-2 text-3xl font-semibold">$ PER</h3>
               <p className="mb-8 text-justify">
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Aliquam nostrum ea veniam maxime soluta necessitatibus dolorem
-                beatae iure optio hic adipisci natus, architecto suscipit.
+                Aliquam nostrum ea veniam maxime.
               </p>
 
               <h4 className="text-justify text-lg font-semibold uppercase">
@@ -381,11 +394,6 @@ export default function Booths({ page }: Props) {
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lo
                 ipsum dolor sit amet,
               </span>
-              <button className="btn-primary my-8">Add to cart</button>
-              <p className="text-justify text-sm">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Adipisci corrupti quae, laborum, totam necessitatibus nam ipsam.
-              </p>
             </div>
           </div>
         </section>
@@ -426,7 +434,12 @@ export default function Booths({ page }: Props) {
                 {selectedCity.title} {year} - {selectedCity.date}
               </p>
               <div className="mb-2 grid place-content-center">
-                <img src={booth.images[0]} alt={booth.name} />
+                <Image
+                  src={booth.images[0]}
+                  alt={booth.name}
+                  width={352}
+                  height={352}
+                />
               </div>
               <h5 className="text-xl font-semibold">{booth.name}</h5>
               <p className="text-sm text-gray-400">
@@ -558,7 +571,7 @@ export default function Booths({ page }: Props) {
             </div>
           </div>
 
-          <div className="text-center text-3xl font-bold text-white">
+          <div className="text-center text-2xl font-bold text-white lg:text-3xl">
             <h2>All done! We look forward to seeing you soon!</h2>
           </div>
         </Container>
