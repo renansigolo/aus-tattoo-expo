@@ -3,11 +3,15 @@ import { FlexibleComponents } from "@/components/FlexibleComponents"
 import { HeroBanner } from "@/components/HeroBanner"
 import { WPImage } from "@/lib/utils/types"
 
+type HeroImage = {
+  image: WPImage
+}
+
 type PageTemplateProps = {
   flexibleContent: {
     components: any[]
   }
-  heroBanner?: WPImage
+  heroBanner?: HeroImage
   isFrontPage?: boolean
   title?: string
 }
@@ -29,10 +33,10 @@ export function PageTemplate({
 
           <HeroBanner
             sourceUrl={
-              heroBanner?.sourceUrl || "/images/defaults/hero-banner.jpg"
+              heroBanner?.image?.sourceUrl || "/images/defaults/hero-banner.jpg"
             }
-            altText={heroBanner?.altText}
-            title={heroBanner?.title}
+            altText={heroBanner?.image?.altText}
+            title={heroBanner?.image?.title}
           />
 
           <FlexibleComponents flexibleContent={flexibleContent} />

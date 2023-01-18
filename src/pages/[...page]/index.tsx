@@ -6,7 +6,11 @@ type Props = InferGetServerSidePropsType<typeof getServerSideProps>
 
 export default function Page({ page }: Props) {
   return (
-    <PageTemplate title={page.title} flexibleContent={page.flexibleContent} />
+    <PageTemplate
+      title={page.title}
+      heroBanner={page.pageHeading.heroBanner}
+      flexibleContent={page.flexibleContent}
+    />
   )
 }
 

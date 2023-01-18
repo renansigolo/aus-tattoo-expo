@@ -333,10 +333,10 @@ query PageContent($id: ID!) {
           boxes {
             items {
               image {
-              altText
-              title
-              sourceUrl
-            }
+                sourceUrl
+                altText
+                title
+              }
               link {
                 url
                 title

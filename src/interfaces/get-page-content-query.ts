@@ -16,18 +16,15 @@ export interface FlexibleContent {
 
 export interface Component {
   fieldGroupName: string
-  gallery: Gallery
+  multiColumns: MultiColumns
 }
 
-export interface Gallery {
-  columns: number
-  images: Image[]
+export interface MultiColumns {
+  items: Item[]
 }
 
-export interface Image {
-  altText: string
-  title: string
-  sourceUrl: string
+export interface Item {
+  content: string
 }
 
 export interface PageHeading {
@@ -35,5 +32,11 @@ export interface PageHeading {
 }
 
 export interface HeroBanner {
-  image: null
+  image: Image
+}
+
+export interface Image {
+  altText: string
+  sourceUrl: string
+  title: string
 }

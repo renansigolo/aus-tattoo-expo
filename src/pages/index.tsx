@@ -14,6 +14,7 @@ export default function Index({ page }: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PageTemplate
+        heroBanner={page.pageHeading.heroBanner}
         flexibleContent={page.flexibleContent}
         isFrontPage={page.isFrontPage}
       />
