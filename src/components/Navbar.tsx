@@ -5,6 +5,7 @@ import { Popover, Transition } from "@headlessui/react"
 import {
   Bars3Icon,
   ChevronDownIcon,
+  ShoppingCartIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline"
 import Image from "next/image"
@@ -30,7 +31,7 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
   return (
     <Popover className="relative">
       <div className="mx-auto max-w-5xl px-6">
-        <div className="flex min-w-full items-center justify-between py-6 md:justify-start">
+        <div className="flex min-w-full items-center justify-between py-6 lg:justify-start">
           {/* Desktop Logo */}
           <Link href="/" className="mr-6">
             <span className="sr-only">{generalSettings.title}</span>
@@ -44,7 +45,7 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
           </Link>
 
           {/* Navigation Items */}
-          <Popover.Group as="nav" className="hidden space-x-8 md:flex">
+          <Popover.Group as="nav" className="hidden space-x-4 lg:flex">
             {menu.map((item) =>
               item.children.length > 0 ? (
                 <div key={item.title}>
@@ -116,7 +117,7 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
           </Popover.Group>
 
           {/* Navbar END:  Social Icons and Cta Button */}
-          <div className="hidden items-center justify-end text-gray-50 md:flex md:flex-1 lg:w-0">
+          <div className="hidden items-center justify-end text-gray-50 lg:flex lg:w-0 lg:flex-1">
             <SocialMediaIcons
               instagramUrl={siteIdentity.instagramUrl}
               facebookUrl={siteIdentity.facebookUrl}
@@ -129,10 +130,16 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
             >
               Buy Tickets
             </Link>
+            <Link
+              href="/shop/booths"
+              className="text-white hover:text-primary-500"
+            >
+              <ShoppingCartIcon className="ml-2 h-7 w-7 " />
+            </Link>
           </div>
 
           {/* Toggle Menu Button */}
-          <div className="-my-2 -mr-2 md:hidden">
+          <div className="-my-2 -mr-2 lg:hidden">
             <Popover.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-50 hover:bg-gray-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-50">
               <span className="sr-only">Open menu</span>
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
@@ -152,7 +159,7 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
       >
         <Popover.Panel
           focus
-          className="absolute inset-x-0 top-0 z-10 origin-top-right transform p-2 transition md:hidden"
+          className="absolute inset-x-0 top-0 z-10 origin-top-right transform p-2 transition lg:hidden"
         >
           {({ close }) => (
             <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">

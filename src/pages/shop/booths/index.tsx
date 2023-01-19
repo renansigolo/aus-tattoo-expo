@@ -217,365 +217,375 @@ export default function Booths({ page }: Props) {
     setLoading(false)
   }
   return (
-    <div className="scroll-smooth bg-zinc-900">
-      <HeroBanner
-        sourceUrl="/images/defaults/hero-banner.jpg"
-        altText="HeroBanner"
-      />
+    <div>
       <Container>
-        {/* Highlights - Section */}
-        <section
-          id="highlights"
-          className="grid grid-cols-2 gap-4 py-10 lg:grid-cols-4"
-        >
-          {highlights.map(({ title, description }, index) => (
-            <div
-              key={index}
-              className="flex h-36 w-36 flex-col justify-center place-self-center bg-black text-center font-semibold text-white"
-            >
-              <h2 className="text-4xl">{title}</h2>
-              <p className="text-lg">{description}</p>
-            </div>
-          ))}
-        </section>
-
-        {/* CTA Book - Section */}
-        <section id="cta-book">
-          <div className="mx-auto py-12 px-6 text-center text-white lg:py-16 lg:px-8">
-            <div className="mb-8 flex justify-center">
-              <div className="inline-flex rounded-md shadow">
-                <Link
-                  href="#steps"
-                  className="inline-flex items-center justify-center rounded-sm border border-transparent bg-primary-600 px-5 py-3 text-lg font-medium  text-white hover:bg-primary-700 sm:text-2xl"
-                >
-                  Book your booth
-                </Link>
-              </div>
-            </div>
-            <h2 className="sm:text-2xl">
-              <span className="block">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Placeat, voluptates voluptatem deleniti, non aliquid
-                exercitationem consectetur ea nemo reprehenderit fuga id officia
-                optio, error iusto aspernatur. Iusto voluptatum explicabo ullam.
-              </span>
-            </h2>
-          </div>
-        </section>
+        <HeroBanner
+          sourceUrl="/images/defaults/hero-banner.jpg"
+          altText="HeroBanner"
+        />
       </Container>
 
-      {/* Steps - Section */}
-      <section id="steps" className="bg-black">
+      <div className="bg-zinc-900">
         <Container>
-          <div className="grid grid-cols-2 py-12 text-center text-white sm:grid-cols-3 lg:grid-cols-6 lg:py-16">
-            {steps.map(({ title, description, imgUrl }) => (
+          {/* Highlights - Section */}
+          <section
+            id="highlights"
+            className="grid grid-cols-2 gap-4 py-10 lg:grid-cols-4"
+          >
+            {highlights.map(({ title, description }, index) => (
               <div
-                key={title}
-                className="flex max-w-md flex-col items-center justify-between"
+                key={index}
+                className="flex h-36 w-36 flex-col justify-center place-self-center bg-black text-center font-semibold text-white"
               >
-                <div>
-                  <h3 className="text-lg font-bold uppercase lg:text-xl">
-                    {title}
-                  </h3>
-                  <p className="mb-2">{description}</p>
-                </div>
-                <img
-                  src={imgUrl}
-                  alt={title}
-                  className="w-full max-w-[240px]"
-                />
+                <h2 className="text-4xl">{title}</h2>
+                <p className="text-lg">{description}</p>
               </div>
             ))}
-          </div>
-        </Container>
-      </section>
+          </section>
 
-      <Container>
-        <section id="step-1" className="sectionSpacing">
-          <Heading title="Step 1" description="Select city" />
-          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-            {cities.map((city) => (
-              <div
-                key={city.title}
-                onClick={() => setSelectedCity(city)}
-                className={`flex w-full flex-col place-content-center bg-black p-4 py-8 text-center uppercase text-gray-500 hover:cursor-pointer hover:text-white
-                ${city.title === selectedCity.title && "!text-white"}`}
-              >
-                <h3 className="mb-2 text-3xl font-semibold">{city.title}</h3>
-                <p className="text-lg">{city.date}</p>
-                <p className="text-lg">
-                  {city.venue}, {city.title}
-                </p>
+          {/* CTA Book - Section */}
+          <section id="cta-book">
+            <div className="mx-auto py-12 px-6 text-center text-white lg:py-16 lg:px-8">
+              <div className="mb-8 flex justify-center">
+                <div className="inline-flex rounded-md shadow">
+                  <Link
+                    href="#steps"
+                    className="inline-flex items-center justify-center rounded-sm border border-transparent bg-primary-600 px-5 py-3 text-lg font-medium  text-white hover:bg-primary-700 sm:text-2xl"
+                  >
+                    Book your booth
+                  </Link>
+                </div>
               </div>
-            ))}
-          </div>
+              <h2 className="sm:text-2xl">
+                <span className="block">
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                  Placeat, voluptates voluptatem deleniti, non aliquid
+                  exercitationem consectetur ea nemo reprehenderit fuga id
+                  officia optio, error iusto aspernatur. Iusto voluptatum
+                  explicabo ullam.
+                </span>
+              </h2>
+            </div>
+          </section>
+        </Container>
+
+        {/* Steps - Section */}
+        <section id="steps" className="bg-black">
+          <Container>
+            <div className="grid grid-cols-2 py-12 text-center text-white sm:grid-cols-3 lg:grid-cols-6 lg:py-16">
+              {steps.map(({ title, description, imgUrl }) => (
+                <div
+                  key={title}
+                  className="flex max-w-md flex-col items-center justify-between"
+                >
+                  <div>
+                    <h3 className="text-lg font-bold uppercase lg:text-xl">
+                      {title}
+                    </h3>
+                    <p className="mb-2">{description}</p>
+                  </div>
+                  <img
+                    src={imgUrl}
+                    alt={title}
+                    className="w-full max-w-[240px]"
+                  />
+                </div>
+              ))}
+            </div>
+          </Container>
         </section>
 
-        <section id="step-2" className="sectionSpacing">
-          <Heading title="Step 2" description="Choose a Booth Size" />
-          <div className="grid grid-cols-2 gap-2 text-white sm:gap-6 sm:space-y-0 lg:mx-auto xl:mx-0 xl:max-w-none xl:grid-cols-3">
-            {booths.map((product, index) => (
-              <div
-                key={product.name}
-                className={`flex flex-col justify-between text-center hover:cursor-pointer hover:drop-shadow-lg ${
-                  product.id === booth?.id
-                    ? "border-2 border-primary-600"
-                    : "border-transparent"
-                }`}
-                onClick={() => setBooth(product)}
-              >
-                <div className="bg-primary px-2 py-6 hover:bg-primary-700">
-                  <h2 className="font-medium uppercase lg:text-xl">
-                    {product.name}
-                  </h2>
-                  <p className="mt-1 text-sm">{product.description}</p>
-                  <p className="mt-4">
-                    <span className="font-bold tracking-tight lg:text-4xl">
-                      ${product.price}
-                    </span>{" "}
-                    {index > 3 && (
-                      <span className="text-base font-medium text-white">
-                        PER ARTIST
-                      </span>
-                    )}
+        <Container>
+          <section id="step-1" className="sectionSpacing">
+            <Heading title="Step 1" description="Select city" />
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+              {cities.map((city) => (
+                <div
+                  key={city.title}
+                  onClick={() => setSelectedCity(city)}
+                  className={`flex w-full flex-col place-content-center bg-black p-4 py-8 text-center uppercase text-gray-500 hover:cursor-pointer hover:text-white
+                ${city.title === selectedCity.title && "!text-white"}`}
+                >
+                  <h3 className="mb-2 text-3xl font-semibold">{city.title}</h3>
+                  <p className="text-lg">{city.date}</p>
+                  <p className="text-lg">
+                    {city.venue}, {city.title}
                   </p>
                 </div>
+              ))}
+            </div>
+          </section>
 
-                <div className="flex justify-center px-6 pt-6 pb-8">
-                  <Image
-                    src={product.images[0]}
-                    alt={product.name}
-                    width={512}
-                    height={512}
-                  />
+          <section id="step-2" className="sectionSpacing">
+            <Heading title="Step 2" description="Choose a Booth Size" />
+            <div className="grid grid-cols-2 gap-2 text-white sm:gap-6 sm:space-y-0 lg:mx-auto xl:mx-0 xl:max-w-none xl:grid-cols-3">
+              {booths.map((product, index) => (
+                <div
+                  key={product.name}
+                  className={`flex flex-col justify-between text-center hover:cursor-pointer hover:drop-shadow-lg ${
+                    product.id === booth?.id
+                      ? "border-2 border-primary-600"
+                      : "border-transparent"
+                  }`}
+                  onClick={() => setBooth(product)}
+                >
+                  <div className="bg-primary px-2 py-6 hover:bg-primary-700">
+                    <h2 className="font-medium uppercase lg:text-xl">
+                      {product.name}
+                    </h2>
+                    <p className="mt-1 text-sm">{product.description}</p>
+                    <p className="mt-4">
+                      <span className="font-bold tracking-tight lg:text-4xl">
+                        ${product.price}
+                      </span>{" "}
+                      {index > 3 && (
+                        <span className="text-base font-medium text-white">
+                          PER ARTIST
+                        </span>
+                      )}
+                    </p>
+                  </div>
+
+                  <div className="flex justify-center px-6 pt-6 pb-8">
+                    <Image
+                      src={product.images[0]}
+                      alt={product.name}
+                      width={512}
+                      height={512}
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section id="step-3" className="sectionSpacing">
-          <Heading title="Step 3" description="Customise Your Booth" />
-          <div className="grid grid-cols-1 gap-4 py-10 sm:grid-cols-2">
-            <div className="grid place-content-center">
-              <img
-                src={selectedPrint}
-                alt="Selected Print"
-                width={300}
-                height={500}
-              />
+              ))}
             </div>
-            <div className="bg-black p-8 text-white">
-              <h3 className="mb-2 text-3xl font-semibold">$ PER</h3>
-              <p className="mb-8 text-justify">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Aliquam nostrum ea veniam maxime.
-              </p>
+          </section>
 
-              <h4 className="text-justify text-lg font-semibold uppercase">
-                Select Print:
-              </h4>
-              <div className="mb-2 grid grid-cols-6 gap-1">
-                {prints.map((url, index) => (
-                  <img
-                    key={index}
-                    src={url}
-                    alt={`Print ${index + 1}`}
-                    width={300}
-                    height={500}
-                    className={`hover:cursor-pointer hover:ring-2 hover:ring-primary-200 ${
-                      selectedPrint === url && "ring-2 ring-primary-200"
-                    }`}
-                    onClick={() => setSelectedPrint(url)}
-                  />
-                ))}
-              </div>
-              <span className="flex text-left text-xs">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lo
-                ipsum dolor sit amet,
-              </span>
-            </div>
-          </div>
-        </section>
-      </Container>
-
-      <section className="sectionSpacing max-w-full bg-black">
-        <Container>
-          <Heading title="Step 4" description="Sign" />
-          <div className="grid min-h-[50vh] place-content-center text-white">
-            <Image
-              src={"/images/placeholder-docusign.jpg"}
-              alt="Docu Sign"
-              width={720}
-              height={900}
-            />
-          </div>
-        </Container>
-      </section>
-
-      <section id="payment" className="sectionSpacing">
-        <Container>
-          <Heading title="Step 5" description="Payment" />
-          {query.status === "cancelled" && (
-            <Notification status="warning" title={"Cancelled by user"} />
-          )}
-          {query.status === "success" && (
-            <Notification
-              status="success"
-              title={
-                "Payment Successful. Please check your email for the receipt."
-              }
-            />
-          )}
-
-          <div className="relative mx-auto mt-8 max-w-sm rounded-lg bg-white shadow-xl ring-1 ring-gray-100">
-            <div className="px-4 py-3">
-              <p className="mb-2 text-center text-sm text-gray-400">
-                {selectedCity.title} {year} - {selectedCity.date}
-              </p>
-              <div className="mb-2 grid place-content-center">
-                <Image
-                  src={booth.images[0]}
-                  alt={booth.name}
-                  width={352}
-                  height={352}
+          <section id="step-3" className="sectionSpacing">
+            <Heading title="Step 3" description="Customise Your Booth" />
+            <div className="grid grid-cols-1 gap-4 py-10 sm:grid-cols-2">
+              <div className="grid place-content-center">
+                <img
+                  src={selectedPrint}
+                  alt="Selected Print"
+                  width={300}
+                  height={500}
                 />
               </div>
-              <h5 className="text-xl font-semibold">{booth.name}</h5>
-              <p className="text-sm text-gray-400">
-                {selectedPrint.split("/")[selectedPrint.split("/").length - 1]}
-              </p>
-              <p className="text-sm text-gray-400">{booth.description}</p>
+              <div className="bg-black p-8 text-white">
+                <h3 className="mb-2 text-3xl font-semibold">$ PER</h3>
+                <p className="mb-8 text-justify">
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Aliquam nostrum ea veniam maxime.
+                </p>
 
-              <div className="mt-3 flex items-center justify-between">
-                <h6 className="text-3xl font-bold">
-                  ${booth.price * booth.quantity}
-                </h6>
-                <div className="flex items-center space-x-3">
-                  <button
-                    className="decrease__quantity rounded-full p-1 ring-1 ring-gray-200"
-                    onClick={decreaseQuantity}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4 text-gray-500"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </button>
-
-                  <span className="quantity">{booth.quantity}</span>
-
-                  <button
-                    className="increase__quantity rounded-full p-1 ring-1 ring-gray-200"
-                    onClick={increaseQuantity}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4 text-gray-500"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </button>
+                <h4 className="text-justify text-lg font-semibold uppercase">
+                  Select Print:
+                </h4>
+                <div className="mb-2 grid grid-cols-6 gap-1">
+                  {prints.map((url, index) => (
+                    <img
+                      key={index}
+                      src={url}
+                      alt={`Print ${index + 1}`}
+                      width={300}
+                      height={500}
+                      className={`hover:cursor-pointer hover:ring-2 hover:ring-primary-200 ${
+                        selectedPrint === url && "ring-2 ring-primary-200"
+                      }`}
+                      onClick={() => setSelectedPrint(url)}
+                    />
+                  ))}
                 </div>
+                <span className="flex text-left text-xs">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lo
+                  ipsum dolor sit amet,
+                </span>
+              </div>
+            </div>
+          </section>
+        </Container>
+
+        <section className="sectionSpacing max-w-full bg-black">
+          <Container>
+            <Heading title="Step 4" description="Sign" />
+            <div className="grid min-h-[50vh] place-content-center text-white">
+              <Image
+                src={"/images/placeholder-docusign.jpg"}
+                alt="Docu Sign"
+                width={720}
+                height={900}
+              />
+            </div>
+          </Container>
+        </section>
+
+        <section id="payment" className="sectionSpacing">
+          <Container>
+            <Heading title="Step 5" description="Payment" />
+            {query.status === "cancelled" && (
+              <Notification status="warning" title={"Cancelled by user"} />
+            )}
+            {query.status === "success" && (
+              <Notification
+                status="success"
+                title={
+                  "Payment Successful. Please check your email for the receipt."
+                }
+              />
+            )}
+
+            <div className="relative mx-auto mt-8 max-w-sm rounded-lg bg-white shadow-xl ring-1 ring-gray-100">
+              <div className="px-4 py-3">
+                <p className="mb-2 text-center text-sm text-gray-400">
+                  {selectedCity.title} {year} - {selectedCity.date}
+                </p>
+                <div className="mb-2 grid place-content-center">
+                  <Image
+                    src={booth.images[0]}
+                    alt={booth.name}
+                    width={352}
+                    height={352}
+                  />
+                </div>
+                <h5 className="text-xl font-semibold">{booth.name}</h5>
+                <p className="text-sm text-gray-400">
+                  {
+                    selectedPrint.split("/")[
+                      selectedPrint.split("/").length - 1
+                    ]
+                  }
+                </p>
+                <p className="text-sm text-gray-400">{booth.description}</p>
+
+                <div className="mt-3 flex items-center justify-between">
+                  <h6 className="text-3xl font-bold">
+                    ${booth.price * booth.quantity}
+                  </h6>
+                  <div className="flex items-center space-x-3">
+                    <button
+                      className="decrease__quantity rounded-full p-1 ring-1 ring-gray-200"
+                      onClick={decreaseQuantity}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4 text-gray-500"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </button>
+
+                    <span className="quantity">{booth.quantity}</span>
+
+                    <button
+                      className="increase__quantity rounded-full p-1 ring-1 ring-gray-200"
+                      onClick={increaseQuantity}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4 text-gray-500"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                {loading ? (
+                  <button
+                    type="button"
+                    className="mt-6 w-full rounded-md bg-primary-500 py-2 px-3 text-sm uppercase text-white shadow-lg shadow-primary-200 hover:ring-1 hover:ring-primary-500"
+                  >
+                    Processing...
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="mt-6 w-full rounded-md bg-primary-500 py-2 px-3 text-sm uppercase text-white shadow-lg shadow-primary-200 hover:ring-1 hover:ring-primary-500"
+                    onClick={checkout}
+                  >
+                    Reserve Now
+                  </button>
+                )}
+              </div>
+            </div>
+          </Container>
+        </section>
+
+        <section id="info-pack" className="sectionSpacing">
+          <Container>
+            <Heading title="Step 6" description="Info Pack" />
+            <div className="grid grid-cols-1 gap-4 py-10 sm:grid-cols-2">
+              <div className="bg-primary p-6 text-center text-white">
+                <h3 className="mb-2 text-2xl font-bold uppercase">
+                  Exhibitor Manual
+                </h3>
+                <h4 className="mb-4 text-xl font-semibold uppercase">
+                  Every Exhibitor must read!
+                </h4>
+                <Link
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="uppercase underline"
+                >
+                  Download
+                </Link>
+                <p className="mt-6 font-semibold">
+                  Find above the 2022 Australian Tattoo Expo Exhibitor Manual.
+                  <br />
+                  <br />
+                  This file contains crucial information regarding your booth,
+                  load in and load out and much more. Please read this document,
+                  as not doing so may result in you not being able to tattoo at
+                  the event!
+                </p>
               </div>
 
-              {loading ? (
-                <button
-                  type="button"
-                  className="mt-6 w-full rounded-md bg-primary-500 py-2 px-3 text-sm uppercase text-white shadow-lg shadow-primary-200 hover:ring-1 hover:ring-primary-500"
+              <div className="bg-primary p-6 text-center text-white">
+                <h3 className="mb-2 text-2xl font-bold uppercase">
+                  Waiver Form Example
+                </h3>
+                <h4 className="mb-4 text-xl font-semibold uppercase">
+                  Preview Only
+                </h4>
+                <Link
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="uppercase underline"
                 >
-                  Processing...
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  className="mt-6 w-full rounded-md bg-primary-500 py-2 px-3 text-sm uppercase text-white shadow-lg shadow-primary-200 hover:ring-1 hover:ring-primary-500"
-                  onClick={checkout}
-                >
-                  Reserve Now
-                </button>
-              )}
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <section id="info-pack" className="sectionSpacing">
-        <Container>
-          <Heading title="Step 6" description="Info Pack" />
-          <div className="grid grid-cols-1 gap-4 py-10 sm:grid-cols-2">
-            <div className="bg-primary p-6 text-center text-white">
-              <h3 className="mb-2 text-2xl font-bold uppercase">
-                Exhibitor Manual
-              </h3>
-              <h4 className="mb-4 text-xl font-semibold uppercase">
-                Every Exhibitor must read!
-              </h4>
-              <Link
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="uppercase underline"
-              >
-                Download
-              </Link>
-              <p className="mt-6 font-semibold">
-                Find above the 2022 Australian Tattoo Expo Exhibitor Manual.
-                <br />
-                <br />
-                This file contains crucial information regarding your booth,
-                load in and load out and much more. Please read this document,
-                as not doing so may result in you not being able to tattoo at
-                the event!
-              </p>
+                  Download
+                </Link>
+                <p className="mt-6 font-semibold">
+                  Find above the Australian Tattoo Expo Preview Artist Waiver
+                  Form (READ ONLY).
+                  <br />
+                  <br />
+                  This form is provided before the event to allow you to read
+                  the document before signing it on check in at the event.
+                  Please read through this form and make sure you understand it
+                  before signing it in person at the event!
+                </p>
+              </div>
             </div>
 
-            <div className="bg-primary p-6 text-center text-white">
-              <h3 className="mb-2 text-2xl font-bold uppercase">
-                Waiver Form Example
-              </h3>
-              <h4 className="mb-4 text-xl font-semibold uppercase">
-                Preview Only
-              </h4>
-              <Link
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="uppercase underline"
-              >
-                Download
-              </Link>
-              <p className="mt-6 font-semibold">
-                Find above the Australian Tattoo Expo Preview Artist Waiver Form
-                (READ ONLY).
-                <br />
-                <br />
-                This form is provided before the event to allow you to read the
-                document before signing it on check in at the event. Please read
-                through this form and make sure you understand it before signing
-                it in person at the event!
-              </p>
+            <div className="text-center text-2xl font-bold text-white lg:text-3xl">
+              <h2>All done! We look forward to seeing you soon!</h2>
             </div>
-          </div>
-
-          <div className="text-center text-2xl font-bold text-white lg:text-3xl">
-            <h2>All done! We look forward to seeing you soon!</h2>
-          </div>
-        </Container>
-      </section>
+          </Container>
+        </section>
+      </div>
     </div>
   )
 }
