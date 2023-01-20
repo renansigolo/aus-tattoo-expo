@@ -30,9 +30,9 @@ export default function ArtistProfile({ post }: Props) {
             <div className="mb-6 grid w-full justify-items-center">
               <div className="opacity-50">
                 <HeroBanner
-                  sourceUrl={post.acfFeaturedImage.featuredImage.sourceUrl}
-                  altText={post.acfFeaturedImage.featuredImage.altText}
-                  title={post.acfFeaturedImage.featuredImage.title}
+                  sourceUrl={post.acfFeaturedImage.profileImage.sourceUrl}
+                  altText={post.acfFeaturedImage.profileImage.altText}
+                  title={post.acfFeaturedImage.profileImage.title}
                 />
               </div>
               <div className="absolute inline-grid items-center self-center text-center text-white">
@@ -57,7 +57,7 @@ export default function ArtistProfile({ post }: Props) {
                             <div className="flex-shrink-0">
                               <Image
                                 src={
-                                  post.acfFeaturedImage.featuredImage.sourceUrl
+                                  post.acfFeaturedImage.profileImage.sourceUrl
                                 }
                                 alt={`Profile Image of ${post.title}`}
                                 width={128}
@@ -83,27 +83,32 @@ export default function ArtistProfile({ post }: Props) {
                         </div>
                       </div>
                       <div className="grid grid-cols-1 divide-y divide-gray-200 border-t border-gray-200 bg-gray-50 sm:grid-cols-2 sm:divide-y-0 sm:divide-x">
-                        <div className="px-6 py-5 text-center text-sm font-medium">
-                          <span className="text-gray-900">Tattoo Style</span>
-                          {post.categories.tattooStyle.map((tattooCategory) => (
-                            <div key={tattooCategory.name} className="my-1">
-                              <span className="text-gray-600">
-                                {tattooCategory.name}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-
-                        <div className="px-6 py-5 text-center text-sm font-medium">
-                          <span className="text-gray-900">Attending</span>
-                          {post.categories.events.map((event) => (
-                            <div key={event.name} className="my-1">
-                              <span className="text-gray-600">
-                                {event.name}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
+                        {post.categories.tattooStyle && (
+                          <div className="px-6 py-5 text-center text-sm font-medium">
+                            <span className="text-gray-900">Tattoo Style</span>
+                            {post.categories.tattooStyle.map(
+                              (tattooCategory) => (
+                                <div key={tattooCategory.name} className="my-1">
+                                  <span className="text-gray-600">
+                                    {tattooCategory.name}
+                                  </span>
+                                </div>
+                              )
+                            )}
+                          </div>
+                        )}
+                        {post.categories.events && (
+                          <div className="px-6 py-5 text-center text-sm font-medium">
+                            <span className="text-gray-900">Attending</span>
+                            {post.categories.events.map((event) => (
+                              <div key={event.name} className="my-1">
+                                <span className="text-gray-600">
+                                  {event.name}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </section>

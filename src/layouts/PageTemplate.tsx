@@ -25,12 +25,6 @@ export function PageTemplate({
     <>
       <main className="min-h-[80vh] text-white">
         <Container>
-          {!isFrontPage && (
-            <h1 className="my-8 block text-center text-3xl font-bold leading-8 tracking-tight text-white sm:text-5xl">
-              {title}
-            </h1>
-          )}
-
           <HeroBanner
             sourceUrl={
               heroBanner?.image?.sourceUrl || "/images/defaults/hero-banner.jpg"
@@ -38,6 +32,12 @@ export function PageTemplate({
             altText={heroBanner?.image?.altText}
             title={heroBanner?.image?.title}
           />
+
+          {!isFrontPage && (
+            <h1 className="my-8 block text-center text-3xl font-bold leading-8 tracking-tight text-white sm:text-5xl">
+              {title}
+            </h1>
+          )}
 
           <FlexibleComponents flexibleContent={flexibleContent} />
         </Container>

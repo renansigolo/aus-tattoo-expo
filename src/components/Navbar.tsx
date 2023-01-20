@@ -22,7 +22,7 @@ type NavbarProps = {
       parentId: string | null
       path: string
       title: string
-      urL: string
+      urL: string | null
       target: string | null
     }
   ]
@@ -62,7 +62,7 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
                           <ChevronDownIcon
                             className={classNames(
                               open ? "text-gray-100" : "text-gray-200",
-                              "ml-2 h-5 w-5 group-hover:text-gray-400"
+                              "ml-1 h-4 w-4 group-hover:text-gray-400"
                             )}
                             aria-hidden="true"
                           />
@@ -83,7 +83,7 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
                                 {item.children.map((item) => (
                                   <Link
                                     key={item.title}
-                                    href={item.path}
+                                    href={item.path || "#"}
                                     className="-m-3 flex items-start rounded-lg p-3 hover:bg-primary-900 hover:bg-opacity-30 hover:ring-1 hover:ring-primary hover:ring-opacity-40"
                                     target={(item.target ||= "_self")}
                                     onClick={() => close()}
@@ -106,7 +106,7 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
               ) : (
                 <Link
                   key={item.title}
-                  href={item.path}
+                  href={item.path || "#"}
                   className="text-base font-medium text-gray-200 hover:text-gray-400"
                   target={(item.target ||= "_self")}
                 >
@@ -123,13 +123,15 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
               facebookUrl={siteIdentity.facebookUrl}
               twitterUrl={siteIdentity.twitterUrl}
             />
-            <Link
-              href={siteIdentity.ticketsUrl}
-              className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-primary-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-primary-700"
-              target={"_blank"}
-            >
-              Buy Tickets
-            </Link>
+            {siteIdentity.ticketsUrl && (
+              <Link
+                href={siteIdentity.ticketsUrl}
+                className="ml-4 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-primary-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-primary-700"
+                target={"_blank"}
+              >
+                Buy Tickets
+              </Link>
+            )}
             <Link
               href="/shop/booths"
               className="text-white hover:text-primary-500"
@@ -187,7 +189,7 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
                     {menu.map((item, index) => (
                       <Link
                         key={index}
-                        href={item.path}
+                        href={item.path || "#"}
                         className="-m-3 flex flex-col rounded-md p-3 hover:bg-gray-50"
                         target={(item.target ||= "_self")}
                         onClick={() => close()}
@@ -199,7 +201,7 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
                           item.children.map((item, index) => (
                             <Link
                               key={index}
-                              href={item.path}
+                              href={item.path || "#"}
                               target={(item.target ||= "_self")}
                             >
                               <p className="my-4 ml-6 text-base text-gray-500">
@@ -214,13 +216,16 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
               </div>
               <div className="space-y-6 py-6 px-5">
                 <div>
-                  <Link
-                    href={siteIdentity.ticketsUrl}
-                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-primary-700"
-                    target={"_blank"}
-                  >
-                    Buy Tickets
-                  </Link>
+                  {siteIdentity.ticketsUrl && (
+                    <Link
+                      href={siteIdentity.ticketsUrl}
+                      className="flex w-full items-center justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-primary-700"
+                      target={"_blank"}
+                    >
+                      Buy Tickets
+                    </Link>
+                  )}
+
                   <p className="mt-6 text-center text-base font-medium">
                     <Link
                       href="/shop/booths"

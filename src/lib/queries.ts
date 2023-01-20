@@ -45,7 +45,7 @@ export async function getAllArtists() {
             studioName
           }
           acfFeaturedImage {
-            featuredImage {
+            profileImage {
               altText
               sourceUrl
               title
@@ -102,7 +102,7 @@ query GetArtistsByEvent($id: ID!) {
       edges {
         node {
           acfFeaturedImage {
-            featuredImage {
+            profileImage {
               altText
               sourceUrl
               title
@@ -138,8 +138,8 @@ export async function getArtistProfile(slug: string | string[] | undefined) {
       artist(id: $id, idType: URI) {
         artist {
           studioName
-          contactNumber
-          email
+          contactMobile
+          contactEmail
           websiteUrl
           twitterUrl
           facebookUrl
@@ -155,7 +155,7 @@ export async function getArtistProfile(slug: string | string[] | undefined) {
           }
         }
         acfFeaturedImage {
-          featuredImage {
+          profileImage {
             altText
             title
             sourceUrl
@@ -309,7 +309,7 @@ query PageContent($id: ID!) {
               ... on Artist {
                 id
                 acfFeaturedImage {
-                  featuredImage {
+                  profileImage {
                     altText
                     title
                     sourceUrl
