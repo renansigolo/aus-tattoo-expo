@@ -14,10 +14,10 @@ type Node = {
 }
 
 type AcfFeaturedImage = {
-  featuredImage: FeaturedImage
+  profileImage: ProfileImage
 }
 
-type FeaturedImage = {
+type ProfileImage = {
   altText: string
   sourceUrl: string
   title: string

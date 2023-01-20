@@ -5,7 +5,7 @@ export type FeaturedArtist = {
   slug: string
   title: string
   acfFeaturedImage: {
-    featuredImage: WPImage
+    profileImage: WPImage
   }
   artist: {
     studioName: string
@@ -32,7 +32,7 @@ export function FeaturedArtists({ featuredArtists }: FeaturedArtistsProps) {
         {featuredArtists.map((artist) => (
           <CardImage
             key={artist.slug}
-            image={artist.acfFeaturedImage.featuredImage}
+            image={artist.acfFeaturedImage.profileImage}
             title={artist.title}
             description={artist.artist.studioName}
             url={`/artists/profile/${artist.slug}`}

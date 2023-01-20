@@ -42,7 +42,7 @@ export function CallToAction(content: CallToActionProps) {
             <Image
               src={
                 content.image?.sourceUrl ||
-                "public/images/defaults/cta-banner-image.jpg"
+                "/images/defaults/cta-banner-image.jpg"
               }
               width={1024}
               height={127}

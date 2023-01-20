@@ -70,6 +70,12 @@ export function SocialMediaIcons({
       url: websiteUrl || "",
       brandColor: "hover:text-amber-500",
     },
+    // {
+    //   id: "email",
+    //   icon: faChrome,
+    //   url: email || "",
+    //   brandColor: "hover:text-amber-500",
+    // },
   ]
 
   return (

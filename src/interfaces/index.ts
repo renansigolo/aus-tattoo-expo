@@ -18,7 +18,7 @@ export type MenuItem = {
   parentId: string | null
   path: string
   title: string
-  urL: string
+  url: string | null
   target: string | null
   chidren?: MenuItem[] | []
 }
@@ -47,7 +47,7 @@ export type LayoutQuery = {
       parentId: string | null
       path: string
       title: string
-      urL: string
+      urL: string | null
       target: string | null
     }
   ]

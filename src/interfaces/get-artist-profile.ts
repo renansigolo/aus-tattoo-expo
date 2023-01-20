@@ -11,7 +11,7 @@ type GetArtistProfileArtist = {
 }
 
 type AcfFeaturedImage = {
-  featuredImage: Image
+  profileImage: Image
 }
 
 type Image = {
@@ -28,8 +28,8 @@ type MediaDetails = {
 
 type ArtistArtist = {
   studioName: string
-  contactNumber: number
-  email: string
+  contactMobile: string
+  contactEmail: string
   websiteUrl: string
   twitterUrl: string
   facebookUrl: string

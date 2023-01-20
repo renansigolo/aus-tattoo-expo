@@ -20,7 +20,7 @@ export default function Artists({ nodes }: Props) {
             <li key={node.title}>
               <CardImage
                 key={node.slug}
-                image={node.acfFeaturedImage.featuredImage}
+                image={node.acfFeaturedImage.profileImage}
                 title={node.title}
                 description={node.artist.studioName}
                 url={`/artists/profile/${node.slug}`}

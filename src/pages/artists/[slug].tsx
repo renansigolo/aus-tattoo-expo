@@ -22,9 +22,8 @@ export default function EventsPage({ post }: Props) {
         ) : (
           <>
             <article className="pb-8 text-white">
-              <h1 className="mb-8 text-center text-3xl">
-                {post.name} Featured Artists
-              </h1>
+              <h1 className="mb-8 text-center text-5xl">{post.name}</h1>
+              <h2 className="mb-8 text-center text-3xl">Featured Artists</h2>
               <div className="mx-auto">
                 <div
                   role="list"
@@ -33,7 +32,7 @@ export default function EventsPage({ post }: Props) {
                   {post.artists.edges.map(({ node }) => (
                     <CardImage
                       key={node.slug}
-                      image={node.acfFeaturedImage.featuredImage}
+                      image={node.acfFeaturedImage.profileImage}
                       title={node.title}
                       description={node.artist.studioName}
                       url={`/artists/profile/${node.slug}`}
