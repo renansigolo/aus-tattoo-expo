@@ -1,6 +1,6 @@
 import { GetAllArtists } from "@/interfaces/get-all-artists"
 import { GetArtistProfile } from "@/interfaces/get-artist-profile"
-import { GetArtistsByEvents } from "@/interfaces/get-artists-by-event"
+import { GetArtistsByEvent } from "@/interfaces/get-artists-by-event"
 import { GetArtistsTaxonomies } from "@/interfaces/get-artists-taxonomies"
 import { GetArtistsWithSlug } from "@/interfaces/get-artists-with-slug"
 import { GetBoothsPage } from "@/interfaces/get-booths-page"
@@ -94,9 +94,31 @@ query GetAllArtistsTags {
 }
 
 export async function getArtistsByEvent(slug: string | string[] | undefined) {
-  const data: GetArtistsByEvents = await fetchApi(
+  const data: GetArtistsByEvent = await fetchApi(
     `
-query GetArtistsByEvent($id: ID!) {
+query GetArtistsByEvent($id: ID!, $uri: ID!) {
+  page(id: $uri, idType: URI) {
+    id
+    eventsContent {
+      featured {
+        ... on Artist {
+          slug
+          title
+          uri
+          acfFeaturedImage {
+            profileImage {
+              altText
+              sourceUrl
+              title
+            }
+          }
+          artist {
+            studioName
+          }
+        }
+      }
+    }
+  }
   eventTaxonomy(id: $id, idType: SLUG) {
     artists {
       edges {
@@ -119,11 +141,18 @@ query GetArtistsByEvent($id: ID!) {
     name
     slug
   }
+  tattooTaxonomies {
+    nodes {
+      name
+      taxonomyName
+    }
+  }
 }
   `,
     {
       variables: {
         id: slug,
+        uri: `/artists/${slug}`,
       },
     }
   )
