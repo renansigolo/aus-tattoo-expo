@@ -14,7 +14,7 @@ export default function Artists({ nodes }: Props) {
         </h1>
         <ul
           role="list"
-          className="grid gap-3 text-center sm:grid-cols-3 lg:grid-cols-4 lg:gap-6"
+          className="grid grid-cols-2 gap-3 text-center sm:grid-cols-3 lg:grid-cols-4 lg:gap-6"
         >
           {nodes.map((node) => (
             <li key={node.title}>

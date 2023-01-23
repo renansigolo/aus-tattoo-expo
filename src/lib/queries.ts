@@ -70,7 +70,7 @@ export async function getAllArtists() {
   const data: GetAllArtists = await fetchApi(
     `
     query GetAllArtists {
-      artists {
+      artists(first: 100) {
         nodes {
           artist {
             studioName
@@ -78,7 +78,7 @@ export async function getAllArtists() {
           acfFeaturedImage {
             profileImage {
               altText
-              sourceUrl
+              sourceUrl(size: MEDIUM)
               title
             }
           }
@@ -148,7 +148,7 @@ query GetArtistsByEvent($id: ID!, $uri: ID!) {
           acfFeaturedImage {
             profileImage {
               altText
-              sourceUrl
+              sourceUrl(size: MEDIUM)
               title
             }
           }
@@ -160,13 +160,13 @@ query GetArtistsByEvent($id: ID!, $uri: ID!) {
     }
   }
   eventTaxonomy(id: $id, idType: SLUG) {
-    artists {
+    artists(first: 50) {
       edges {
         node {
           acfFeaturedImage {
             profileImage {
               altText
-              sourceUrl
+              sourceUrl(size: MEDIUM)
               title
             }
           }
