@@ -4,7 +4,7 @@ const nextConfig = {
   images: {
     domains: [
       "*", // lightsail server
-      "tattoo-expo-test.local",
+      "ate-dev.local",
       "tattooexpo.com.au",
       "www.tattooexpo.com.au",
       "aus-tattoo-expo.local",
