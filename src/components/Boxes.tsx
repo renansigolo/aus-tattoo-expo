@@ -1,4 +1,5 @@
 import { WPImage } from "@/lib/utils/types"
+import { parseUrl } from "next/dist/shared/lib/router/utils/parse-url"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -61,7 +62,7 @@ export function Boxes({ items }: BoxesProps) {
       <div className="grid grid-cols-1 sm:grid-cols-3">
         {items?.map((item) => (
           <Link
-            href={item.link.url}
+            href={parseUrl(item.link.url).pathname}
             key={item.link.title}
             target={item.link.target}
           >
