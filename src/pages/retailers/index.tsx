@@ -1,6 +1,6 @@
 import { CardImage } from "@/components/CardImage"
 import { Container } from "@/components/Container"
-import { getAllArtists } from "@/lib/queries"
+import { getAllRetailers } from "@/lib/queries"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
@@ -10,11 +10,11 @@ export default function Artists({ nodes }: Props) {
     <section className="text-white">
       <Container>
         <h1 className="py-6 text-center text-3xl font-bold tracking-tight text-white sm:text-3xl">
-          Meet the Artists
+          Retailers Line Up
         </h1>
         <ul
           role="list"
-          className="grid grid-cols-2 gap-3 text-center sm:grid-cols-3 lg:grid-cols-4 lg:gap-6"
+          className="grid gap-3 text-center sm:grid-cols-3 lg:grid-cols-4 lg:gap-6"
         >
           {nodes.map((node) => (
             <li key={node.title}>
@@ -22,8 +22,8 @@ export default function Artists({ nodes }: Props) {
                 key={node.slug}
                 image={node.acfFeaturedImage.profileImage}
                 title={node.title}
-                description={node.artist.studioName}
-                url={`/artists/profile/${node.slug}`}
+                description={node.retailer.websiteUrl}
+                url={`/retailers/profile/${node.slug}`}
               />
             </li>
           ))}
@@ -34,7 +34,7 @@ export default function Artists({ nodes }: Props) {
 }
 
 export const getStaticProps = (async () => {
-  const data = await getAllArtists()
+  const data = await getAllRetailers()
 
   return {
     props: { ...data },

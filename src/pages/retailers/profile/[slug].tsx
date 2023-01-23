@@ -2,7 +2,7 @@ import { Container } from "@/components/Container"
 import { HeroBanner } from "@/components/HeroBanner"
 import { Modal } from "@/components/Modal"
 import { SocialMediaIcons } from "@/components/SocialMediaIcons"
-import { getArtistProfile, getPostsWithSlug } from "@/lib/queries"
+import { getPostProfile, getPostsWithSlug } from "@/lib/queries"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
 import Image from "next/image"
@@ -45,7 +45,7 @@ export default function ArtistProfile({ post }: Props) {
               </div>
               <div className="absolute inline-grid items-center self-center text-center text-white">
                 <h2 className="mb-1 text-5xl font-semibold">{post.title}</h2>
-                <p className="text-xl">{post.artist.studioName}</p>
+                {/* <p className="text-xl">{post.artist.studioName}</p> */}
               </div>
             </div>
             <article className="pb-8">
@@ -79,17 +79,12 @@ export default function ArtistProfile({ post }: Props) {
                               <p className="text-xl font-bold text-gray-900 sm:text-2xl">
                                 {post.title}
                               </p>
-                              <p className="text-sm font-medium text-gray-600">
-                                {post.artist.studioName}
-                              </p>
+                              {/* <p className="text-sm font-medium text-gray-600">
+                                {post.retailer.studioName}
+                              </p> */}
                             </div>
                           </div>
-                          <SocialMediaIcons
-                            instagramUrl={post.artist?.instagramUrl}
-                            facebookUrl={post.artist?.facebookUrl}
-                            twitterUrl={post.artist?.twitterUrl}
-                            websiteUrl={post.artist?.websiteUrl}
-                          />
+                          <SocialMediaIcons {...post.retailer} />
                         </div>
                       </div>
                       <div className="grid grid-cols-1 divide-y divide-gray-200 border-t border-gray-200 bg-gray-50 sm:grid-cols-2 sm:divide-y-0 sm:divide-x">
@@ -130,7 +125,7 @@ export default function ArtistProfile({ post }: Props) {
                         Arts
                       </h2>
 
-                      {post.artist.images?.map((image, actionIdx) => (
+                      {post.retailer.images?.map((image, actionIdx) => (
                         <div
                           key={actionIdx}
                           className="group relative mb-2 h-96 rounded-md border-2 border-gray-800 hover:cursor-pointer hover:border-pink-300 lg:mb-0"
@@ -162,24 +157,25 @@ export default function ArtistProfile({ post }: Props) {
 }
 
 export const getStaticProps = (async ({ params }) => {
-  const data = await getArtistProfile(params?.slug)
+  const { retailer } = await getPostProfile(params?.slug)
 
   return {
     props: {
-      post: data.post,
+      post: retailer,
     },
     revalidate: 10,
   }
 }) satisfies GetStaticProps
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const allArtistsPosts = await getPostsWithSlug("artists")
+  const postType = "retailers"
+  const allRetailerPosts = await getPostsWithSlug(postType)
 
   return {
     paths:
-      allArtistsPosts.edges.map(
+      allRetailerPosts.edges.map(
         ({ node }: { node: { slug: string } }) =>
-          `/artists/profile/${node.slug}`
+          `/${postType}/profile/${node.slug}`
       ) || [],
     fallback: true,
   }

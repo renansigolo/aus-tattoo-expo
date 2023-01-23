@@ -1,44 +1,7 @@
 import { WPImage } from "@/lib/utils/types"
+import { parseUrl } from "next/dist/shared/lib/router/utils/parse-url"
 import Image from "next/image"
 import Link from "next/link"
-
-// const defaultBoxes = {
-//   items: [
-//     {
-//       image: {
-//         sourceUrl: "/images/defaults/box-1.png",
-//         altText: "Retailers",
-//         title: "Retailers",
-//       },
-//       link: {
-//         url: "#",
-//         title: "Retailers",
-//       },
-//     },
-//     {
-//       image: {
-//         sourceUrl: "/images/defaults/box-2.png",
-//         altText: "Entertainment",
-//         title: "Entertainment",
-//       },
-//       link: {
-//         url: "#",
-//         title: "Entertainment",
-//       },
-//     },
-//     {
-//       image: {
-//         sourceUrl: "/images/defaults/box-3.png",
-//         altText: "Shop",
-//         title: "Shop",
-//       },
-//       link: {
-//         url: "#",
-//         title: "Shop",
-//       },
-//     },
-//   ],
-// }
 
 type Box = {
   image: WPImage
@@ -61,7 +24,7 @@ export function Boxes({ items }: BoxesProps) {
       <div className="grid grid-cols-1 sm:grid-cols-3">
         {items?.map((item) => (
           <Link
-            href={item.link.url}
+            href={parseUrl(item.link.url).pathname}
             key={item.link.title}
             target={item.link.target}
           >

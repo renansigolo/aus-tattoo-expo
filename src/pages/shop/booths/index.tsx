@@ -11,10 +11,10 @@ import { useRouter } from "next/router"
 import { MouseEventHandler, useState } from "react"
 
 const highlights = [
-  { title: "X+", description: "Events" },
-  { title: "X+", description: "Tattoo Artists" },
-  { title: "X+", description: "Visitors" },
-  { title: "X+", description: "Exhibitors" },
+  { title: "25+", description: "Events" },
+  { title: "400+", description: "Tattoo Artists" },
+  { title: "5000+", description: "Visitors" },
+  { title: "1200+", description: "Exhibitors" },
 ]
 
 const steps = [

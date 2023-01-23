@@ -1,16 +1,17 @@
-export type GetArtistsByEvent = {
+export type GetPostsByEvent = {
   page: Page
   eventTaxonomy: EventTaxonomy
   tattooTaxonomies: TattooTaxonomies
 }
 
 type EventTaxonomy = {
-  artists: Artists
+  artists: Edges
+  retailers: Edges
   name: string
   slug: string
 }
 
-type Artists = {
+type Edges = {
   edges: Edge[]
 }
 
@@ -22,7 +23,8 @@ type EdgeNode = {
   acfFeaturedImage: AcfFeaturedImage
   slug: string
   title: string
-  artist: Artist
+  artist?: Post
+  retailer?: Post
 }
 
 type AcfFeaturedImage = {
@@ -35,8 +37,9 @@ type ProfileImage = {
   title: string
 }
 
-type Artist = {
-  studioName: string
+type Post = {
+  studioName?: string
+  websiteUrl?: string
 }
 
 type Page = {
@@ -62,5 +65,6 @@ type Featured = {
   title: string
   uri: string
   acfFeaturedImage: AcfFeaturedImage
-  artist: Artist
+  artist: Post
+  retailer: Post
 }

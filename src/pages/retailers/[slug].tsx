@@ -1,7 +1,7 @@
 import { CardImage } from "@/components/CardImage"
 import { Carousel } from "@/components/Carousel"
 import { Container } from "@/components/Container"
-import { getArtistsByEvent, getArtistsTaxonomies } from "@/lib/queries"
+import { getPostsByEvent, getTaxonomies } from "@/lib/queries"
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
@@ -36,7 +36,7 @@ export default function EventsPage({
               {page.eventsContent.featured && (
                 <>
                   <h2 className="mb-8 text-center text-3xl">
-                    Featured Artists
+                    Featured Retailers
                   </h2>
                   <div className="mx-auto">
                     <div
@@ -48,8 +48,8 @@ export default function EventsPage({
                           key={node.slug}
                           image={node.acfFeaturedImage.profileImage}
                           title={node.title}
-                          description={node.artist.studioName}
-                          url={`/artists/profile/${node.slug}`}
+                          description={node.retailer.websiteUrl || ""}
+                          url={`/retailers/profile/${node.slug}`}
                         />
                       ))}
                     </div>
@@ -60,13 +60,13 @@ export default function EventsPage({
               <hr className="my-20" />
 
               <h2 className="mb-8 text-center text-3xl">
-                {eventTaxonomy.name.split(" ")[0]} Artists Attending
+                {eventTaxonomy.name.split(" ")[0]} Retailers Attending
               </h2>
 
-              <div className="mb-8 flex w-full flex-col justify-between gap-4 align-middle sm:flex-row">
+              <div className="mb-8 flex flex-col gap-4 align-middle sm:flex-row">
                 {/* Search Bar */}
-                <div className="flex w-full">
-                  <div className="w-full sm:w-1/2">
+                <div className="flex flex-1 justify-center lg:justify-start">
+                  <div className="w-full max-w-lg lg:max-w-xs">
                     <label htmlFor="search" className="sr-only">
                       Search
                     </label>
@@ -78,7 +78,6 @@ export default function EventsPage({
                         />
                       </div>
                       <input
-                        disabled
                         id="search"
                         name="search"
                         className="block w-full rounded-md border border-transparent bg-gray-700 py-2 pl-10 pr-3 leading-5 text-gray-300 placeholder-gray-400 focus:border-white focus:bg-white focus:text-gray-900 focus:outline-none focus:ring-white sm:text-sm"
@@ -88,28 +87,6 @@ export default function EventsPage({
                     </div>
                   </div>
                 </div>
-
-                {/* Select Category */}
-                <div>
-                  {/* <label
-                    htmlFor="location"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Filter by
-                  </label> */}
-
-                  <select
-                    id="location"
-                    name="location"
-                    className="block w-full rounded-md border-gray-900 bg-gray-800 py-2 pl-3 pr-10 text-base focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
-                    defaultValue="Category"
-                  >
-                    <option>Category</option>
-                    {tattooTaxonomies.nodes.map((node) => (
-                      <option key={node.name}>{node.name}</option>
-                    ))}
-                  </select>
-                </div>
               </div>
 
               <div className="mx-auto">
@@ -117,13 +94,13 @@ export default function EventsPage({
                   role="list"
                   className="grid grid-cols-2 gap-3 text-center sm:grid-cols-3 lg:grid-cols-4 lg:gap-6"
                 >
-                  {eventTaxonomy.artists.edges.map(({ node }) => (
+                  {eventTaxonomy.retailers.edges.map(({ node }) => (
                     <CardImage
                       key={node.slug}
                       image={node.acfFeaturedImage.profileImage}
                       title={node.title}
-                      description={node.artist.studioName}
-                      url={`/artists/profile/${node.slug}`}
+                      description={node.retailer?.websiteUrl || ""}
+                      url={`/retailers/profile/${node.slug}`}
                     />
                   ))}
                 </div>
@@ -137,7 +114,7 @@ export default function EventsPage({
 }
 
 export const getStaticProps = (async ({ params }) => {
-  const data = await getArtistsByEvent(params?.slug)
+  const data = await getPostsByEvent(params?.slug, "retailers")
 
   return {
     props: {
@@ -148,12 +125,12 @@ export const getStaticProps = (async ({ params }) => {
 }) satisfies GetStaticProps
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await getArtistsTaxonomies()
+  const data = await getTaxonomies()
 
   return {
     paths:
       data.eventTaxonomies.nodes.map(
-        ({ slug }: { slug: string }) => `/artists/${slug}`
+        ({ slug }: { slug: string }) => `/retailers/${slug}`
       ) || [],
     fallback: true,
   }

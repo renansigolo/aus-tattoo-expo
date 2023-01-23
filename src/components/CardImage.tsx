@@ -19,16 +19,16 @@ export function CardImage({ image, title, description, url }: CardImageProps) {
               "/images/defaults/card-profile-placeholder.png"
             }
             alt={image?.altText || image?.title || "Card image"}
-            width={256}
-            height={256}
+            width={300}
+            height={300}
             className="pointer-events-none min-w-full object-cover group-hover:opacity-75"
           />
           <Link href={url} className="absolute inset-0 focus:outline-none" />
         </div>
-        <p className="pointer-events-none mt-2 block truncate text-lg font-medium text-gray-50">
+        <p className="pointer-events-none mt-2 block truncate text-lg font-medium uppercase text-gray-50">
           {title}
         </p>
-        <p className="pointer-events-none block font-medium text-gray-300">
+        <p className="pointer-events-none block break-words font-medium uppercase text-gray-300">
           {description}
         </p>
       </div>

@@ -1,10 +1,14 @@
 import { GetAllArtists } from "@/interfaces/get-all-artists"
+import { GetAllRetailers } from "@/interfaces/get-all-retailers"
 import { GetArtistProfile } from "@/interfaces/get-artist-profile"
-import { GetArtistsByEvents } from "@/interfaces/get-artists-by-event"
+import { GetArtistsByEvent } from "@/interfaces/get-artists-by-event"
 import { GetArtistsTaxonomies } from "@/interfaces/get-artists-taxonomies"
-import { GetArtistsWithSlug } from "@/interfaces/get-artists-with-slug"
 import { GetBoothsPage } from "@/interfaces/get-booths-page"
 import { GetPageContent } from "@/interfaces/get-page-content"
+import { GetPostProfile } from "@/interfaces/get-post-profile"
+import { GetPostsByEvent } from "@/interfaces/get-posts-by-event"
+import { GetPostsWithSlug } from "@/interfaces/get-posts-with-slug"
+import { GetTaxonomies } from "@/interfaces/get-taxonomies"
 import { fetchApi } from "@/lib/utils/fetch"
 
 export async function getBoothsPage(id: string) {
@@ -35,14 +39,14 @@ export async function getBoothsPage(id: string) {
   return data?.page
 }
 
-export async function getAllArtists() {
-  const data: GetAllArtists = await fetchApi(
+export async function getAllRetailers() {
+  const data: GetAllRetailers = await fetchApi(
     `
-    query GetAllArtists {
-      artists {
+    query GetAllRetailers {
+      retailers {
         nodes {
-          artist {
-            studioName
+          retailer {
+            websiteUrl
           }
           acfFeaturedImage {
             profileImage {
@@ -59,27 +63,39 @@ export async function getAllArtists() {
   `
   )
 
-  return data?.artists
+  return data?.retailers
 }
 
-export async function getArtistsWithSlug() {
-  const data: GetArtistsWithSlug = await fetchApi(`
-    {
-      artists(first: 10000) {
-        edges {
-          node {
-            slug
+export async function getAllArtists() {
+  const data: GetAllArtists = await fetchApi(
+    `
+    query GetAllArtists {
+      artists(first: 100) {
+        nodes {
+          artist {
+            studioName
           }
+          acfFeaturedImage {
+            profileImage {
+              altText
+              sourceUrl(size: MEDIUM)
+              title
+            }
+          }
+          slug
+          title
         }
       }
     }
-  `)
+  `
+  )
 
   return data?.artists
 }
 
 export async function getArtistsTaxonomies() {
-  const data: GetArtistsTaxonomies = await fetchApi(`
+  const data: GetArtistsTaxonomies = await fetchApi(
+    `
 query GetAllArtistsTags {
   eventTaxonomies {
     nodes {
@@ -88,23 +104,69 @@ query GetAllArtistsTags {
     }
   }
 }
-  `)
+  `
+  )
+
+  return data
+}
+
+export async function getTaxonomies() {
+  const data: GetTaxonomies = await fetchApi(
+    `
+query GetAllTaxonomies {
+  eventTaxonomies {
+    nodes {
+      name
+      slug
+    }
+  }
+  tattooTaxonomies {
+    nodes {
+      name
+      slug
+    }
+  }
+}
+  `
+  )
 
   return data
 }
 
 export async function getArtistsByEvent(slug: string | string[] | undefined) {
-  const data: GetArtistsByEvents = await fetchApi(
+  const data: GetArtistsByEvent = await fetchApi(
     `
-query GetArtistsByEvent($id: ID!) {
+query GetArtistsByEvent($id: ID!, $uri: ID!) {
+  page(id: $uri, idType: URI) {
+    id
+    eventsContent {
+      featured {
+        ... on Artist {
+          slug
+          title
+          uri
+          acfFeaturedImage {
+            profileImage {
+              altText
+              sourceUrl(size: MEDIUM)
+              title
+            }
+          }
+          artist {
+            studioName
+          }
+        }
+      }
+    }
+  }
   eventTaxonomy(id: $id, idType: SLUG) {
-    artists {
+    artists(first: 50) {
       edges {
         node {
           acfFeaturedImage {
             profileImage {
               altText
-              sourceUrl
+              sourceUrl(size: MEDIUM)
               title
             }
           }
@@ -119,11 +181,18 @@ query GetArtistsByEvent($id: ID!) {
     name
     slug
   }
+  tattooTaxonomies {
+    nodes {
+      name
+      taxonomyName
+    }
+  }
 }
   `,
     {
       variables: {
         id: slug,
+        uri: `/artists/${slug}`,
       },
     }
   )
@@ -352,4 +421,183 @@ query PageContent($id: ID!) {
   }
 
   return data?.page
+}
+
+export async function getPostProfile(slug: string | string[] | undefined) {
+  const artistQuery = `
+  query PostContent($id: ID!) {
+      artist(id: $id, idType: URI) {
+        artist {
+          studioName
+          contactMobile
+          contactEmail
+          websiteUrl
+          twitterUrl
+          facebookUrl
+          instagramUrl
+          images {
+            altText
+            sourceUrl(size: LARGE)
+            title
+            mediaDetails {
+              width
+              height
+            }
+          }
+        }
+        acfFeaturedImage {
+          profileImage {
+            altText
+            title
+            sourceUrl
+          }
+        }
+        title
+        slug
+        categories {
+          events {
+            name
+          }
+          tattooStyle {
+            name
+          }
+        }
+      }
+    }
+    `
+
+  const retailerQuery = `
+  query PostContent($id: ID!) {
+      retailer(id: $id, idType: URI) {
+        retailer {
+          contactMobile
+          contactEmail
+          websiteUrl
+          twitterUrl
+          facebookUrl
+          instagramUrl
+          images {
+            altText
+            sourceUrl(size: LARGE)
+            title
+            mediaDetails {
+              width
+              height
+            }
+          }
+        }
+        acfFeaturedImage {
+          profileImage {
+            altText
+            title
+            sourceUrl
+          }
+        }
+        title
+        slug
+        categories {
+          events {
+            name
+          }
+          tattooStyle {
+            name
+          }
+        }
+      }
+    }
+    `
+  const data: GetPostProfile = await fetchApi(retailerQuery, {
+    variables: {
+      id: slug,
+    },
+  })
+
+  return data
+}
+
+export async function getPostsWithSlug(postType: "artists" | "retailers") {
+  const data: GetPostsWithSlug = await fetchApi(
+    `
+    {
+      artists(first: 10000) {
+        edges {
+          node {
+            slug
+          }
+        }
+      }
+      retailers(first: 10000) {
+        edges {
+          node {
+            slug
+          }
+        }
+      }
+    }
+  `
+  )
+
+  return data?.[postType]
+}
+
+export async function getPostsByEvent(
+  slug: string | string[] | undefined,
+  postType: "artists" | "retailers"
+) {
+  const retailersQuery = `
+  query GetPostsByEvent($id: ID!, $uri: ID!) {
+  page(id: $uri, idType: URI) {
+    id
+    eventsContent {
+      featured {
+        ... on Retailer {
+          slug
+          title
+          uri
+          acfFeaturedImage {
+            profileImage {
+              altText
+              sourceUrl
+              title
+            }
+          }
+          retailer {
+            websiteUrl
+          }
+        }
+      }
+    }
+  }
+  eventTaxonomy(id: $id, idType: SLUG) {
+    name
+    slug
+    retailers {
+      edges {
+        node {
+          acfFeaturedImage {
+            profileImage {
+              altText
+              sourceUrl
+              title
+            }
+          }
+          slug
+          title
+          retailer {
+            websiteUrl
+          }
+        }
+      }
+    }
+  }
+}
+  `
+  const data: GetPostsByEvent = await fetchApi(retailersQuery, {
+    variables: {
+      id: slug,
+      uri: `/${postType}/${slug}`,
+    },
+  })
+
+  return data
 }
