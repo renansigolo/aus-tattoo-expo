@@ -28,7 +28,7 @@ export function CardImage({ image, title, description, url }: CardImageProps) {
         <p className="pointer-events-none mt-2 block truncate text-lg font-medium text-gray-50">
           {title}
         </p>
-        <p className="pointer-events-none block font-medium text-gray-300">
+        <p className="pointer-events-none block break-words font-medium text-gray-300">
           {description}
         </p>
       </div>
