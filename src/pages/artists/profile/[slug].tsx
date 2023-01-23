@@ -30,9 +30,17 @@ export default function ArtistProfile({ post }: Props) {
             <div className="mb-6 grid w-full justify-items-center">
               <div className="opacity-50">
                 <HeroBanner
-                  sourceUrl={post.acfFeaturedImage.profileImage.sourceUrl}
-                  altText={post.acfFeaturedImage.profileImage.altText}
-                  title={post.acfFeaturedImage.profileImage.title}
+                  sourceUrl={
+                    post.acfFeaturedImage.profileImage?.sourceUrl ||
+                    "/images/defaults/card-profile-placeholder.png"
+                  }
+                  altText={
+                    post.acfFeaturedImage.profileImage?.altText ||
+                    "Profile Image"
+                  }
+                  title={
+                    post.acfFeaturedImage.profileImage?.title || "Profile Image"
+                  }
                 />
               </div>
               <div className="absolute inline-grid items-center self-center text-center text-white">
@@ -57,7 +65,9 @@ export default function ArtistProfile({ post }: Props) {
                             <div className="flex-shrink-0">
                               <Image
                                 src={
-                                  post.acfFeaturedImage.profileImage.sourceUrl
+                                  post.acfFeaturedImage.profileImage
+                                    ?.sourceUrl ||
+                                  "/images/defaults/card-profile-placeholder.png"
                                 }
                                 alt={`Profile Image of ${post.title}`}
                                 width={128}
