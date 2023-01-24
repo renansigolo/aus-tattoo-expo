@@ -1,6 +1,5 @@
-const allowedImageWordPressDomain = new URL(
-  process.env.NEXT_PUBLIC_WORDPRESS_SITE_URL
-).hostname
+const allowedImageWordPressDomain = new URL(process.env.WORDPRESS_API_URL)
+  .hostname
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -8,15 +7,9 @@ const nextConfig = {
   images: {
     domains: [
       allowedImageWordPressDomain,
-      process.env.WORDPRESS_API_URL.match(/(?!(w+)\.)\w*(?:\w+\.)+\w+/)[0], // Valid WP Image domain.
       "tattooexpo.com.au",
       "placeholder.pics",
       "placehold.co",
-      "images.unsplash.com",
-      "0.gravatar.com",
-      "1.gravatar.com",
-      "2.gravatar.com",
-      "secure.gravatar.com",
     ],
   },
   async headers() {
