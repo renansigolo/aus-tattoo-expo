@@ -1,6 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react"
 import { XMarkIcon } from "@heroicons/react/24/outline"
-import { default as Image } from "next/image"
+import Image from "next/image"
 import { Fragment } from "react"
 
 type ModalProps = {

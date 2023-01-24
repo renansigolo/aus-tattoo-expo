@@ -112,11 +112,7 @@ export function Navbar({
 
           {/* Navbar END:  Social Icons and Cta Button */}
           <div className="hidden items-center justify-end text-gray-50 lg:flex lg:w-0 lg:flex-1">
-            <SocialMediaIcons
-              instagramUrl={siteIdentity.instagramUrl}
-              facebookUrl={siteIdentity.facebookUrl}
-              twitterUrl={siteIdentity.twitterUrl}
-            />
+            <SocialMediaIcons {...siteIdentity} />
             {siteIdentity.ticketsUrl && (
               <Link
                 href={siteIdentity.ticketsUrl}
