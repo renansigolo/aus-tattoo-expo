@@ -4,10 +4,11 @@ import { Carousel } from "@/components/Carousel"
 import { Container } from "@/components/Container"
 import { GetArtistsByEvent } from "@/interfaces/get-artists-by-event"
 import { GetArtistsTaxonomies } from "@/interfaces/get-artists-taxonomies"
+import { useLazyQuery } from "@apollo/client"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { GET_ARTISTS_BY_EVENT } from "src/queries/get-artists-by-event"
 import { GET_ARTISTS_TAXONOMIES } from "src/queries/get-artists-taxonomies"
 
@@ -15,10 +16,71 @@ type Props = InferGetStaticPropsType<typeof getStaticProps>
 
 export default function EventsPage({ page, posts, tattooTaxonomies }: Props) {
   const router = useRouter()
-  const [artistsProfiles, setArtistsProfiles] = useState(posts)
-  const [selectedTattooStyle, setSelectedTattooStyle] = useState("all")
+  const [postsData, setPostsData] = useState(posts?.artists.edges ?? [])
+  const [pageInfo, setPageInfo] = useState(posts?.artists.pageInfo)
+  const [selectedTattooStyle, setSelectedTattooStyle] = useState("")
 
-  if (!router.isFallback && !posts.slug) {
+  useEffect(() => {
+    setPostsData(posts?.artists.edges)
+    setPageInfo(posts?.artists.pageInfo)
+  }, [posts?.artists.edges, posts?.artists.pageInfo])
+
+  const setPosts = (posts: any) => {
+    if (!posts || !posts?.edges || !posts?.pageInfo) {
+      return
+    }
+
+    const newPosts = postsData.concat(posts?.edges)
+
+    setPostsData(newPosts)
+    setPageInfo({ ...posts?.pageInfo })
+  }
+
+  const [fetchPosts, { loading }] = useLazyQuery(GET_ARTISTS_BY_EVENT, {
+    notifyOnNetworkStatusChange: true,
+    onCompleted: (data: GetArtistsByEvent) => {
+      setPosts(data?.posts.artists ?? [])
+    },
+    onError: (error) => {
+      console.error(error)
+    },
+  })
+
+  const [fetchPostsByCategory] = useLazyQuery(GET_ARTISTS_BY_EVENT, {
+    notifyOnNetworkStatusChange: true,
+    onCompleted: (data: GetArtistsByEvent) => {
+      setPostsData(data?.posts.artists.edges ?? [])
+    },
+    onError: (error) => {
+      console.error(error)
+    },
+  })
+
+  const loadMoreItems = (endCursor: string | null) => {
+    fetchPosts({
+      variables: {
+        first: 8,
+        after: endCursor,
+        id: router.query.slug,
+        uri: router.asPath,
+        categoryName: selectedTattooStyle,
+      },
+    })
+  }
+
+  const filterByCategory = (category: string) => {
+    fetchPostsByCategory({
+      variables: {
+        first: 8,
+        after: null,
+        id: router.query.slug,
+        uri: router.asPath,
+        categoryName: category,
+      },
+    })
+  }
+
+  if (!router.isFallback && !postsData) {
     return <ErrorPage statusCode={404} />
   }
 
@@ -98,7 +160,7 @@ export default function EventsPage({ page, posts, tattooTaxonomies }: Props) {
                     Filter by
                   </label> */}
 
-                  {/* <select
+                  <select
                     id="tattooStyle"
                     name="tattooStyle"
                     className="block w-full rounded-md border-gray-900 bg-gray-800 py-2 pl-3 pr-10 text-base focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
@@ -106,15 +168,16 @@ export default function EventsPage({ page, posts, tattooTaxonomies }: Props) {
                     value={selectedTattooStyle}
                     onChange={(e) => {
                       setSelectedTattooStyle(e.target.value)
+                      filterByCategory(e.target.value)
                     }}
                   >
-                    <option value="all">Category</option>
+                    <option value="">Category</option>
                     {tattooTaxonomies.nodes.map((node) => (
                       <option key={node.name} value={node.name}>
                         {node.name}
                       </option>
                     ))}
-                  </select> */}
+                  </select>
                 </div>
               </div>
 
@@ -123,7 +186,7 @@ export default function EventsPage({ page, posts, tattooTaxonomies }: Props) {
                   role="list"
                   className="grid grid-cols-2 gap-3 text-center sm:grid-cols-3 lg:grid-cols-4 lg:gap-6"
                 >
-                  {posts?.artists.edges.map(({ node }) => (
+                  {postsData?.map(({ node }) => (
                     <CardImage
                       key={node.slug}
                       image={node.acfFeaturedImage.profileImage}
@@ -133,6 +196,16 @@ export default function EventsPage({ page, posts, tattooTaxonomies }: Props) {
                     />
                   ))}
                 </div>
+                {pageInfo?.hasNextPage && (
+                  <div className="flex w-full justify-center lg:my-10">
+                    <button
+                      className="btn-primary"
+                      onClick={() => loadMoreItems(pageInfo.endCursor)}
+                    >
+                      {loading ? "Loading..." : "Load more"}
+                    </button>
+                  </div>
+                )}
               </div>
             </article>
           </>

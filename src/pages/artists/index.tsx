@@ -10,12 +10,6 @@ import { GET_ARTISTS } from "src/queries/get-artists"
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
 export default function Artists({ posts }: Props) {
-  /**
-   * First set the posts data and pageInfo received from server side,
-   * as initial postsData and pageInfo, so that
-   * it sever side posts can be fetched, and the new endcursor( contained in pageInfo )
-   * can be sent to get the next set of posts.
-   */
   const [postsData, setPostsData] = useState(posts?.edges ?? [])
   const [pageInfo, setPageInfo] = useState(posts?.pageInfo)
 
@@ -29,13 +23,6 @@ export default function Artists({ posts }: Props) {
       return
     }
 
-    /**
-     * Concat the newly received post from client request to the existing posts, using setPostsData()
-     * and also set the new pageInfo that contains the new endcursor, so that
-     * when user clicks on loadmore again, next set of posts can be fetched again.
-     * Same process if repeated to it gets concatenated everytime to the existing posts array.
-     */
-
     const newPosts = postsData.concat(posts?.edges)
 
     setPostsData(newPosts)
@@ -45,10 +32,6 @@ export default function Artists({ posts }: Props) {
   const [fetchPosts, { loading }] = useLazyQuery(GET_ARTISTS, {
     notifyOnNetworkStatusChange: true,
     onCompleted: (data) => {
-      /**
-       * Call setPosts to concat the new set of posts to existing one and update pageInfo
-       * that contains the cursor and the information about whether we have the next page.
-       */
       setPosts(data?.posts ?? [])
     },
     // onError: (error) => {
