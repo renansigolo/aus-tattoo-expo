@@ -1,8 +1,12 @@
 import { gql } from "@apollo/client"
 
 export const GET_ARTISTS = gql`
-  query GET_ARTISTS($after: String) {
-    posts: artists(first: 5, after: $after) {
+  query GetArtists($first: Int, $after: String, $categoryName: String) {
+    posts: artists(
+      first: $first
+      after: $after
+      where: { categoryName: $categoryName }
+    ) {
       edges {
         node {
           artist {

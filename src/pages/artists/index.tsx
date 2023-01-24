@@ -9,8 +9,6 @@ import { GET_ARTISTS } from "src/queries/get-artists"
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
-const graphQLQuery = GET_ARTISTS
-
 export default function Artists({ posts }: Props) {
   /**
    * First set the posts data and pageInfo received from server side,
@@ -44,7 +42,7 @@ export default function Artists({ posts }: Props) {
     setPageInfo({ ...posts?.pageInfo })
   }
 
-  const [fetchPosts, { loading }] = useLazyQuery(graphQLQuery, {
+  const [fetchPosts, { loading }] = useLazyQuery(GET_ARTISTS, {
     notifyOnNetworkStatusChange: true,
     onCompleted: (data) => {
       /**
@@ -59,18 +57,11 @@ export default function Artists({ posts }: Props) {
   })
 
   const loadMoreItems = (endCursor: string | null) => {
-    let queryVariables = {
-      first: 5,
-      after: endCursor,
-    }
-
-    // If its a search query then add the query in the query variables.
-    // if (!isEmpty(searchQuery)) {
-    //   queryVariables.query = searchQuery
-    // }
-
     fetchPosts({
-      variables: queryVariables,
+      variables: {
+        first: 8,
+        after: endCursor,
+      },
     })
   }
 
@@ -117,10 +108,10 @@ export const getStaticProps = (async () => {
   const { data } = await client.query<GetAllArtistsPosts>({
     query: GET_ARTISTS,
     variables: {
+      first: 8,
       after: null,
     },
   })
-  console.log("🚀 ~ getStaticProps ~ data", JSON.stringify(data))
 
   return {
     props: { ...data },

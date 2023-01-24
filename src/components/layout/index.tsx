@@ -1,21 +1,20 @@
 import { Footer } from "@/components/layout/Footer"
 import { Navbar } from "@/components/layout/Navbar"
 import { GetLayout } from "@/interfaces/get-layout"
+import { useQuery } from "@apollo/client"
 import Head from "next/head"
 import { ReactNode } from "react"
-import useSWR, { Fetcher } from "swr"
+import { GET_LAYOUT } from "src/queries/get-layout"
 
 type LayoutProps = {
   children: ReactNode
   // data: GetLayout
 }
 export default function Layout({ children }: LayoutProps) {
-  const fetcher: Fetcher<GetLayout> = (url: string) =>
-    fetch(url).then((res) => res.json())
-  const { data, error } = useSWR<GetLayout>("/api/fetch-layout", fetcher)
+  const { error, data } = useQuery<GetLayout>(GET_LAYOUT)
 
-  if (error) return <div>Failed to load</div>
-  if (!data) return <div>Loading...</div>
+  if (error) return <p>Error : {error.message}</p>
+  if (!data) return <main>{children}</main>
 
   return (
     <>

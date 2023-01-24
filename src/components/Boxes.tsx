@@ -17,7 +17,7 @@ type BoxesProps = {
 }
 
 export function Boxes({ items }: BoxesProps) {
-  if (!items) return <></>
+  if (!items) return null
 
   return (
     <section>

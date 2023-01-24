@@ -18,7 +18,7 @@ type FeaturedArtistsProps = {
 }
 
 export function FeaturedArtists({ featuredArtists }: FeaturedArtistsProps) {
-  if (!featuredArtists) return <></>
+  if (!featuredArtists) return null
 
   return (
     <div className="my-8 text-center">

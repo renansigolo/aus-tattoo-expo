@@ -1,4 +1,4 @@
-const MenuFragment = `
+export const MenuFragment = `
  fragment MenuFragment on MenuItem {
 	id
 	label
@@ -7,4 +7,3 @@ const MenuFragment = `
 	target
  }
 `
-export default MenuFragment

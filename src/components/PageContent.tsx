@@ -3,7 +3,7 @@ type PageContentProps = {
 }
 
 export const PageContent = ({ content }: PageContentProps) => {
-  if (!content) return <></>
+  if (!content) return null
 
   return (
     <div

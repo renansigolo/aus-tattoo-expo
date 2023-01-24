@@ -132,7 +132,7 @@ query GetArtistsByEvent($id: ID!, $uri: ID!) {
     }
   }
   eventTaxonomy(id: $id, idType: SLUG) {
-    artists(first: 50) {
+    artists(first: 8) {
       edges {
         node {
           acfFeaturedImage {
@@ -491,14 +491,14 @@ export async function getPostsWithSlug(postType: "artists" | "retailers") {
   const data: GetPostsWithSlug = await fetchApi(
     `
     {
-      artists(first: 10000) {
+      artists(first: 100) {
         edges {
           node {
             slug
           }
         }
       }
-      retailers(first: 10000) {
+      retailers(first: 100) {
         edges {
           node {
             slug
