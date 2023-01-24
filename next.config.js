@@ -1,21 +1,44 @@
+const allowedImageWordPressDomain = new URL(
+  process.env.NEXT_PUBLIC_WORDPRESS_SITE_URL
+).hostname
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: [
-      "*", // lightsail server
-      "ate-dev.local",
-      "tattooexpo.com.au",
-      "www.tattooexpo.com.au",
-      "aus-tattoo-expo.local",
-      "placeholder.pics",
-      "images.unsplash.com",
+      allowedImageWordPressDomain,
       process.env.WORDPRESS_API_URL.match(/(?!(w+)\.)\w*(?:\w+\.)+\w+/)[0], // Valid WP Image domain.
+      "tattooexpo.com.au",
+      "placeholder.pics",
+      "placehold.co",
+      "images.unsplash.com",
       "0.gravatar.com",
       "1.gravatar.com",
       "2.gravatar.com",
       "secure.gravatar.com",
     ],
+  },
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "X-Content-Type-Options",
+            value: "nosniff",
+          },
+          {
+            key: "X-Frame-Options",
+            value: "DENY",
+          },
+          {
+            key: "X-XSS-Protection",
+            value: "1; mode=block",
+          },
+        ],
+      },
+    ]
   },
   // experimental: {
   //   fontLoaders: [
