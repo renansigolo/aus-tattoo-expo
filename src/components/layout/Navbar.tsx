@@ -1,5 +1,5 @@
 import { SocialMediaIcons } from "@/components/SocialMediaIcons"
-import { GeneralSettings, MenuItem, SiteIdentity } from "@/interfaces/index"
+import { GetLayout } from "@/interfaces/get-layout"
 import { classNames } from "@/lib/utils/cn"
 import { Popover, Transition } from "@headlessui/react"
 import {
@@ -13,21 +13,15 @@ import Link from "next/link"
 import { Fragment } from "react"
 
 type NavbarProps = {
-  siteIdentity: SiteIdentity
-  generalSettings: GeneralSettings
-  menu: [
-    {
-      children: MenuItem[] | []
-      key: string
-      parentId: string | null
-      path: string
-      title: string
-      urL: string | null
-      target: string | null
-    }
-  ]
+  siteIdentity: GetLayout["acfOptionsGeneral"]["general"]["siteIdentity"]
+  generalSettings: GetLayout["generalSettings"]
+  menuItems: GetLayout["menuItems"]
 }
-export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
+export function Navbar({
+  siteIdentity,
+  menuItems,
+  generalSettings,
+}: NavbarProps) {
   return (
     <Popover className="relative">
       <div className="mx-auto max-w-5xl px-6">
@@ -46,10 +40,10 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
 
           {/* Navigation Items */}
           <Popover.Group as="nav" className="hidden space-x-4 lg:flex">
-            {menu.map((item) =>
-              item.children.length > 0 ? (
-                <div key={item.title}>
-                  <Popover className="relative" key={item.title}>
+            {menuItems.edges.map(({ node }) =>
+              node.childItems && node.childItems?.edges.length > 0 ? (
+                <div key={node.id}>
+                  <Popover className="relative">
                     {({ open, close }) => (
                       <>
                         <Popover.Button
@@ -58,7 +52,7 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
                             "group inline-flex items-center rounded-md text-base font-medium hover:text-gray-400 focus:outline-none"
                           )}
                         >
-                          <span>{item.title}</span>
+                          <span>{node.label}</span>
                           <ChevronDownIcon
                             className={classNames(
                               open ? "text-gray-100" : "text-gray-200",
@@ -80,17 +74,17 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
                           <Popover.Panel className="absolute z-10 -ml-4 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2">
                             <div className="overflow-hidden rounded-lg shadow-lg ring-2 ring-gray-500 ring-opacity-40">
                               <div className="relative grid gap-6 bg-black px-5 py-6 sm:gap-8 sm:p-8">
-                                {item.children.map((item) => (
+                                {node.childItems?.edges.map(({ node }) => (
                                   <Link
-                                    key={item.title}
-                                    href={item.path || "#"}
+                                    key={node.label}
+                                    href={node.path || "#"}
                                     className="-m-3 flex items-start rounded-lg p-3 hover:bg-primary-900 hover:bg-opacity-30 hover:ring-1 hover:ring-primary hover:ring-opacity-40"
-                                    target={(item.target ||= "_self")}
+                                    target={(node.target ||= "_self")}
                                     onClick={() => close()}
                                   >
                                     <div className="ml-4">
                                       <p className="text-base font-medium text-gray-100">
-                                        {item.title}
+                                        {node.label}
                                       </p>
                                     </div>
                                   </Link>
@@ -105,12 +99,12 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
                 </div>
               ) : (
                 <Link
-                  key={item.title}
-                  href={item.path || "#"}
+                  key={node.label}
+                  href={node.path || "#"}
                   className="text-base font-medium text-gray-200 hover:text-gray-400"
-                  target={(item.target ||= "_self")}
+                  target={(node.target ||= "_self")}
                 >
-                  {item.title}
+                  {node.label}
                 </Link>
               )
             )}
@@ -186,29 +180,28 @@ export function Navbar({ menu, siteIdentity, generalSettings }: NavbarProps) {
                 </div>
                 <div className="mt-6">
                   <nav className="grid gap-y-8">
-                    {menu.map((item, index) => (
+                    {menuItems.edges.map(({ node }, index) => (
                       <Link
                         key={index}
-                        href={item.path || "#"}
+                        href={node.path || "#"}
                         className="-m-3 flex flex-col rounded-md p-3 hover:bg-gray-50"
-                        target={(item.target ||= "_self")}
+                        target={(node.target ||= "_self")}
                         onClick={() => close()}
                       >
                         <p className="ml-3 text-base font-medium text-gray-900">
-                          {item.title}
+                          {node.label}
                         </p>
-                        {item.children.length > 0 &&
-                          item.children.map((item, index) => (
-                            <Link
-                              key={index}
-                              href={item.path || "#"}
-                              target={(item.target ||= "_self")}
-                            >
-                              <p className="my-4 ml-6 text-base text-gray-500">
-                                {item.title}
-                              </p>
-                            </Link>
-                          ))}
+                        {node.childItems?.edges.map(({ node }) => (
+                          <Link
+                            key={node.label}
+                            href={node.path || "#"}
+                            target={(node.target ||= "_self")}
+                          >
+                            <p className="my-4 ml-6 text-base text-gray-500">
+                              {node.label}
+                            </p>
+                          </Link>
+                        ))}
                       </Link>
                     ))}
                   </nav>

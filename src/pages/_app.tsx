@@ -1,8 +1,10 @@
+import Layout from "@/components/layout"
 import "@/styles/globals.css"
 
-import Layout from "@/components/layout"
+import { ApolloProvider } from "@apollo/client"
 import { Open_Sans } from "@next/font/google"
 import type { AppProps } from "next/app"
+import client from "src/apollo/client"
 
 const openSans = Open_Sans({
   subsets: ["latin"],
@@ -12,9 +14,11 @@ const openSans = Open_Sans({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <div className={`${openSans.variable} font-sans`}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <ApolloProvider client={client}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ApolloProvider>
     </div>
   )
 }

@@ -1,4 +1,3 @@
-import { GetAllArtists } from "@/interfaces/get-all-artists"
 import { GetAllRetailers } from "@/interfaces/get-all-retailers"
 import { GetArtistProfile } from "@/interfaces/get-artist-profile"
 import { GetArtistsByEvent } from "@/interfaces/get-artists-by-event"
@@ -64,33 +63,6 @@ export async function getAllRetailers() {
   )
 
   return data?.retailers
-}
-
-export async function getAllArtists() {
-  const data: GetAllArtists = await fetchApi(
-    `
-    query GetAllArtists {
-      artists(first: 100) {
-        nodes {
-          artist {
-            studioName
-          }
-          acfFeaturedImage {
-            profileImage {
-              altText
-              sourceUrl(size: MEDIUM)
-              title
-            }
-          }
-          slug
-          title
-        }
-      }
-    }
-  `
-  )
-
-  return data?.artists
 }
 
 export async function getArtistsTaxonomies() {

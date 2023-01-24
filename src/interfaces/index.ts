@@ -1,12 +1,13 @@
+import { SiteIdentity } from "@/interfaces/get-menus"
 import { WPImage } from "@/lib/utils/types"
 
-export type SiteIdentity = {
-  logo: WPImage
-  facebookUrl: string
-  instagramUrl: string
-  twitterUrl: string
-  ticketsUrl: string
-}
+// export type SiteIdentity = {
+//   logo: WPImage
+//   facebookUrl: string
+//   instagramUrl: string
+//   twitterUrl: string
+//   ticketsUrl: string
+// }
 
 export type GeneralSettings = {
   title: string
