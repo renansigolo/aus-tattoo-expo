@@ -40,6 +40,9 @@ const nextConfig = {
       },
     ]
   },
+  // devIndicators: {
+  //   buildActivity: true,
+  // },
   // experimental: {
   //   fontLoaders: [
   //     {

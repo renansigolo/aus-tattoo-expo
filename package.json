@@ -5,13 +5,13 @@
   "homepage": "https://tattooexpo.com.au",
   "author": "Renan Sigolo <renan.sigolo@gmail.com>",
   "scripts": {
-    "clean": "rm -rf .next node_modules next-env.d.ts",
-    "format": "prettier '**/*' -w -u",
-    "postinstall": "scripts/setup-git-hooks.sh",
     "build": "next build",
-    "dev": "next dev",
+    "clean": "rm -rf .next node_modules next-env.d.ts",
+    "dev": "NODE_OPTIONS='--inspect' next dev",
     "fix": "npm run lint -- --fix",
+    "format": "prettier '**/*' -w -u",
     "lint": "eslint .",
+    "postinstall": "scripts/setup-git-hooks.sh",
     "start": "next start"
   },
   "dependencies": {
