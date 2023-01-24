@@ -16,12 +16,13 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
+      "@/apollo/*": ["src/apollo/*"],
       "@/components/*": ["src/components/*"],
+      "@/interfaces/*": ["src/interfaces/*"],
       "@/layouts/*": ["src/layouts/*"],
-      "@/pages/*": ["src/pages/*"],
-      "@/styles/*": ["src/styles/*"],
       "@/lib/*": ["src/lib/*"],
-      "@/interfaces/*": ["src/interfaces/*"]
+      "@/pages/*": ["src/pages/*"],
+      "@/styles/*": ["src/styles/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

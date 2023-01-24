@@ -11,7 +11,7 @@ type AccordionProps = {
   ]
 }
 export function Accordion({ items }: AccordionProps) {
-  if (!items) return <></>
+  if (!items) return null
 
   return (
     <div className="mx-auto">

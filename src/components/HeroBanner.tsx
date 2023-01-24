@@ -4,7 +4,7 @@ import Image from "next/image"
 export type HeroBannerProps = WPImage
 
 export function HeroBanner({ sourceUrl, altText, title }: HeroBannerProps) {
-  if (!sourceUrl) return <></>
+  if (!sourceUrl) return null
 
   return (
     <section>

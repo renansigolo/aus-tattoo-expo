@@ -6,25 +6,9 @@ import {
   faTwitter,
   IconDefinition,
 } from "@fortawesome/free-brands-svg-icons"
+import { faEnvelope } from "@fortawesome/free-regular-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Link from "next/link"
-
-const socialMediaIcons = [
-  {
-    id: "instagram",
-    icon: faInstagram,
-    url: "#",
-    brandColor: "pink-500",
-  },
-  { id: "facebook", icon: faFacebook, url: "#", brandColor: "blue-500" },
-  { id: "twitter", icon: faTwitter, url: "#", brandColor: "sky-500" },
-  {
-    id: "website",
-    icon: faChrome,
-    url: "#",
-    brandColor: "amber-500",
-  },
-]
 
 type SocialMediaContent = {
   id: string
@@ -38,12 +22,14 @@ type SocialMediaIconsProps = {
   facebookUrl?: string
   twitterUrl?: string
   websiteUrl?: string
+  email?: string
 }
 export function SocialMediaIcons({
   instagramUrl,
   facebookUrl,
   twitterUrl,
   websiteUrl,
+  email,
 }: SocialMediaIconsProps) {
   const socialMediaContent: SocialMediaContent[] = [
     {
@@ -70,18 +56,18 @@ export function SocialMediaIcons({
       url: websiteUrl || "",
       brandColor: "hover:text-amber-500",
     },
-    // {
-    //   id: "email",
-    //   icon: faChrome,
-    //   url: email || "",
-    //   brandColor: "hover:text-amber-500",
-    // },
+    {
+      id: "email",
+      icon: faEnvelope,
+      url: email || "",
+      brandColor: "hover:text-amber-500",
+    },
   ]
 
   return (
     <div className="mt-5 flex justify-center gap-x-4 sm:mt-0">
       {socialMediaContent.map(
-        (item: any) =>
+        (item) =>
           item.url && (
             <Link
               key={item.id}
@@ -92,7 +78,13 @@ export function SocialMediaIcons({
                 item.brandColor
               )}
             >
-              <FontAwesomeIcon icon={item.icon} size="lg" />
+              {item.id === "email" ? (
+                <Link href={`mailto:${item.url}`}>
+                  <FontAwesomeIcon icon={item.icon} size="lg" />
+                </Link>
+              ) : (
+                <FontAwesomeIcon icon={item.icon} size="lg" />
+              )}
             </Link>
           )
       )}

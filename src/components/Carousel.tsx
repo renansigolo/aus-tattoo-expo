@@ -40,7 +40,7 @@ type CarouselProps = {
 
 export function Carousel({ images, useDefault }: CarouselProps) {
   if (useDefault) images = defaultImages
-  if (!images) return <></>
+  if (!images) return null
 
   return (
     <Swiper

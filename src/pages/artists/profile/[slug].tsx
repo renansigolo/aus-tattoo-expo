@@ -84,12 +84,7 @@ export default function ArtistProfile({ post }: Props) {
                               </p>
                             </div>
                           </div>
-                          <SocialMediaIcons
-                            instagramUrl={post.artist?.instagramUrl}
-                            facebookUrl={post.artist?.facebookUrl}
-                            twitterUrl={post.artist?.twitterUrl}
-                            websiteUrl={post.artist?.websiteUrl}
-                          />
+                          <SocialMediaIcons {...post.artist} />
                         </div>
                       </div>
                       <div className="grid grid-cols-1 divide-y divide-gray-200 border-t border-gray-200 bg-gray-50 sm:grid-cols-2 sm:divide-y-0 sm:divide-x">

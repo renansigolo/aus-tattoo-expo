@@ -1,22 +1,86 @@
+import client from "@/apollo/client"
 import { CardImage } from "@/components/CardImage"
 import { Carousel } from "@/components/Carousel"
 import { Container } from "@/components/Container"
-import { getArtistsByEvent, getArtistsTaxonomies } from "@/lib/queries"
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
+import { GetArtistsByEvent } from "@/interfaces/get-artists-by-event"
+import { GetArtistsTaxonomies } from "@/interfaces/get-artists-taxonomies"
+import { useLazyQuery } from "@apollo/client"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
 import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
+import { GET_ARTISTS_BY_EVENT } from "src/queries/get-artists-by-event"
+import { GET_ARTISTS_TAXONOMIES } from "src/queries/get-artists-taxonomies"
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
-export default function EventsPage({
-  page,
-  eventTaxonomy,
-  tattooTaxonomies,
-}: Props) {
+export default function EventsPage({ page, posts, tattooTaxonomies }: Props) {
   const router = useRouter()
+  const [postsData, setPostsData] = useState(posts?.artists.edges ?? [])
+  const [pageInfo, setPageInfo] = useState(posts?.artists.pageInfo)
+  const [selectedTattooStyle, setSelectedTattooStyle] = useState("")
 
-  if (!router.isFallback && !eventTaxonomy?.slug) {
+  useEffect(() => {
+    setPostsData(posts?.artists.edges)
+    setPageInfo(posts?.artists.pageInfo)
+  }, [posts?.artists.edges, posts?.artists.pageInfo])
+
+  const setPosts = (posts: any) => {
+    if (!posts || !posts?.edges || !posts?.pageInfo) {
+      return
+    }
+
+    const newPosts = postsData.concat(posts?.edges)
+
+    setPostsData(newPosts)
+    setPageInfo({ ...posts?.pageInfo })
+  }
+
+  const [fetchPosts, { loading }] = useLazyQuery(GET_ARTISTS_BY_EVENT, {
+    notifyOnNetworkStatusChange: true,
+    onCompleted: (data: GetArtistsByEvent) => {
+      setPosts(data?.posts.artists ?? [])
+    },
+    onError: (error) => {
+      console.error(error)
+    },
+  })
+
+  const [fetchPostsByCategory] = useLazyQuery(GET_ARTISTS_BY_EVENT, {
+    notifyOnNetworkStatusChange: true,
+    onCompleted: (data: GetArtistsByEvent) => {
+      setPostsData(data?.posts.artists.edges ?? [])
+    },
+    onError: (error) => {
+      console.error(error)
+    },
+  })
+
+  const loadMoreItems = (endCursor: string | null) => {
+    fetchPosts({
+      variables: {
+        first: 8,
+        after: endCursor,
+        id: router.query.slug,
+        uri: router.asPath,
+        categoryName: selectedTattooStyle,
+      },
+    })
+  }
+
+  const filterByCategory = (category: string) => {
+    fetchPostsByCategory({
+      variables: {
+        first: 8,
+        after: null,
+        id: router.query.slug,
+        uri: router.asPath,
+        categoryName: category,
+      },
+    })
+  }
+
+  if (!router.isFallback && !postsData) {
     return <ErrorPage statusCode={404} />
   }
 
@@ -29,9 +93,7 @@ export default function EventsPage({
           <>
             <Carousel useDefault={true} />
             <article className="py-8 text-white">
-              <h1 className="mb-8 text-center text-5xl">
-                {eventTaxonomy.name}
-              </h1>
+              <h1 className="mb-8 text-center text-5xl">{posts.name}</h1>
               {/* Featured Artists */}
               {page.eventsContent.featured && (
                 <>
@@ -60,12 +122,12 @@ export default function EventsPage({
               <hr className="my-20" />
 
               <h2 className="mb-8 text-center text-3xl">
-                {eventTaxonomy.name.split(" ")[0]} Artists Attending
+                {posts.name.split(" ")[0]} Artists Attending
               </h2>
 
               <div className="mb-8 flex w-full flex-col justify-between gap-4 align-middle sm:flex-row">
                 {/* Search Bar */}
-                <div className="flex w-full">
+                {/* <div className="flex w-full">
                   <div className="w-full sm:w-1/2">
                     <label htmlFor="search" className="sr-only">
                       Search
@@ -87,10 +149,10 @@ export default function EventsPage({
                       />
                     </div>
                   </div>
-                </div>
+                </div> */}
 
                 {/* Select Category */}
-                <div>
+                <div className="w-full sm:max-w-xs">
                   {/* <label
                     htmlFor="location"
                     className="block text-sm font-medium text-gray-700"
@@ -99,14 +161,21 @@ export default function EventsPage({
                   </label> */}
 
                   <select
-                    id="location"
-                    name="location"
+                    id="tattooStyle"
+                    name="tattooStyle"
                     className="block w-full rounded-md border-gray-900 bg-gray-800 py-2 pl-3 pr-10 text-base focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
-                    defaultValue="Category"
+                    defaultValue="all"
+                    value={selectedTattooStyle}
+                    onChange={(e) => {
+                      setSelectedTattooStyle(e.target.value)
+                      filterByCategory(e.target.value)
+                    }}
                   >
-                    <option>Category</option>
+                    <option value="">Category</option>
                     {tattooTaxonomies.nodes.map((node) => (
-                      <option key={node.name}>{node.name}</option>
+                      <option key={node.name} value={node.name}>
+                        {node.name}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -117,7 +186,7 @@ export default function EventsPage({
                   role="list"
                   className="grid grid-cols-2 gap-3 text-center sm:grid-cols-3 lg:grid-cols-4 lg:gap-6"
                 >
-                  {eventTaxonomy.artists.edges.map(({ node }) => (
+                  {postsData?.map(({ node }) => (
                     <CardImage
                       key={node.slug}
                       image={node.acfFeaturedImage.profileImage}
@@ -127,6 +196,16 @@ export default function EventsPage({
                     />
                   ))}
                 </div>
+                {pageInfo?.hasNextPage && (
+                  <div className="flex w-full justify-center lg:my-10">
+                    <button
+                      className="btn-primary"
+                      onClick={() => loadMoreItems(pageInfo.endCursor)}
+                    >
+                      {loading ? "Loading..." : "Load more"}
+                    </button>
+                  </div>
+                )}
               </div>
             </article>
           </>
@@ -137,22 +216,32 @@ export default function EventsPage({
 }
 
 export const getStaticProps = (async ({ params }) => {
-  const data = await getArtistsByEvent(params?.slug)
+  const { data } = await client.query<GetArtistsByEvent>({
+    query: GET_ARTISTS_BY_EVENT,
+    variables: {
+      id: params?.slug,
+      uri: `artists/${params?.slug}`,
+      first: 8,
+      after: null,
+      categoryName: null,
+      // categoryName: String(params?.slug).replace("-", "+"),
+    },
+  })
 
   return {
-    props: {
-      ...data,
-    },
+    props: { ...data },
     revalidate: 10,
   }
 }) satisfies GetStaticProps
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await getArtistsTaxonomies()
+  const { data } = await client.query<GetArtistsTaxonomies>({
+    query: GET_ARTISTS_TAXONOMIES,
+  })
 
   return {
     paths:
-      data.eventTaxonomies.nodes.map(
+      data.eventTaxonomies?.nodes.map(
         ({ slug }: { slug: string }) => `/artists/${slug}`
       ) || [],
     fallback: true,
