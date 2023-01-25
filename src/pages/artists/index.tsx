@@ -1,6 +1,6 @@
 import client from "@/apollo/client"
-import { CardImage } from "@/components/data-display/CardImage"
 import { Container } from "@/components/layout/Container"
+import { Posts } from "@/components/posts/Posts"
 import { GetAllArtistsPosts } from "@/interfaces/get-all-artists-posts"
 import { PER_PAGE_FIRST } from "@/lib/utils/pagination"
 import { GET_ARTISTS } from "@/queries/get-artists"
@@ -35,9 +35,6 @@ export default function Artists({ posts }: Props) {
     onCompleted: (data) => {
       setPosts(data?.posts ?? [])
     },
-    // onError: (error) => {
-    //   setError(error?.graphQLErrors ?? "")
-    // },
   })
 
   const loadMoreItems = (endCursor: string | null) => {
@@ -56,22 +53,7 @@ export default function Artists({ posts }: Props) {
           Meet the Artists
         </h1>
 
-        <ul
-          role="list"
-          className="grid grid-cols-2 gap-3 text-center sm:grid-cols-3 lg:grid-cols-4 lg:gap-6"
-        >
-          {postsData.map(({ node }) => (
-            <li key={node.title}>
-              <CardImage
-                key={node.slug}
-                image={node.acfFeaturedImage.profileImage}
-                title={node.title}
-                description={node.artist.studioName}
-                url={`/artists/profile/${node.slug}`}
-              />
-            </li>
-          ))}
-        </ul>
+        <Posts posts={postsData} />
 
         {pageInfo.hasNextPage && (
           <div className="flex w-full justify-center lg:my-10">

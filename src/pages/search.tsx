@@ -38,13 +38,6 @@ export default function Search() {
   const handleSearchFormSubmit = (event: SyntheticEvent) => {
     event.preventDefault()
 
-    setShowResultInfo(false)
-    if (!searchQuery) {
-      setSearchError("Please enter a text to search")
-      setQueryResultPosts({})
-      return null
-    }
-
     setSearchError("")
     fetchPosts({
       variables: {

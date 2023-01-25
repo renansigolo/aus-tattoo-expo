@@ -44,6 +44,7 @@ export const GET_ARTISTS_POSTS = gql`
           id
           slug
           title
+          link
           acfFeaturedImage {
             profileImage {
               sourceUrl(size: MEDIUM)
@@ -52,6 +53,61 @@ export const GET_ARTISTS_POSTS = gql`
           }
           artist {
             studioName
+          }
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+`
+
+/**
+ * Get Artists Posts
+ */
+export const GET_RETAILERS_POSTS = gql`
+  query GET_POSTS($uri: ID!, $first: Int, $after: String) {
+    page(id: $uri, idType: URI) {
+      id
+      title
+      slug
+      uri
+      eventsContent {
+        featured {
+          ... on Retailer {
+            id
+            title
+            slug
+            acfFeaturedImage {
+              profileImage {
+                altText
+                sourceUrl
+              }
+            }
+            retailer {
+              websiteUrl
+            }
+          }
+        }
+      }
+    }
+    posts: retailers(first: $first, after: $after) {
+      edges {
+        node {
+          id
+          slug
+          title
+          link
+          acfFeaturedImage {
+            profileImage {
+              sourceUrl(size: MEDIUM)
+              altText
+            }
+          }
+          retailer {
+            websiteUrl
           }
         }
       }

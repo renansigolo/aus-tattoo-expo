@@ -93,7 +93,6 @@ export default function SearchForm({
           id="tattooStyle"
           name="tattooStyle"
           className="block w-full rounded-md border-transparent bg-gray-700 py-2 pl-3 pr-10 text-base focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
-          value={""}
           onChange={(evt) => setSelectedCategory(evt.target.value)}
         >
           <option value="">Category</option>
@@ -106,7 +105,6 @@ export default function SearchForm({
       </div>
 
       <input
-        disabled={searchQuery.length < 3}
         type="submit"
         value="Search"
         className="btn-primary enabled:hover:cursor-pointer"

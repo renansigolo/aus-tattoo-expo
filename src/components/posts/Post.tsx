@@ -7,13 +7,17 @@ type PostProps = {
 export function Post({ post }: PostProps) {
   const postData = post?.node ?? post
 
+  const uri = postData["artist"]
+    ? `/artists/profile/${postData?.slug}`
+    : `/retailers/profile/${postData?.slug}`
+
   return (
     <div className="mb-8">
       <CardImage
         image={postData?.acfFeaturedImage?.profileImage}
         title={postData?.title}
         description={postData?.artist?.studioName}
-        url={`/artists/profile/${postData?.slug}`}
+        uri={uri}
       />
     </div>
   )

@@ -22,14 +22,14 @@ type SocialMediaIconsProps = {
   facebookUrl?: string
   twitterUrl?: string
   websiteUrl?: string
-  email?: string
+  contactEmail?: string
 }
 export function SocialMediaIcons({
   instagramUrl,
   facebookUrl,
   twitterUrl,
   websiteUrl,
-  email,
+  contactEmail,
 }: SocialMediaIconsProps) {
   const socialMediaContent: SocialMediaContent[] = [
     {
@@ -59,7 +59,7 @@ export function SocialMediaIcons({
     {
       id: "email",
       icon: faEnvelope,
-      url: email || "",
+      url: contactEmail || "",
       brandColor: "hover:text-amber-500",
     },
   ]

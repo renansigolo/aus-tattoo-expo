@@ -16,12 +16,6 @@ export function LoadMorePosts({
   graphQLQuery,
   searchQuery,
 }: LoadMorePostsProps) {
-  /**
-   * First set the posts data and pageInfo received from server side,
-   * as initial postsData and pageInfo, so that
-   * it sever side posts can be fetched, and the new endcursor( contained in pageInfo )
-   * can be sent to get the next set of posts.
-   */
   const [postsData, setPostsData] = useState(posts?.edges ?? [])
   const [pageInfo, setPageInfo] = useState(posts?.pageInfo)
 
@@ -35,24 +29,12 @@ export function LoadMorePosts({
     setPageInfo(posts?.pageInfo)
   }, [posts?.edges, posts?.pageInfo])
 
-  /**
-   * Set posts.
-   *
-   * @param {Object} posts Posts.
-   *
-   * @return {void}
-   */
-  const setPosts = (posts: any) => {
+  /** Set posts */
+  const setPosts = (posts: any): void => {
     if (!posts || !posts?.edges || !posts?.pageInfo) {
       return
     }
 
-    /**
-     * Concat the newly received post from client request to the existing posts, using setPostsData()
-     * and also set the new pageInfo that contains the new endcursor, so that
-     * when user clicks on loadmore again, next set of posts can be fetched again.
-     * Same process if repeated to it gets concatenated everytime to the existing posts array.
-     */
     const newPosts = postsData.concat(posts?.edges)
     setPostsData(newPosts)
     setPageInfo({ ...posts?.pageInfo })
@@ -61,10 +43,6 @@ export function LoadMorePosts({
   const [fetchPosts, { loading }] = useLazyQuery(graphQLQuery, {
     notifyOnNetworkStatusChange: true,
     onCompleted: (data) => {
-      /**
-       * Call setPosts to concat the new set of posts to existing one and update pageInfo
-       * that contains the cursor and the information about whether we have the next page.
-       */
       setPosts(data?.posts ?? [])
     },
     onError: (error) => {
@@ -79,10 +57,8 @@ export function LoadMorePosts({
    *
    * fetchPosts() makes a client side request with the new endcursor info,
    * to get next set of posts.
-   *
-   * @param {String} endCursor Endcursor used to fetch the next set of posts.
    */
-  const loadMoreItems = (endCursor = null) => {
+  const loadMoreItems = (endCursor: string | null = null) => {
     let queryVariables = {
       first: PER_PAGE_FIRST,
       after: endCursor,

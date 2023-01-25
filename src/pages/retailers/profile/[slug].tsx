@@ -1,8 +1,11 @@
+import client from "@/apollo/client"
 import { SocialMediaIcons } from "@/components/data-display/SocialMediaIcons"
 import { HeroBanner } from "@/components/flexible/HeroBanner"
 import { Container } from "@/components/layout/Container"
 import { Modal } from "@/components/overlays/Modal"
-import { getPostProfile, getPostsWithSlug } from "@/lib/queries"
+import { GetRetailerProfile } from "@/interfaces/get-retailer-profile"
+import { getPostsWithSlug } from "@/lib/queries"
+import { GET_RETAILER_PROFILE } from "@/queries/get-retailer-profile"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
 import Image from "next/image"
@@ -11,7 +14,7 @@ import { useState } from "react"
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
-export default function ArtistProfile({ post }: Props) {
+export default function RetailerProfile({ post }: Props) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const [imageRef, setImageRef] = useState("")
@@ -45,7 +48,7 @@ export default function ArtistProfile({ post }: Props) {
               </div>
               <div className="absolute inline-grid items-center self-center text-center text-white">
                 <h2 className="mb-1 text-5xl font-semibold">{post.title}</h2>
-                {/* <p className="text-xl">{post.artist.studioName}</p> */}
+                <p className="text-xl">{post.retailer.websiteUrl}</p>
               </div>
             </div>
             <article className="pb-8">
@@ -79,29 +82,15 @@ export default function ArtistProfile({ post }: Props) {
                               <p className="text-xl font-bold text-gray-900 sm:text-2xl">
                                 {post.title}
                               </p>
-                              {/* <p className="text-sm font-medium text-gray-600">
-                                {post.retailer.studioName}
-                              </p> */}
+                              <p className="text-sm font-medium text-gray-600">
+                                {post.retailer.websiteUrl}
+                              </p>
                             </div>
                           </div>
                           <SocialMediaIcons {...post.retailer} />
                         </div>
                       </div>
-                      <div className="grid grid-cols-1 divide-y divide-gray-200 border-t border-gray-200 bg-gray-50 sm:grid-cols-2 sm:divide-y-0 sm:divide-x">
-                        {post.categories.tattooStyle && (
-                          <div className="px-6 py-5 text-center text-sm font-medium">
-                            <span className="text-gray-900">Tattoo Style</span>
-                            {post.categories.tattooStyle.map(
-                              (tattooCategory) => (
-                                <div key={tattooCategory.name} className="my-1">
-                                  <span className="text-gray-600">
-                                    {tattooCategory.name}
-                                  </span>
-                                </div>
-                              )
-                            )}
-                          </div>
-                        )}
+                      <div className="grid grid-cols-1 divide-y divide-gray-200 border-t border-gray-200 bg-gray-50 ">
                         {post.categories.events && (
                           <div className="px-6 py-5 text-center text-sm font-medium">
                             <span className="text-gray-900">Attending</span>
@@ -125,9 +114,9 @@ export default function ArtistProfile({ post }: Props) {
                         Arts
                       </h2>
 
-                      {post.retailer.images?.map((image, actionIdx) => (
+                      {post.retailer.images?.map((image, index) => (
                         <div
-                          key={actionIdx}
+                          key={index}
                           className="group relative mb-2 h-96 rounded-md border-2 border-gray-800 hover:cursor-pointer hover:border-pink-300 lg:mb-0"
                           onClick={() => {
                             setImageRef(image.sourceUrl)
@@ -157,11 +146,16 @@ export default function ArtistProfile({ post }: Props) {
 }
 
 export const getStaticProps = (async ({ params }) => {
-  const { retailer } = await getPostProfile(params?.slug)
+  const { data } = await client.query<GetRetailerProfile>({
+    query: GET_RETAILER_PROFILE,
+    variables: {
+      id: params?.slug,
+    },
+  })
 
   return {
     props: {
-      post: retailer,
+      post: data.retailer,
     },
     revalidate: 10,
   }
@@ -169,11 +163,11 @@ export const getStaticProps = (async ({ params }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const postType = "retailers"
-  const allRetailerPosts = await getPostsWithSlug(postType)
+  const allPostsWithSlug = await getPostsWithSlug(postType)
 
   return {
     paths:
-      allRetailerPosts.edges.map(
+      allPostsWithSlug.edges.map(
         ({ node }: { node: { slug: string } }) =>
           `/${postType}/profile/${node.slug}`
       ) || [],

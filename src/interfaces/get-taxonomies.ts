@@ -1,13 +1,14 @@
 export type GetTaxonomies = {
-  eventTaxonomies: Taxonomy
-  tattooStyleTaxonomies: Taxonomy
+  eventTaxonomies: Taxonomies
+  tattooTaxonomies: Taxonomies
 }
 
-type Taxonomy = {
+type Taxonomies = {
   nodes: Node[]
 }
 
 type Node = {
   name: string
   slug: string
+  uri: string
 }

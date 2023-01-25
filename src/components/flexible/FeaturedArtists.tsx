@@ -35,7 +35,7 @@ export function FeaturedArtists({ featuredArtists }: FeaturedArtistsProps) {
             image={artist.acfFeaturedImage.profileImage}
             title={artist.title}
             description={artist.artist.studioName}
-            url={`/artists/profile/${artist.slug}`}
+            uri={`/artists/profile/${artist.slug}`}
           />
         ))}
       </ul>
