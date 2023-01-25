@@ -5,7 +5,7 @@ import { Popover, Transition } from "@headlessui/react"
 import {
   Bars3Icon,
   ChevronDownIcon,
-  ShoppingCartIcon,
+  MagnifyingGlassIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline"
 import Image from "next/image"
@@ -122,11 +122,8 @@ export function Navbar({
                 Buy Tickets
               </Link>
             )}
-            <Link
-              href="/shop/booths"
-              className="text-white hover:text-primary-500"
-            >
-              <ShoppingCartIcon className="ml-2 h-7 w-7 " />
+            <Link href="/search" className="text-white hover:text-primary-500">
+              <MagnifyingGlassIcon className="ml-2 h-6 w-6 " />
             </Link>
           </div>
 
