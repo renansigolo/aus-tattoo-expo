@@ -1,6 +1,6 @@
-import { Container } from "@/components/Container"
-import { FlexibleComponents } from "@/components/FlexibleComponents"
-import { HeroBanner } from "@/components/HeroBanner"
+import { FlexibleComponents } from "@/components/flexible/FlexibleComponents"
+import { HeroBanner } from "@/components/flexible/HeroBanner"
+import { Container } from "@/components/layout/Container"
 import { WPImage } from "@/lib/utils/types"
 
 type HeroImage = {

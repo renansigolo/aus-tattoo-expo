@@ -1,4 +1,4 @@
-import { Grid } from "@/components/Grid"
+import { Grid } from "@/components/layout/Grid"
 import { WPImage } from "@/lib/utils/types"
 import Image from "next/image"
 

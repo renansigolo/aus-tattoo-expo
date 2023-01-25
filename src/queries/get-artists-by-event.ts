@@ -30,6 +30,8 @@ export const GET_ARTISTS_BY_EVENT = gql`
       }
     }
     posts: eventTaxonomy(id: $id, idType: SLUG) {
+      name
+      slug
       artists(
         first: $first
         after: $after
@@ -37,6 +39,8 @@ export const GET_ARTISTS_BY_EVENT = gql`
       ) {
         edges {
           node {
+            slug
+            title
             acfFeaturedImage {
               profileImage {
                 altText
@@ -44,8 +48,6 @@ export const GET_ARTISTS_BY_EVENT = gql`
                 title
               }
             }
-            slug
-            title
             artist {
               studioName
             }
@@ -56,8 +58,6 @@ export const GET_ARTISTS_BY_EVENT = gql`
           endCursor
         }
       }
-      name
-      slug
     }
     tattooTaxonomies {
       nodes {

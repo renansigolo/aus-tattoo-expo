@@ -1,7 +1,5 @@
 import { GetAllRetailers } from "@/interfaces/get-all-retailers"
-import { GetArtistProfile } from "@/interfaces/get-artist-profile"
 import { GetArtistsByEvent } from "@/interfaces/get-artists-by-event"
-import { GetArtistsTaxonomies } from "@/interfaces/get-artists-taxonomies"
 import { GetBoothsPage } from "@/interfaces/get-booths-page"
 import { GetPageContent } from "@/interfaces/get-page-content"
 import { GetPostProfile } from "@/interfaces/get-post-profile"
@@ -66,7 +64,7 @@ export async function getAllRetailers() {
 }
 
 export async function getArtistsTaxonomies() {
-  const data: GetArtistsTaxonomies = await fetchApi(
+  const data: GetTaxonomies = await fetchApi(
     `
 query GetAllArtistsTags {
   eventTaxonomies {
@@ -170,61 +168,6 @@ query GetArtistsByEvent($id: ID!, $uri: ID!) {
   )
 
   return data
-}
-
-export async function getArtistProfile(slug: string | string[] | undefined) {
-  const data: GetArtistProfile = await fetchApi(
-    `
-    query ArtistProfileBySlug($id: ID!) {
-      artist(id: $id, idType: URI) {
-        artist {
-          studioName
-          contactMobile
-          contactEmail
-          websiteUrl
-          twitterUrl
-          facebookUrl
-          instagramUrl
-          images {
-            altText
-            sourceUrl(size: LARGE)
-            title
-            mediaDetails {
-              width
-              height
-            }
-          }
-        }
-        acfFeaturedImage {
-          profileImage {
-            altText
-            title
-            sourceUrl
-          }
-        }
-        title
-        slug
-        categories {
-          events {
-            name
-          }
-          tattooStyle {
-            name
-          }
-        }
-      }
-    }
-  `,
-    {
-      variables: {
-        id: slug,
-      },
-    }
-  )
-
-  return {
-    post: data?.artist,
-  }
 }
 
 export async function getPageContent(uri: string) {

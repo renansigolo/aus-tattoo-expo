@@ -1,5 +1,5 @@
-import { Container } from "@/components/Container"
-import { Sponsors } from "@/components/Sponsors"
+import { Sponsors } from "@/components/data-display/Sponsors"
+import { Container } from "@/components/layout/Container"
 import { WPImage } from "@/lib/utils/types"
 
 const year = new Date().getFullYear()

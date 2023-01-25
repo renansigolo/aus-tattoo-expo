@@ -1,4 +1,4 @@
-import { CardImage } from "@/components/CardImage"
+import { CardImage } from "@/components/data-display/CardImage"
 import { WPImage } from "@/lib/utils/types"
 
 export type FeaturedArtist = {
@@ -35,7 +35,7 @@ export function FeaturedArtists({ featuredArtists }: FeaturedArtistsProps) {
             image={artist.acfFeaturedImage.profileImage}
             title={artist.title}
             description={artist.artist.studioName}
-            url={`/artists/profile/${artist.slug}`}
+            uri={`/artists/profile/${artist.slug}`}
           />
         ))}
       </ul>

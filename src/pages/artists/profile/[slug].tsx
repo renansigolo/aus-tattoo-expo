@@ -1,8 +1,11 @@
-import { Container } from "@/components/Container"
-import { HeroBanner } from "@/components/HeroBanner"
-import { Modal } from "@/components/Modal"
-import { SocialMediaIcons } from "@/components/SocialMediaIcons"
-import { getArtistProfile, getPostsWithSlug } from "@/lib/queries"
+import client from "@/apollo/client"
+import { SocialMediaIcons } from "@/components/data-display/SocialMediaIcons"
+import { HeroBanner } from "@/components/flexible/HeroBanner"
+import { Container } from "@/components/layout/Container"
+import { Modal } from "@/components/overlays/Modal"
+import { GetArtistProfile } from "@/interfaces/get-artist-profile"
+import { getPostsWithSlug } from "@/lib/queries"
+import { GET_ARTIST_PROFILE } from "@/queries/get-artist-profile"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
 import Image from "next/image"
@@ -125,9 +128,9 @@ export default function ArtistProfile({ post }: Props) {
                         Arts
                       </h2>
 
-                      {post.artist.images?.map((image, actionIdx) => (
+                      {post.artist.images?.map((image, index) => (
                         <div
-                          key={actionIdx}
+                          key={index}
                           className="group relative mb-2 h-96 rounded-md border-2 border-gray-800 hover:cursor-pointer hover:border-pink-300 lg:mb-0"
                           onClick={() => {
                             setImageRef(image.sourceUrl)
@@ -157,24 +160,30 @@ export default function ArtistProfile({ post }: Props) {
 }
 
 export const getStaticProps = (async ({ params }) => {
-  const data = await getArtistProfile(params?.slug)
+  const { data } = await client.query<GetArtistProfile>({
+    query: GET_ARTIST_PROFILE,
+    variables: {
+      id: params?.slug,
+    },
+  })
 
   return {
     props: {
-      post: data.post,
+      post: data.artist,
     },
     revalidate: 10,
   }
 }) satisfies GetStaticProps
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const allArtistsPosts = await getPostsWithSlug("artists")
+  const postType = "artists"
+  const allPostsWithSlug = await getPostsWithSlug(postType)
 
   return {
     paths:
-      allArtistsPosts.edges.map(
+      allPostsWithSlug.edges.map(
         ({ node }: { node: { slug: string } }) =>
-          `/artists/profile/${node.slug}`
+          `/${postType}/profile/${node.slug}`
       ) || [],
     fallback: true,
   }

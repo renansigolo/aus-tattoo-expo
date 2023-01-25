@@ -1,19 +1,15 @@
 import { gql } from "@apollo/client"
 
-export const GET_ARTISTS = gql`
-  query GetArtists($first: Int, $after: String, $categoryName: String) {
-    posts: artists(
-      first: $first
-      after: $after
-      where: { categoryName: $categoryName }
-    ) {
+export const GET_RETAILERS = gql`
+  query GetRetailers($first: Int, $after: String) {
+    posts: retailers(first: $first, after: $after) {
       edges {
         node {
           slug
           title
           link
-          artist {
-            studioName
+          retailer {
+            websiteUrl
           }
           acfFeaturedImage {
             profileImage {
