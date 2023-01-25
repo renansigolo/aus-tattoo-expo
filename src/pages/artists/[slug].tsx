@@ -6,7 +6,7 @@ import { Posts } from "@/components/posts/Posts"
 import { GetArtistsTaxonomies } from "@/interfaces/get-artists-taxonomies"
 import { GetPosts } from "@/interfaces/get-posts"
 import { PER_PAGE_FIRST } from "@/lib/utils/pagination"
-import { GET_ARTISTS_BY_EVENT } from "@/queries/get-artists-by-event"
+import { GET_ARTISTS } from "@/queries/get-artists"
 import { GET_ARTISTS_TAXONOMIES } from "@/queries/get-artists-taxonomies"
 import { GET_ARTISTS_POSTS } from "@/queries/posts/get-posts"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
@@ -99,10 +99,7 @@ export default function EventsPage({ page, posts }: Props) {
               </div> */}
               </div>
 
-              <LoadMorePosts
-                posts={posts}
-                graphQLQuery={GET_ARTISTS_BY_EVENT}
-              />
+              <LoadMorePosts posts={posts} graphQLQuery={GET_ARTISTS} />
             </article>
           </>
         )}

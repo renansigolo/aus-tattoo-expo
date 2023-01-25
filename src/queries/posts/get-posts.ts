@@ -56,6 +56,8 @@ export const GET_ARTISTS_POSTS = gql`
         }
       }
       pageInfo {
+        hasNextPage
+        endCursor
         offsetPagination {
           total
         }
