@@ -1,8 +1,8 @@
-import { ImageFragment } from "@/queries/fragments/image"
+import { ImageFragment } from "src/queries/fragments/image"
 
 export const PostFragment = `
  ${ImageFragment}
- fragment PostFragment on Post {
+ fragment PostFragment on Artist {
   id
   title
   slug

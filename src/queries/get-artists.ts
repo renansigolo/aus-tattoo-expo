@@ -9,6 +9,8 @@ export const GET_ARTISTS = gql`
     ) {
       edges {
         node {
+          slug
+          title
           artist {
             studioName
           }
@@ -19,8 +21,6 @@ export const GET_ARTISTS = gql`
               sourceUrl(size: MEDIUM)
             }
           }
-          slug
-          title
         }
       }
       pageInfo {

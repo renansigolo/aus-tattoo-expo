@@ -1,9 +1,10 @@
 import SearchForm from "@/components/search/SearchForm"
+import { SyntheticEvent } from "react"
 
 type SearchBoxProps = {
   searchQuery: string
   setSearchQuery: (searchQuery: string) => void
-  handleSearchFormSubmit: (event: any) => void
+  handleSearchFormSubmit: (event: SyntheticEvent) => void
 }
 
 export function SearchBox({
