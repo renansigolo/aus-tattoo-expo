@@ -1,12 +1,14 @@
 export type GetArtistsTaxonomies = {
-  eventTaxonomies: EventTaxonomies
+  eventTaxonomies: Taxonomies
+  tattooTaxonomies: Taxonomies
 }
 
-type EventTaxonomies = {
+type Taxonomies = {
   nodes: Node[]
 }
 
 type Node = {
   name: string
   slug: string
+  uri: string
 }

@@ -5,17 +5,17 @@ import { useEffect, useState } from "react"
 
 type LoadMorePostsProps = {
   posts: any
-  classes: string
-  graphQLQuery: any
-  searchQuery: string
+  classes?: string
+  graphQLQuery?: any
+  searchQuery?: string
 }
 
-const LoadMorePosts = ({
+export function LoadMorePosts({
   posts,
   classes,
   graphQLQuery,
   searchQuery,
-}: LoadMorePostsProps) => {
+}: LoadMorePostsProps) {
   /**
    * First set the posts data and pageInfo received from server side,
    * as initial postsData and pageInfo, so that
@@ -90,9 +90,9 @@ const LoadMorePosts = ({
     }
 
     // If its a search query then add the query in the query variables.
-    if (!searchQuery) {
-      queryVariables.query = searchQuery
-    }
+    // if (!searchQuery) {
+    //   queryVariables.query = searchQuery
+    // }
 
     fetchPosts({
       variables: queryVariables,
@@ -136,5 +136,3 @@ const LoadMorePosts = ({
     </div>
   )
 }
-
-export default LoadMorePosts

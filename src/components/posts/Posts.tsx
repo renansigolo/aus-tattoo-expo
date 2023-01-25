@@ -1,7 +1,7 @@
 import { Post } from "@/components/posts/Post"
 
 type PostsProps = {
-  posts: any[]
+  posts: any[] | any
 }
 
 export function Posts({ posts }: PostsProps) {
@@ -9,15 +9,14 @@ export function Posts({ posts }: PostsProps) {
     return null
   }
 
+  const postsData = posts ? posts : posts.node
+
   return (
-    <div className="-mb-4 flex flex-wrap">
-      {posts.map((post, index) => {
+    <div className="grid grid-cols-2 gap-3 text-center sm:grid-cols-3 lg:grid-cols-4 lg:gap-6">
+      {postsData.map((post: any, index: number) => {
         return (
-          <div
-            key={`${post?.node?.id}-${index}` ?? ""}
-            className="mb-4 w-full px-2 md:w-1/2 lg:w-1/3"
-          >
-            <Post post={post?.node} />
+          <div key={`${post?.node?.id}-${index}` ?? ""}>
+            <Post post={post} />
           </div>
         )
       })}

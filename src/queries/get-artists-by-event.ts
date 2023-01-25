@@ -37,6 +37,8 @@ export const GET_ARTISTS_BY_EVENT = gql`
       ) {
         edges {
           node {
+            slug
+            title
             acfFeaturedImage {
               profileImage {
                 altText
@@ -44,8 +46,6 @@ export const GET_ARTISTS_BY_EVENT = gql`
                 title
               }
             }
-            slug
-            title
             artist {
               studioName
             }

@@ -1,5 +1,5 @@
 import client from "@/apollo/client"
-import LoadMorePosts from "@/components/posts/LoadMorePosts"
+import { LoadMorePosts } from "@/components/posts/LoadMorePosts"
 import { SearchBox } from "@/components/search/SearchBox"
 import { PER_PAGE_FIRST } from "@/lib/utils/pagination"
 import { GET_LAYOUT } from "@/queries/get-layout"
