@@ -22,6 +22,7 @@
       "@/layouts/*": ["src/layouts/*"],
       "@/lib/*": ["src/lib/*"],
       "@/pages/*": ["src/pages/*"],
+      "@/queries/*": ["src/queries/*"],
       "@/styles/*": ["src/styles/*"]
     }
   },

@@ -4,13 +4,14 @@ import { Carousel } from "@/components/Carousel"
 import { Container } from "@/components/Container"
 import { GetArtistsByEvent } from "@/interfaces/get-artists-by-event"
 import { GetArtistsTaxonomies } from "@/interfaces/get-artists-taxonomies"
+import { PER_PAGE_FIRST } from "@/lib/utils/pagination"
+import { GET_ARTISTS_BY_EVENT } from "@/queries/get-artists-by-event"
+import { GET_ARTISTS_TAXONOMIES } from "@/queries/get-artists-taxonomies"
 import { useLazyQuery } from "@apollo/client"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import { GET_ARTISTS_BY_EVENT } from "src/queries/get-artists-by-event"
-import { GET_ARTISTS_TAXONOMIES } from "src/queries/get-artists-taxonomies"
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -59,7 +60,7 @@ export default function EventsPage({ page, posts, tattooTaxonomies }: Props) {
   const loadMoreItems = (endCursor: string | null) => {
     fetchPosts({
       variables: {
-        first: 8,
+        first: PER_PAGE_FIRST,
         after: endCursor,
         id: router.query.slug,
         uri: router.asPath,
@@ -71,7 +72,7 @@ export default function EventsPage({ page, posts, tattooTaxonomies }: Props) {
   const filterByCategory = (category: string) => {
     fetchPostsByCategory({
       variables: {
-        first: 8,
+        first: PER_PAGE_FIRST,
         after: null,
         id: router.query.slug,
         uri: router.asPath,
@@ -221,7 +222,7 @@ export const getStaticProps = (async ({ params }) => {
     variables: {
       id: params?.slug,
       uri: `artists/${params?.slug}`,
-      first: 8,
+      first: PER_PAGE_FIRST,
       after: null,
       categoryName: null,
       // categoryName: String(params?.slug).replace("-", "+"),

@@ -11,7 +11,6 @@ export default function SearchForm({
   setSearchQuery,
   handleSearchFormSubmit,
 }: SearchFormProps) {
-  console.log("🚀 ~ searchQuery", searchQuery)
   return (
     <>
       <form
