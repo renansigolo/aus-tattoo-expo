@@ -1,6 +1,6 @@
-import { Container } from "@/components/Container"
-import { HeroBanner } from "@/components/HeroBanner"
-import { Notification } from "@/components/Notification"
+import { Notification } from "@/components/feedback/Notification"
+import { HeroBanner } from "@/components/flexible/HeroBanner"
+import { Container } from "@/components/layout/Container"
 import { getBoothsPage } from "@/lib/queries"
 import { postRequest } from "@/lib/utils/post-request"
 import { getStripe } from "@/lib/utils/stripe"
@@ -422,11 +422,11 @@ export default function Booths({ page }: Props) {
           <Container>
             <Heading title="Step 5" description="Payment" />
             {query.status === "cancelled" && (
-              <Notification status="warning" title={"Cancelled by user"} />
+              <Notification severity="warning" title={"Cancelled by user"} />
             )}
             {query.status === "success" && (
               <Notification
-                status="success"
+                severity="success"
                 title={
                   "Payment Successful. Please check your email for the receipt."
                 }

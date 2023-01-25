@@ -1,14 +1,14 @@
-import { Accordion } from "@/components/Accordion"
-import { Boxes } from "@/components/Boxes"
-import { CallToAction } from "@/components/CallToAction"
-import { Carousel } from "@/components/Carousel"
-import { Expos } from "@/components/Expos"
-import { FeaturedArtists } from "@/components/FeaturedArtists"
-import { Gallery } from "@/components/Gallery"
-import { HeroBanner } from "@/components/HeroBanner"
-import { MultiColumns } from "@/components/MultiColumns"
-import { PageContent } from "@/components/PageContent"
-import { YoutubePlayer } from "@/components/YoutubePlayer"
+import { Accordion } from "@/components/flexible/Accordion"
+import { Boxes } from "@/components/flexible/Boxes"
+import { CallToAction } from "@/components/flexible/CallToAction"
+import { Carousel } from "@/components/flexible/Carousel"
+import { ContentEditor } from "@/components/flexible/ContentEditor"
+import { Expos } from "@/components/flexible/Expos"
+import { FeaturedArtists } from "@/components/flexible/FeaturedArtists"
+import { Gallery } from "@/components/flexible/Gallery"
+import { HeroBanner } from "@/components/flexible/HeroBanner"
+import { MultiColumns } from "@/components/flexible/MultiColumns"
+import { YoutubePlayer } from "@/components/flexible/YoutubePlayer"
 
 export function FlexibleComponents({ flexibleContent }: any) {
   return (
@@ -41,7 +41,7 @@ function FlexibleComponent({ component }: any) {
         <YoutubePlayer {...component.youtubeVideo} />
       )}
       {component.fieldGroupName === "ContentEditor" && (
-        <PageContent {...component.contentEditor} />
+        <ContentEditor {...component.contentEditor} />
       )}
       {component.fieldGroupName === "Featured" && (
         <FeaturedArtists {...component.featured} />

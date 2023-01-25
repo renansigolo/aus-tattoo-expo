@@ -87,7 +87,6 @@ export function LoadMorePosts({
       first: PER_PAGE_FIRST,
       after: endCursor,
     }
-    console.log("🚀 ~ loadMoreItems ~ searchQuery", searchQuery)
 
     // If its a search query then add the query in the query variables.
     // if (searchQuery) {

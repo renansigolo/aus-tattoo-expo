@@ -1,5 +1,5 @@
-import { Grid } from "@/components/Grid"
-import { PageContent } from "@/components/PageContent"
+import { ContentEditor } from "@/components/flexible/ContentEditor"
+import { Grid } from "@/components/layout/Grid"
 
 type MultiColumnsProps = {
   items: [
@@ -12,7 +12,7 @@ export function MultiColumns({ items }: MultiColumnsProps) {
   return (
     <Grid columns={items.length}>
       {items?.map(({ content }, index) => (
-        <PageContent content={content} key={index} />
+        <ContentEditor content={content} key={index} />
       ))}
     </Grid>
   )

@@ -1,4 +1,4 @@
-import { SocialMediaIcons } from "@/components/SocialMediaIcons"
+import { SocialMediaIcons } from "@/components/data-display/SocialMediaIcons"
 import { GetLayout } from "@/interfaces/get-layout"
 import { classNames } from "@/lib/utils/cn"
 import { Popover, Transition } from "@headlessui/react"

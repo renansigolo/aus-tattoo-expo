@@ -1,8 +1,8 @@
-type PageContentProps = {
+type ContentEditorProps = {
   content: string | null
 }
 
-export const PageContent = ({ content }: PageContentProps) => {
+export const ContentEditor = ({ content }: ContentEditorProps) => {
   if (!content) return null
 
   return (

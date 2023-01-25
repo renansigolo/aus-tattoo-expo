@@ -1,50 +1,18 @@
-import { Transition } from "@headlessui/react"
 import {
-  CheckCircleIcon,
-  ExclamationCircleIcon,
-  ExclamationTriangleIcon,
-  XCircleIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline"
+  SeverityIcon,
+  SeverityProps,
+} from "@/components/feedback/NotificationIcon"
+import { Transition } from "@headlessui/react"
+import { XMarkIcon } from "@heroicons/react/24/outline"
 import { Fragment, useState } from "react"
 
-type NotificationProps = {
-  status: "success" | "warning" | "error"
+type NotificationProps = SeverityProps & {
   title: string
   message?: string
 }
-export function Notification({ status, title, message }: NotificationProps) {
+export function Notification({ severity, title, message }: NotificationProps) {
   const [show, setShow] = useState(true)
-  const NotificationIcon = () => {
-    switch (status) {
-      case "success":
-        return (
-          <CheckCircleIcon
-            className="h-6 w-6 text-green-400"
-            aria-hidden="true"
-          />
-        )
-      case "warning":
-        return (
-          <ExclamationTriangleIcon
-            className="h-6 w-6 text-yellow-400"
-            aria-hidden="true"
-          />
-        )
-      case "error":
-        return (
-          <XCircleIcon className="h-6 w-6 text-red-400" aria-hidden="true" />
-        )
 
-      default:
-        return (
-          <ExclamationCircleIcon
-            className="h-6 w-6 text-blue-400"
-            aria-hidden="true"
-          />
-        )
-    }
-  }
   return (
     <>
       {/* Global notification live region, render this permanently at the end of the document */}
@@ -68,7 +36,7 @@ export function Notification({ status, title, message }: NotificationProps) {
               <div className="p-4">
                 <div className="flex items-start">
                   <div className="flex-shrink-0">
-                    <NotificationIcon />
+                    <SeverityIcon severity={severity} />
                   </div>
                   <div className="ml-3 w-0 flex-1 pt-0.5">
                     <p className="text-sm font-medium text-gray-900">{title}</p>

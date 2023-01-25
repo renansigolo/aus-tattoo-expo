@@ -1,4 +1,4 @@
-import { CardImage } from "@/components/CardImage"
+import { CardImage } from "@/components/data-display/CardImage"
 import { WPImage } from "@/lib/utils/types"
 
 export type FeaturedArtist = {

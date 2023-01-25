@@ -1,4 +1,4 @@
-import { Container } from "@/components/Container"
+import { Container } from "@/components/layout/Container"
 import { LoadMorePosts } from "@/components/posts/LoadMorePosts"
 import { SearchBox } from "@/components/search/SearchBox"
 import { PER_PAGE_FIRST } from "@/lib/utils/pagination"

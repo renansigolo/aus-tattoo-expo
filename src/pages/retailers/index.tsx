@@ -1,5 +1,5 @@
-import { CardImage } from "@/components/CardImage"
-import { Container } from "@/components/Container"
+import { CardImage } from "@/components/data-display/CardImage"
+import { Container } from "@/components/layout/Container"
 import { getAllRetailers } from "@/lib/queries"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
 

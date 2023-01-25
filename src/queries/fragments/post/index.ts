@@ -1,4 +1,4 @@
-import { ImageFragment } from "src/queries/fragments/image"
+import { ImageFragment } from "@/queries/fragments/image"
 
 export const PostFragment = `
  ${ImageFragment}

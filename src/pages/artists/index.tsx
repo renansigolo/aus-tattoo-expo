@@ -1,6 +1,6 @@
 import client from "@/apollo/client"
-import { CardImage } from "@/components/CardImage"
-import { Container } from "@/components/Container"
+import { CardImage } from "@/components/data-display/CardImage"
+import { Container } from "@/components/layout/Container"
 import { GetAllArtistsPosts } from "@/interfaces/get-all-artists-posts"
 import { PER_PAGE_FIRST } from "@/lib/utils/pagination"
 import { GET_ARTISTS } from "@/queries/get-artists"

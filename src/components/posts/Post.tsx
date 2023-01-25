@@ -1,7 +1,12 @@
-import { CardImage } from "@/components/CardImage"
+import { CardImage } from "@/components/data-display/CardImage"
 
-export function Post({ post }: any) {
+type PostProps = {
+  post: any
+}
+
+export function Post({ post }: PostProps) {
   const postData = post?.node ?? post
+
   return (
     <div className="mb-8">
       <CardImage

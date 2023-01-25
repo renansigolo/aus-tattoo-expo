@@ -1,6 +1,6 @@
 import client from "@/apollo/client"
-import { Carousel } from "@/components/Carousel"
-import { Container } from "@/components/Container"
+import { Carousel } from "@/components/flexible/Carousel"
+import { Container } from "@/components/layout/Container"
 import { LoadMorePosts } from "@/components/posts/LoadMorePosts"
 import { Posts } from "@/components/posts/Posts"
 import { GetArtistsTaxonomies } from "@/interfaces/get-artists-taxonomies"
