@@ -4,12 +4,14 @@ import { SyntheticEvent } from "react"
 type SearchBoxProps = {
   searchQuery: string
   setSearchQuery: (searchQuery: string) => void
+  setSelectedCategory: (selectedCategory: string) => void
   handleSearchFormSubmit: (event: SyntheticEvent) => void
 }
 
 export function SearchBox({
   searchQuery,
   setSearchQuery,
+  setSelectedCategory,
   handleSearchFormSubmit,
 }: SearchBoxProps) {
   return (
@@ -23,6 +25,7 @@ export function SearchBox({
         <SearchForm
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
+          setSelectedCategory={setSelectedCategory}
           handleSearchFormSubmit={handleSearchFormSubmit}
         />
       </div>

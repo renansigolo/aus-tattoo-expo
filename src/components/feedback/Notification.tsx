@@ -1,7 +1,4 @@
-import {
-  SeverityIcon,
-  SeverityProps,
-} from "@/components/feedback/NotificationIcon"
+import { SeverityIcon, SeverityProps } from "@/components/feedback/SeverityIcon"
 import { Transition } from "@headlessui/react"
 import { XMarkIcon } from "@heroicons/react/24/outline"
 import { Fragment, useState } from "react"

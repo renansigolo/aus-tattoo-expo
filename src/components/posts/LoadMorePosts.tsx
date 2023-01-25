@@ -110,22 +110,16 @@ export function LoadMorePosts({
     <div className={classes}>
       <Posts posts={postsData} />
 
-      {hasNextPage ? (
+      {hasNextPage && (
         <div className="flex w-full justify-center lg:my-10">
-          {loading ? (
-            <div className="my-8 flex w-full justify-center border border-white px-3 py-2">
-              Loading...
-            </div>
-          ) : (
-            <button
-              className="btn-primary"
-              onClick={() => loadMoreItems(endCursor)}
-            >
-              Load more
-            </button>
-          )}
+          <button
+            className="btn-primary"
+            onClick={() => loadMoreItems(endCursor)}
+          >
+            {loading ? "Loading..." : "Load more"}
+          </button>
         </div>
-      ) : null}
+      )}
 
       {error && (
         <div className="my-10 flex w-full justify-center">

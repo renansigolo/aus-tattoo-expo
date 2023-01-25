@@ -1,5 +1,7 @@
+import { Alert } from "@/components/feedback/Alert"
 import { Container } from "@/components/layout/Container"
 import { LoadMorePosts } from "@/components/posts/LoadMorePosts"
+import { ResultInfo } from "@/components/search/ResultInfo"
 import { SearchBox } from "@/components/search/SearchBox"
 import { PER_PAGE_FIRST } from "@/lib/utils/pagination"
 import {
@@ -11,8 +13,9 @@ import { SyntheticEvent, useState } from "react"
 
 export default function Search() {
   const [searchQuery, setSearchQuery] = useState("")
+  const [selectedCategory, setSelectedCategory] = useState("")
   const [searchError, setSearchError] = useState("")
-  const [queryResultPosts, setQueryResultPosts] = useState({})
+  const [queryResultPosts, setQueryResultPosts] = useState<any>({})
   const [showResultInfo, setShowResultInfo] = useState(false)
 
   const [fetchPosts, { loading }] = useLazyQuery(
@@ -48,21 +51,36 @@ export default function Search() {
         first: PER_PAGE_FIRST,
         after: null,
         query: searchQuery,
+        categoryName: selectedCategory,
       },
     })
 
     return null
   }
 
+  const totalPostResultCount =
+    queryResultPosts?.pageInfo?.offsetPagination?.total
+
   return (
     <div className="text-white">
       <SearchBox
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
+        setSelectedCategory={setSelectedCategory}
         handleSearchFormSubmit={handleSearchFormSubmit}
       />
 
       <Container>
+        {searchError && <Alert severity="error">{searchError}</Alert>}
+
+        {showResultInfo && (
+          <ResultInfo
+            showResultInfo={showResultInfo}
+            totalPostResultCount={totalPostResultCount}
+            classnames="mt-4 text-center"
+          />
+        )}
+
         <LoadMorePosts
           posts={queryResultPosts}
           graphQLQuery={GET_SEARCH_RESULTS}
