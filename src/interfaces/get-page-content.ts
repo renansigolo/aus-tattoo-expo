@@ -75,6 +75,7 @@ type CtaBanner = {
 }
 
 type Expos = {
+  useDefaultValues: boolean
   locations: null
   __typename: string
 }

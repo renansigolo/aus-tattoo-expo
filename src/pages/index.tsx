@@ -20,7 +20,6 @@ export const getStaticProps = (async () => {
   const { data } = await client.query<GetPageContent>({
     query: GET_PAGE_CONTENT,
   })
-  console.log("🚀 ~ getStaticProps ~ data", JSON.stringify(data))
 
   // Extract the last part of the fieldGroupName
   for (const component of data?.page?.flexibleContent?.components) {

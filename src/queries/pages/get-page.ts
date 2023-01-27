@@ -78,11 +78,16 @@ export const GET_PAGE_CONTENT = gql`
           ... on Page_Flexiblecontent_Components_Expos {
             fieldGroupName
             expos {
+              useDefaultValues
               locations {
                 date
                 title
-                url
                 venue
+                link {
+                  url
+                  target
+                  title
+                }
               }
             }
           }
