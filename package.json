@@ -15,13 +15,13 @@
     "start": "next start"
   },
   "dependencies": {
-    "@apollo/client": "3.7.4",
+    "@apollo/client": "3.7.5",
     "@fortawesome/fontawesome-svg-core": "6.2.1",
     "@fortawesome/free-brands-svg-icons": "6.2.1",
     "@fortawesome/free-regular-svg-icons": "6.2.1",
     "@fortawesome/react-fontawesome": "0.2.0",
     "@headlessui/react": "1.7.7",
-    "@heroicons/react": "2.0.13",
+    "@heroicons/react": "2.0.14",
     "@next/font": "13.1.5",
     "@stripe/stripe-js": "1.46.0",
     "@tailwindcss/forms": "0.5.3",
@@ -31,9 +31,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "sharp": "0.31.3",
-    "stripe": "11.7.0",
+    "stripe": "11.8.0",
     "swiper": "8.4.6",
-    "swr": "2.0.1",
     "zod": "3.20.2"
   },
   "devDependencies": {
@@ -48,7 +47,7 @@
     "eslint-config-prettier": "8.6.0",
     "postcss": "8.4.21",
     "prettier": "2.8.3",
-    "prettier-plugin-tailwindcss": "0.2.1",
+    "prettier-plugin-tailwindcss": "0.2.2",
     "tailwindcss": "3.2.4",
     "typescript": "4.9.4"
   }
