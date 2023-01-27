@@ -1,5 +1,7 @@
+import client from "@/apollo/client"
+import { GetPageContent } from "@/interfaces/get-page-content"
 import { PageTemplate } from "@/layouts/PageTemplate"
-import { getPageContent } from "@/lib/queries"
+import { GET_PAGE_CONTENT } from "@/queries/pages/get-page"
 import { GetServerSideProps, InferGetServerSidePropsType } from "next"
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>
@@ -15,9 +17,19 @@ export default function Page({ page }: Props) {
 }
 
 export const getServerSideProps = (async (ctx) => {
-  const page = await getPageContent(ctx.resolvedUrl)
+  const { data } = await client.query<GetPageContent>({
+    query: GET_PAGE_CONTENT,
+    variables: { uri: ctx.resolvedUrl },
+  })
+
+  // Extract the last part of the fieldGroupName
+  for (const component of data?.page?.flexibleContent?.components) {
+    component.fieldGroupName = component.fieldGroupName
+      .split("_")
+      .pop() as string
+  }
 
   return {
-    props: { page },
+    props: { ...data },
   }
 }) satisfies GetServerSideProps

@@ -1,17 +1,12 @@
 import { FlexibleComponents } from "@/components/flexible/FlexibleComponents"
 import { HeroBanner } from "@/components/flexible/HeroBanner"
 import { Container } from "@/components/layout/Container"
-import { WPImage } from "@/lib/utils/types"
-
-type HeroImage = {
-  image: WPImage
-}
 
 type PageTemplateProps = {
   flexibleContent: {
     components: any[]
   }
-  heroBanner?: HeroImage
+  heroBanner?: any
   isFrontPage?: boolean
   title?: string
 }

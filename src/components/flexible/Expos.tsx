@@ -6,44 +6,65 @@ const defaultLocations = {
       title: "Sydney",
       date: "April 1-3",
       venue: "ICC",
-      url: "https://www.eventbrite.com.au/e/australian-tattoo-expo-sydney-2023-tickets-506941003187?aff=odcleoeventsincollection",
+      link: {
+        url: "/artists/sydney-2022",
+        target: "",
+        title: "",
+      },
     },
     {
       title: "Brisbane",
       date: "July 15-17",
       venue: "BCEC",
-      url: "https://www.eventbrite.com.au/e/australian-tattoo-expo-brisbane-2023-tickets-509740135467?aff=odcleoeventsincollection",
+      link: {
+        url: "/artists/brisbane-2022",
+        target: "",
+        title: "",
+      },
     },
     {
       title: "Perth",
       date: "Sept 9-11",
       venue: "PCEC",
-      url: "https://www.eventbrite.com.au/e/australian-tattoo-expo-perth-2023-tickets-509749453337?aff=odcleoeventsincollection",
+      link: {
+        url: "/artists/perth-2022",
+        target: "",
+        title: "",
+      },
     },
     {
       title: "Melbourne",
       date: "Dec 2-4",
       venue: "MCEC",
-      url: "https://www.eventbrite.com.au/e/australian-tattoo-expo-melbourne-2023-tickets-509750676997?aff=odcleoeventsincollection",
+      link: {
+        url: "/artists/melbourne-2022",
+        target: "",
+        title: "",
+      },
     },
   ],
+}
+
+type LinkProps = {
+  url: string
+  title: string | ""
+  target: string | ""
 }
 
 export type EventLocation = {
   date: string
   title: string
   venue: string
-  url: string | null
+  link: LinkProps | null
 }
 
 type ExposProps = {
-  locations: EventLocation[] | null
+  useDefaultValues: boolean
+  locations?: EventLocation[] | null
 }
 
-export function Expos({ locations }: ExposProps) {
-  if (!locations) {
-    locations = defaultLocations.locations
-  }
+export function Expos({ locations, useDefaultValues }: ExposProps) {
+  if (useDefaultValues) locations = defaultLocations.locations
 
   return (
     <section className="py-5 text-gray-400">
@@ -59,8 +80,8 @@ export function Expos({ locations }: ExposProps) {
             } hover:cursor-pointer hover:text-white`}
           >
             <Link
-              href={location.url || "#"}
-              target="_blank"
+              href={location.link?.url || "#"}
+              target={location.link?.target || "_self"}
               rel="noreferrer"
               className="flex flex-col items-center text-center uppercase"
             >

@@ -4,7 +4,7 @@ import { CallToAction } from "@/components/flexible/CallToAction"
 import { Carousel } from "@/components/flexible/Carousel"
 import { ContentEditor } from "@/components/flexible/ContentEditor"
 import { Expos } from "@/components/flexible/Expos"
-import { FeaturedArtists } from "@/components/flexible/FeaturedArtists"
+import { Featured } from "@/components/flexible/Featured"
 import { Gallery } from "@/components/flexible/Gallery"
 import { HeroBanner } from "@/components/flexible/HeroBanner"
 import { MultiColumns } from "@/components/flexible/MultiColumns"
@@ -44,7 +44,7 @@ function FlexibleComponent({ component }: any) {
         <ContentEditor {...component.contentEditor} />
       )}
       {component.fieldGroupName === "Featured" && (
-        <FeaturedArtists {...component.featured} />
+        <Featured {...component.featured} />
       )}
       {component.fieldGroupName === "Carousel" && (
         <Carousel {...component.carousel} />

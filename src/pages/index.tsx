@@ -1,30 +1,35 @@
+import client from "@/apollo/client"
+import { GetPageContent } from "@/interfaces/get-page-content"
 import { PageTemplate } from "@/layouts/PageTemplate"
-import { getPageContent } from "@/lib/queries"
+import { GET_PAGE_CONTENT } from "@/queries/pages/get-page"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
 export default function Home({ page }: Props) {
   return (
-    // <Layout data={data}>
     <PageTemplate
       heroBanner={page.pageHeading.heroBanner}
       flexibleContent={page.flexibleContent}
       isFrontPage={page.isFrontPage}
     />
-    // </Layout>
   )
 }
 
 export const getStaticProps = (async () => {
-  const page = await getPageContent("/")
+  const { data } = await client.query<GetPageContent>({
+    query: GET_PAGE_CONTENT,
+  })
 
-  // const { data } = await client.query<GetMenus>({
-  //   query: GET_MENUS,
-  // })
+  // Extract the last part of the fieldGroupName
+  for (const component of data?.page?.flexibleContent?.components) {
+    component.fieldGroupName = component.fieldGroupName
+      .split("_")
+      .pop() as string
+  }
 
   return {
-    props: { page },
+    props: { ...data },
     revalidate: 10,
   }
 }) satisfies GetStaticProps
