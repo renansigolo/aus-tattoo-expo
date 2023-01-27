@@ -9,6 +9,7 @@ import { GET_ARTIST_PROFILE } from "@/queries/get-artist-profile"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
 import Image from "next/image"
+import Link from "next/link"
 import { useRouter } from "next/router"
 import { useState } from "react"
 
@@ -22,6 +23,13 @@ export default function ArtistProfile({ post }: Props) {
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
   }
+
+  // Dynamically set grid columns based on the number of categories
+  const sectionsGrid =
+    post?.categories?.tattooStyle !== null ? "sm:grid-cols-2" : ""
+
+  // Dynamically set the category name
+  const category = router.pathname.split("/")[1]
 
   return (
     <>
@@ -90,7 +98,9 @@ export default function ArtistProfile({ post }: Props) {
                           <SocialMediaIcons {...post.artist} />
                         </div>
                       </div>
-                      <div className="grid grid-cols-1 divide-y divide-gray-200 border-t border-gray-200 bg-gray-50 sm:grid-cols-2 sm:divide-y-0 sm:divide-x">
+                      <div
+                        className={`grid grid-cols-1 divide-y divide-gray-200 border-t border-gray-200 bg-gray-50 sm:divide-y-0 sm:divide-x ${sectionsGrid}`}
+                      >
                         {post.categories.tattooStyle && (
                           <div className="px-6 py-5 text-center text-sm font-medium">
                             <span className="text-gray-900">Tattoo Style</span>
@@ -110,9 +120,16 @@ export default function ArtistProfile({ post }: Props) {
                             <span className="text-gray-900">Attending</span>
                             {post.categories.events.map((event) => (
                               <div key={event.name} className="my-1">
-                                <span className="text-gray-600">
-                                  {event.name}
-                                </span>
+                                <Link
+                                  className="hover:font-bold"
+                                  href={`/${category}/${event.name
+                                    .toLowerCase()
+                                    .replace(" ", "-")}`}
+                                >
+                                  <span className="text-gray-600">
+                                    {event.name}
+                                  </span>
+                                </Link>
                               </div>
                             ))}
                           </div>
