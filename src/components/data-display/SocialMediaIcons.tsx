@@ -6,7 +6,6 @@ import {
   faTwitter,
   IconDefinition,
 } from "@fortawesome/free-brands-svg-icons"
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Link from "next/link"
 
@@ -56,12 +55,6 @@ export function SocialMediaIcons({
       url: websiteUrl || "",
       brandColor: "hover:text-amber-500",
     },
-    {
-      id: "email",
-      icon: faEnvelope,
-      url: contactEmail || "",
-      brandColor: "hover:text-amber-500",
-    },
   ]
 
   return (
@@ -78,13 +71,7 @@ export function SocialMediaIcons({
                 item.brandColor
               )}
             >
-              {item.id === "email" ? (
-                <Link href={`mailto:${item.url}`}>
-                  <FontAwesomeIcon icon={item.icon} size="lg" />
-                </Link>
-              ) : (
-                <FontAwesomeIcon icon={item.icon} size="lg" />
-              )}
+              <FontAwesomeIcon icon={item.icon} size="2xl" />
             </Link>
           )
       )}
