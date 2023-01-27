@@ -7,35 +7,120 @@ type Page = {
   isFrontPage: boolean
   pageHeading: PageHeading
   flexibleContent: FlexibleContent
+  __typename: string
 }
 
 type FlexibleContent = {
   components: Component[]
+  __typename: string
 }
 
 type Component = {
   fieldGroupName: string
-  multiColumns: MultiColumns
+  ctaBanner?: CtaBanner
+  __typename: string
+  youtubeVideo?: YoutubeVideo
+  carousel?: Carousel
+  expos?: Expos
+  featured?: Featured
+  boxes?: Boxes
 }
 
-type MultiColumns = {
+type Boxes = {
   items: Item[]
+  __typename: string
 }
 
 type Item = {
-  content: string
+  image: Image
+  link: Link
+  __typename: string
+}
+
+type Image = {
+  sourceUrl: string
+  altText: AltText
+  title: string
+  __typename: Typename
+}
+
+export enum Typename {
+  MediaItem = "MediaItem",
+}
+
+export enum AltText {
+  Adamlynchtattoos = "adamlynchtattoos",
+  Empty = "",
+}
+
+type Link = {
+  url: string
+  title: string
+  target: string
+  __typename: string
+}
+
+type Carousel = {
+  images: Image[]
+  __typename: string
+}
+
+type CtaBanner = {
+  bannerType: string
+  fieldGroupName: string
+  text: null | string
+  image: null
+  link: Link
+  __typename: string
+}
+
+type Expos = {
+  locations: null
+  __typename: string
+}
+
+type Featured = {
+  title: string
+  featuredProfiles: FeaturedProfile[]
+  __typename: string
+}
+
+type FeaturedProfile = {
+  id: string
+  acfFeaturedImage: AcfFeaturedImage
+  title: string
+  slug: string
+  artist?: Artist
+  __typename: string
+  retailer?: Retailer
+}
+
+type AcfFeaturedImage = {
+  profileImage: Image
+  __typename: string
+}
+
+type Artist = {
+  studioName: string
+  __typename: string
+}
+
+type Retailer = {
+  websiteUrl: string
+  __typename: string
+}
+
+type YoutubeVideo = {
+  videoUrl: string
+  __typename: string
 }
 
 type PageHeading = {
   heroBanner: HeroBanner
+  __typename: string
 }
 
 type HeroBanner = {
-  image: Image
-}
-
-type Image = {
-  altText: string
-  sourceUrl: string
-  title: string
+  image: null
+  __typename: string
 }
