@@ -3,8 +3,10 @@ import { gql } from "@apollo/client"
 export const GET_PAGE_CONTENT = gql`
   query GetPageContent($uri: ID! = "/") {
     page(idType: URI, id: $uri) {
-      title
       isFrontPage
+      title
+      slug
+      uri
       pageHeading {
         heroBanner {
           image {
