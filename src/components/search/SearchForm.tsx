@@ -1,34 +1,8 @@
+import { GetTaxonomies } from "@/interfaces/get-taxonomies"
+import { GET_TAXONOMIES } from "@/queries/get-taxonomies"
+import { useQuery } from "@apollo/client"
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 import { SyntheticEvent } from "react"
-
-const tattooTaxonomies = {
-  nodes: [
-    { name: "All" },
-    { name: "Abstract" },
-    { name: "Anime" },
-    { name: "Apprentice" },
-    { name: "Bio Mechanical" },
-    { name: "Black and grey" },
-    { name: "Blackwork" },
-    { name: "Cosmetic" },
-    { name: "Dotwork / Linework" },
-    { name: "Fine Line" },
-    { name: "Floral" },
-    { name: "Freehand" },
-    { name: "Handpoke" },
-    { name: "Horror" },
-    { name: "Japanese" },
-    { name: "Micro" },
-    { name: "Neo-traditional" },
-    { name: "New School" },
-    { name: "Pop Culture" },
-    { name: "Realism" },
-    { name: "Script" },
-    { name: "Traditional" },
-    { name: "Tribal" },
-    { name: "Watercolour" },
-  ],
-}
 
 type SearchFormProps = {
   searchQuery: string
@@ -43,6 +17,9 @@ export default function SearchForm({
   setSelectedCategory,
   handleSearchFormSubmit,
 }: SearchFormProps) {
+  const { data } = useQuery<GetTaxonomies>(GET_TAXONOMIES)
+  const { tattooTaxonomies } = data || {}
+
   return (
     <form
       className="flex w-full flex-col items-center justify-center gap-4"
@@ -77,7 +54,7 @@ export default function SearchForm({
           onChange={(evt) => setSelectedCategory(evt.target.value)}
         >
           <option value="">Category</option>
-          {tattooTaxonomies.nodes.map((node) => (
+          {tattooTaxonomies?.nodes.map((node) => (
             <option key={node.name} value={node.name}>
               {node.name}
             </option>
