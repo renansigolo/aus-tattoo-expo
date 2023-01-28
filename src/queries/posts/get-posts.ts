@@ -4,7 +4,7 @@ import { gql } from "@apollo/client"
  * Get Artists Posts
  */
 export const GET_ARTISTS_POSTS = gql`
-  query GET_POSTS(
+  query GET_ARTISTS_POSTS(
     $uri: ID!
     $first: Int
     $after: String
@@ -68,7 +68,7 @@ export const GET_ARTISTS_POSTS = gql`
  * Get Artists Posts
  */
 export const GET_RETAILERS_POSTS = gql`
-  query GET_POSTS($uri: ID!, $first: Int, $after: String) {
+  query GET_RETAILERS_POSTS($uri: ID!, $first: Int, $after: String) {
     page(id: $uri, idType: URI) {
       id
       title

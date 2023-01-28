@@ -38,7 +38,7 @@ export const GET_SEARCH_RESULTS = gql`
  */
 export const GET_SEARCH_RESULTS_WITH_TOTAL_PAGES = gql`
   ${PostFragment}
-  query GET_SEARCH_RESULTS(
+  query GET_SEARCH_RESULTS_WITH_TOTAL_PAGES(
     $first: Int
     $after: String
     $query: String
