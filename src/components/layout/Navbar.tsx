@@ -174,12 +174,9 @@ export function Navbar({
                 <div className="mt-6">
                   <nav className="grid gap-y-8">
                     {menuItems.edges.map(({ node }, index) => (
-                      <Link
+                      <div
                         key={index}
-                        href={node.path || "#"}
-                        className="-m-3 flex flex-col rounded-md p-3 hover:bg-gray-50"
-                        target={(node.target ||= "_self")}
-                        onClick={() => close()}
+                        className="-m-3 flex flex-col rounded-md p-3"
                       >
                         <p className="ml-3 text-base font-medium text-gray-900">
                           {node.label}
@@ -189,13 +186,15 @@ export function Navbar({
                             key={node.label}
                             href={node.path || "#"}
                             target={(node.target ||= "_self")}
+                            className="hover:bg-gray-50"
+                            onClick={() => close()}
                           >
                             <p className="my-4 ml-6 text-base text-gray-500">
                               {node.label}
                             </p>
                           </Link>
                         ))}
-                      </Link>
+                      </div>
                     ))}
                   </nav>
                 </div>
