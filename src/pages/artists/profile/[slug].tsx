@@ -39,24 +39,32 @@ export default function ArtistProfile({ post }: Props) {
         ) : (
           <>
             <div className="mb-6 grid w-full justify-items-center">
-              <div className="opacity-50">
-                <HeroBanner
-                  sourceUrl={
-                    post.acfFeaturedImage.profileImage?.sourceUrl ||
-                    "/images/defaults/card-profile-placeholder.png"
-                  }
-                  altText={
-                    post.acfFeaturedImage.profileImage?.altText ||
-                    "Profile Image"
-                  }
-                  title={
-                    post.acfFeaturedImage.profileImage?.title || "Profile Image"
-                  }
-                />
-              </div>
-              <div className="absolute inline-grid items-center self-center text-center text-white">
-                <h2 className="mb-1 text-5xl font-semibold">{post.title}</h2>
-                <p className="text-xl">{post.artist.studioName}</p>
+              <div
+                className="grid w-full justify-items-center text-center uppercase"
+                style={{ display: "-webkit-flex", justifyContent: "center" }}
+              >
+                <div className="opacity-50">
+                  <HeroBanner
+                    sourceUrl={
+                      post.acfFeaturedImage.profileImage?.sourceUrl ||
+                      "/images/defaults/card-profile-placeholder.png"
+                    }
+                    altText={
+                      post.acfFeaturedImage.profileImage?.altText ||
+                      "Profile Image"
+                    }
+                    title={
+                      post.acfFeaturedImage.profileImage?.title ||
+                      "Profile Image"
+                    }
+                  />
+                </div>
+                <div className="absolute inline-grid items-center self-center text-center text-white">
+                  <h2 className="mb-1 text-3xl font-semibold sm:text-5xl">
+                    {post.title}
+                  </h2>
+                  <p className="sm:text-xl">{post.artist.studioName}</p>
+                </div>
               </div>
             </div>
             <article className="pb-8">
