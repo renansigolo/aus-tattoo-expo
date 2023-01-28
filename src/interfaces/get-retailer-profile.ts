@@ -42,7 +42,6 @@ type Image = {
 
 type RetailerRetailer = {
   contactMobile: null
-  contactEmail: string
   websiteUrl: string
   twitterUrl: string
   facebookUrl: string

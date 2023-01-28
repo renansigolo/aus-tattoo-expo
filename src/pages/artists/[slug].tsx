@@ -9,9 +9,20 @@ import { PER_PAGE_FIRST } from "@/lib/utils/pagination"
 import { GET_ARTISTS } from "@/queries/get-artists"
 import { GET_TAXONOMIES } from "@/queries/get-taxonomies"
 import { GET_ARTISTS_POSTS } from "@/queries/posts/get-posts"
+import localFont from "@next/font/local"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
 import { useRouter } from "next/router"
+
+const lango = localFont({
+  src: [
+    {
+      path: "../../../public/fonts/lango.woff2",
+      weight: "600",
+      style: "normal",
+    },
+  ],
+})
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -23,7 +34,7 @@ export default function EventsPage({ page, posts }: Props) {
   }
 
   return (
-    <>
+    <div className={lango.className}>
       <Container>
         {router.isFallback ? (
           <p>Loading…</p>
@@ -32,11 +43,11 @@ export default function EventsPage({ page, posts }: Props) {
             <Carousel useDefault={true} />
 
             <article className="py-8 text-white">
-              <h1 className="mb-8 text-center text-5xl">{page?.title}</h1>
+              <h1 className={"mb-8 text-center text-5xl"}>{page?.title}</h1>
               {page?.eventsContent?.featured && (
                 <>
                   {/* Featured Artists */}
-                  <h2 className="mb-8 text-center text-3xl">
+                  <h2 className="font mb-8 text-center text-3xl">
                     Featured Artists
                   </h2>
                   <Posts posts={page?.eventsContent?.featured} />
@@ -55,7 +66,7 @@ export default function EventsPage({ page, posts }: Props) {
           </>
         )}
       </Container>
-    </>
+    </div>
   )
 }
 

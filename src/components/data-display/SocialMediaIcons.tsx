@@ -12,7 +12,7 @@ import Link from "next/link"
 type SocialMediaContent = {
   id: string
   icon: IconDefinition
-  url: string
+  url: string | undefined
   brandColor: string
 }
 
@@ -21,14 +21,12 @@ type SocialMediaIconsProps = {
   facebookUrl?: string
   twitterUrl?: string
   websiteUrl?: string
-  contactEmail?: string
 }
 export function SocialMediaIcons({
   instagramUrl,
   facebookUrl,
   twitterUrl,
   websiteUrl,
-  contactEmail,
 }: SocialMediaIconsProps) {
   const socialMediaContent: SocialMediaContent[] = [
     {
@@ -52,7 +50,7 @@ export function SocialMediaIcons({
     {
       id: "website",
       icon: faChrome,
-      url: websiteUrl || "",
+      url: websiteUrl,
       brandColor: "hover:text-amber-500",
     },
   ]

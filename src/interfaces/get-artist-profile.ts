@@ -29,7 +29,6 @@ type MediaDetails = {
 type ArtistArtist = {
   studioName: string
   contactMobile: string
-  contactEmail: string
   websiteUrl: string
   twitterUrl: string
   facebookUrl: string
