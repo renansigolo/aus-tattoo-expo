@@ -8,7 +8,6 @@ import { ReactNode } from "react"
 
 type LayoutProps = {
   children: ReactNode
-  // data: GetLayout
 }
 export default function Layout({ children }: LayoutProps) {
   const { error, data } = useQuery<GetLayout>(GET_LAYOUT)
