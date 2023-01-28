@@ -21,14 +21,12 @@ type SocialMediaIconsProps = {
   facebookUrl?: string
   twitterUrl?: string
   websiteUrl?: string
-  contactEmail?: string
 }
 export function SocialMediaIcons({
   instagramUrl,
   facebookUrl,
   twitterUrl,
   websiteUrl,
-  contactEmail,
 }: SocialMediaIconsProps) {
   const socialMediaContent: SocialMediaContent[] = [
     {

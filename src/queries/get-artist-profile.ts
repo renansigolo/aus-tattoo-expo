@@ -6,7 +6,6 @@ export const GET_ARTIST_PROFILE = gql`
       artist {
         studioName
         contactMobile
-        contactEmail
         websiteUrl
         twitterUrl
         facebookUrl

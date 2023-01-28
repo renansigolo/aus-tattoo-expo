@@ -40,7 +40,6 @@ type MediaDetails = {
 
 type PostDetails = {
   contactMobile: string
-  contactEmail: string
   websiteUrl: string
   twitterUrl: string
   facebookUrl: string

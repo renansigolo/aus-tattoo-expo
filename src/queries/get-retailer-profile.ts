@@ -5,7 +5,6 @@ export const GET_RETAILER_PROFILE = gql`
     retailer(id: $id, idType: URI) {
       retailer {
         contactMobile
-        contactEmail
         websiteUrl
         twitterUrl
         facebookUrl
