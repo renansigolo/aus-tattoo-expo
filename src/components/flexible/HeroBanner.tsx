@@ -52,7 +52,9 @@ export function HeroBanner(heroBanner: HeroBannerProps) {
           width={1920}
           height={1080}
           alt={heroBanner?.image?.altText || title || "Hero Banner Title"}
-          src={heroBanner?.image?.sourceUrl || "/images/hero-banner.jpg"}
+          src={
+            heroBanner?.image?.sourceUrl || "/images/defaults/hero-banner.jpg"
+          }
           className="hidden h-auto max-h-72 rounded-sm object-cover sm:block"
         />
       </>
