@@ -24,7 +24,7 @@ export function Navbar({
 }: NavbarProps) {
   return (
     <Popover className="relative">
-      <div className="mx-auto max-w-5xl px-6">
+      <div className="mx-auto max-w-6xl px-6">
         <div className="flex min-w-full items-center justify-between py-6 lg:justify-start">
           {/* Desktop Logo */}
           <Link href="/" className="mr-6">
