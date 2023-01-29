@@ -1,6 +1,8 @@
+import { SeoFragment } from "@/queries/fragments/seo"
 import { gql } from "@apollo/client"
 
 export const GET_PAGE_CONTENT = gql`
+  ${SeoFragment}
   query GetPageContent($uri: ID! = "/") {
     page(idType: URI, id: $uri) {
       isFrontPage
@@ -15,6 +17,9 @@ export const GET_PAGE_CONTENT = gql`
             title
           }
         }
+      }
+      seo {
+        ...SeoFragment
       }
       flexibleContent {
         components {

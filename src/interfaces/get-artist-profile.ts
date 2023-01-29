@@ -3,6 +3,7 @@ export type GetArtistProfile = {
 }
 
 type GetArtistProfileArtist = {
+  seo: any
   artist: ArtistArtist
   acfFeaturedImage: AcfFeaturedImage
   title: string

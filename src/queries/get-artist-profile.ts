@@ -1,8 +1,13 @@
+import { SeoFragment } from "@/queries/fragments/seo"
 import { gql } from "@apollo/client"
 
 export const GET_ARTIST_PROFILE = gql`
+  ${SeoFragment}
   query GetArtistProfile($id: ID!) {
     artist(id: $id, idType: URI) {
+      seo {
+        ...SeoFragment
+      }
       artist {
         studioName
         contactMobile

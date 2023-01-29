@@ -3,6 +3,7 @@ import { SocialMediaIcons } from "@/components/data-display/SocialMediaIcons"
 import { HeroBanner } from "@/components/flexible/HeroBanner"
 import { Container } from "@/components/layout/Container"
 import { Modal } from "@/components/overlays/Modal"
+import { Seo } from "@/components/seo/seo"
 import { GetArtistProfile } from "@/interfaces/get-artist-profile"
 import { getPostsWithSlug } from "@/lib/queries"
 import { GET_ARTIST_PROFILE } from "@/queries/get-artist-profile"
@@ -38,6 +39,7 @@ export default function ArtistProfile({ post }: Props) {
           <p>Loading…</p>
         ) : (
           <>
+            <Seo seo={post.seo} />
             <div className="mb-6 grid w-full justify-items-center">
               <div
                 className="grid w-full justify-items-center text-center uppercase"

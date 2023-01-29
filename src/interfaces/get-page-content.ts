@@ -7,6 +7,7 @@ type Page = {
   isFrontPage: boolean
   pageHeading: PageHeading
   flexibleContent: FlexibleContent
+  seo: any
   __typename: string
 }
 
