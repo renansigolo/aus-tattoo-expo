@@ -1,3 +1,5 @@
+import { HeroBannerProps } from "@/components/flexible/HeroBanner"
+
 export type GetPageContent = {
   page: Page
 }
@@ -122,7 +124,4 @@ type PageHeading = {
   __typename: string
 }
 
-type HeroBanner = {
-  image: null
-  __typename: string
-}
+type HeroBanner = HeroBannerProps

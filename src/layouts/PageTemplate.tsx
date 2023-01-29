@@ -20,13 +20,7 @@ export function PageTemplate({
     <>
       <main className="min-h-[80vh] text-white">
         <Container>
-          <HeroBanner
-            sourceUrl={
-              heroBanner?.image?.sourceUrl || "/images/defaults/hero-banner.jpg"
-            }
-            altText={heroBanner?.image?.altText}
-            title={heroBanner?.image?.title}
-          />
+          <HeroBanner {...heroBanner} />
 
           {!isFrontPage && (
             <h1 className="my-8 block text-center text-3xl font-bold leading-8 tracking-tight text-white sm:text-5xl">

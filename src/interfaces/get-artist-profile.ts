@@ -1,3 +1,5 @@
+import { WPImage } from "@/lib/utils/types"
+
 export type GetArtistProfile = {
   artist: GetArtistProfileArtist
 }
@@ -12,7 +14,7 @@ type GetArtistProfileArtist = {
 }
 
 type AcfFeaturedImage = {
-  profileImage: Image
+  profileImage: WPImage
 }
 
 type Image = {

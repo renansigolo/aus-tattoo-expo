@@ -219,10 +219,7 @@ export default function Booths({ page }: Props) {
   return (
     <div>
       <Container>
-        <HeroBanner
-          sourceUrl="/images/defaults/hero-banner.jpg"
-          altText="HeroBanner"
-        />
+        <HeroBanner useDefaultValues={true} />
       </Container>
 
       <div className="bg-zinc-900">
