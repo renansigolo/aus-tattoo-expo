@@ -5,13 +5,14 @@ fragment SeoFragment on PostTypeSEO {
         url
       }
       title
+      canonical
       metaDesc
       metaRobotsNoindex
       metaRobotsNofollow
       opengraphAuthor
       opengraphDescription
       opengraphTitle
-      schemaDetails
+      opengraphUrl
       opengraphImage {
         sourceUrl
       }

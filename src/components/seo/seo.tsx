@@ -1,8 +1,14 @@
 import { NextSeo } from "next-seo"
 
-export function Seo({ seo, uri }: any) {
+type SeoProps = {
+  seo: any
+  uri?: string
+}
+export function Seo({ seo, uri }: SeoProps) {
   const {
     title,
+    canonical,
+    opengraphUrl,
     metaDesc,
     metaRobotsNoindex,
     metaRobotsNofollow,
@@ -12,17 +18,17 @@ export function Seo({ seo, uri }: any) {
     opengraphSiteName,
   } = seo
 
-  const currentLocation = process.browser ? window.location.origin : null
-  const opengraphUrl =
-    (process.env.NEXT_PUBLIC_NEXTJS_SITE_URL
-      ? process.env.NEXT_PUBLIC_NEXTJS_SITE_URL
-      : currentLocation) + uri
+  // const currentLocation = process.browser ? window.location.origin : null
+  // const opengraphUrl =
+  //   (process.env.NEXT_PUBLIC_VERCEL_URL
+  //     ? process.env.NEXT_PUBLIC_VERCEL_URL
+  //     : currentLocation) + uri
 
   return (
     <NextSeo
       title={title}
       description={opengraphDescription || metaDesc}
-      canonical={opengraphUrl}
+      canonical={canonical}
       noindex={"noindex" === metaRobotsNoindex}
       nofollow={"nofollow" === metaRobotsNofollow}
       openGraph={{
@@ -43,8 +49,8 @@ export function Seo({ seo, uri }: any) {
         /* eslint-enable */
       }}
       twitter={{
-        handle: "@handle",
-        site: "@site",
+        handle: "@austattooexpo",
+        site: "@austattooexpo",
         cardType: "summary_large_image",
       }}
     />

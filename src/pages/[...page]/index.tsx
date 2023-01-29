@@ -1,4 +1,5 @@
 import client from "@/apollo/client"
+import { Seo } from "@/components/seo/seo"
 import { GetPageContent } from "@/interfaces/get-page-content"
 import { PageTemplate } from "@/layouts/PageTemplate"
 import { GET_PAGE_CONTENT } from "@/queries/pages/get-page"
@@ -8,11 +9,14 @@ type Props = InferGetServerSidePropsType<typeof getServerSideProps>
 
 export default function Page({ page }: Props) {
   return (
-    <PageTemplate
-      title={page.title}
-      heroBanner={page.pageHeading.heroBanner}
-      flexibleContent={page.flexibleContent}
-    />
+    <>
+      <Seo seo={page.seo} />
+      <PageTemplate
+        title={page.title}
+        heroBanner={page.pageHeading.heroBanner}
+        flexibleContent={page.flexibleContent}
+      />
+    </>
   )
 }
 

@@ -69,7 +69,7 @@ export function SocialMediaIcons({
                 item.brandColor
               )}
             >
-              <FontAwesomeIcon icon={item.icon} size="2xl" />
+              <FontAwesomeIcon icon={item.icon} size="xl" />
             </Link>
           )
       )}
