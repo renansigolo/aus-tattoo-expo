@@ -11,6 +11,12 @@ export const GET_PAGE_CONTENT = gql`
       uri
       pageHeading {
         heroBanner {
+          useDefaultValues
+          mobileImage {
+            altText
+            sourceUrl
+            title
+          }
           image {
             altText
             sourceUrl
@@ -26,6 +32,12 @@ export const GET_PAGE_CONTENT = gql`
           ... on Page_Flexiblecontent_Components_HeroBanner {
             fieldGroupName
             heroBanner {
+              useDefaultValues
+              mobileImage {
+                altText
+                sourceUrl
+                title
+              }
               image {
                 altText
                 sourceUrl

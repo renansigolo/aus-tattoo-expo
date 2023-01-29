@@ -5,7 +5,6 @@ import { Popover, Transition } from "@headlessui/react"
 import {
   Bars3Icon,
   ChevronDownIcon,
-  MagnifyingGlassIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline"
 import Image from "next/image"
@@ -122,9 +121,9 @@ export function Navbar({
                 Buy Tickets
               </Link>
             )}
-            <Link href="/search" className="text-white hover:text-primary-500">
+            {/* <Link href="/search" className="text-white hover:text-primary-500">
               <MagnifyingGlassIcon className="ml-2 h-6 w-6 " />
-            </Link>
+            </Link> */}
           </div>
 
           {/* Toggle Menu Button */}

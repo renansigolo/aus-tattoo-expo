@@ -47,17 +47,10 @@ export default function ArtistProfile({ post }: Props) {
               >
                 <div className="opacity-50">
                   <HeroBanner
-                    sourceUrl={
-                      post.acfFeaturedImage.profileImage?.sourceUrl ||
+                    useDefaultValues={false}
+                    image={
+                      post.acfFeaturedImage?.profileImage ||
                       "/images/defaults/card-profile-placeholder.png"
-                    }
-                    altText={
-                      post.acfFeaturedImage.profileImage?.altText ||
-                      "Profile Image"
-                    }
-                    title={
-                      post.acfFeaturedImage.profileImage?.title ||
-                      "Profile Image"
                     }
                   />
                 </div>
