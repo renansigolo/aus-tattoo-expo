@@ -7,7 +7,7 @@ export const ContentEditor = ({ content }: ContentEditorProps) => {
 
   return (
     <div
-      className="prose prose-invert prose-pink mt-6 max-w-none text-gray-100"
+      className="prose prose-invert prose-pink mb-4 max-w-none text-gray-100 prose-img:my-3"
       dangerouslySetInnerHTML={{ __html: content }}
     />
   )

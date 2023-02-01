@@ -23,7 +23,7 @@ type CallToActionProps = {
 }
 export function CallToAction(content: CallToActionProps) {
   return (
-    <div className="py-3 text-center">
+    <div className="text-center">
       <h2 className="text-3xl font-bold uppercase text-primary">
         <Link
           href={content.link?.url || "#"}
