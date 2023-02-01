@@ -91,7 +91,7 @@ export function Expos({ locations, useDefaultValues }: ExposProps) {
               <span className="text-3xl font-bold">{location.title}</span>
               {location.date}
               <br />
-              {location.venue},&nbsp;{location.title}
+              {location.venue}
             </Link>
           </li>
         ))}
