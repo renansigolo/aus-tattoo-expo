@@ -55,7 +55,7 @@ export function HeroBanner(heroBanner: HeroBannerProps) {
           src={
             heroBanner?.image?.sourceUrl || "/images/defaults/hero-banner.jpg"
           }
-          className="hidden h-auto rounded-sm object-cover sm:block"
+          className="hidden h-auto max-h-96 rounded-sm object-cover sm:block"
         />
       </>
     </section>
