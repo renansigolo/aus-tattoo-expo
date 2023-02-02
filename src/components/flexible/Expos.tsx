@@ -83,7 +83,7 @@ export function Expos({ locations, useDefaultValues }: ExposProps) {
               href={location.link?.url || "#"}
               target={location.link?.target || "_self"}
               rel="noreferrer"
-              className="flex flex-col items-center text-center uppercase"
+              className="group flex flex-col items-center text-center uppercase"
             >
               <div className="flex h-6 text-center">
                 {index === 0 && <span className="w-full">Next up:</span>}
@@ -92,6 +92,10 @@ export function Expos({ locations, useDefaultValues }: ExposProps) {
               {location.date}
               <br />
               {location.venue}
+              <br />
+              <button className="btn-primary mt-2 opacity-0 group-hover:opacity-100">
+                More Info
+              </button>
             </Link>
           </li>
         ))}
