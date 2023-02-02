@@ -3,6 +3,7 @@ import Link from "next/link"
 const defaultLocations = {
   locations: [
     {
+      upNext: true,
       title: "Sydney",
       date: "April 1-3",
       venue: "ICC",
@@ -13,6 +14,7 @@ const defaultLocations = {
       },
     },
     {
+      upNext: null,
       title: "Brisbane",
       date: "July 15-17",
       venue: "BCEC",
@@ -23,6 +25,7 @@ const defaultLocations = {
       },
     },
     {
+      upNext: null,
       title: "Perth",
       date: "Sept 9-11",
       venue: "PCEC",
@@ -33,6 +36,7 @@ const defaultLocations = {
       },
     },
     {
+      upNext: null,
       title: "Melbourne",
       date: "Dec 2-4",
       venue: "MCEC",
@@ -56,6 +60,7 @@ export type EventLocation = {
   title: string
   venue: string
   link: LinkProps | null
+  upNext: boolean | null
 }
 
 type ExposProps = {
@@ -76,7 +81,7 @@ export function Expos({ locations, useDefaultValues }: ExposProps) {
           <li
             key={location.title}
             className={`${
-              index === 0 && "text-white"
+              location.upNext && "text-white"
             } hover:cursor-pointer hover:text-white`}
           >
             <Link
@@ -86,7 +91,7 @@ export function Expos({ locations, useDefaultValues }: ExposProps) {
               className="group flex flex-col items-center text-center uppercase"
             >
               <div className="flex h-6 text-center">
-                {index === 0 && <span className="w-full">Next up:</span>}
+                {location.upNext && <span className="w-full">Next up:</span>}
               </div>
               <span className="text-3xl font-bold">{location.title}</span>
               {location.date}

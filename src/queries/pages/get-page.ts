@@ -99,6 +99,7 @@ export const GET_PAGE_CONTENT = gql`
             expos {
               useDefaultValues
               locations {
+                upNext
                 date
                 title
                 venue
