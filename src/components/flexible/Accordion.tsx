@@ -35,7 +35,10 @@ export function Accordion({ items }: AccordionProps) {
                   </Disclosure.Button>
                 </dt>
                 <Disclosure.Panel as="dd" className="mt-2 sm:pr-12">
-                  <p className="text-base text-gray-400">{item.description}</p>
+                  <div
+                    className="prose max-w-none text-base text-gray-400"
+                    dangerouslySetInnerHTML={{ __html: item.description }}
+                  ></div>
                 </Disclosure.Panel>
               </>
             )}
