@@ -3,26 +3,15 @@ import { Carousel } from "@/components/flexible/Carousel"
 import { Container } from "@/components/layout/Container"
 import { LoadMorePosts } from "@/components/posts/LoadMorePosts"
 import { Posts } from "@/components/posts/Posts"
-import { GetPosts } from "@/interfaces/get-posts"
+import { GetArtistsByEvent } from "@/interfaces/get-artists-by-event"
 import { GetTaxonomies } from "@/interfaces/get-taxonomies"
 import { PER_PAGE_FIRST } from "@/lib/utils/pagination"
 import { GET_ARTISTS } from "@/queries/get-artists"
+import { GET_ARTISTS_BY_EVENT } from "@/queries/get-artists-by-event"
 import { GET_TAXONOMIES } from "@/queries/get-taxonomies"
-import { GET_ARTISTS_POSTS } from "@/queries/posts/get-posts"
-import localFont from "@next/font/local"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
 import { useRouter } from "next/router"
-
-const lango = localFont({
-  src: [
-    {
-      path: "../../../public/fonts/lango.woff2",
-      weight: "600",
-      style: "normal",
-    },
-  ],
-})
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -34,7 +23,7 @@ export default function EventsPage({ page, posts }: Props) {
   }
 
   return (
-    <div className={lango.className}>
+    <div>
       <Container>
         {router.isFallback ? (
           <p>Loading…</p>
@@ -43,25 +32,36 @@ export default function EventsPage({ page, posts }: Props) {
             <Carousel useDefault={true} />
 
             <article className="py-8 text-white">
-              <h1 className={"mb-8 text-center text-5xl"}>{page?.title}</h1>
-              {page?.eventsContent?.featured && (
+              {page && (
                 <>
-                  {/* Featured Artists */}
-                  <h2 className="font mb-8 text-center text-3xl">
-                    Featured Artists
-                  </h2>
-                  <Posts posts={page?.eventsContent?.featured} />
+                  <h1 className={"mb-8 text-center text-5xl"}>{page?.title}</h1>
+                  {page?.eventsContent?.featured && (
+                    <>
+                      {/* Featured Artists */}
+                      <h2 className="font mb-8 text-center text-3xl">
+                        Featured Artists
+                      </h2>
+                      <Posts posts={page?.eventsContent?.featured} />
+                    </>
+                  )}
                 </>
               )}
 
-              <hr className="my-20" />
+              {posts.artists.edges.length > 0 && (
+                <>
+                  <h2 className="mb-2 text-center text-3xl">
+                    Artists Attending
+                  </h2>
+                  <h3 className="mb-8 text-center text-lg text-gray-400">
+                    {posts?.name}
+                  </h3>
 
-              <h2 className="mb-2 text-center text-3xl">Artists Attending</h2>
-              <h3 className="mb-8 text-center text-lg text-gray-400">
-                {page?.title}
-              </h3>
-
-              <LoadMorePosts posts={posts} graphQLQuery={GET_ARTISTS} />
+                  <LoadMorePosts
+                    posts={posts.artists}
+                    graphQLQuery={GET_ARTISTS}
+                  />
+                </>
+              )}
             </article>
           </>
         )}
@@ -71,8 +71,8 @@ export default function EventsPage({ page, posts }: Props) {
 }
 
 export const getStaticProps = (async ({ params }) => {
-  const { data } = await client.query<GetPosts>({
-    query: GET_ARTISTS_POSTS,
+  const { data } = await client.query<GetArtistsByEvent>({
+    query: GET_ARTISTS_BY_EVENT,
     variables: {
       id: params?.slug,
       uri: `artists/${params?.slug}`,
