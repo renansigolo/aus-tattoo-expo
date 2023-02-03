@@ -52,12 +52,6 @@ export function LoadMorePosts({
     },
   })
 
-  /**
-   * Calls fetchPosts
-   *
-   * fetchPosts() makes a client side request with the new endcursor info,
-   * to get next set of posts.
-   */
   const loadMoreItems = (endCursor: string | null = null) => {
     let queryVariables = {
       first: PER_PAGE_FIRST,
@@ -74,12 +68,6 @@ export function LoadMorePosts({
     })
   }
 
-  /**
-   * Pull the endcursor and hasNextPage values from pageInfo
-   *
-   * Please note that pageInfo gets updated with new endCursor and hasNextPage
-   * values everytime a new client side request is made using setPageInfo()
-   */
   const { endCursor, hasNextPage } = pageInfo || {}
 
   return (

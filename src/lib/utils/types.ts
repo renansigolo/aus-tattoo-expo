@@ -13,3 +13,5 @@ export type WPLink = null | {
   title: string | ""
   url: string
 }
+
+export type WPCategories = "artists" | "retailers"

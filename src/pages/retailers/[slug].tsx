@@ -1,10 +1,8 @@
 import client from "@/apollo/client"
-import { Carousel } from "@/components/flexible/Carousel"
 import { Container } from "@/components/layout/Container"
-import { LoadMorePosts } from "@/components/posts/LoadMorePosts"
 import { GetTaxonomies } from "@/interfaces/get-taxonomies"
+import { EventsLayout } from "@/layouts/EventsLayout"
 import { PER_PAGE_FIRST } from "@/lib/utils/pagination"
-import { GET_RETAILERS } from "@/queries/get-retailers"
 import { GET_TAXONOMIES } from "@/queries/get-taxonomies"
 import { GET_RETAILERS_POSTS } from "@/queries/posts/get-posts"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
@@ -20,19 +18,15 @@ export default function EventsPage({ page, posts }: Props) {
     return <ErrorPage statusCode={404} />
   }
 
+  const category = router.asPath.split("/")?.[1] as any
+
   return (
     <>
       <Container>
         {router.isFallback ? (
           <p>Loading…</p>
         ) : (
-          <>
-            <Carousel useDefault={true} />
-
-            <article className="py-8 text-white">
-              <LoadMorePosts posts={posts} graphQLQuery={GET_RETAILERS} />
-            </article>
-          </>
+          <EventsLayout page={page} posts={posts} category={category} />
         )}
       </Container>
     </>
