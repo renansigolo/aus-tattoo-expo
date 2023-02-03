@@ -9,6 +9,9 @@ export const GET_ARTISTS_BY_EVENT = gql`
     $categoryName: String
   ) {
     page(id: $uri, idType: URI) {
+      title
+      slug
+      uri
       eventsContent {
         featured {
           ... on Artist {

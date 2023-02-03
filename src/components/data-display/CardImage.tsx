@@ -29,7 +29,7 @@ export function CardImage({
         <Link href={uri} className="absolute inset-0 focus:outline-none" />
       </figure>
 
-      <p className="pointer-events-none mt-2 block truncate text-lg font-medium uppercase text-gray-50">
+      <p className="lango pointer-events-none mt-2 block truncate text-lg font-medium uppercase text-gray-50">
         {title}
       </p>
 

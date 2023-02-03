@@ -24,7 +24,7 @@ type CallToActionProps = {
 export function CallToAction(content: CallToActionProps) {
   return (
     <div className="text-center">
-      <h2 className="text-3xl font-bold uppercase text-primary">
+      <h3 className="text-3xl font-bold uppercase text-primary">
         <Link
           href={content.link?.url || "#"}
           target={content.link?.target || "_self"}
@@ -52,7 +52,7 @@ export function CallToAction(content: CallToActionProps) {
             />
           )}
         </Link>
-      </h2>
+      </h3>
     </div>
   )
 }
