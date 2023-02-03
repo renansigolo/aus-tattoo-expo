@@ -15,7 +15,6 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["var(--font-open-sans)", ...defaultTheme.fontFamily.sans],
-        lango: ["var(--font-lango)"],
       },
       colors: {
         primary: {

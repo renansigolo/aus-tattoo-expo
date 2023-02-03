@@ -16,7 +16,7 @@ const openSans = Open_Sans({
   variable: "--font-open-sans",
 })
 
-export const lango = localFont({
+const lango = localFont({
   src: [
     {
       path: "../../public/fonts/lango.woff2",
@@ -24,7 +24,6 @@ export const lango = localFont({
       style: "normal",
     },
   ],
-  variable: "--font-lango",
 })
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -33,6 +32,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <style jsx global>{`
         h1,
         h2 {
+          font-family: ${lango.style.fontFamily};
+        }
+        .lango {
           font-family: ${lango.style.fontFamily};
         }
       `}</style>
