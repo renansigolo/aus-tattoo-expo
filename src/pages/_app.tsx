@@ -29,7 +29,7 @@ export const lango = localFont({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <div className={`${openSans.variable} ${lango.className} font-sans`}>
+    <div className={`${openSans.variable} font-sans`}>
       <style jsx global>{`
         h1,
         h2 {
