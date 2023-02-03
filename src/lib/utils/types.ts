@@ -7,3 +7,9 @@ export type WPImage = {
     height: string
   }
 }
+
+export type WPLink = null | {
+  target: string | ""
+  title: string | ""
+  url: string
+}

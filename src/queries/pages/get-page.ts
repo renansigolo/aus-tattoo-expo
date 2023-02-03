@@ -1,8 +1,10 @@
+import { ImageFragment } from "@/queries/fragments/image"
 import { SeoFragment } from "@/queries/fragments/seo"
 import { gql } from "@apollo/client"
 
 export const GET_PAGE_CONTENT = gql`
   ${SeoFragment}
+  ${ImageFragment}
   query GetPageContent($uri: ID! = "/") {
     page(idType: URI, id: $uri) {
       isFrontPage
@@ -13,14 +15,10 @@ export const GET_PAGE_CONTENT = gql`
         heroBanner {
           useDefaultValues
           mobileImage {
-            altText
-            sourceUrl
-            title
+            ...ImageFragment
           }
           image {
-            altText
-            sourceUrl
-            title
+            ...ImageFragment
           }
         }
       }
@@ -34,14 +32,10 @@ export const GET_PAGE_CONTENT = gql`
             heroBanner {
               useDefaultValues
               mobileImage {
-                altText
-                sourceUrl
-                title
+                ...ImageFragment
               }
               image {
-                altText
-                sourceUrl
-                title
+                ...ImageFragment
               }
             }
           }
@@ -83,9 +77,7 @@ export const GET_PAGE_CONTENT = gql`
               fieldGroupName
               text
               image {
-                altText
-                title
-                sourceUrl
+                ...ImageFragment
               }
               link {
                 target
@@ -116,9 +108,7 @@ export const GET_PAGE_CONTENT = gql`
             boxes {
               items {
                 image {
-                  sourceUrl
-                  altText
-                  title
+                  ...ImageFragment
                 }
                 link {
                   url
@@ -148,9 +138,7 @@ export const GET_PAGE_CONTENT = gql`
                   id
                   acfFeaturedImage {
                     profileImage {
-                      altText
-                      title
-                      sourceUrl
+                      ...ImageFragment
                     }
                   }
                   title
@@ -163,9 +151,7 @@ export const GET_PAGE_CONTENT = gql`
                   id
                   acfFeaturedImage {
                     profileImage {
-                      altText
-                      title
-                      sourceUrl
+                      ...ImageFragment
                     }
                   }
                   title
@@ -174,6 +160,25 @@ export const GET_PAGE_CONTENT = gql`
                     websiteUrl
                   }
                 }
+              }
+            }
+          }
+          ... on Page_Flexiblecontent_Components_TattooDetails {
+            fieldGroupName
+            tattooDetails {
+              rowDirection
+              title
+              description
+              mainImage {
+                ...ImageFragment
+              }
+              images {
+                ...ImageFragment
+              }
+              link {
+                url
+                title
+                target
               }
             }
           }
