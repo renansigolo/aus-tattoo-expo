@@ -87,7 +87,7 @@ export function LoadMorePosts({
 
       {error && (
         <div className="my-10 flex w-full justify-center">
-          No articles available
+          No data available
         </div>
       )}
     </div>
