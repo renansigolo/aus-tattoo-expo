@@ -8,6 +8,7 @@ import { Featured } from "@/components/flexible/Featured"
 import { Gallery } from "@/components/flexible/Gallery"
 import { HeroBanner } from "@/components/flexible/HeroBanner"
 import { MultiColumns } from "@/components/flexible/MultiColumns"
+import { TattooDetails } from "@/components/flexible/TattooDetails"
 import { YoutubePlayer } from "@/components/flexible/YoutubePlayer"
 
 export function FlexibleComponents({ flexibleContent }: any) {
@@ -48,6 +49,9 @@ function FlexibleComponent({ component }: any) {
       )}
       {component.fieldGroupName === "Carousel" && (
         <Carousel {...component.carousel} />
+      )}
+      {component.fieldGroupName === "TattooDetails" && (
+        <TattooDetails {...component.tattooDetails} />
       )}
       {component.fieldGroupName === "Expos" && <Expos {...component.expos} />}
       {component.fieldGroupName === "Boxes" && <Boxes {...component.boxes} />}
