@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 type TattooDetailsProps = {
-  rowDirection: "row" | "row-reverse"
+  rowDirection: "normal" | "reverse"
   title: string
   description: string
   mainImage: WPImage | null
@@ -13,10 +13,12 @@ type TattooDetailsProps = {
 }
 export function TattooDetails(props: TattooDetailsProps) {
   const { rowDirection, title, description, mainImage, images, link } = props
+  const rowDirectionClass =
+    rowDirection === "normal" ? "lg:flex-row" : "lg:flex-row-reverse"
 
   return (
     <>
-      <div className={classNames("flex flex-col gap-4", rowDirection)}>
+      <div className={classNames("flex flex-col gap-4", rowDirectionClass)}>
         <div className="w-full lg:w-1/2">
           <h2 className="mb-4 text-center text-3xl text-secondary-200 lg:text-start">
             {title}
@@ -40,11 +42,11 @@ export function TattooDetails(props: TattooDetailsProps) {
               {images?.map((image) => {
                 return (
                   <Image
+                    key={image?.title}
                     src={image?.sourceUrl || "https://placehold.co/256"}
-                    alt="Image"
+                    alt={image?.altText || "Image"}
                     width={512}
                     height={512}
-                    key={image.title}
                   />
                 )
               })}
