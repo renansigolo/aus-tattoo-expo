@@ -16,7 +16,7 @@ const openSans = Open_Sans({
   variable: "--font-open-sans",
 })
 
-const lango = localFont({
+export const lango = localFont({
   src: [
     {
       path: "../../public/fonts/lango.woff2",
@@ -30,6 +30,12 @@ const lango = localFont({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <div className={`${openSans.variable} ${lango.className} font-sans`}>
+      <style jsx global>{`
+        h1,
+        h2 {
+          font-family: ${lango.style.fontFamily};
+        }
+      `}</style>
       <ApolloProvider client={client}>
         <Layout>
           <Component {...pageProps} />

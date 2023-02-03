@@ -23,50 +23,46 @@ export default function EventsPage({ page, posts }: Props) {
   }
 
   return (
-    <div>
-      <Container>
-        {router.isFallback ? (
-          <p>Loading…</p>
-        ) : (
-          <>
-            <Carousel useDefault={true} />
+    <Container>
+      {router.isFallback ? (
+        <p>Loading…</p>
+      ) : (
+        <>
+          <Carousel useDefault={true} />
 
-            <article className="py-8 text-white">
-              {page && (
-                <>
-                  <h1 className={"mb-8 text-center text-5xl"}>{page?.title}</h1>
-                  {page?.eventsContent?.featured && (
-                    <>
-                      {/* Featured Artists */}
-                      <h2 className="font mb-8 text-center text-3xl">
-                        Featured Artists
-                      </h2>
-                      <Posts posts={page?.eventsContent?.featured} />
-                    </>
-                  )}
-                </>
-              )}
+          <article className="py-8 text-white">
+            {page && (
+              <>
+                <h1 className={"mb-8 text-center text-5xl"}>{page?.title}</h1>
+                {page?.eventsContent?.featured && (
+                  <>
+                    {/* Featured Artists */}
+                    <h2 className="font mb-8 text-center text-3xl">
+                      Featured Artists
+                    </h2>
+                    <Posts posts={page?.eventsContent?.featured} />
+                  </>
+                )}
+              </>
+            )}
 
-              {posts.artists.edges.length > 0 && (
-                <>
-                  <h2 className="mb-2 text-center text-3xl">
-                    Artists Attending
-                  </h2>
-                  <h3 className="mb-8 text-center text-lg text-gray-400">
-                    {posts?.name}
-                  </h3>
+            {posts.artists.edges.length > 0 && (
+              <>
+                <h2 className="mb-2 text-center text-3xl">Artists Attending</h2>
+                <h3 className="mb-8 text-center text-lg text-gray-400">
+                  {posts?.name}
+                </h3>
 
-                  <LoadMorePosts
-                    posts={posts.artists}
-                    graphQLQuery={GET_ARTISTS}
-                  />
-                </>
-              )}
-            </article>
-          </>
-        )}
-      </Container>
-    </div>
+                <LoadMorePosts
+                  posts={posts.artists}
+                  graphQLQuery={GET_ARTISTS}
+                />
+              </>
+            )}
+          </article>
+        </>
+      )}
+    </Container>
   )
 }
 

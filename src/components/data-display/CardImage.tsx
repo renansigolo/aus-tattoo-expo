@@ -1,4 +1,5 @@
 import { WPImage } from "@/lib/utils/types"
+import { lango } from "@/pages/_app"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -29,7 +30,9 @@ export function CardImage({
         <Link href={uri} className="absolute inset-0 focus:outline-none" />
       </figure>
 
-      <p className="pointer-events-none mt-2 block truncate text-lg font-medium uppercase text-gray-50">
+      <p
+        className={`"pointer-events-none text-gray-50" mt-2 block truncate text-lg font-medium uppercase ${lango.className}`}
+      >
         {title}
       </p>
 
