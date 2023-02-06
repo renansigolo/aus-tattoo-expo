@@ -76,6 +76,9 @@ export const GET_PAGE_CONTENT = gql`
               bannerType
               fieldGroupName
               text
+              mobileImage {
+                ...ImageFragment
+              }
               image {
                 ...ImageFragment
               }
