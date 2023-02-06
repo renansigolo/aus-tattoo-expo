@@ -97,10 +97,12 @@ export function Expos({ locations, useDefaultValues }: ExposProps) {
               {location.date}
               <br />
               {location.venue}
-              <br />
-              <button className="btn-primary mt-2 opacity-0 group-hover:opacity-100">
-                More Info
-              </button>
+              <div className="hidden lg:block">
+                <br />
+                <button className="btn-primary mt-2 hidden opacity-0 group-hover:opacity-100">
+                  More Info
+                </button>
+              </div>
             </Link>
           </li>
         ))}
