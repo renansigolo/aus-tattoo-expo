@@ -153,7 +153,7 @@ export function Navbar({
             <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
               <div className="px-5 pt-5 pb-6">
                 <div className="flex items-center justify-between">
-                  <div>
+                  <Link href="/" className="mr-6">
                     <Image
                       className="h-8 w-auto"
                       src={siteIdentity.logo.sourceUrl}
@@ -161,7 +161,7 @@ export function Navbar({
                       width={32}
                       height={32}
                     />
-                  </div>
+                  </Link>
                   {/* Close Mobile Menu Icon */}
                   <div className="-mr-2">
                     <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
@@ -177,9 +177,23 @@ export function Navbar({
                         key={index}
                         className="-m-3 flex flex-col rounded-md p-3"
                       >
-                        <p className="ml-3 text-base font-medium text-gray-900">
-                          {node.label}
-                        </p>
+                        {node.path && node.path !== "#" ? (
+                          <Link
+                            key={node.label}
+                            href={node.path || "#"}
+                            target={(node.target ||= "_self")}
+                            className="hover:bg-gray-50"
+                            onClick={() => close()}
+                          >
+                            <p className="ml-3 text-base font-medium text-gray-900">
+                              {node.label}
+                            </p>
+                          </Link>
+                        ) : (
+                          <p className="ml-3 text-base font-medium text-gray-900">
+                            {node.label}
+                          </p>
+                        )}
                         {node.childItems?.edges.map(({ node }) => (
                           <Link
                             key={node.label}

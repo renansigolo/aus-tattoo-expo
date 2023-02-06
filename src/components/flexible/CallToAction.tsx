@@ -2,17 +2,9 @@ import { WPImage } from "@/lib/utils/types"
 import Image from "next/image"
 import Link from "next/link"
 
-// const defaultCta = {
-//   text: "Follow for more <span class='text-white'>@AUSTATTOOEXPO</span>",
-//   image: {
-//     sourceUrl: "/images/defaults/cta-banner-image.jpg",
-//     altText: "Banner Image",
-//     title: "Banner Image",
-//   },
-// }
-
 type CallToActionProps = {
   bannerType: "button" | "text" | "image"
+  mobileImage?: WPImage
   image: WPImage
   link: null | {
     url: string
@@ -39,17 +31,37 @@ export function CallToAction(content: CallToActionProps) {
           )}
 
           {content.bannerType === "image" && (
-            <Image
-              src={
-                content.image?.sourceUrl ||
-                "/images/defaults/cta-banner-image.jpg"
-              }
-              width={1024}
-              height={127}
-              alt={
-                content.image?.altText || content.image?.title || "Banner Image"
-              }
-            />
+            <>
+              <Image
+                className="lg:hidden"
+                src={
+                  content.mobileImage?.sourceUrl ||
+                  "/images/defaults/cta-banner-image.jpg"
+                }
+                width={1024}
+                height={127}
+                alt={
+                  content.mobileImage?.altText ||
+                  content.mobileImage?.title ||
+                  "Banner Image"
+                }
+              />
+
+              <Image
+                className="hidden lg:block"
+                src={
+                  content.image?.sourceUrl ||
+                  "/images/defaults/cta-banner-image.jpg"
+                }
+                width={1024}
+                height={127}
+                alt={
+                  content.image?.altText ||
+                  content.image?.title ||
+                  "Banner Image"
+                }
+              />
+            </>
           )}
         </Link>
       </h3>
