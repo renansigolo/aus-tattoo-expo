@@ -151,7 +151,7 @@ export default function ArtistProfile({ post }: Props) {
                       {post.artist.images?.map((image, index) => (
                         <div
                           key={index}
-                          className="group relative mb-2 h-96 rounded-md border-2 border-gray-800 hover:cursor-pointer hover:border-pink-300 lg:mb-0"
+                          className="group relative mb-2 h-96 w-96 justify-self-center rounded-md border-2 border-gray-800 hover:cursor-pointer hover:border-pink-300 lg:mb-0 "
                           onClick={() => {
                             setImageRef(image.sourceUrl)
                             setOpen(true)
@@ -191,7 +191,7 @@ export const getStaticProps = (async ({ params }) => {
     props: {
       post: data.artist,
     },
-    revalidate: 10,
+    revalidate: 30,
   }
 }) satisfies GetStaticProps
 

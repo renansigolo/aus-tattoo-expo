@@ -38,7 +38,10 @@ export const GET_ARTISTS_BY_EVENT = gql`
       artists(
         first: $first
         after: $after
-        where: { categoryName: $categoryName }
+        where: {
+          categoryName: $categoryName
+          orderby: { field: TITLE, order: ASC }
+        }
       ) {
         edges {
           node {

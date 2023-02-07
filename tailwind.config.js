@@ -22,6 +22,7 @@ module.exports = {
           ...colors.pink,
         },
         secondary: {
+          // abffc7
           DEFAULT: colors.emerald["500"],
           ...colors.emerald,
         },

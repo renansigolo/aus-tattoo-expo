@@ -592,6 +592,6 @@ export const getStaticProps = (async () => {
 
   return {
     props: { page },
-    revalidate: 10,
+    revalidate: 30,
   }
 }) satisfies GetStaticProps
