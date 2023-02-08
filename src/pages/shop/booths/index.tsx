@@ -5,7 +5,6 @@ import { getBoothsPage } from "@/lib/queries"
 import { postRequest } from "@/lib/utils/post-request"
 import { getStripe } from "@/lib/utils/stripe"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
-import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { MouseEventHandler, useState } from "react"
@@ -344,7 +343,7 @@ export default function Booths({ page }: Props) {
                   </div>
 
                   <div className="flex justify-center px-6 pt-6 pb-8">
-                    <Image
+                    <img
                       src={product.images[0]}
                       alt={product.name}
                       width={512}
@@ -405,7 +404,7 @@ export default function Booths({ page }: Props) {
           <Container>
             <Heading title="Step 4" description="Sign" />
             <div className="grid min-h-[50vh] place-content-center text-white">
-              <Image
+              <img
                 src={"/images/placeholder-docusign.jpg"}
                 alt="Docu Sign"
                 width={720}
@@ -436,7 +435,7 @@ export default function Booths({ page }: Props) {
                   {selectedCity.title} {year} - {selectedCity.date}
                 </p>
                 <div className="mb-2 grid place-content-center">
-                  <Image
+                  <img
                     src={booth.images[0]}
                     alt={booth.name}
                     width={352}

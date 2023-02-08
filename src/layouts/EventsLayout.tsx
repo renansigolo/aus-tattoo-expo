@@ -1,6 +1,6 @@
 import { EventsPage } from "@/components/events/EventsPage"
 import { EventsPosts } from "@/components/events/EventsPosts"
-import { Carousel } from "@/components/flexible/Carousel"
+import { HeroBanner } from "@/components/flexible/HeroBanner"
 import { Container } from "@/components/layout/Container"
 import { WPCategories } from "@/lib/utils/types"
 
@@ -13,7 +13,7 @@ type EventsLayoutProps = {
 export function EventsLayout({ page, posts, category }: EventsLayoutProps) {
   return (
     <Container>
-      <Carousel useDefault={true} />
+      <HeroBanner useDefaultValues />
 
       <article className="py-8 text-white">
         {page && <EventsPage page={page} category={category} />}

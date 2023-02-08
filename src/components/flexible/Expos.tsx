@@ -75,7 +75,7 @@ export function Expos({ locations, useDefaultValues }: ExposProps) {
     <section className="py-5 text-gray-400">
       <ul
         role="list"
-        className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4"
+        className="grid grid-cols-2 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4"
       >
         {locations?.map((location, index) => (
           <li
@@ -99,7 +99,7 @@ export function Expos({ locations, useDefaultValues }: ExposProps) {
               {location.venue}
               <div className="hidden lg:block">
                 <br />
-                <button className="btn-primary mt-2 hidden opacity-0 group-hover:opacity-100">
+                <button className="btn-primary mt-2 hidden grayscale group-hover:grayscale-0">
                   More Info
                 </button>
               </div>

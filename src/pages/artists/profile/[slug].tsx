@@ -9,7 +9,6 @@ import { getPostsWithSlug } from "@/lib/queries"
 import { GET_ARTIST_PROFILE } from "@/queries/get-artist-profile"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
-import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useState } from "react"
@@ -77,7 +76,7 @@ export default function ArtistProfile({ post }: Props) {
                         <div className="sm:flex sm:items-center sm:justify-between">
                           <div className="sm:flex sm:space-x-5">
                             <div className="flex-shrink-0">
-                              <Image
+                              <img
                                 src={
                                   post.acfFeaturedImage.profileImage
                                     ?.sourceUrl ||
@@ -157,8 +156,7 @@ export default function ArtistProfile({ post }: Props) {
                             setOpen(true)
                           }}
                         >
-                          <Image
-                            fill
+                          <img
                             src={image.sourceUrl}
                             alt={image.altText || image.title || "Image"}
                             className="rounded-md object-cover"

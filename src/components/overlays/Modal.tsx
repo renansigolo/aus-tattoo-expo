@@ -1,6 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react"
 import { XMarkIcon } from "@heroicons/react/24/outline"
-import Image from "next/image"
 import { Fragment } from "react"
 
 type ModalProps = {
@@ -48,8 +47,7 @@ export function Modal({ sourceUrl, open = false, setOpen }: ModalProps) {
                   </button>
                 </div>
 
-                <Image
-                  fill
+                <img
                   src={sourceUrl}
                   alt="Image"
                   className="object-contain"

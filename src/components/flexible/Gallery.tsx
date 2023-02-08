@@ -1,6 +1,5 @@
 import { Grid } from "@/components/layout/Grid"
 import { WPImage } from "@/lib/utils/types"
-import Image from "next/image"
 
 type GalleryProps = {
   gallery: {
@@ -14,7 +13,7 @@ export function Gallery({ gallery }: GalleryProps) {
     <Grid columns={gallery.columns || 1}>
       {gallery.images.map((image: any, index: number) => (
         <div key={index} className="max-w-full rounded-sm">
-          <Image
+          <img
             src={image.sourceUrl}
             alt={image.altText || image.title}
             width={1024}

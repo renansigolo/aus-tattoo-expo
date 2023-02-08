@@ -8,7 +8,6 @@ import { getPostsWithSlug } from "@/lib/queries"
 import { GET_RETAILER_PROFILE } from "@/queries/get-retailer-profile"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
-import Image from "next/image"
 import { useRouter } from "next/router"
 import { useState } from "react"
 
@@ -60,7 +59,7 @@ export default function RetailerProfile({ post }: Props) {
                         <div className="sm:flex sm:items-center sm:justify-between">
                           <div className="sm:flex sm:space-x-5">
                             <div className="flex-shrink-0">
-                              <Image
+                              <img
                                 src={
                                   post.acfFeaturedImage.profileImage
                                     ?.sourceUrl ||
@@ -117,8 +116,7 @@ export default function RetailerProfile({ post }: Props) {
                             setOpen(true)
                           }}
                         >
-                          <Image
-                            fill
+                          <img
                             src={image.sourceUrl}
                             alt={image.altText || image.title || "Image"}
                             className="rounded-md object-cover"

@@ -1,6 +1,5 @@
 import { classNames } from "@/lib/utils/cn"
 import { WPImage, WPLink } from "@/lib/utils/types"
-import Image from "next/image"
 import Link from "next/link"
 
 type TattooDetailsProps = {
@@ -29,7 +28,7 @@ export function TattooDetails(props: TattooDetailsProps) {
         <div className="w-full lg:w-1/2">
           <div className="flex w-full gap-2">
             <div className="flex h-auto w-[65%]">
-              <Image
+              <img
                 src={mainImage?.sourceUrl || "https://placehold.co/256"}
                 alt="Image"
                 width={512}
@@ -41,7 +40,7 @@ export function TattooDetails(props: TattooDetailsProps) {
             <div className="flex w-[35%] flex-col gap-2">
               {images?.map((image) => {
                 return (
-                  <Image
+                  <img
                     key={image?.title}
                     src={image?.sourceUrl || "https://placehold.co/256"}
                     alt={image?.altText || "Image"}

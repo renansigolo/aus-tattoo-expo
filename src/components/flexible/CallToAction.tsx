@@ -1,5 +1,4 @@
 import { WPImage } from "@/lib/utils/types"
-import Image from "next/image"
 import Link from "next/link"
 
 type CallToActionProps = {
@@ -32,7 +31,7 @@ export function CallToAction(content: CallToActionProps) {
 
           {content.bannerType === "image" && (
             <>
-              <Image
+              <img
                 className="lg:hidden"
                 src={
                   content.mobileImage?.sourceUrl ||
@@ -47,7 +46,7 @@ export function CallToAction(content: CallToActionProps) {
                 }
               />
 
-              <Image
+              <img
                 className="hidden lg:block"
                 src={
                   content.image?.sourceUrl ||

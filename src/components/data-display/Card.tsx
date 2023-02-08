@@ -1,16 +1,13 @@
-import Image from "next/image"
-
 export function Card() {
   return (
     <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
       <div className="px-4 py-5 sm:px-6">
         <div style={{ width: "100%", height: "100px", position: "relative" }}>
-          <Image
+          <img
             src={
               "https://www.tattooexpo.com.au/wp-content/uploads/2022/11/Screen-Shot-2022-11-30-at-11.02.35-am-1.png"
             }
             alt="Card Image"
-            fill
             className=" object-cover"
           />
         </div>

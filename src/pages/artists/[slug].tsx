@@ -1,5 +1,4 @@
 import client from "@/apollo/client"
-import { Container } from "@/components/layout/Container"
 import { GetArtistsByEvent } from "@/interfaces/get-artists-by-event"
 import { GetTaxonomies } from "@/interfaces/get-taxonomies"
 import { EventsLayout } from "@/layouts/EventsLayout"
@@ -22,13 +21,13 @@ export default function EventsPage({ page, posts }: Props) {
   const category = router.asPath.split("/")?.[1] as any
 
   return (
-    <Container>
+    <>
       {router.isFallback ? (
         <p>Loading…</p>
       ) : (
         <EventsLayout page={page} posts={posts} category={category} />
       )}
-    </Container>
+    </>
   )
 }
 

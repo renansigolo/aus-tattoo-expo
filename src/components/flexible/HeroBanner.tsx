@@ -1,5 +1,4 @@
 import { WPImage } from "@/lib/utils/types"
-import Image from "next/image"
 import { title } from "process"
 
 const defaultValues: HeroBannerProps = {
@@ -29,8 +28,7 @@ export function HeroBanner(heroBanner: HeroBannerProps) {
     <section>
       <>
         {/* Mobile Image */}
-        <Image
-          priority
+        <img
           width={1920}
           height={1080}
           alt={
@@ -47,8 +45,7 @@ export function HeroBanner(heroBanner: HeroBannerProps) {
         />
 
         {/* Desktop Image */}
-        <Image
-          priority
+        <img
           width={1920}
           height={1080}
           alt={heroBanner?.image?.altText || title || "Hero Banner Title"}

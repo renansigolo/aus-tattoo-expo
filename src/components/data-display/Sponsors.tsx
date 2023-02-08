@@ -1,5 +1,4 @@
 import { WPImage } from "@/lib/utils/types"
-import Image from "next/image"
 
 type SponsorsProps = {
   sponsors: WPImage[] | undefined
@@ -12,7 +11,7 @@ export function Sponsors({ sponsors }: SponsorsProps) {
     <section className="bg-black pt-6">
       <div className="flex items-center justify-center gap-2">
         {sponsors.map(({ sourceUrl, altText, title }, index) => (
-          <Image
+          <img
             key={index}
             src={sourceUrl}
             alt={altText || title || "Sponsor image"}

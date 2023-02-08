@@ -1,7 +1,6 @@
 import "swiper/css"
 
 import { WPImage } from "@/lib/utils/types"
-import Image from "next/image"
 import { Autoplay } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
 
@@ -57,7 +56,7 @@ export function Carousel({ images, useDefault }: CarouselProps) {
       {images.map((image, index) => (
         <SwiperSlide key={index}>
           <div className="max-h-96 min-h-[10vh]">
-            <Image
+            <img
               src={image.sourceUrl}
               alt={image.altText || `Slider Image ${index}`}
               width={1170}

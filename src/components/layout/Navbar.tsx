@@ -7,7 +7,6 @@ import {
   ChevronDownIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline"
-import Image from "next/image"
 import Link from "next/link"
 import { Fragment } from "react"
 
@@ -28,7 +27,7 @@ export function Navbar({
           {/* Desktop Logo */}
           <Link href="/" className="mr-6">
             <span className="sr-only">{generalSettings.title}</span>
-            <Image
+            <img
               className="h-8 w-auto sm:h-10"
               src={siteIdentity.logo.sourceUrl}
               alt={siteIdentity.logo.altText || "Brand Logo"}
@@ -154,7 +153,7 @@ export function Navbar({
               <div className="px-5 pt-5 pb-6">
                 <div className="flex items-center justify-between">
                   <Link href="/" className="mr-6">
-                    <Image
+                    <img
                       className="h-8 w-auto"
                       src={siteIdentity.logo.sourceUrl}
                       alt={siteIdentity.logo.altText || "Brand Logo"}
