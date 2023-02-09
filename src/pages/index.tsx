@@ -2,6 +2,7 @@ import client from "@/apollo/client"
 import { Seo } from "@/components/seo/seo"
 import { GetPageContent } from "@/interfaces/get-page-content"
 import { PageTemplate } from "@/layouts/PageTemplate"
+import { formatFlexibleComponentsName } from "@/lib/mutations"
 import { GET_PAGE_CONTENT } from "@/queries/pages/get-page"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
 
@@ -26,11 +27,7 @@ export const getStaticProps = (async () => {
   })
 
   // Extract the last part of the fieldGroupName
-  for (const component of data?.page?.flexibleContent?.components) {
-    component.fieldGroupName = component.fieldGroupName
-      .split("_")
-      .pop() as string
-  }
+  formatFlexibleComponentsName(data)
 
   return {
     props: { ...data },

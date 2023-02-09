@@ -1,8 +1,15 @@
 import { gql } from "@apollo/client"
 
 export const GET_RETAILERS = gql`
-  query GetRetailers($first: Int, $after: String) {
-    posts: retailers(first: $first, after: $after) {
+  query GetRetailers($first: Int, $after: String, $categoryName: String) {
+    posts: retailers(
+      first: $first
+      after: $after
+      where: {
+        categoryName: $categoryName
+        orderby: { field: TITLE, order: ASC }
+      }
+    ) {
       edges {
         node {
           slug

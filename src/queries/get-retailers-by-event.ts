@@ -1,9 +1,9 @@
 import { ImageFragment } from "@/queries/fragments/image"
 import { gql } from "@apollo/client"
 
-export const GET_ARTISTS_BY_EVENT = gql`
+export const GET_RETAILERS_BY_EVENT = gql`
   ${ImageFragment}
-  query GetArtistsByEvent(
+  query GetRetailersByEvent(
     $id: ID!
     $uri: ID!
     $first: Int
@@ -16,7 +16,7 @@ export const GET_ARTISTS_BY_EVENT = gql`
       uri
       eventsContent {
         featured {
-          ... on Artist {
+          ... on Retailer {
             slug
             title
             uri
@@ -27,8 +27,8 @@ export const GET_ARTISTS_BY_EVENT = gql`
                 title
               }
             }
-            artist {
-              studioName
+            retailer {
+              websiteUrl
             }
           }
         }
@@ -207,7 +207,7 @@ export const GET_ARTISTS_BY_EVENT = gql`
     posts: eventTaxonomy(id: $id, idType: SLUG) {
       name
       slug
-      artists(
+      retailers(
         first: $first
         after: $after
         where: {
@@ -226,8 +226,8 @@ export const GET_ARTISTS_BY_EVENT = gql`
                 title
               }
             }
-            artist {
-              studioName
+            retailer {
+              websiteUrl
             }
           }
         }

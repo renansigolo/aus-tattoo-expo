@@ -1,5 +1,6 @@
 import { EventsPage } from "@/components/events/EventsPage"
 import { EventsPosts } from "@/components/events/EventsPosts"
+import { FlexibleComponents } from "@/components/flexible/FlexibleComponents"
 import { HeroBanner } from "@/components/flexible/HeroBanner"
 import { Container } from "@/components/layout/Container"
 import { WPCategories } from "@/lib/utils/types"
@@ -32,9 +33,15 @@ export function EventsLayout({
                 slug={slug}
               />
             )
-          : posts.edges.length > 0 && (
-              <EventsPosts posts={posts} category={category} slug={slug} />
+          : posts.retailers.edges.length > 0 && (
+              <EventsPosts
+                posts={posts.retailers}
+                category={category}
+                slug={slug}
+              />
             )}
+
+        <FlexibleComponents flexibleContent={page?.flexibleContent} />
       </article>
     </Container>
   )

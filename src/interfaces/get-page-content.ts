@@ -13,12 +13,12 @@ type Page = {
   __typename: string
 }
 
-type FlexibleContent = {
-  components: Component[]
+export type FlexibleContent = {
+  components: FlexibleComponents[]
   __typename: string
 }
 
-type Component = {
+export type FlexibleComponents = {
   fieldGroupName: string
   ctaBanner?: CtaBanner
   __typename: string
