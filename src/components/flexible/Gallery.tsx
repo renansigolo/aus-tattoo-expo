@@ -20,6 +20,7 @@ export function Gallery({ gallery }: GalleryProps) {
         {gallery.images.map((image: any, index: number) => (
           <div key={index} className="max-w-full rounded-sm">
             <img
+              loading="lazy"
               src={image.sourceUrl}
               alt={image.altText || image.title}
               width={1024}
