@@ -16,7 +16,11 @@ export const GET_SEARCH_RESULTS = gql`
     posts: artists(
       first: $first
       after: $after
-      where: { search: $query, categoryName: $categoryName }
+      where: {
+        search: $query
+        categoryName: $categoryName
+        orderby: { field: TITLE, order: ASC }
+      }
     ) {
       edges {
         cursor
@@ -47,7 +51,11 @@ export const GET_SEARCH_RESULTS_WITH_TOTAL_PAGES = gql`
     posts: artists(
       first: $first
       after: $after
-      where: { search: $query, categoryName: $categoryName }
+      where: {
+        search: $query
+        categoryName: $categoryName
+        orderby: { field: TITLE, order: ASC }
+      }
     ) {
       edges {
         cursor
