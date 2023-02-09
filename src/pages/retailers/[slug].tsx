@@ -3,8 +3,8 @@ import { Container } from "@/components/layout/Container"
 import { GetTaxonomies } from "@/interfaces/get-taxonomies"
 import { EventsLayout } from "@/layouts/EventsLayout"
 import { PER_PAGE_FIRST } from "@/lib/utils/pagination"
+import { GET_RETAILERS_BY_EVENT } from "@/queries/get-retailers-by-event"
 import { GET_TAXONOMIES } from "@/queries/get-taxonomies"
-import { GET_RETAILERS_POSTS } from "@/queries/posts/get-posts"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
 import { useRouter } from "next/router"
@@ -19,6 +19,7 @@ export default function EventsPage({ page, posts }: Props) {
   }
 
   const category = router.asPath.split("/")?.[1] as any
+  const { slug } = router.query
 
   return (
     <>
@@ -26,7 +27,12 @@ export default function EventsPage({ page, posts }: Props) {
         {router.isFallback ? (
           <p>Loading…</p>
         ) : (
-          <EventsLayout page={page} posts={posts} category={category} />
+          <EventsLayout
+            page={page}
+            posts={posts}
+            category={category}
+            slug={String(slug)}
+          />
         )}
       </Container>
     </>
@@ -35,7 +41,7 @@ export default function EventsPage({ page, posts }: Props) {
 
 export const getStaticProps = (async ({ params }) => {
   const { data } = await client.query({
-    query: GET_RETAILERS_POSTS,
+    query: GET_RETAILERS_BY_EVENT,
     variables: {
       id: params?.slug,
       uri: `retailers/${params?.slug}`,

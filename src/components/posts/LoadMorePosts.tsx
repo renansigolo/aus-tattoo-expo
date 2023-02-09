@@ -48,6 +48,9 @@ export function LoadMorePosts({
       if (data?.posts.artists) {
         setPosts(data?.posts.artists ?? [])
       }
+      if (data?.posts.retailers) {
+        setPosts(data?.posts.retailers ?? [])
+      }
     },
     onError: (error) => {
       setError(

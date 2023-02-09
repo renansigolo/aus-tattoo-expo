@@ -32,8 +32,12 @@ export function EventsLayout({
                 slug={slug}
               />
             )
-          : posts.edges.length > 0 && (
-              <EventsPosts posts={posts} category={category} slug={slug} />
+          : posts.retailers.edges.length > 0 && (
+              <EventsPosts
+                posts={posts.retailers}
+                category={category}
+                slug={slug}
+              />
             )}
       </article>
     </Container>

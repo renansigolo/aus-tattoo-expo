@@ -1,7 +1,7 @@
 import { LoadMorePosts } from "@/components/posts/LoadMorePosts"
 import { WPCategories } from "@/lib/utils/types"
 import { GET_ARTISTS_BY_CATEGORY } from "@/queries/get-artists-by-category"
-import { GET_RETAILERS } from "@/queries/get-retailers"
+import { GET_RETAILERS_BY_CATEGORY } from "@/queries/get-retailers-by-category"
 
 type EventsPostsProps = {
   posts: any
@@ -11,7 +11,7 @@ type EventsPostsProps = {
 
 export function EventsPosts({ posts, category, slug }: EventsPostsProps) {
   const queryCategory =
-    category === "artists" ? GET_ARTISTS_BY_CATEGORY : GET_RETAILERS
+    category === "artists" ? GET_ARTISTS_BY_CATEGORY : GET_RETAILERS_BY_CATEGORY
 
   return (
     <>
