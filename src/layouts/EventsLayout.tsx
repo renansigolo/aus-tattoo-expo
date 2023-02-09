@@ -8,9 +8,15 @@ type EventsLayoutProps = {
   page: any
   posts: any
   category: WPCategories
+  slug?: string
 }
 
-export function EventsLayout({ page, posts, category }: EventsLayoutProps) {
+export function EventsLayout({
+  page,
+  posts,
+  category,
+  slug,
+}: EventsLayoutProps) {
   return (
     <Container>
       <HeroBanner useDefaultValues />
@@ -20,10 +26,14 @@ export function EventsLayout({ page, posts, category }: EventsLayoutProps) {
 
         {category === "artists"
           ? posts.artists.edges.length > 0 && (
-              <EventsPosts posts={posts.artists} category={category} />
+              <EventsPosts
+                posts={posts.artists}
+                category={category}
+                slug={slug}
+              />
             )
           : posts.edges.length > 0 && (
-              <EventsPosts posts={posts} category={category} />
+              <EventsPosts posts={posts} category={category} slug={slug} />
             )}
       </article>
     </Container>

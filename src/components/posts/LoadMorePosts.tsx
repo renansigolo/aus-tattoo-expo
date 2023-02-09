@@ -8,6 +8,7 @@ type LoadMorePostsProps = {
   classes?: string
   graphQLQuery?: any
   searchQuery?: string
+  slug?: string
 }
 
 export function LoadMorePosts({
@@ -15,6 +16,7 @@ export function LoadMorePosts({
   classes,
   graphQLQuery,
   searchQuery,
+  slug,
 }: LoadMorePostsProps) {
   const [postsData, setPostsData] = useState(posts?.edges ?? [])
   const [pageInfo, setPageInfo] = useState(posts?.pageInfo)
@@ -43,7 +45,9 @@ export function LoadMorePosts({
   const [fetchPosts, { loading }] = useLazyQuery(graphQLQuery, {
     notifyOnNetworkStatusChange: true,
     onCompleted: (data) => {
-      setPosts(data?.posts ?? [])
+      if (data?.posts.artists) {
+        setPosts(data?.posts.artists ?? [])
+      }
     },
     onError: (error) => {
       setError(
@@ -56,6 +60,7 @@ export function LoadMorePosts({
     let queryVariables = {
       first: PER_PAGE_REST,
       after: endCursor,
+      id: slug,
     }
 
     // If its a search query then add the query in the query variables.

@@ -5,7 +5,10 @@ export const GET_ARTISTS = gql`
     posts: artists(
       first: $first
       after: $after
-      where: { categoryName: $categoryName }
+      where: {
+        categoryName: $categoryName
+        orderby: { field: TITLE, order: ASC }
+      }
     ) {
       edges {
         node {

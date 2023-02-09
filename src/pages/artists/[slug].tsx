@@ -19,13 +19,19 @@ export default function EventsPage({ page, posts }: Props) {
   }
 
   const category = router.asPath.split("/")?.[1] as any
+  const { slug } = router.query
 
   return (
     <>
       {router.isFallback ? (
         <p>Loading…</p>
       ) : (
-        <EventsLayout page={page} posts={posts} category={category} />
+        <EventsLayout
+          page={page}
+          posts={posts}
+          category={category}
+          slug={String(slug)}
+        />
       )}
     </>
   )
