@@ -1,7 +1,8 @@
 import client from "@/apollo/client"
-import { GetArtistsByEvent } from "@/interfaces/get-artists-by-event"
+import { GetArtistsByEvents } from "@/interfaces/get-artists-by-event"
 import { GetTaxonomies } from "@/interfaces/get-taxonomies"
 import { EventsLayout } from "@/layouts/EventsLayout"
+import { formatFlexibleComponentsName } from "@/lib/mutations"
 import { PER_PAGE_FIRST } from "@/lib/utils/pagination"
 import { GET_ARTISTS_BY_EVENT } from "@/queries/get-artists-by-event"
 import { GET_TAXONOMIES } from "@/queries/get-taxonomies"
@@ -38,7 +39,7 @@ export default function EventsPage({ page, posts }: Props) {
 }
 
 export const getStaticProps = (async ({ params }) => {
-  const { data } = await client.query<GetArtistsByEvent>({
+  const { data } = await client.query<GetArtistsByEvents>({
     query: GET_ARTISTS_BY_EVENT,
     variables: {
       id: params?.slug,
@@ -47,6 +48,8 @@ export const getStaticProps = (async ({ params }) => {
       after: null,
     },
   })
+
+  formatFlexibleComponentsName(data)
 
   return {
     props: { ...data },

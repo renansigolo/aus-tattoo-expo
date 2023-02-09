@@ -64,9 +64,7 @@ export default function ArtistProfile({ post }: Props) {
             <article className="pb-8">
               <div className="mx-auto">
                 <h1 className="sr-only">Profile of {post.title}</h1>
-                {/* Left column */}
                 <div className="grid grid-cols-1 gap-4">
-                  {/* Welcome panel */}
                   <section aria-labelledby="profile-overview-title">
                     <div className="overflow-hidden rounded-lg bg-white shadow">
                       <h2 className="sr-only" id="profile-overview-title">

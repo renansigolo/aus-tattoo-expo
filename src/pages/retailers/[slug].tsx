@@ -2,6 +2,7 @@ import client from "@/apollo/client"
 import { Container } from "@/components/layout/Container"
 import { GetTaxonomies } from "@/interfaces/get-taxonomies"
 import { EventsLayout } from "@/layouts/EventsLayout"
+import { formatFlexibleComponentsName } from "@/lib/mutations"
 import { PER_PAGE_FIRST } from "@/lib/utils/pagination"
 import { GET_RETAILERS_BY_EVENT } from "@/queries/get-retailers-by-event"
 import { GET_TAXONOMIES } from "@/queries/get-taxonomies"
@@ -49,6 +50,8 @@ export const getStaticProps = (async ({ params }) => {
       after: null,
     },
   })
+
+  formatFlexibleComponentsName(data)
 
   return {
     props: { ...data },

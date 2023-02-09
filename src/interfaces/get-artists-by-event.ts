@@ -1,4 +1,4 @@
-export type GetArtistsByEvent = {
+export type GetArtistsByEvents = {
   page: Page
   posts: Posts
   tattooTaxonomies: TattooTaxonomies
@@ -9,54 +9,29 @@ type Page = {
   slug: string
   uri: string
   eventsContent: EventsContent
+  flexibleContent: FlexibleContent
   __typename: string
 }
 
 type EventsContent = {
-  featured: Featured[]
+  featured: null
   __typename: string
 }
 
-type Featured = {
-  slug: string
-  title: string
-  uri?: string
-  acfFeaturedImage: AcfFeaturedImage
-  artist: Artist
-  __typename: FeaturedTypename
+type FlexibleContent = {
+  components: Component[]
+  __typename: string
 }
 
-enum FeaturedTypename {
-  Artist = "Artist",
+type Component = {
+  fieldGroupName: string
+  contentEditor: ContentEditor
+  __typename: string
 }
 
-type AcfFeaturedImage = {
-  profileImage: ProfileImage
-  __typename: AcfFeaturedImageTypename
-}
-
-enum AcfFeaturedImageTypename {
-  ArtistAcffeaturedimage = "Artist_Acffeaturedimage",
-}
-
-type ProfileImage = {
-  altText: string
-  sourceUrl: string
-  title: string
-  __typename: ProfileImageTypename
-}
-
-enum ProfileImageTypename {
-  MediaItem = "MediaItem",
-}
-
-type Artist = {
-  studioName: string
-  __typename: ArtistTypename
-}
-
-enum ArtistTypename {
-  ArtistArtist = "Artist_Artist",
+type ContentEditor = {
+  content: string
+  __typename: string
 }
 
 type Posts = {
@@ -73,7 +48,32 @@ type Artists = {
 }
 
 type Edge = {
-  node: Featured
+  node: EdgeNode
+  __typename: string
+}
+
+type EdgeNode = {
+  slug: string
+  title: string
+  acfFeaturedImage: AcfFeaturedImage
+  artist: Artist
+  __typename: string
+}
+
+type AcfFeaturedImage = {
+  profileImage: ProfileImage
+  __typename: string
+}
+
+type ProfileImage = {
+  altText: string
+  sourceUrl: string
+  title: string
+  __typename: string
+}
+
+type Artist = {
+  studioName: string
   __typename: string
 }
 
@@ -84,20 +84,20 @@ type PageInfo = {
 }
 
 type TattooTaxonomies = {
-  nodes: Node[]
+  nodes: NodeElement[]
   __typename: string
 }
 
-type Node = {
+type NodeElement = {
   name: string
   taxonomyName: TaxonomyName
-  __typename: PurpleTypename
+  __typename: Typename
 }
 
-enum PurpleTypename {
+export enum Typename {
   TattooTaxonomy = "TattooTaxonomy",
 }
 
-enum TaxonomyName {
+export enum TaxonomyName {
   TattooStyle = "tattoo_style",
 }
