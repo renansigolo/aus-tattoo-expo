@@ -29,7 +29,8 @@ export function TattooDetails(props: TattooDetailsProps) {
           <div className="flex w-full gap-2">
             <div className="flex h-auto w-[65%]">
               <img
-                src={mainImage?.sourceUrl || "https://placehold.co/256"}
+                loading="lazy"
+                src={mainImage?.sourceUrl}
                 alt="Image"
                 width={512}
                 height={512}
@@ -41,8 +42,9 @@ export function TattooDetails(props: TattooDetailsProps) {
               {images?.map((image) => {
                 return (
                   <img
+                    loading="lazy"
                     key={image?.title}
-                    src={image?.sourceUrl || "https://placehold.co/256"}
+                    src={image?.sourceUrl}
                     alt={image?.altText || "Image"}
                     width={512}
                     height={512}
