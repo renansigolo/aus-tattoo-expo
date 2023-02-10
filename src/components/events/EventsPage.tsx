@@ -1,5 +1,5 @@
 import { Posts } from "@/components/posts/Posts"
-import { WPCategories } from "src/utils/types"
+import { WPCategories } from "src/utils/wp-types"
 
 type EventsPageProps = {
   page: any

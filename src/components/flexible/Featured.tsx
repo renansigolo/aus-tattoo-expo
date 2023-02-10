@@ -1,5 +1,5 @@
 import { CardImage } from "@/components/data-display/CardImage"
-import { WPImage } from "src/utils/types"
+import { WPImage } from "src/utils/wp-types"
 
 export type FeaturedProfile = {
   slug: string

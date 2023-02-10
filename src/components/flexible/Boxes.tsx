@@ -1,6 +1,6 @@
 import { parseUrl } from "next/dist/shared/lib/router/utils/parse-url"
 import Link from "next/link"
-import { WPImage } from "src/utils/types"
+import { WPImage } from "src/utils/wp-types"
 
 type Box = {
   image: WPImage

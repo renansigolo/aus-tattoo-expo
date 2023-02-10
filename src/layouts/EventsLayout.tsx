@@ -3,7 +3,7 @@ import { EventsPosts } from "@/components/events/EventsPosts"
 import { FlexibleComponents } from "@/components/flexible/FlexibleComponents"
 import { HeroBanner } from "@/components/flexible/HeroBanner"
 import { Container } from "@/components/layout/Container"
-import { WPCategories } from "src/utils/types"
+import { WPCategories } from "src/utils/wp-types"
 
 type EventsLayoutProps = {
   page: any
