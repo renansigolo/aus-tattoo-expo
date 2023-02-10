@@ -1,8 +1,7 @@
 import { useQuery } from "@apollo/client"
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 import { SyntheticEvent } from "react"
-import { GetTaxonomies } from "src/io/interfaces/get-taxonomies"
-import { GET_TAXONOMIES } from "src/io/queries/get-taxonomies"
+import { GetTaxonomies, GET_TAXONOMIES } from "src/io/queries/get-taxonomies"
 
 type SearchFormProps = {
   searchQuery: string

@@ -4,14 +4,19 @@ import { HeroBanner } from "@/components/flexible/HeroBanner"
 import { Container } from "@/components/layout/Container"
 import { Modal } from "@/components/overlays/Modal"
 import { Seo } from "@/components/seo/seo"
-import { getPostsWithSlug } from "@/lib/queries"
-import { GET_ARTIST_PROFILE } from "@/queries/artists/get-artist-profile"
+import {
+  GetArtistProfile,
+  GET_ARTIST_PROFILE,
+} from "@/queries/artists/get-artist-profile"
+import {
+  GetPostsBySlug,
+  GET_POSTS_BY_SLUG,
+} from "@/queries/posts/get-posts-by-slug"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useState } from "react"
-import { GetArtistProfile } from "src/io/interfaces/get-artist-profile"
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -193,7 +198,10 @@ export const getStaticProps = (async ({ params }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const postType = "artists"
-  const allPostsWithSlug = await getPostsWithSlug(postType)
+  const { data } = await client.query<GetPostsBySlug>({
+    query: GET_POSTS_BY_SLUG,
+  })
+  const allPostsWithSlug = data?.[postType]
 
   return {
     paths:

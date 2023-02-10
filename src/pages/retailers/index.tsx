@@ -2,11 +2,10 @@ import client from "@/apollo/client"
 import { Container } from "@/components/layout/Container"
 import { Posts } from "@/components/posts/Posts"
 import { PER_PAGE_FIRST } from "@/lib/utils/pagination"
-import { GET_RETAILERS } from "@/queries/retailers/get-retailers"
+import { GetRetailers, GET_RETAILERS } from "@/queries/retailers/get-retailers"
 import { useLazyQuery } from "@apollo/client"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
 import { useEffect, useState } from "react"
-import { GetRetailers } from "src/io/interfaces/get-retailers"
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 

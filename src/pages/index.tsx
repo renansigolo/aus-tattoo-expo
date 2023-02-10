@@ -1,8 +1,8 @@
 import client from "@/apollo/client"
 import { Seo } from "@/components/seo/seo"
 import { PageTemplate } from "@/layouts/PageTemplate"
-import { formatFlexibleComponentsName } from "@/lib/mutations"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
+import { formatFlexibleComponentsName } from "src/io/mutations/mutations"
 import { GetPageContent, GET_PAGE_CONTENT } from "src/io/queries/pages/get-page"
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>

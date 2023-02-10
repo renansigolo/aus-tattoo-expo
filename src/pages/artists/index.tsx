@@ -2,11 +2,10 @@ import client from "@/apollo/client"
 import { Container } from "@/components/layout/Container"
 import { Posts } from "@/components/posts/Posts"
 import { PER_PAGE_FIRST } from "@/lib/utils/pagination"
-import { GET_ARTISTS } from "@/queries/artists/get-artists"
+import { GetArtists, GET_ARTISTS } from "@/queries/artists/get-artists"
 import { useLazyQuery } from "@apollo/client"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
 import { useEffect, useState } from "react"
-import { GetAllArtistsPosts } from "src/io/interfaces/get-all-artists-posts"
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -71,7 +70,7 @@ export default function Artists({ posts }: Props) {
 }
 
 export const getStaticProps = (async () => {
-  const { data } = await client.query<GetAllArtistsPosts>({
+  const { data } = await client.query<GetArtists>({
     query: GET_ARTISTS,
     variables: {
       first: PER_PAGE_FIRST,
