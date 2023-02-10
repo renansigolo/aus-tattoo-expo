@@ -1,6 +1,8 @@
+import { ImageFragment } from "@/io/queries/fragments/image"
 import { gql } from "@apollo/client"
 
 export const GET_ARTISTS_POSTS = gql`
+  ${ImageFragment}
   query GET_ARTISTS_POSTS(
     $uri: ID!
     $first: Int
@@ -20,8 +22,7 @@ export const GET_ARTISTS_POSTS = gql`
             slug
             acfFeaturedImage {
               profileImage {
-                altText
-                sourceUrl
+                ...ImageFragment
               }
             }
             artist {
@@ -62,6 +63,7 @@ export const GET_ARTISTS_POSTS = gql`
 `
 
 export const GET_RETAILERS_POSTS = gql`
+  ${ImageFragment}
   query GET_RETAILERS_POSTS($uri: ID!, $first: Int, $after: String) {
     page(id: $uri, idType: URI) {
       id
@@ -76,8 +78,7 @@ export const GET_RETAILERS_POSTS = gql`
             slug
             acfFeaturedImage {
               profileImage {
-                altText
-                sourceUrl
+                ...ImageFragment
               }
             }
             retailer {

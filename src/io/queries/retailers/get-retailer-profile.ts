@@ -1,3 +1,4 @@
+import { ImageFragment } from "@/io/queries/fragments/image"
 import { gql } from "@apollo/client"
 
 export type GetRetailerProfile = {
@@ -47,6 +48,7 @@ type RetailerRetailer = {
 }
 
 export const GET_RETAILER_PROFILE = gql`
+  ${ImageFragment}
   query GetRetailerProfile($id: ID!) {
     retailer(id: $id, idType: URI) {
       retailer {
@@ -56,9 +58,7 @@ export const GET_RETAILER_PROFILE = gql`
         facebookUrl
         instagramUrl
         images {
-          altText
-          sourceUrl(size: LARGE)
-          title
+          ...ImageFragment
           mediaDetails {
             width
             height
@@ -67,9 +67,7 @@ export const GET_RETAILER_PROFILE = gql`
       }
       acfFeaturedImage {
         profileImage {
-          altText
-          title
-          sourceUrl
+          ...ImageFragment
         }
       }
       title

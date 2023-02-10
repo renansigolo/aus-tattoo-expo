@@ -63,9 +63,7 @@ export const GET_RETAILERS_BY_EVENT = gql`
             fieldGroupName
             carousel {
               images {
-                altText
-                sourceUrl
-                title
+                ...ImageFragment
               }
             }
           }
@@ -134,9 +132,7 @@ export const GET_RETAILERS_BY_EVENT = gql`
             gallery {
               columns
               images {
-                altText
-                title
-                sourceUrl(size: LARGE)
+                ...ImageFragment
               }
             }
           }

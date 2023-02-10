@@ -1,3 +1,4 @@
+import { ImageFragment } from "@/io/queries/fragments/image"
 import { SeoFragment } from "@/io/queries/fragments/seo"
 import { WPImage } from "@/utils/wp-types"
 import { gql } from "@apollo/client"
@@ -51,6 +52,7 @@ type Event = {
 }
 
 export const GET_ARTIST_PROFILE = gql`
+  ${ImageFragment}
   ${SeoFragment}
   query GetArtistProfile($id: ID!) {
     artist(id: $id, idType: URI) {
@@ -65,9 +67,7 @@ export const GET_ARTIST_PROFILE = gql`
         facebookUrl
         instagramUrl
         images {
-          altText
-          sourceUrl(size: LARGE)
-          title
+          ...ImageFragment
           mediaDetails {
             width
             height
@@ -76,9 +76,7 @@ export const GET_ARTIST_PROFILE = gql`
       }
       acfFeaturedImage {
         profileImage {
-          altText
-          title
-          sourceUrl
+          ...ImageFragment
         }
       }
       title
