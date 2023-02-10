@@ -4,9 +4,8 @@ const link = createHttpLink({
   uri: `${process.env.NEXT_PUBLIC_SITE_URL}/graphql`,
 })
 
-const cache = new InMemoryCache({
-  resultCaching: false,
-})
+const cache = new InMemoryCache()
+// {resultCaching: false}
 
 const client = new ApolloClient({
   link,

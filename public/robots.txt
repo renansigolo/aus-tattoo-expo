@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://ate.renansigolo.com
-
-# Sitemaps
-Sitemap: https://ate.renansigolo.com/sitemap.xml
