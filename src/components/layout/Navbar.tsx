@@ -150,6 +150,19 @@ export function Navbar({
         >
           {({ close }) => (
             <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+              <div className="space-y-6 py-6 px-5">
+                <div>
+                  {siteIdentity.ticketsUrl && (
+                    <Link
+                      href={siteIdentity.ticketsUrl}
+                      className="flex w-full items-center justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-primary-700"
+                      target={"_blank"}
+                    >
+                      Buy Tickets
+                    </Link>
+                  )}
+                </div>
+              </div>
               <div className="px-5 pt-5 pb-6">
                 <div className="flex items-center justify-between">
                   <Link href="/" className="mr-6">
@@ -209,29 +222,6 @@ export function Navbar({
                       </div>
                     ))}
                   </nav>
-                </div>
-              </div>
-              <div className="space-y-6 py-6 px-5">
-                <div>
-                  {siteIdentity.ticketsUrl && (
-                    <Link
-                      href={siteIdentity.ticketsUrl}
-                      className="flex w-full items-center justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-primary-700"
-                      target={"_blank"}
-                    >
-                      Buy Tickets
-                    </Link>
-                  )}
-
-                  <p className="mt-6 text-center text-base font-medium">
-                    <Link
-                      href="/shop/booths"
-                      className="text-primary-600 hover:text-primary-500"
-                      onClick={() => close()}
-                    >
-                      Book a Booth
-                    </Link>
-                  </p>
                 </div>
               </div>
             </div>
