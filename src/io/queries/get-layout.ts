@@ -74,7 +74,7 @@ export const GET_LAYOUT = gql`
       general {
         siteIdentity {
           logo {
-            sourceUrl
+            sourceUrl(size: THUMBNAIL)
             altText
             title
           }

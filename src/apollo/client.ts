@@ -11,16 +11,16 @@ const cache = new InMemoryCache({
 const client = new ApolloClient({
   link,
   cache,
-  defaultOptions: {
-    watchQuery: {
-      fetchPolicy: "no-cache",
-      errorPolicy: "ignore",
-    },
-    query: {
-      fetchPolicy: "no-cache",
-      errorPolicy: "all",
-    },
-  },
+  // defaultOptions: {
+  //   watchQuery: {
+  //     fetchPolicy: "no-cache",
+  //     errorPolicy: "ignore",
+  //   },
+  //   query: {
+  //     fetchPolicy: "no-cache",
+  //     errorPolicy: "all",
+  //   },
+  // },
 })
 
 export default client

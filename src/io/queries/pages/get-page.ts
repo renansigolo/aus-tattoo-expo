@@ -165,9 +165,7 @@ export const GET_PAGE_CONTENT = gql`
             fieldGroupName
             carousel {
               images {
-                altText
-                sourceUrl
-                title
+                ...ImageFragment
               }
             }
           }
@@ -236,9 +234,7 @@ export const GET_PAGE_CONTENT = gql`
             gallery {
               columns
               images {
-                altText
-                title
-                sourceUrl(size: LARGE)
+                ...ImageFragment
               }
             }
           }

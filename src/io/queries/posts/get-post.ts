@@ -1,6 +1,8 @@
+import { ImageFragment } from "@/io/queries/fragments/image"
 import { gql } from "@apollo/client"
 
 export const GET_POST = gql`
+  ${ImageFragment}
   query GET_POST($uri: String) {
     post: postBy(uri: $uri) {
       id
@@ -10,8 +12,7 @@ export const GET_POST = gql`
       uri
       featuredImage {
         node {
-          sourceUrl
-          altText
+          ...ImageFragment
         }
       }
     }

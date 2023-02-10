@@ -28,7 +28,7 @@ export const GET_BOOTHS_PAGE = gql`
       title
       featuredImage {
         node {
-          sourceUrl
+          sourceUrl(size: LARGE)
           altText
           title
         }
