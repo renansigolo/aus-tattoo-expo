@@ -1,4 +1,6 @@
 import { SocialMediaIcons } from "@/components/data-display/SocialMediaIcons"
+import { GetLayout } from "@/io/queries/get-layout"
+import { classNames } from "@/utils/cn"
 import { Popover, Transition } from "@headlessui/react"
 import {
   Bars3Icon,
@@ -7,8 +9,6 @@ import {
 } from "@heroicons/react/24/outline"
 import Link from "next/link"
 import { Fragment } from "react"
-import { GetLayout } from "src/io/queries/get-layout"
-import { classNames } from "src/utils/cn"
 
 type NavbarProps = {
   siteIdentity: GetLayout["acfOptionsGeneral"]["general"]["siteIdentity"]

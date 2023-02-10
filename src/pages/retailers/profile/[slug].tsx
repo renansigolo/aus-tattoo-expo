@@ -6,11 +6,11 @@ import { Modal } from "@/components/overlays/Modal"
 import {
   GetPostsBySlug,
   GET_POSTS_BY_SLUG,
-} from "@/queries/posts/get-posts-by-slug"
+} from "@/io/queries/posts/get-posts-by-slug"
 import {
   GetRetailerProfile,
   GET_RETAILER_PROFILE,
-} from "@/queries/retailers/get-retailer-profile"
+} from "@/io/queries/retailers/get-retailer-profile"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
 import { useRouter } from "next/router"

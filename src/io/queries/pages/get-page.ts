@@ -1,8 +1,7 @@
-import { gql } from "@apollo/client"
-import { ImageFragment } from "src/io/queries/fragments/image"
-import { SeoFragment } from "src/io/queries/fragments/seo"
-
 import { HeroBannerProps } from "@/components/flexible/HeroBanner"
+import { ImageFragment } from "@/io/queries/fragments/image"
+import { SeoFragment } from "@/io/queries/fragments/seo"
+import { gql } from "@apollo/client"
 
 export type GetPageContent = {
   page: Page

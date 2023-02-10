@@ -7,11 +7,11 @@ import { Seo } from "@/components/seo/seo"
 import {
   GetArtistProfile,
   GET_ARTIST_PROFILE,
-} from "@/queries/artists/get-artist-profile"
+} from "@/io/queries/artists/get-artist-profile"
 import {
   GetPostsBySlug,
   GET_POSTS_BY_SLUG,
-} from "@/queries/posts/get-posts-by-slug"
+} from "@/io/queries/posts/get-posts-by-slug"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
 import Link from "next/link"

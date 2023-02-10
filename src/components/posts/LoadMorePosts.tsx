@@ -1,7 +1,7 @@
 import { Posts } from "@/components/posts/Posts"
+import { PER_PAGE_REST } from "@/utils/pagination"
 import { useLazyQuery } from "@apollo/client"
 import { useEffect, useState } from "react"
-import { PER_PAGE_REST } from "src/utils/pagination"
 
 type LoadMorePostsProps = {
   posts: any

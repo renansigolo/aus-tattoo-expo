@@ -2,13 +2,13 @@ import client from "@/apollo/client"
 import { Notification } from "@/components/feedback/Notification"
 import { HeroBanner } from "@/components/flexible/HeroBanner"
 import { Container } from "@/components/layout/Container"
+import { GetBoothsPage, GET_BOOTHS_PAGE } from "@/io/queries/get-booths-page"
+import { postRequest } from "@/utils/post-request"
+import { getStripe } from "@/utils/stripe"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { MouseEventHandler, useState } from "react"
-import { GetBoothsPage, GET_BOOTHS_PAGE } from "src/io/queries/get-booths-page"
-import { postRequest } from "src/utils/post-request"
-import { getStripe } from "src/utils/stripe"
 
 const highlights = [
   { title: "25+", description: "Events" },

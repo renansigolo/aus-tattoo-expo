@@ -16,14 +16,7 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/apollo/*": ["src/apollo/*"],
-      "@/components/*": ["src/components/*"],
-      "@/interfaces/*": ["src/io/interfaces/*"],
-      "@/layouts/*": ["src/layouts/*"],
-      "@/lib/*": ["src/lib/*"],
-      "@/pages/*": ["src/pages/*"],
-      "@/queries/*": ["src/io/queries/*"],
-      "@/styles/*": ["src/styles/*"]
+      "@/*": ["./src/*"]
     },
     "plugins": [
       {

@@ -1,7 +1,7 @@
 import { LoadMorePosts } from "@/components/posts/LoadMorePosts"
-import { GET_ARTISTS_BY_CATEGORY } from "@/queries/artists/get-artists-by-category"
-import { GET_RETAILERS_BY_CATEGORY } from "@/queries/retailers/get-retailers-by-category"
-import { WPCategories } from "src/utils/wp-types"
+import { GET_ARTISTS_BY_CATEGORY } from "@/io/queries/artists/get-artists-by-category"
+import { GET_RETAILERS_BY_CATEGORY } from "@/io/queries/retailers/get-retailers-by-category"
+import { WPCategories } from "@/utils/wp-types"
 
 type EventsPostsProps = {
   posts: any

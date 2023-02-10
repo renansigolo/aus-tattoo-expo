@@ -1,5 +1,5 @@
+import { classNames } from "@/utils/cn"
 import { ReactNode } from "react"
-import { classNames } from "src/utils/cn"
 
 type GridProps = {
   children: ReactNode

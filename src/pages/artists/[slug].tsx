@@ -1,15 +1,15 @@
 import client from "@/apollo/client"
-import { EventsLayout } from "@/layouts/EventsLayout"
+import { formatFlexibleComponentsName } from "@/io/mutations/mutations"
 import {
   GetArtistsByEvents,
   GET_ARTISTS_BY_EVENT,
-} from "@/queries/artists/get-artists-by-event"
+} from "@/io/queries/artists/get-artists-by-event"
+import { GetTaxonomies, GET_TAXONOMIES } from "@/io/queries/get-taxonomies"
+import { EventsLayout } from "@/layouts/EventsLayout"
+import { PER_PAGE_FIRST } from "@/utils/pagination"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
 import { useRouter } from "next/router"
-import { formatFlexibleComponentsName } from "src/io/mutations/mutations"
-import { GetTaxonomies, GET_TAXONOMIES } from "src/io/queries/get-taxonomies"
-import { PER_PAGE_FIRST } from "src/utils/pagination"
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 

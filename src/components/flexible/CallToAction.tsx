@@ -1,5 +1,5 @@
+import { WPImage } from "@/utils/wp-types"
 import Link from "next/link"
-import { WPImage } from "src/utils/wp-types"
 
 type CallToActionProps = {
   bannerType: "button" | "text" | "image"

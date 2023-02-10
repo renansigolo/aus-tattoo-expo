@@ -1,7 +1,6 @@
+import { SeoFragment } from "@/io/queries/fragments/seo"
+import { WPImage } from "@/utils/wp-types"
 import { gql } from "@apollo/client"
-import { SeoFragment } from "src/io/queries/fragments/seo"
-
-import { WPImage } from "src/utils/wp-types"
 
 export type GetArtistProfile = {
   artist: GetArtistProfileArtist
