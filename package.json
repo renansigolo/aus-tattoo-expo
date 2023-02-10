@@ -11,6 +11,7 @@
     "fix": "npm run lint -- --fix",
     "format": "prettier '**/*' -w -u",
     "lint": "eslint .",
+    "postbuild": "next-sitemap",
     "postinstall": "scripts/setup-git-hooks.sh",
     "start": "next start"
   },
@@ -45,6 +46,7 @@
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
     "eslint-config-prettier": "8.6.0",
+    "next-sitemap": "3.1.52",
     "postcss": "8.4.21",
     "prettier": "2.8.4",
     "prettier-plugin-tailwindcss": "0.2.2",

@@ -1,5 +1,4 @@
-const allowedImageWordPressDomain = new URL(process.env.WORDPRESS_API_URL)
-  .hostname
+const allowedImageWordPressDomain = new URL(process.env.SITE_URL).hostname
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
