@@ -1,4 +1,3 @@
-import { classNames } from "@/lib/utils/cn"
 import {
   faChrome,
   faFacebook,
@@ -8,6 +7,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Link from "next/link"
+import { classNames } from "src/utils/cn"
 
 type SocialMediaContent = {
   id: string

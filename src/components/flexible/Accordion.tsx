@@ -1,6 +1,6 @@
-import { classNames } from "@/lib/utils/cn"
 import { Disclosure } from "@headlessui/react"
 import { ChevronDownIcon } from "@heroicons/react/24/outline"
+import { classNames } from "src/utils/cn"
 
 type AccordionProps = {
   items: [

@@ -1,6 +1,6 @@
 import "swiper/css"
 
-import { WPImage } from "@/lib/utils/types"
+import { WPImage } from "src/utils/types"
 import { Autoplay } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
 

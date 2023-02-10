@@ -1,6 +1,6 @@
 import { Sponsors } from "@/components/data-display/Sponsors"
 import { Container } from "@/components/layout/Container"
-import { WPImage } from "@/lib/utils/types"
+import { WPImage } from "src/utils/types"
 
 const year = new Date().getFullYear()
 const footerContent = {

@@ -1,5 +1,5 @@
-import { WPImage } from "@/lib/utils/types"
 import { title } from "process"
+import { WPImage } from "src/utils/types"
 
 const defaultValues: HeroBannerProps = {
   useDefaultValues: true,

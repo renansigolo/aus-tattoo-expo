@@ -3,13 +3,13 @@ import { Container } from "@/components/layout/Container"
 import { LoadMorePosts } from "@/components/posts/LoadMorePosts"
 import { ResultInfo } from "@/components/search/ResultInfo"
 import { SearchBox } from "@/components/search/SearchBox"
-import { PER_PAGE_FIRST } from "@/lib/utils/pagination"
 import { useLazyQuery } from "@apollo/client"
 import { SyntheticEvent, useState } from "react"
 import {
   GET_SEARCH_RESULTS,
   GET_SEARCH_RESULTS_WITH_TOTAL_PAGES,
 } from "src/io/queries/search/get-search-results"
+import { PER_PAGE_FIRST } from "src/utils/pagination"
 
 export default function Search() {
   const [searchQuery, setSearchQuery] = useState("")

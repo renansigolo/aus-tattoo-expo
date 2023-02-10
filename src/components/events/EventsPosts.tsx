@@ -1,7 +1,7 @@
 import { LoadMorePosts } from "@/components/posts/LoadMorePosts"
-import { WPCategories } from "@/lib/utils/types"
 import { GET_ARTISTS_BY_CATEGORY } from "@/queries/artists/get-artists-by-category"
 import { GET_RETAILERS_BY_CATEGORY } from "@/queries/retailers/get-retailers-by-category"
+import { WPCategories } from "src/utils/types"
 
 type EventsPostsProps = {
   posts: any

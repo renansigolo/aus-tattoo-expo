@@ -1,11 +1,11 @@
 import client from "@/apollo/client"
 import { Container } from "@/components/layout/Container"
 import { Posts } from "@/components/posts/Posts"
-import { PER_PAGE_FIRST } from "@/lib/utils/pagination"
 import { GetArtists, GET_ARTISTS } from "@/queries/artists/get-artists"
 import { useLazyQuery } from "@apollo/client"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
 import { useEffect, useState } from "react"
+import { PER_PAGE_FIRST } from "src/utils/pagination"
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 

@@ -1,6 +1,6 @@
-import { classNames } from "@/lib/utils/cn"
-import { WPImage, WPLink } from "@/lib/utils/types"
 import Link from "next/link"
+import { classNames } from "src/utils/cn"
+import { WPImage, WPLink } from "src/utils/types"
 
 type TattooDetailsProps = {
   rowDirection: "normal" | "reverse"
