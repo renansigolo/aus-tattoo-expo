@@ -1,5 +1,4 @@
 import client from "@/apollo/client"
-import { Container } from "@/components/layout/Container"
 import { GetTaxonomies } from "@/interfaces/get-taxonomies"
 import { EventsLayout } from "@/layouts/EventsLayout"
 import { formatFlexibleComponentsName } from "@/lib/mutations"
@@ -24,18 +23,16 @@ export default function EventsPage({ page, posts }: Props) {
 
   return (
     <>
-      <Container>
-        {router.isFallback ? (
-          <p>Loading…</p>
-        ) : (
-          <EventsLayout
-            page={page}
-            posts={posts}
-            category={category}
-            slug={String(slug)}
-          />
-        )}
-      </Container>
+      {router.isFallback ? (
+        <p>Loading…</p>
+      ) : (
+        <EventsLayout
+          page={page}
+          posts={posts}
+          category={category}
+          slug={String(slug)}
+        />
+      )}
     </>
   )
 }

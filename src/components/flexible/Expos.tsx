@@ -93,13 +93,17 @@ export function Expos({ locations, useDefaultValues }: ExposProps) {
               <div className="flex h-6 text-center">
                 {location.upNext && <span className="w-full">Next up:</span>}
               </div>
-              <span className="text-3xl font-bold">{location.title}</span>
-              {location.date}
-              <br />
-              {location.venue}
+              <span className="text-2xl font-bold lg:text-3xl">
+                {location.title}
+              </span>
+              <div className="text-md lg:text-base">
+                {location.date}
+                <br />
+                {location.venue}
+              </div>
 
               <br />
-              <button className="btn-primary mt-2 hidden grayscale group-hover:grayscale-0">
+              <button className="btn-primary mt-2 hidden grayscale-0 group-hover:grayscale-0 lg:grayscale">
                 More Info
               </button>
             </Link>
