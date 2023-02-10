@@ -18,11 +18,11 @@
     "paths": {
       "@/apollo/*": ["src/apollo/*"],
       "@/components/*": ["src/components/*"],
-      "@/interfaces/*": ["src/interfaces/*"],
+      "@/interfaces/*": ["src/io/interfaces/*"],
       "@/layouts/*": ["src/layouts/*"],
       "@/lib/*": ["src/lib/*"],
       "@/pages/*": ["src/pages/*"],
-      "@/queries/*": ["src/queries/*"],
+      "@/queries/*": ["src/io/queries/*"],
       "@/styles/*": ["src/styles/*"]
     },
     "plugins": [

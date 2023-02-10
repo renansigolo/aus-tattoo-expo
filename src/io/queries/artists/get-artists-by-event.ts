@@ -1,5 +1,94 @@
-import { ImageFragment } from "@/queries/fragments/image"
 import { gql } from "@apollo/client"
+import { ImageFragment } from "src/io/queries/fragments/image"
+
+export type GetArtistsByEvents = {
+  page: Page
+  posts: Posts
+  tattooTaxonomies: TattooTaxonomies
+}
+
+type Page = {
+  title: string
+  slug: string
+  uri: string
+  eventsContent: EventsContent
+  flexibleContent: FlexibleContent
+}
+
+type EventsContent = {
+  featured: null
+}
+
+type FlexibleContent = {
+  components: Component[]
+}
+
+type Component = {
+  fieldGroupName: string
+  contentEditor: ContentEditor
+}
+
+type ContentEditor = {
+  content: string
+}
+
+type Posts = {
+  name: string
+  slug: string
+  artists: Artists
+}
+
+type Artists = {
+  edges: Edge[]
+  pageInfo: PageInfo
+}
+
+type Edge = {
+  node: EdgeNode
+}
+
+type EdgeNode = {
+  slug: string
+  title: string
+  acfFeaturedImage: AcfFeaturedImage
+  artist: Artist
+}
+
+type AcfFeaturedImage = {
+  profileImage: ProfileImage
+}
+
+type ProfileImage = {
+  altText: string
+  sourceUrl: string
+  title: string
+}
+
+type Artist = {
+  studioName: string
+}
+
+type PageInfo = {
+  hasNextPage: boolean
+  endCursor: string
+}
+
+type TattooTaxonomies = {
+  nodes: NodeElement[]
+}
+
+type NodeElement = {
+  name: string
+  taxonomyName: TaxonomyName
+}
+
+export enum Typename {
+  TattooTaxonomy = "TattooTaxonomy",
+}
+
+export enum TaxonomyName {
+  TattooStyle = "tattoo_style",
+}
 
 export const GET_ARTISTS_BY_EVENT = gql`
   ${ImageFragment}

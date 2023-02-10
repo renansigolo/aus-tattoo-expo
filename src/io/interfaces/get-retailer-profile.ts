@@ -9,29 +9,24 @@ type GetRetailerProfileRetailer = {
   slug: string
   link: string
   categories: Categories
-  __typename: string
 }
 
 type AcfFeaturedImage = {
   profileImage: ProfileImage
-  __typename: string
 }
 
 type ProfileImage = {
   altText: string
   title: string
   sourceUrl: string
-  __typename: string
 }
 
 type Categories = {
   events: Event[]
-  __typename: string
 }
 
 type Event = {
   name: string
-  __typename: string
 }
 
 type Image = {
@@ -47,5 +42,4 @@ type RetailerRetailer = {
   facebookUrl: string
   instagramUrl: string
   images: Image[]
-  __typename: string
 }

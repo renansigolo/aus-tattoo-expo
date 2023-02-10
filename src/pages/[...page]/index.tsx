@@ -1,9 +1,8 @@
 import client from "@/apollo/client"
 import { Seo } from "@/components/seo/seo"
-import { GetPageContent } from "@/interfaces/get-page-content"
 import { PageTemplate } from "@/layouts/PageTemplate"
-import { GET_PAGE_CONTENT } from "@/queries/pages/get-page"
 import { GetServerSideProps, InferGetServerSidePropsType } from "next"
+import { GetPageContent, GET_PAGE_CONTENT } from "src/io/queries/pages/get-page"
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>
 

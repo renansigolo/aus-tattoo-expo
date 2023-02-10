@@ -4,12 +4,12 @@ import { LoadMorePosts } from "@/components/posts/LoadMorePosts"
 import { ResultInfo } from "@/components/search/ResultInfo"
 import { SearchBox } from "@/components/search/SearchBox"
 import { PER_PAGE_FIRST } from "@/lib/utils/pagination"
+import { useLazyQuery } from "@apollo/client"
+import { SyntheticEvent, useState } from "react"
 import {
   GET_SEARCH_RESULTS,
   GET_SEARCH_RESULTS_WITH_TOTAL_PAGES,
-} from "@/queries/search/get-search-results"
-import { useLazyQuery } from "@apollo/client"
-import { SyntheticEvent, useState } from "react"
+} from "src/io/queries/search/get-search-results"
 
 export default function Search() {
   const [searchQuery, setSearchQuery] = useState("")

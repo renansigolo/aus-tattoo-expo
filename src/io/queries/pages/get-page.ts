@@ -1,37 +1,140 @@
-import { ImageFragment } from "@/queries/fragments/image"
 import { gql } from "@apollo/client"
+import { ImageFragment } from "src/io/queries/fragments/image"
+import { SeoFragment } from "src/io/queries/fragments/seo"
 
-export const GET_RETAILERS_BY_EVENT = gql`
+import { HeroBannerProps } from "@/components/flexible/HeroBanner"
+
+export type GetPageContent = {
+  page: Page
+}
+
+type Page = {
+  title: string
+  isFrontPage: boolean
+  pageHeading: PageHeading
+  flexibleContent: FlexibleContent
+  seo: any
+}
+
+export type FlexibleContent = {
+  components: FlexibleComponents[]
+}
+
+export type FlexibleComponents = {
+  fieldGroupName: string
+  ctaBanner?: CtaBanner
+  youtubeVideo?: YoutubeVideo
+  carousel?: Carousel
+  expos?: Expos
+  featured?: Featured
+  boxes?: Boxes
+}
+
+type Boxes = {
+  items: Item[]
+}
+
+type Item = {
+  image: Image
+  link: Link
+}
+
+type Image = {
+  sourceUrl: string
+  altText: AltText
+  title: string
+}
+
+export enum Typename {
+  MediaItem = "MediaItem",
+}
+
+export enum AltText {
+  Adamlynchtattoos = "adamlynchtattoos",
+  Empty = "",
+}
+
+type Link = {
+  url: string
+  title: string
+  target: string
+}
+
+type Carousel = {
+  images: Image[]
+}
+
+type CtaBanner = {
+  bannerType: string
+  fieldGroupName: string
+  text: null | string
+  image: null
+  link: Link
+}
+
+type Expos = {
+  useDefaultValues: boolean
+  locations: null
+}
+
+type Featured = {
+  title: string
+  featuredProfiles: FeaturedProfile[]
+}
+
+type FeaturedProfile = {
+  id: string
+  acfFeaturedImage: AcfFeaturedImage
+  title: string
+  slug: string
+  artist?: Artist
+  retailer?: Retailer
+}
+
+type AcfFeaturedImage = {
+  profileImage: Image
+}
+
+type Artist = {
+  studioName: string
+}
+
+type Retailer = {
+  websiteUrl: string
+}
+
+type YoutubeVideo = {
+  videoUrl: string
+}
+
+type PageHeading = {
+  heroBanner: HeroBanner
+}
+
+type HeroBanner = HeroBannerProps
+
+export const GET_PAGE_CONTENT = gql`
+  ${SeoFragment}
   ${ImageFragment}
-  query GetRetailersByEvent(
-    $id: ID!
-    $uri: ID!
-    $first: Int
-    $after: String
-    $categoryName: String
-  ) {
-    page(id: $uri, idType: URI) {
+  query GetPageContent($uri: ID! = "/") {
+    page(idType: URI, id: $uri) {
+      isFrontPage
       title
       slug
       uri
-      eventsContent {
-        featured {
-          ... on Retailer {
-            slug
-            title
-            uri
-            acfFeaturedImage {
-              profileImage {
-                altText
-                sourceUrl(size: MEDIUM)
-                title
-              }
-            }
-            retailer {
-              websiteUrl
-            }
+      pageHeading {
+        heroBanner {
+          useDefaultValues
+          mobileImage {
+            ...ImageFragment
+          }
+          image {
+            ...ImageFragment
           }
         }
+      }
+      seo {
+        ...SeoFragment
       }
       flexibleContent {
         components {
@@ -202,45 +305,6 @@ export const GET_RETAILERS_BY_EVENT = gql`
             }
           }
         }
-      }
-    }
-    posts: eventTaxonomy(id: $id, idType: SLUG) {
-      name
-      slug
-      retailers(
-        first: $first
-        after: $after
-        where: {
-          categoryName: $categoryName
-          orderby: { field: TITLE, order: ASC }
-        }
-      ) {
-        edges {
-          node {
-            slug
-            title
-            acfFeaturedImage {
-              profileImage {
-                altText
-                sourceUrl(size: MEDIUM)
-                title
-              }
-            }
-            retailer {
-              websiteUrl
-            }
-          }
-        }
-        pageInfo {
-          hasNextPage
-          endCursor
-        }
-      }
-    }
-    tattooTaxonomies {
-      nodes {
-        name
-        taxonomyName
       }
     }
   }

@@ -3,13 +3,13 @@ import { SocialMediaIcons } from "@/components/data-display/SocialMediaIcons"
 import { HeroBanner } from "@/components/flexible/HeroBanner"
 import { Container } from "@/components/layout/Container"
 import { Modal } from "@/components/overlays/Modal"
-import { GetRetailerProfile } from "@/interfaces/get-retailer-profile"
 import { getPostsWithSlug } from "@/lib/queries"
-import { GET_RETAILER_PROFILE } from "@/queries/get-retailer-profile"
+import { GET_RETAILER_PROFILE } from "@/queries/retailers/get-retailer-profile"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
 import { useRouter } from "next/router"
 import { useState } from "react"
+import { GetRetailerProfile } from "src/io/interfaces/get-retailer-profile"
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 

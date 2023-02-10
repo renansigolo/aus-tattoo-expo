@@ -1,5 +1,5 @@
-import { SeoFragment } from "@/queries/fragments/seo"
 import { gql } from "@apollo/client"
+import { SeoFragment } from "src/io/queries/fragments/seo"
 
 export const GET_ARTIST_PROFILE = gql`
   ${SeoFragment}

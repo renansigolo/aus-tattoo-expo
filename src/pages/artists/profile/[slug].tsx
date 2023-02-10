@@ -4,14 +4,14 @@ import { HeroBanner } from "@/components/flexible/HeroBanner"
 import { Container } from "@/components/layout/Container"
 import { Modal } from "@/components/overlays/Modal"
 import { Seo } from "@/components/seo/seo"
-import { GetArtistProfile } from "@/interfaces/get-artist-profile"
 import { getPostsWithSlug } from "@/lib/queries"
-import { GET_ARTIST_PROFILE } from "@/queries/get-artist-profile"
+import { GET_ARTIST_PROFILE } from "@/queries/artists/get-artist-profile"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useState } from "react"
+import { GetArtistProfile } from "src/io/interfaces/get-artist-profile"
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 

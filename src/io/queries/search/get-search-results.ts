@@ -1,5 +1,5 @@
-import { PostFragment } from "@/queries/fragments/post"
 import { gql } from "@apollo/client"
+import { PostFragment } from "src/io/queries/fragments/post"
 
 /**
  * Get Search Results.
