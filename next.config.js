@@ -1,4 +1,4 @@
-const allowedImageWordPressDomain = new URL(process.env.WORDPRESS_API_URL)
+const allowedImageWordPressDomain = new URL(process.env.NEXT_PUBLIC_SITE_URL)
   .hostname
 
 /** @type {import('next').NextConfig} */

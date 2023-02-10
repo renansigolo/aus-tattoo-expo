@@ -1,9 +1,10 @@
+import client from "@/apollo/client"
 import { Notification } from "@/components/feedback/Notification"
 import { HeroBanner } from "@/components/flexible/HeroBanner"
 import { Container } from "@/components/layout/Container"
-import { getBoothsPage } from "@/lib/queries"
-import { postRequest } from "@/lib/utils/post-request"
-import { getStripe } from "@/lib/utils/stripe"
+import { GetBoothsPage, GET_BOOTHS_PAGE } from "@/io/queries/get-booths-page"
+import { postRequest } from "@/utils/post-request"
+import { getStripe } from "@/utils/stripe"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -587,10 +588,15 @@ export default function Booths({ page }: Props) {
 }
 
 export const getStaticProps = (async () => {
-  const page = await getBoothsPage("shop/booths")
+  const { data } = await client.query<GetBoothsPage>({
+    query: GET_BOOTHS_PAGE,
+    variables: {
+      id: "/shop/booths",
+    },
+  })
 
   return {
-    props: { page },
+    props: { ...data },
     revalidate: 30,
   }
 }) satisfies GetStaticProps

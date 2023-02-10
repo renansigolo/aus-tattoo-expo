@@ -1,3 +1,4 @@
+import client from "@/apollo/client"
 import Layout from "@/components/layout"
 import "@/styles/globals.css"
 
@@ -7,7 +8,6 @@ import "@fortawesome/fontawesome-svg-core/styles.css"
 import { Open_Sans } from "@next/font/google"
 import localFont from "@next/font/local"
 import type { AppProps } from "next/app"
-import client from "src/apollo/client"
 
 config.autoAddCss = false
 

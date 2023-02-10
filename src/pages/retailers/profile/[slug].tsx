@@ -3,9 +3,14 @@ import { SocialMediaIcons } from "@/components/data-display/SocialMediaIcons"
 import { HeroBanner } from "@/components/flexible/HeroBanner"
 import { Container } from "@/components/layout/Container"
 import { Modal } from "@/components/overlays/Modal"
-import { GetRetailerProfile } from "@/interfaces/get-retailer-profile"
-import { getPostsWithSlug } from "@/lib/queries"
-import { GET_RETAILER_PROFILE } from "@/queries/get-retailer-profile"
+import {
+  GetPostsBySlug,
+  GET_POSTS_BY_SLUG,
+} from "@/io/queries/posts/get-posts-by-slug"
+import {
+  GetRetailerProfile,
+  GET_RETAILER_PROFILE,
+} from "@/io/queries/retailers/get-retailer-profile"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
 import { useRouter } from "next/router"
@@ -155,7 +160,10 @@ export const getStaticProps = (async ({ params }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const postType = "retailers"
-  const allPostsWithSlug = await getPostsWithSlug(postType)
+  const { data } = await client.query<GetPostsBySlug>({
+    query: GET_POSTS_BY_SLUG,
+  })
+  const allPostsWithSlug = data?.[postType]
 
   return {
     paths:

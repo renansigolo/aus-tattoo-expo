@@ -1,11 +1,12 @@
 import client from "@/apollo/client"
-import { GetArtistsByEvents } from "@/interfaces/get-artists-by-event"
-import { GetTaxonomies } from "@/interfaces/get-taxonomies"
+import { formatFlexibleComponentsName } from "@/io/mutations/mutations"
+import {
+  GetArtistsByEvents,
+  GET_ARTISTS_BY_EVENT,
+} from "@/io/queries/artists/get-artists-by-event"
+import { GetTaxonomies, GET_TAXONOMIES } from "@/io/queries/get-taxonomies"
 import { EventsLayout } from "@/layouts/EventsLayout"
-import { formatFlexibleComponentsName } from "@/lib/mutations"
-import { PER_PAGE_FIRST } from "@/lib/utils/pagination"
-import { GET_ARTISTS_BY_EVENT } from "@/queries/get-artists-by-event"
-import { GET_TAXONOMIES } from "@/queries/get-taxonomies"
+import { PER_PAGE_FIRST } from "@/utils/pagination"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
 import { useRouter } from "next/router"

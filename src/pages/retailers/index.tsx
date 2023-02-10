@@ -1,9 +1,11 @@
 import client from "@/apollo/client"
 import { Container } from "@/components/layout/Container"
 import { Posts } from "@/components/posts/Posts"
-import { GetRetailers } from "@/interfaces/get-retailers"
-import { PER_PAGE_FIRST } from "@/lib/utils/pagination"
-import { GET_RETAILERS } from "@/queries/get-retailers"
+import {
+  GetRetailers,
+  GET_RETAILERS,
+} from "@/io/queries/retailers/get-retailers"
+import { PER_PAGE_FIRST } from "@/utils/pagination"
 import { useLazyQuery } from "@apollo/client"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
 import { useEffect, useState } from "react"
@@ -35,9 +37,6 @@ export default function Retailers({ posts }: Props) {
     onCompleted: (data) => {
       setPosts(data?.posts ?? [])
     },
-    // onError: (error) => {
-    //   setError(error?.graphQLErrors ?? "")
-    // },
   })
 
   const loadMoreItems = (endCursor: string | null) => {

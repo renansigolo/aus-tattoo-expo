@@ -1,4 +1,4 @@
-import { WPImage } from "@/lib/utils/types"
+import { WPImage } from "@/utils/wp-types"
 import { parseUrl } from "next/dist/shared/lib/router/utils/parse-url"
 import Link from "next/link"
 

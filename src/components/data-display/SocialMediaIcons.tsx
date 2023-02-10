@@ -1,4 +1,4 @@
-import { classNames } from "@/lib/utils/cn"
+import { classNames } from "@/utils/cn"
 import {
   faChrome,
   faFacebook,

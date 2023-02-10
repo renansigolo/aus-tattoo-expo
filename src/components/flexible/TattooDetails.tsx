@@ -1,5 +1,5 @@
-import { classNames } from "@/lib/utils/cn"
-import { WPImage, WPLink } from "@/lib/utils/types"
+import { classNames } from "@/utils/cn"
+import { WPImage, WPLink } from "@/utils/wp-types"
 import Link from "next/link"
 
 type TattooDetailsProps = {

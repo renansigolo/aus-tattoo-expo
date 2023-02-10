@@ -1,5 +1,5 @@
 import { Posts } from "@/components/posts/Posts"
-import { PER_PAGE_REST } from "@/lib/utils/pagination"
+import { PER_PAGE_REST } from "@/utils/pagination"
 import { useLazyQuery } from "@apollo/client"
 import { useEffect, useState } from "react"
 

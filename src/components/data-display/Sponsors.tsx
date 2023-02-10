@@ -1,4 +1,4 @@
-import { WPImage } from "@/lib/utils/types"
+import { WPImage } from "@/utils/wp-types"
 
 type SponsorsProps = {
   sponsors: WPImage[] | undefined

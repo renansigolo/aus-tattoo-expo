@@ -1,6 +1,6 @@
 import { Grid } from "@/components/layout/Grid"
 import { Modal } from "@/components/overlays/Modal"
-import { WPImage } from "@/lib/utils/types"
+import { WPImage } from "@/utils/wp-types"
 import { useState } from "react"
 
 type GalleryProps = {

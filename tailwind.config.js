@@ -3,11 +3,7 @@ const colors = require("tailwindcss/colors")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./app/**/*.{js,ts,jsx,tsx}",
-    "./src/pages/**/*.{js,ts,jsx,tsx}",
-    "./src/components/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./src/pages/**/*.{ts,tsx}", "./src/components/**/*.{ts,tsx}"],
   theme: {
     container: {
       center: true,
@@ -22,8 +18,7 @@ module.exports = {
           ...colors.pink,
         },
         secondary: {
-          // abffc7
-          DEFAULT: colors.emerald["500"],
+          DEFAULT: "#abffc7",
           ...colors.emerald,
         },
         ate: {
