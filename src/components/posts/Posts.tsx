@@ -5,9 +5,17 @@ type PostsProps = {
   posts: any[] | any
 }
 
+function NotFound() {
+  return (
+    <div className="my-36 text-center">
+      <h3 className="text-xl">Sorry nothing has been found 😕</h3>
+    </div>
+  )
+}
+
 export function Posts({ posts }: PostsProps) {
-  if (!posts && !Array.isArray(posts)) {
-    return null
+  if (!posts || posts.length === 0) {
+    return <NotFound />
   }
 
   const postsData = posts ? posts : posts.node
