@@ -44,9 +44,11 @@ export function EventsPosts({ posts, category, slug }: EventsPostsProps) {
 
   return (
     <>
-      <div className="mb-12 flex w-full justify-end">
-        <CategoryFilter setFilter={setFilter} />
-      </div>
+      {category === "artists" && (
+        <div className="mb-12 flex w-full justify-end">
+          <CategoryFilter setFilter={setFilter} />
+        </div>
+      )}
 
       <h2 className="mb-2 text-center text-3xl capitalize">
         {category} Attending
