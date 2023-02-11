@@ -8,6 +8,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css"
 import { Open_Sans } from "@next/font/google"
 import localFont from "@next/font/local"
 import type { AppProps } from "next/app"
+import { GoogleAnalytics } from "nextjs-google-analytics"
 
 config.autoAddCss = false
 
@@ -40,6 +41,7 @@ export default function App({ Component, pageProps }: AppProps) {
       `}</style>
       <ApolloProvider client={client}>
         <Layout>
+          <GoogleAnalytics trackPageViews />
           <Component {...pageProps} />
         </Layout>
       </ApolloProvider>
