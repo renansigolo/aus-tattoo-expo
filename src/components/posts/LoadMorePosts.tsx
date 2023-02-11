@@ -9,6 +9,7 @@ type LoadMorePostsProps = {
   graphQLQuery?: any
   searchQuery?: string
   slug?: string
+  filterCategory?: string
 }
 
 export function LoadMorePosts({
@@ -16,6 +17,7 @@ export function LoadMorePosts({
   classes,
   graphQLQuery,
   searchQuery,
+  filterCategory,
   slug,
 }: LoadMorePostsProps) {
   const [postsData, setPostsData] = useState(posts?.edges ?? [])
@@ -30,6 +32,22 @@ export function LoadMorePosts({
     setPostsData(posts?.edges)
     setPageInfo(posts?.pageInfo)
   }, [posts?.edges, posts?.pageInfo])
+
+  // Refetch posts when filter category changes
+  useEffect(() => {
+    setPostsData([])
+
+    let queryVariables = {
+      first: PER_PAGE_REST,
+      after: null,
+      id: slug,
+      categoryName: filterCategory || "",
+    }
+
+    fetchPosts({
+      variables: queryVariables,
+    })
+  }, [filterCategory])
 
   /** Set posts */
   const setPosts = (posts: any): void => {
@@ -64,12 +82,8 @@ export function LoadMorePosts({
       first: PER_PAGE_REST,
       after: endCursor,
       id: slug,
+      categoryName: filterCategory || "",
     }
-
-    // If its a search query then add the query in the query variables.
-    // if (searchQuery) {
-    //   queryVariables.query = searchQuery
-    // }
 
     fetchPosts({
       variables: queryVariables,
@@ -86,7 +100,7 @@ export function LoadMorePosts({
         <div className="flex w-full justify-center lg:my-10">
           <button
             className="btn-primary"
-            onClick={() => loadMoreItems(endCursor)}
+            onClick={() => loadMoreItems(endCursor || "")}
           >
             {loading ? "Loading..." : "Load more"}
           </button>
