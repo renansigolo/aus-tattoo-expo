@@ -1,5 +1,7 @@
+import { SocialMediaIcons } from "@/components/data-display/SocialMediaIcons"
 import { Sponsors } from "@/components/data-display/Sponsors"
 import { Container } from "@/components/layout/Container"
+import { SiteIdentity } from "@/io/queries/get-layout"
 import { WPImage } from "@/utils/wp-types"
 
 const year = new Date().getFullYear()
@@ -12,11 +14,13 @@ type FooterProps = {
   disclaimer?: string
   copyright?: string
   sponsors?: WPImage[]
+  siteIdentity?: SiteIdentity
 }
 
 export function Footer({
   disclaimer = footerContent.disclaimer,
   copyright = footerContent.copyright,
+  siteIdentity,
   sponsors,
 }: FooterProps) {
   return (
@@ -27,6 +31,10 @@ export function Footer({
           className="py-6 text-sm"
           dangerouslySetInnerHTML={{ __html: disclaimer }}
         />
+
+        <div className="pb-6">
+          <SocialMediaIcons {...siteIdentity} />
+        </div>
 
         <div className="text-xs text-gray-400">
           <p>{copyright}</p>

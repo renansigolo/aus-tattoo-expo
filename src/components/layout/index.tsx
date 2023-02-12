@@ -31,7 +31,12 @@ export default function Layout({ children }: LayoutProps) {
 
       <main>{children}</main>
 
-      <Footer {...data?.acfOptionsFooter.footer} />
+      <Footer
+        disclaimer={data?.acfOptionsFooter.footer.disclaimer}
+        copyright={data?.acfOptionsFooter.footer.copyright}
+        sponsors={data?.acfOptionsFooter.footer.sponsors}
+        siteIdentity={data?.acfOptionsGeneral.general.siteIdentity}
+      />
     </>
   )
 }

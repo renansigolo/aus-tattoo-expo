@@ -1,3 +1,4 @@
+import { SocialMediaIconsProps } from "@/components/data-display/SocialMediaIcons"
 import { gql } from "@apollo/client"
 import { MenuFragment } from "./fragments/menus"
 
@@ -32,11 +33,8 @@ type General = {
   siteIdentity: SiteIdentity
 }
 
-export type SiteIdentity = {
+export type SiteIdentity = SocialMediaIconsProps & {
   logo: Sponsor
-  facebookUrl: string
-  instagramUrl: string
-  twitterUrl: string
   ticketsUrl: string
 }
 
@@ -81,6 +79,7 @@ export const GET_LAYOUT = gql`
           facebookUrl
           instagramUrl
           twitterUrl
+          tiktokUrl
           ticketsUrl
         }
       }

@@ -3,6 +3,7 @@ import {
   faChrome,
   faFacebook,
   faInstagram,
+  faTiktok,
   faTwitter,
   IconDefinition,
 } from "@fortawesome/free-brands-svg-icons"
@@ -16,17 +17,19 @@ type SocialMediaContent = {
   brandColor: string
 }
 
-type SocialMediaIconsProps = {
+export type SocialMediaIconsProps = {
   instagramUrl?: string
   facebookUrl?: string
   twitterUrl?: string
   websiteUrl?: string
+  tiktokUrl?: string
 }
 export function SocialMediaIcons({
   instagramUrl,
   facebookUrl,
   twitterUrl,
   websiteUrl,
+  tiktokUrl,
 }: SocialMediaIconsProps) {
   const socialMediaContent: SocialMediaContent[] = [
     {
@@ -46,6 +49,12 @@ export function SocialMediaIcons({
       icon: faTwitter,
       url: twitterUrl || "",
       brandColor: "hover:text-sky-500",
+    },
+    {
+      id: "tiktok",
+      icon: faTiktok,
+      url: tiktokUrl,
+      brandColor: "hover:text-teal-400",
     },
     {
       id: "website",
