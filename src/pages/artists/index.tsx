@@ -1,5 +1,6 @@
 import client from "@/apollo/client"
 import { GetArtists, GET_ARTISTS } from "@/apollo/queries/artists/get-artists"
+import { CategoryFilter } from "@/components/events/EventsPosts"
 import { HeroBanner } from "@/components/flexible/HeroBanner"
 import { Container } from "@/components/layout/Container"
 import { Posts } from "@/components/posts/Posts"
@@ -13,11 +14,24 @@ type Props = InferGetStaticPropsType<typeof getStaticProps>
 export default function Artists({ posts }: Props) {
   const [postsData, setPostsData] = useState(posts?.edges ?? [])
   const [pageInfo, setPageInfo] = useState(posts?.pageInfo)
+  const [filter, setFilter] = useState("")
 
   useEffect(() => {
     setPostsData(posts?.edges)
     setPageInfo(posts?.pageInfo)
   }, [posts?.edges, posts?.pageInfo])
+
+  useEffect(() => {
+    setPostsData([])
+
+    fetchPosts({
+      variables: {
+        first: PER_PAGE_REST,
+        after: null,
+        categoryName: filter || "",
+      },
+    })
+  }, [filter])
 
   const setPosts = (posts: any) => {
     if (!posts || !posts?.edges || !posts?.pageInfo) {
@@ -42,6 +56,7 @@ export default function Artists({ posts }: Props) {
       variables: {
         first: PER_PAGE_REST,
         after: endCursor,
+        categoryName: filter || "",
       },
     })
   }
@@ -63,7 +78,17 @@ export default function Artists({ posts }: Props) {
           to find the one for you!
         </p>
 
+        <div>
+          <p className="mb-4 mt-6 text-center text-sm font-medium text-gray-100">
+            Choose a category to filter the attending artists by Tattoo Style.
+          </p>
+          <div className="mb-12 flex w-full justify-center">
+            <CategoryFilter setFilter={setFilter} />
+          </div>
+        </div>
+
         <Posts posts={postsData} />
+
         {pageInfo.hasNextPage && (
           <div className="flex w-full justify-center lg:my-10">
             <button

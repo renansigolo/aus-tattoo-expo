@@ -45,7 +45,7 @@ export function EventsPosts({ posts, category, slug }: EventsPostsProps) {
   )
 }
 
-function CategoryFilter({ setFilter }: any) {
+export function CategoryFilter({ setFilter }: any) {
   const { data } = useQuery<GetTaxonomies>(GET_TAXONOMIES)
   const { tattooTaxonomies } = data || {}
 

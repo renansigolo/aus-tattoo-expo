@@ -34,15 +34,13 @@ export function LoadMorePosts({
   useEffect(() => {
     setPostsData([])
 
-    let queryVariables = {
-      first: PER_PAGE_REST,
-      after: null,
-      id: slug,
-      categoryName: filterCategory || "",
-    }
-
     fetchPosts({
-      variables: queryVariables,
+      variables: {
+        first: PER_PAGE_REST,
+        after: null,
+        id: slug,
+        categoryName: filterCategory || "",
+      },
     })
   }, [filterCategory])
 
@@ -74,15 +72,13 @@ export function LoadMorePosts({
   })
 
   const loadMoreItems = (endCursor: string | null = null) => {
-    let queryVariables = {
-      first: PER_PAGE_REST,
-      after: endCursor,
-      id: slug,
-      categoryName: filterCategory || "",
-    }
-
     fetchPosts({
-      variables: queryVariables,
+      variables: {
+        first: PER_PAGE_REST,
+        after: endCursor,
+        id: slug,
+        categoryName: filterCategory || "",
+      },
     })
   }
 
