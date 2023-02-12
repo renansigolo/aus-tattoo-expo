@@ -1,6 +1,6 @@
+import { GetLayout, GET_LAYOUT } from "@/apollo/queries/get-layout"
 import { Footer } from "@/components/layout/Footer"
 import { Navbar } from "@/components/layout/Navbar"
-import { GetLayout, GET_LAYOUT } from "@/io/queries/get-layout"
 import { useQuery } from "@apollo/client"
 import Head from "next/head"
 import { ReactNode } from "react"
@@ -31,7 +31,12 @@ export default function Layout({ children }: LayoutProps) {
 
       <main>{children}</main>
 
-      <Footer {...data?.acfOptionsFooter.footer} />
+      <Footer
+        disclaimer={data?.acfOptionsFooter.footer.disclaimer}
+        copyright={data?.acfOptionsFooter.footer.copyright}
+        sponsors={data?.acfOptionsFooter.footer.sponsors}
+        siteIdentity={data?.acfOptionsGeneral.general.siteIdentity}
+      />
     </>
   )
 }

@@ -1,5 +1,5 @@
+import { GetLayout } from "@/apollo/queries/get-layout"
 import { SocialMediaIcons } from "@/components/data-display/SocialMediaIcons"
-import { GetLayout } from "@/io/queries/get-layout"
 import { classNames } from "@/utils/cn"
 import { Popover, Transition } from "@headlessui/react"
 import {
@@ -108,7 +108,7 @@ export function Navbar({
             )}
           </Popover.Group>
 
-          {/* Navbar END:  Social Icons and Cta Button */}
+          {/* Desktop Social Media Icons */}
           <div className="hidden items-center justify-end text-gray-50 lg:flex lg:w-0 lg:flex-1">
             <SocialMediaIcons {...siteIdentity} />
             {siteIdentity.ticketsUrl && (
@@ -120,9 +120,6 @@ export function Navbar({
                 Buy Tickets
               </Link>
             )}
-            {/* <Link href="/search" className="text-white hover:text-primary-500">
-              <MagnifyingGlassIcon className="ml-2 h-6 w-6 " />
-            </Link> */}
           </div>
 
           {/* Toggle Menu Button */}

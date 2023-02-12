@@ -1,8 +1,10 @@
 import client from "@/apollo/client"
+import { GetArtists, GET_ARTISTS } from "@/apollo/queries/artists/get-artists"
+import { CategoryFilter } from "@/components/events/EventsPosts"
+import { HeroBanner } from "@/components/flexible/HeroBanner"
 import { Container } from "@/components/layout/Container"
 import { Posts } from "@/components/posts/Posts"
-import { GetArtists, GET_ARTISTS } from "@/io/queries/artists/get-artists"
-import { PER_PAGE_FIRST } from "@/utils/pagination"
+import { PER_PAGE_FIRST, PER_PAGE_REST } from "@/utils/pagination"
 import { useLazyQuery } from "@apollo/client"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
 import { useEffect, useState } from "react"
@@ -12,11 +14,24 @@ type Props = InferGetStaticPropsType<typeof getStaticProps>
 export default function Artists({ posts }: Props) {
   const [postsData, setPostsData] = useState(posts?.edges ?? [])
   const [pageInfo, setPageInfo] = useState(posts?.pageInfo)
+  const [filter, setFilter] = useState("")
 
   useEffect(() => {
     setPostsData(posts?.edges)
     setPageInfo(posts?.pageInfo)
   }, [posts?.edges, posts?.pageInfo])
+
+  useEffect(() => {
+    setPostsData([])
+
+    fetchPosts({
+      variables: {
+        first: PER_PAGE_REST,
+        after: null,
+        categoryName: filter || "",
+      },
+    })
+  }, [filter])
 
   const setPosts = (posts: any) => {
     if (!posts || !posts?.edges || !posts?.pageInfo) {
@@ -39,8 +54,9 @@ export default function Artists({ posts }: Props) {
   const loadMoreItems = (endCursor: string | null) => {
     fetchPosts({
       variables: {
-        first: PER_PAGE_FIRST,
+        first: PER_PAGE_REST,
         after: endCursor,
+        categoryName: filter || "",
       },
     })
   }
@@ -48,9 +64,28 @@ export default function Artists({ posts }: Props) {
   return (
     <section className="text-white">
       <Container>
+        <HeroBanner useDefaultValues />
         <h1 className="py-6 text-center text-3xl font-bold tracking-tight text-white sm:text-3xl">
-          Meet the Artists
+          Tattoo Artist Directory
         </h1>
+
+        <p className="text-center">
+          At Australian Tattoo Expo, we have over 1,000 extremely talented
+          Tattoo Artists from across Australia and across the globe that are
+          either attending or have previously attended our event. You can browse
+          through all of these Tattoo Artist profiles by selecting a tattoo
+          style that you like. With so many artists available, you&apos;re sure
+          to find the one for you!
+        </p>
+
+        <div>
+          <p className="mb-4 mt-6 text-center text-sm font-medium text-gray-100">
+            Choose a category to filter the attending artists by Tattoo Style.
+          </p>
+          <div className="mb-12 flex w-full justify-center">
+            <CategoryFilter setFilter={setFilter} />
+          </div>
+        </div>
 
         <Posts posts={postsData} />
 

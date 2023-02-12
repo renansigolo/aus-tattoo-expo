@@ -8,7 +8,9 @@ type PostsProps = {
 function NotFound() {
   return (
     <div className="my-36 text-center">
-      <h3 className="text-xl">Try searching a different category</h3>
+      <h3 className="text-xl">
+        Choose a tattoo style category above to browse Artists.
+      </h3>
     </div>
   )
 }

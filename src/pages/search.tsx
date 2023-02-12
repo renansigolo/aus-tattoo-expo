@@ -1,12 +1,12 @@
+import {
+  GET_SEARCH_RESULTS,
+  GET_SEARCH_RESULTS_WITH_TOTAL_PAGES,
+} from "@/apollo/queries/search/get-search-results"
 import { Alert } from "@/components/feedback/Alert"
 import { Container } from "@/components/layout/Container"
 import { LoadMorePosts } from "@/components/posts/LoadMorePosts"
 import { ResultInfo } from "@/components/search/ResultInfo"
 import { SearchBox } from "@/components/search/SearchBox"
-import {
-  GET_SEARCH_RESULTS,
-  GET_SEARCH_RESULTS_WITH_TOTAL_PAGES,
-} from "@/io/queries/search/get-search-results"
 import { PER_PAGE_FIRST } from "@/utils/pagination"
 import { useLazyQuery } from "@apollo/client"
 import { SyntheticEvent, useState } from "react"

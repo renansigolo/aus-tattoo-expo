@@ -1,8 +1,10 @@
 import { classNames } from "@/utils/cn"
+import { SizeProp } from "@fortawesome/fontawesome-svg-core"
 import {
   faChrome,
   faFacebook,
   faInstagram,
+  faTiktok,
   faTwitter,
   IconDefinition,
 } from "@fortawesome/free-brands-svg-icons"
@@ -16,17 +18,21 @@ type SocialMediaContent = {
   brandColor: string
 }
 
-type SocialMediaIconsProps = {
+export type SocialMediaIconsProps = {
   instagramUrl?: string
   facebookUrl?: string
   twitterUrl?: string
   websiteUrl?: string
+  tiktokUrl?: string
+  size?: SizeProp
 }
 export function SocialMediaIcons({
   instagramUrl,
   facebookUrl,
   twitterUrl,
   websiteUrl,
+  tiktokUrl,
+  size,
 }: SocialMediaIconsProps) {
   const socialMediaContent: SocialMediaContent[] = [
     {
@@ -46,6 +52,12 @@ export function SocialMediaIcons({
       icon: faTwitter,
       url: twitterUrl || "",
       brandColor: "hover:text-sky-500",
+    },
+    {
+      id: "tiktok",
+      icon: faTiktok,
+      url: tiktokUrl,
+      brandColor: "hover:text-teal-400",
     },
     {
       id: "website",
@@ -69,7 +81,7 @@ export function SocialMediaIcons({
                 item.brandColor
               )}
             >
-              <FontAwesomeIcon icon={item.icon} size="xl" />
+              <FontAwesomeIcon icon={item.icon} size={size || "xl"} />
             </Link>
           )
       )}

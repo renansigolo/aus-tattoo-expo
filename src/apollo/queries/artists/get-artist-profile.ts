@@ -1,5 +1,5 @@
-import { ImageFragment } from "@/io/queries/fragments/image"
-import { SeoFragment } from "@/io/queries/fragments/seo"
+import { ImageFragment } from "@/apollo/queries/fragments/image"
+import { SeoFragment } from "@/apollo/queries/fragments/seo"
 import { WPImage } from "@/utils/wp-types"
 import { gql } from "@apollo/client"
 

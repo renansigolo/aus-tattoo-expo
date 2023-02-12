@@ -1,10 +1,10 @@
 import client from "@/apollo/client"
-import { Container } from "@/components/layout/Container"
-import { Posts } from "@/components/posts/Posts"
 import {
   GetRetailers,
   GET_RETAILERS,
-} from "@/io/queries/retailers/get-retailers"
+} from "@/apollo/queries/retailers/get-retailers"
+import { Container } from "@/components/layout/Container"
+import { Posts } from "@/components/posts/Posts"
 import { PER_PAGE_FIRST } from "@/utils/pagination"
 import { useLazyQuery } from "@apollo/client"
 import { GetStaticProps, InferGetStaticPropsType } from "next"

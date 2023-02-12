@@ -1,17 +1,17 @@
 import client from "@/apollo/client"
+import {
+  GetArtistProfile,
+  GET_ARTIST_PROFILE,
+} from "@/apollo/queries/artists/get-artist-profile"
+import {
+  GetPostsBySlug,
+  GET_POSTS_BY_SLUG,
+} from "@/apollo/queries/posts/get-posts-by-slug"
 import { SocialMediaIcons } from "@/components/data-display/SocialMediaIcons"
 import { HeroBanner } from "@/components/flexible/HeroBanner"
 import { Container } from "@/components/layout/Container"
 import { Modal } from "@/components/overlays/Modal"
 import { Seo } from "@/components/seo/seo"
-import {
-  GetArtistProfile,
-  GET_ARTIST_PROFILE,
-} from "@/io/queries/artists/get-artist-profile"
-import {
-  GetPostsBySlug,
-  GET_POSTS_BY_SLUG,
-} from "@/io/queries/posts/get-posts-by-slug"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
 import Link from "next/link"
@@ -100,7 +100,10 @@ export default function ArtistProfile({ post }: Props) {
                               </p>
                             </div>
                           </div>
-                          <SocialMediaIcons {...post.artist} />
+                          <div className="flex flex-col items-center justify-center sm:flex-row sm:gap-4">
+                            <p>Get in touch with this Artist:</p>
+                            <SocialMediaIcons {...post.artist} size="3x" />
+                          </div>
                         </div>
                       </div>
                       <div

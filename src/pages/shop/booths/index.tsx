@@ -1,8 +1,11 @@
 import client from "@/apollo/client"
+import {
+  GetBoothsPage,
+  GET_BOOTHS_PAGE,
+} from "@/apollo/queries/get-booths-page"
 import { Notification } from "@/components/feedback/Notification"
 import { HeroBanner } from "@/components/flexible/HeroBanner"
 import { Container } from "@/components/layout/Container"
-import { GetBoothsPage, GET_BOOTHS_PAGE } from "@/io/queries/get-booths-page"
 import { postRequest } from "@/utils/post-request"
 import { getStripe } from "@/utils/stripe"
 import { GetStaticProps, InferGetStaticPropsType } from "next"

@@ -1,16 +1,16 @@
 import client from "@/apollo/client"
+import {
+  GetPostsBySlug,
+  GET_POSTS_BY_SLUG,
+} from "@/apollo/queries/posts/get-posts-by-slug"
+import {
+  GetRetailerProfile,
+  GET_RETAILER_PROFILE,
+} from "@/apollo/queries/retailers/get-retailer-profile"
 import { SocialMediaIcons } from "@/components/data-display/SocialMediaIcons"
 import { HeroBanner } from "@/components/flexible/HeroBanner"
 import { Container } from "@/components/layout/Container"
 import { Modal } from "@/components/overlays/Modal"
-import {
-  GetPostsBySlug,
-  GET_POSTS_BY_SLUG,
-} from "@/io/queries/posts/get-posts-by-slug"
-import {
-  GetRetailerProfile,
-  GET_RETAILER_PROFILE,
-} from "@/io/queries/retailers/get-retailer-profile"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
 import { useRouter } from "next/router"
@@ -85,7 +85,10 @@ export default function RetailerProfile({ post }: Props) {
                               </p>
                             </div>
                           </div>
-                          <SocialMediaIcons {...post.retailer} />
+                          <div className="flex flex-col items-center justify-center sm:flex-row sm:gap-4">
+                            <p>Get in touch with this Exhibitor:</p>
+                            <SocialMediaIcons {...post.retailer} size="3x" />
+                          </div>
                         </div>
                       </div>
                       <div className="grid grid-cols-1 divide-y divide-gray-200 border-t border-gray-200 bg-gray-50 ">

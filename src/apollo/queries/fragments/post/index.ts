@@ -1,4 +1,4 @@
-import { ImageFragment } from "@/io/queries/fragments/image"
+import { ImageFragment } from "@/apollo/queries/fragments/image"
 import { gql } from "@apollo/client"
 
 export const PostFragment = gql`
