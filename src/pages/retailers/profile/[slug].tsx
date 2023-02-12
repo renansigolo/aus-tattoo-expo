@@ -85,7 +85,10 @@ export default function RetailerProfile({ post }: Props) {
                               </p>
                             </div>
                           </div>
-                          <SocialMediaIcons {...post.retailer} />
+                          <div className="flex flex-col items-center justify-center sm:flex-row sm:gap-4">
+                            <p>Get in touch with this Exhibitor:</p>
+                            <SocialMediaIcons {...post.retailer} size="3x" />
+                          </div>
                         </div>
                       </div>
                       <div className="grid grid-cols-1 divide-y divide-gray-200 border-t border-gray-200 bg-gray-50 ">

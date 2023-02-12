@@ -100,7 +100,10 @@ export default function ArtistProfile({ post }: Props) {
                               </p>
                             </div>
                           </div>
-                          <SocialMediaIcons {...post.artist} />
+                          <div className="flex flex-col items-center justify-center sm:flex-row sm:gap-4">
+                            <p>Get in touch with this Artist:</p>
+                            <SocialMediaIcons {...post.artist} size="3x" />
+                          </div>
                         </div>
                       </div>
                       <div

@@ -22,12 +22,9 @@ export function LoadMorePosts({
 }: LoadMorePostsProps) {
   const [postsData, setPostsData] = useState(posts?.edges ?? [])
   const [pageInfo, setPageInfo] = useState(posts?.pageInfo)
-
   const [error, setError] = useState("")
 
-  /**
-   * If value of 'posts' passed to this component changes, set new post data and page info.
-   */
+  /** If value of 'posts' passed to this component changes, set new post data and page info. */
   useEffect(() => {
     setPostsData(posts?.edges)
     setPageInfo(posts?.pageInfo)
@@ -49,7 +46,6 @@ export function LoadMorePosts({
     })
   }, [filterCategory])
 
-  /** Set posts */
   const setPosts = (posts: any): void => {
     if (!posts || !posts?.edges || !posts?.pageInfo) {
       return
