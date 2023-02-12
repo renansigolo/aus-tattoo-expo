@@ -1,8 +1,9 @@
 import client from "@/apollo/client"
+import { HeroBanner } from "@/components/flexible/HeroBanner"
 import { Container } from "@/components/layout/Container"
 import { Posts } from "@/components/posts/Posts"
 import { GetArtists, GET_ARTISTS } from "@/io/queries/artists/get-artists"
-import { PER_PAGE_FIRST } from "@/utils/pagination"
+import { PER_PAGE_FIRST, PER_PAGE_REST } from "@/utils/pagination"
 import { useLazyQuery } from "@apollo/client"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
 import { useEffect, useState } from "react"
@@ -39,7 +40,7 @@ export default function Artists({ posts }: Props) {
   const loadMoreItems = (endCursor: string | null) => {
     fetchPosts({
       variables: {
-        first: PER_PAGE_FIRST,
+        first: PER_PAGE_REST,
         after: endCursor,
       },
     })
@@ -48,12 +49,21 @@ export default function Artists({ posts }: Props) {
   return (
     <section className="text-white">
       <Container>
+        <HeroBanner useDefaultValues />
         <h1 className="py-6 text-center text-3xl font-bold tracking-tight text-white sm:text-3xl">
-          Meet the Artists
+          Tattoo Artist Directory
         </h1>
 
-        <Posts posts={postsData} />
+        <p className="text-center">
+          At Australian Tattoo Expo, we have over 1,000 extremely talented
+          Tattoo Artists from across Australia and across the globe that are
+          either attending or have previously attended our event. You can browse
+          through all of these Tattoo Artist profiles by selecting a tattoo
+          style that you like. With so many artists available, you&apos;re sure
+          to find the one for you!
+        </p>
 
+        <Posts posts={postsData} />
         {pageInfo.hasNextPage && (
           <div className="flex w-full justify-center lg:my-10">
             <button
