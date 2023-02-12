@@ -284,6 +284,13 @@ export const GET_PAGE_CONTENT = gql`
               images {
                 ...ImageFragment
               }
+              imageCredits {
+                instagramProfile {
+                  target
+                  title
+                  url
+                }
+              }
               link {
                 url
                 title

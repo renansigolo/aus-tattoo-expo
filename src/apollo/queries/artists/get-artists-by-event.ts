@@ -271,6 +271,13 @@ export const GET_ARTISTS_BY_EVENT = gql`
               images {
                 ...ImageFragment
               }
+              imageCredits {
+                instagramProfile {
+                  target
+                  title
+                  url
+                }
+              }
               link {
                 url
                 title

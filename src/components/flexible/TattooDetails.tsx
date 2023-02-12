@@ -1,5 +1,7 @@
 import { classNames } from "@/utils/cn"
 import { WPImage, WPLink } from "@/utils/wp-types"
+import { faInstagram } from "@fortawesome/free-brands-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Link from "next/link"
 
 type TattooDetailsProps = {
@@ -9,9 +11,22 @@ type TattooDetailsProps = {
   mainImage: WPImage | null
   images: WPImage[]
   link: WPLink
+  imageCredits: [
+    {
+      instagramProfile: WPLink
+    }
+  ]
 }
 export function TattooDetails(props: TattooDetailsProps) {
-  const { rowDirection, title, description, mainImage, images, link } = props
+  const {
+    rowDirection,
+    title,
+    description,
+    mainImage,
+    images,
+    link,
+    imageCredits,
+  } = props
   const rowDirectionClass =
     rowDirection === "normal" ? "lg:flex-row" : "lg:flex-row-reverse"
 
@@ -53,6 +68,8 @@ export function TattooDetails(props: TattooDetailsProps) {
               })}
             </div>
           </div>
+
+          <ImageCredits credits={imageCredits} />
         </div>
       </div>
 
@@ -69,5 +86,38 @@ export function TattooDetails(props: TattooDetailsProps) {
         </div>
       )}
     </section>
+  )
+}
+
+type ImageCreditsProps = {
+  credits: [
+    {
+      instagramProfile: WPLink
+    }
+  ]
+}
+
+function ImageCredits({ credits }: ImageCreditsProps) {
+  if (!credits) return null
+
+  return (
+    <div className="mt-4">
+      <span className="font-sembold mt-4 mr-2 text-secondary">
+        Image Credits:
+      </span>
+      {credits?.map(({ instagramProfile }) => {
+        return (
+          <Link
+            key={instagramProfile?.title}
+            href={instagramProfile?.url || "#"}
+            target="_blank"
+            className="mr-4 font-medium hover:text-pink-500"
+          >
+            <FontAwesomeIcon icon={faInstagram} size="2xl" className="mr-2" />
+            <span>{instagramProfile?.title}</span>
+          </Link>
+        )
+      })}
+    </div>
   )
 }
