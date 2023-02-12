@@ -1,6 +1,6 @@
+import { GetLayout, GET_LAYOUT } from "@/apollo/queries/get-layout"
 import { Footer } from "@/components/layout/Footer"
 import { Navbar } from "@/components/layout/Navbar"
-import { GetLayout, GET_LAYOUT } from "@/io/queries/get-layout"
 import { useQuery } from "@apollo/client"
 import Head from "next/head"
 import { ReactNode } from "react"

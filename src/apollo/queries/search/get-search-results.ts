@@ -1,4 +1,4 @@
-import { PostFragment } from "@/io/queries/fragments/post"
+import { PostFragment } from "@/apollo/queries/fragments/post"
 import { gql } from "@apollo/client"
 
 /**

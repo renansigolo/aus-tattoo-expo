@@ -1,7 +1,7 @@
+import { SiteIdentity } from "@/apollo/queries/get-layout"
 import { SocialMediaIcons } from "@/components/data-display/SocialMediaIcons"
 import { Sponsors } from "@/components/data-display/Sponsors"
 import { Container } from "@/components/layout/Container"
-import { SiteIdentity } from "@/io/queries/get-layout"
 import { WPImage } from "@/utils/wp-types"
 
 const year = new Date().getFullYear()

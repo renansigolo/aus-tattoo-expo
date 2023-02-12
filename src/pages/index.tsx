@@ -1,7 +1,10 @@
 import client from "@/apollo/client"
+import { formatFlexibleComponentsName } from "@/apollo/mutations/mutations"
+import {
+  GetPageContent,
+  GET_PAGE_CONTENT,
+} from "@/apollo/queries/pages/get-page"
 import { Seo } from "@/components/seo/seo"
-import { formatFlexibleComponentsName } from "@/io/mutations/mutations"
-import { GetPageContent, GET_PAGE_CONTENT } from "@/io/queries/pages/get-page"
 import { PageTemplate } from "@/layouts/PageTemplate"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
 

@@ -1,16 +1,16 @@
 import client from "@/apollo/client"
+import {
+  GetPostsBySlug,
+  GET_POSTS_BY_SLUG,
+} from "@/apollo/queries/posts/get-posts-by-slug"
+import {
+  GetRetailerProfile,
+  GET_RETAILER_PROFILE,
+} from "@/apollo/queries/retailers/get-retailer-profile"
 import { SocialMediaIcons } from "@/components/data-display/SocialMediaIcons"
 import { HeroBanner } from "@/components/flexible/HeroBanner"
 import { Container } from "@/components/layout/Container"
 import { Modal } from "@/components/overlays/Modal"
-import {
-  GetPostsBySlug,
-  GET_POSTS_BY_SLUG,
-} from "@/io/queries/posts/get-posts-by-slug"
-import {
-  GetRetailerProfile,
-  GET_RETAILER_PROFILE,
-} from "@/io/queries/retailers/get-retailer-profile"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import ErrorPage from "next/error"
 import { useRouter } from "next/router"

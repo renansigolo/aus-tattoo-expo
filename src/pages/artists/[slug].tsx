@@ -1,10 +1,10 @@
 import client from "@/apollo/client"
-import { formatFlexibleComponentsName } from "@/io/mutations/mutations"
+import { formatFlexibleComponentsName } from "@/apollo/mutations/mutations"
 import {
   GetArtistsByEvents,
   GET_ARTISTS_BY_EVENT,
-} from "@/io/queries/artists/get-artists-by-event"
-import { GetTaxonomies, GET_TAXONOMIES } from "@/io/queries/get-taxonomies"
+} from "@/apollo/queries/artists/get-artists-by-event"
+import { GetTaxonomies, GET_TAXONOMIES } from "@/apollo/queries/get-taxonomies"
 import { EventsLayout } from "@/layouts/EventsLayout"
 import { PER_PAGE_FIRST } from "@/utils/pagination"
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"

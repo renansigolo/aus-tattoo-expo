@@ -1,5 +1,5 @@
+import { GetLayout } from "@/apollo/queries/get-layout"
 import { SocialMediaIcons } from "@/components/data-display/SocialMediaIcons"
-import { GetLayout } from "@/io/queries/get-layout"
 import { classNames } from "@/utils/cn"
 import { Popover, Transition } from "@headlessui/react"
 import {
