@@ -111,10 +111,11 @@ function ImageCredits({ credits }: ImageCreditsProps) {
             key={instagramProfile?.title}
             href={instagramProfile?.url || "#"}
             target="_blank"
-            className="mr-4 font-medium hover:text-pink-500"
+            className="mr-4 whitespace-nowrap font-medium hover:text-pink-500"
           >
-            <FontAwesomeIcon icon={faInstagram} size="2xl" className="mr-2" />
-            <span>{instagramProfile?.title}</span>
+            <FontAwesomeIcon icon={faInstagram} />
+            &nbsp;
+            {instagramProfile?.title}
           </Link>
         )
       })}

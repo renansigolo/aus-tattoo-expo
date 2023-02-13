@@ -1,4 +1,5 @@
 import client from "@/apollo/client"
+import { Badge } from "@/components/data-display/Badge"
 import Layout from "@/components/layout"
 import "@/styles/globals.css"
 
@@ -41,8 +42,9 @@ export default function App({ Component, pageProps }: AppProps) {
       `}</style>
       <ApolloProvider client={client}>
         <Layout>
-          <GoogleAnalytics trackPageViews />
           <Component {...pageProps} />
+          <Badge />
+          <GoogleAnalytics trackPageViews />
         </Layout>
       </ApolloProvider>
     </div>
