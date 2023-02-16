@@ -39,10 +39,11 @@ export function LoadMorePosts({
         first: PER_PAGE_REST,
         after: null,
         id: slug,
+        search: searchQuery || "",
         categoryName: filterCategory || "",
       },
     })
-  }, [filterCategory])
+  }, [filterCategory, searchQuery])
 
   const setPosts = (posts: any): void => {
     if (!posts || !posts?.edges || !posts?.pageInfo) {
