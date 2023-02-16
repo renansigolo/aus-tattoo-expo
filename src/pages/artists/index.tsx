@@ -1,6 +1,6 @@
 import client from "@/apollo/client"
 import { GetArtists, GET_ARTISTS } from "@/apollo/queries/artists/get-artists"
-import { CategoryFilter } from "@/components/events/EventsPosts"
+import { CategoryFilter } from "@/components/events/CategoryFilter"
 import { HeroBanner } from "@/components/flexible/HeroBanner"
 import { Container } from "@/components/layout/Container"
 import { Posts } from "@/components/posts/Posts"

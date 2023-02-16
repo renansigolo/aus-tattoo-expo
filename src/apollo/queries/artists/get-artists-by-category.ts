@@ -4,6 +4,7 @@ export const GET_ARTISTS_BY_CATEGORY = gql`
   query GetArtistsByCategory(
     $first: Int
     $after: String
+    $search: String
     $categoryName: String
     $id: ID!
   ) {
@@ -12,6 +13,7 @@ export const GET_ARTISTS_BY_CATEGORY = gql`
         first: $first
         after: $after
         where: {
+          search: $search
           categoryName: $categoryName
           orderby: { field: TITLE, order: ASC }
         }
