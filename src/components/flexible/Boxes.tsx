@@ -18,12 +18,17 @@ type BoxesProps = {
 export function Boxes({ items }: BoxesProps) {
   if (!items) return null
 
+  const formatUrl = (item: Box) => {
+    const isPdf = item.link.url.includes(".pdf")
+    return isPdf ? item.link.url : parseUrl(item.link.url).pathname
+  }
+
   return (
     <section>
       <div className="grid grid-cols-1 sm:grid-cols-3">
         {items?.map((item) => (
           <Link
-            href={parseUrl(item.link.url).pathname}
+            href={formatUrl(item)}
             key={item.link.title}
             target={item.link.target}
           >
