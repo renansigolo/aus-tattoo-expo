@@ -30,8 +30,10 @@ export function TattooDetails(props: TattooDetailsProps) {
   const rowDirectionClass =
     rowDirection === "normal" ? "lg:flex-row" : "lg:flex-row-reverse"
 
+  const titleToSectionId = () => title.toLowerCase().replace(" ", "-")
+
   return (
-    <section className="mb-16">
+    <section className="mb-16" id={titleToSectionId()}>
       <div className={classNames("flex flex-col gap-4", rowDirectionClass)}>
         <div className="w-full lg:w-1/2">
           <h2 className="mb-4 text-center text-3xl text-secondary-200 lg:text-start">
